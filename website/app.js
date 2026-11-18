@@ -761,9 +761,70 @@ function initContainerCalculator() {
 
   if (!usedCbmDisplay) return;
 
-  const cart = RFQCart.get();
+  function bindRowEvents(row) {
+    const input = row.querySelector('.cbm-qty-input');
+    const minusBtn = row.querySelector('.btn-minus');
+    const plusBtn = row.querySelector('.btn-plus');
+    const removeBtn = row.querySelector('.calc-remove-btn');
+
+    if (input) {
+      input.addEventListener('input', recalculate);
+    }
+    if (minusBtn && input) {
+      minusBtn.onclick = () => {
+        const step = parseInt(input.step, 10) || 10;
+        const current = parseInt(input.value, 10) || 0;
+        input.value = Math.max(0, current - step);
+        recalculate();
+      };
+    }
+    if (plusBtn && input) {
+      plusBtn.onclick = () => {
+        const step = parseInt(input.step, 10) || 10;
+        const current = parseInt(input.value, 10) || 0;
+        input.value = current + step;
+        recalculate();
+      };
+    }
+    if (removeBtn) {
+      removeBtn.onclick = () => {
+        const sku = removeBtn.dataset.sku;
+        if (sku) {
+          RFQCart.remove(sku);
+        }
+        row.remove();
+        recalculate();
+      };
+    }
+  }
+
+  function createRow(item, qty) {
+    const row = document.createElement('div');
+    row.className = 'calc-item-row';
+    row.dataset.sku = item.sku;
+    row.innerHTML = `
+      <div class="calc-item-info">
+        <strong class="calc-item-title" title="${item.title}">${item.title}</strong>
+        <span class="calc-item-meta">${item.sku} • ${item.cbm} CBM/pc • MOQ ${item.moq || 20}</span>
+      </div>
+      <div class="calc-qty-control">
+        <button type="button" class="calc-qty-btn btn-minus" data-sku="${item.sku}" aria-label="Decrease quantity">−</button>
+        <input type="number" class="cbm-qty-input" data-sku="${item.sku}" data-cbm="${item.cbm}" value="${qty}" min="0" step="10">
+        <button type="button" class="calc-qty-btn btn-plus" data-sku="${item.sku}" aria-label="Increase quantity">+</button>
+        <button type="button" class="calc-remove-btn" data-sku="${item.sku}" title="Remove SKU" aria-label="Remove SKU">✕</button>
+      </div>
+    `;
+    bindRowEvents(row);
+    return row;
+  }
+
+  // Bind existing static rows
+  if (containerList) {
+    containerList.querySelectorAll('.calc-item-row').forEach(bindRowEvents);
+  }
 
   // Dynamically insert any items from cart that aren't already listed in calculator
+  const cart = RFQCart.get();
   if (containerList && Object.keys(cart).length > 0) {
     Object.keys(cart).forEach(sku => {
       const existingInput = containerList.querySelector(`input[data-sku="${sku}"]`);
@@ -772,22 +833,14 @@ function initContainerCalculator() {
       } else {
         const item = PRODUCT_CATALOG[sku];
         if (item) {
-          const row = document.createElement('div');
-          row.style.cssText = 'display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;';
-          row.innerHTML = `
-            <div>
-              <strong style="font-size: 0.88rem; display: block;">${item.title} (${item.sku})</strong>
-              <span style="font-size: 0.75rem; color: var(--text-muted);">${item.cbm} CBM / unit | MOQ ${item.moq}</span>
-            </div>
-            <input type="number" class="cbm-qty-input" data-sku="${item.sku}" data-cbm="${item.cbm}" value="${cart[sku].qty}" min="0" step="10" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
-          `;
+          const row = createRow(item, cart[sku].qty);
           containerList.insertBefore(row, containerList.firstChild);
         }
       }
     });
   }
 
-  // Populate the 500-SKU Master Catalog Quick Add Dropdown
+  // Populate the 500-SKU Master Catalog Quick Add Dropdown with cleanly truncated option labels
   if (skuSelect && window.ALL_PRODUCTS_500) {
     if (skuSelect.options.length <= 1) {
       const sortedItems = [...window.ALL_PRODUCTS_500].sort((a,b) => a.SKU.localeCompare(b.SKU));
@@ -795,7 +848,8 @@ function initContainerCalculator() {
         const opt = document.createElement('option');
         opt.value = item.SKU;
         const title = item.Product_Name || item.Title || item.title || item.SKU;
-        opt.textContent = `${item.SKU} — ${title} (${item.CBM} CBM | MOQ ${item.MOQ})`;
+        const cleanTitle = title.length > 30 ? title.slice(0, 28) + '…' : title;
+        opt.textContent = `${item.SKU} — ${cleanTitle} (${item.CBM} CBM | MOQ ${item.MOQ})`;
         skuSelect.appendChild(opt);
       });
     }
@@ -812,19 +866,10 @@ function initContainerCalculator() {
           existingInput.value = (parseInt(existingInput.value, 10) || 0) + (parseInt(item.moq, 10) || 20);
           existingInput.focus();
         } else {
-          const row = document.createElement('div');
-          row.style.cssText = 'display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;';
-          row.innerHTML = `
-            <div>
-              <strong style="font-size: 0.88rem; display: block;">${item.title} (${item.sku})</strong>
-              <span style="font-size: 0.75rem; color: var(--text-muted);">${item.cbm} CBM / unit | MOQ ${item.moq}</span>
-            </div>
-            <input type="number" class="cbm-qty-input" data-sku="${item.sku}" data-cbm="${item.cbm}" value="${item.moq || 20}" min="0" step="10" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
-          `;
+          const row = createRow(item, item.moq || 20);
           containerList.insertBefore(row, containerList.firstChild);
           const newInput = row.querySelector('.cbm-qty-input');
-          newInput.addEventListener('input', recalculate);
-          newInput.focus();
+          if (newInput) newInput.focus();
         }
         recalculate();
       };
@@ -841,7 +886,11 @@ function initContainerCalculator() {
 
       const sku = input.dataset.sku;
       if (sku) {
-        RFQCart.setQty(sku, qty);
+        if (qty > 0) {
+          RFQCart.setQty(sku, qty);
+        } else {
+          RFQCart.remove(sku);
+        }
       }
     });
 
@@ -850,11 +899,11 @@ function initContainerCalculator() {
 
     const pct20 = Math.min(Math.round((totalCbm / 28) * 100), 100);
     fcl20Progress.style.width = pct20 + '%';
-    fcl20Text.textContent = `${pct20}% of 20ft FCL (28 CBM cap)`;
+    fcl20Text.textContent = `${pct20}% of 20ft FCL (28 CBM)`;
 
     const pct40 = Math.min(Math.round((totalCbm / 68) * 100), 100);
     fcl40Progress.style.width = pct40 + '%';
-    fcl40Text.textContent = `${pct40}% of 40ft HQ (68 CBM cap)`;
+    fcl40Text.textContent = `${pct40}% of 40ft HQ (68 CBM)`;
 
     updateRFQSummary();
   }
@@ -874,10 +923,6 @@ function initContainerCalculator() {
       rfqTextarea.value = lines.join('\n');
     }
   }
-
-  document.querySelectorAll('.cbm-qty-input').forEach(input => {
-    input.addEventListener('input', recalculate);
-  });
 
   recalculate();
 }

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2026.9">
+  <link rel="stylesheet" href="style.css?v=2026.10">
 </head>
 <body>
 
@@ -109,107 +109,150 @@
     <div class="container">
       
       <!-- Calculator Box -->
-      <div class="calculator-card" style="background: white; border: 1px solid var(--border-light); border-radius: 14px; padding: 36px; box-shadow: var(--shadow-md); margin-bottom: 60px;">
-        <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.4rem; color: var(--primary-color); margin-bottom: 8px;">Interactive Container Load (CBM) Estimator</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px;">Adjust unit quantities to simulate your 20ft FCL (28 CBM) or 40ft HQ (68 CBM) mixed container consolidation.</p>
+      <div class="calculator-card">
+        <h3 class="calc-card-title">Interactive Container Load (CBM) Estimator</h3>
+        <p class="calc-card-intro">Adjust unit quantities to simulate your 20ft FCL (28 CBM nominal) or 40ft HQ (68 CBM nominal) mixed container consolidation with real-time volume metrics.</p>
 
         <div class="calc-layout-grid">
           
           <div>
-            <h4 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.05rem; margin-bottom: 14px; color: var(--primary-color);">Select Target Products & Quantities:</h4>
+            <div class="calc-section-heading">
+              <span>Target Products & Quantities</span>
+              <span style="font-size: 0.78rem; font-weight: 500; color: var(--text-muted); font-family: var(--font-sans);">Live CBM Load</span>
+            </div>
             
-            <div id="calculator-items-list" style="display: flex; flex-direction: column; gap: 12px; max-height: 320px; overflow-y: auto; padding-right: 10px;">
+            <div id="calculator-items-list">
               
-              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;">
-                <div>
-                  <strong style="font-size: 0.88rem; display: block;">Book Keepsake Box (AA-WB-101)</strong>
-                  <span style="font-size: 0.75rem; color: var(--text-muted);">0.003 CBM / unit | MOQ 100</span>
+              <div class="calc-item-row" data-sku="AA-WB-101">
+                <div class="calc-item-info">
+                  <strong class="calc-item-title" title="Book Keepsake Box">Book Keepsake Box</strong>
+                  <span class="calc-item-meta">AA-WB-101 • 0.003 CBM/pc • MOQ 100</span>
                 </div>
-                <input type="number" class="cbm-qty-input" data-sku="AA-WB-101" data-cbm="0.003" value="200" min="0" step="50" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
+                <div class="calc-qty-control">
+                  <button type="button" class="calc-qty-btn btn-minus" data-sku="AA-WB-101" aria-label="Decrease quantity">−</button>
+                  <input type="number" class="cbm-qty-input" data-sku="AA-WB-101" data-cbm="0.003" value="200" min="0" step="50">
+                  <button type="button" class="calc-qty-btn btn-plus" data-sku="AA-WB-101" aria-label="Increase quantity">+</button>
+                  <button type="button" class="calc-remove-btn" data-sku="AA-WB-101" title="Remove SKU" aria-label="Remove SKU">✕</button>
+                </div>
               </div>
 
-              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;">
-                <div>
-                  <strong style="font-size: 0.88rem; display: block;">Round Coaster Sets (AA-CST-201)</strong>
-                  <span style="font-size: 0.75rem; color: var(--text-muted);">0.001 CBM / set | MOQ 200</span>
+              <div class="calc-item-row" data-sku="AA-CST-201">
+                <div class="calc-item-info">
+                  <strong class="calc-item-title" title="Round Coaster Sets">Round Coaster Sets</strong>
+                  <span class="calc-item-meta">AA-CST-201 • 0.001 CBM/set • MOQ 200</span>
                 </div>
-                <input type="number" class="cbm-qty-input" data-sku="AA-CST-201" data-cbm="0.001" value="400" min="0" step="50" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
+                <div class="calc-qty-control">
+                  <button type="button" class="calc-qty-btn btn-minus" data-sku="AA-CST-201" aria-label="Decrease quantity">−</button>
+                  <input type="number" class="cbm-qty-input" data-sku="AA-CST-201" data-cbm="0.001" value="400" min="0" step="50">
+                  <button type="button" class="calc-qty-btn btn-plus" data-sku="AA-CST-201" aria-label="Increase quantity">+</button>
+                  <button type="button" class="calc-remove-btn" data-sku="AA-CST-201" title="Remove SKU" aria-label="Remove SKU">✕</button>
+                </div>
               </div>
 
-              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;">
-                <div>
-                  <strong style="font-size: 0.88rem; display: block;">Iron Jaali Wall Sconce (AA-WSC-601)</strong>
-                  <span style="font-size: 0.75rem; color: var(--text-muted);">0.015 CBM / unit | MOQ 100</span>
+              <div class="calc-item-row" data-sku="AA-WSC-601">
+                <div class="calc-item-info">
+                  <strong class="calc-item-title" title="Iron Jaali Wall Sconce">Iron Jaali Wall Sconce</strong>
+                  <span class="calc-item-meta">AA-WSC-601 • 0.015 CBM/pc • MOQ 100</span>
                 </div>
-                <input type="number" class="cbm-qty-input" data-sku="AA-WSC-601" data-cbm="0.015" value="150" min="0" step="10" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
+                <div class="calc-qty-control">
+                  <button type="button" class="calc-qty-btn btn-minus" data-sku="AA-WSC-601" aria-label="Decrease quantity">−</button>
+                  <input type="number" class="cbm-qty-input" data-sku="AA-WSC-601" data-cbm="0.015" value="150" min="0" step="10">
+                  <button type="button" class="calc-qty-btn btn-plus" data-sku="AA-WSC-601" aria-label="Increase quantity">+</button>
+                  <button type="button" class="calc-remove-btn" data-sku="AA-WSC-601" title="Remove SKU" aria-label="Remove SKU">✕</button>
+                </div>
               </div>
 
-              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;">
-                <div>
-                  <strong style="font-size: 0.88rem; display: block;">Live-Edge Coffee Table (AA-CT-701)</strong>
-                  <span style="font-size: 0.75rem; color: var(--text-muted);">0.150 CBM / unit | MOQ 30</span>
+              <div class="calc-item-row" data-sku="AA-CT-701">
+                <div class="calc-item-info">
+                  <strong class="calc-item-title" title="Live-Edge Coffee Table">Live-Edge Coffee Table</strong>
+                  <span class="calc-item-meta">AA-CT-701 • 0.150 CBM/pc • MOQ 30</span>
                 </div>
-                <input type="number" class="cbm-qty-input" data-sku="AA-CT-701" data-cbm="0.150" value="40" min="0" step="5" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
+                <div class="calc-qty-control">
+                  <button type="button" class="calc-qty-btn btn-minus" data-sku="AA-CT-701" aria-label="Decrease quantity">−</button>
+                  <input type="number" class="cbm-qty-input" data-sku="AA-CT-701" data-cbm="0.150" value="40" min="0" step="5">
+                  <button type="button" class="calc-qty-btn btn-plus" data-sku="AA-CT-701" aria-label="Increase quantity">+</button>
+                  <button type="button" class="calc-remove-btn" data-sku="AA-CT-701" title="Remove SKU" aria-label="Remove SKU">✕</button>
+                </div>
               </div>
 
-              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;">
-                <div>
-                  <strong style="font-size: 0.88rem; display: block;">Jaali Metal Sideboard (AA-SB-801)</strong>
-                  <span style="font-size: 0.75rem; color: var(--text-muted);">0.650 CBM / unit | MOQ 20</span>
+              <div class="calc-item-row" data-sku="AA-SB-801">
+                <div class="calc-item-info">
+                  <strong class="calc-item-title" title="Jaali Metal Sideboard">Jaali Metal Sideboard</strong>
+                  <span class="calc-item-meta">AA-SB-801 • 0.650 CBM/pc • MOQ 20</span>
                 </div>
-                <input type="number" class="cbm-qty-input" data-sku="AA-SB-801" data-cbm="0.650" value="20" min="0" step="5" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
+                <div class="calc-qty-control">
+                  <button type="button" class="calc-qty-btn btn-minus" data-sku="AA-SB-801" aria-label="Decrease quantity">−</button>
+                  <input type="number" class="cbm-qty-input" data-sku="AA-SB-801" data-cbm="0.650" value="20" min="0" step="5">
+                  <button type="button" class="calc-qty-btn btn-plus" data-sku="AA-SB-801" aria-label="Increase quantity">+</button>
+                  <button type="button" class="calc-remove-btn" data-sku="AA-SB-801" title="Remove SKU" aria-label="Remove SKU">✕</button>
+                </div>
               </div>
 
-              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;">
-                <div>
-                  <strong style="font-size: 0.88rem; display: block;">Trestle Dining Table (AA-DT-901)</strong>
-                  <span style="font-size: 0.75rem; color: var(--text-muted);">0.350 CBM / unit | MOQ 15</span>
+              <div class="calc-item-row" data-sku="AA-DT-901">
+                <div class="calc-item-info">
+                  <strong class="calc-item-title" title="Trestle Dining Table">Trestle Dining Table</strong>
+                  <span class="calc-item-meta">AA-DT-901 • 0.350 CBM/pc • MOQ 15</span>
                 </div>
-                <input type="number" class="cbm-qty-input" data-sku="AA-DT-901" data-cbm="0.350" value="15" min="0" step="5" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
+                <div class="calc-qty-control">
+                  <button type="button" class="calc-qty-btn btn-minus" data-sku="AA-DT-901" aria-label="Decrease quantity">−</button>
+                  <input type="number" class="cbm-qty-input" data-sku="AA-DT-901" data-cbm="0.350" value="15" min="0" step="5">
+                  <button type="button" class="calc-qty-btn btn-plus" data-sku="AA-DT-901" aria-label="Increase quantity">+</button>
+                  <button type="button" class="calc-remove-btn" data-sku="AA-DT-901" title="Remove SKU" aria-label="Remove SKU">✕</button>
+                </div>
               </div>
 
             </div>
 
             <!-- Quick Add SKU from 500-SKU Master Catalog -->
-            <div style="margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--border-light);">
-              <label for="catalog-sku-select" style="font-size: 0.8rem; font-weight: 600; color: var(--primary-color); display: block; margin-bottom: 6px;">+ Add Any Item From 500-SKU Catalog:</label>
-              <div style="display: flex; gap: 8px;">
-                <select id="catalog-sku-select" style="flex: 1; padding: 8px 10px; font-size: 0.82rem; border: 1px solid var(--border-light); border-radius: 6px; background: #FAF8F5;">
+            <div class="calc-quick-add">
+              <label for="catalog-sku-select" class="calc-quick-add-label">+ Add Any SKU From 500-Item Catalog:</label>
+              <div class="calc-quick-add-row">
+                <select id="catalog-sku-select">
                   <option value="">Select SKU to add to container...</option>
                 </select>
-                <button type="button" id="btn-add-sku-to-cbm" class="btn btn-sm btn-gold" style="padding: 8px 14px; font-size: 0.82rem; white-space: nowrap;">+ Add SKU</button>
+                <button type="button" id="btn-add-sku-to-cbm" class="btn btn-sm btn-gold">+ Add SKU</button>
               </div>
             </div>
           </div>
 
           <div>
-            <h4 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.05rem; margin-bottom: 14px; color: var(--primary-color);">Container Fill Status:</h4>
+            <div class="calc-section-heading">
+              <span>Container Consolidation Cockpit</span>
+            </div>
             
-            <div style="background: #FDFBF7; border: 1px solid var(--border-light); border-radius: 10px; padding: 24px; text-align: center; margin-bottom: 24px;">
-              <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Calculated Batch Volume</span>
-              <div id="used-cbm" style="font-family: 'Playfair Display', Georgia, serif; font-size: 2.6rem; color: var(--accent-gold); font-weight: 700;">27.50 CBM</div>
+            <div class="calc-cockpit-box">
+              <span class="calc-volume-label">Calculated Batch Volume</span>
+              <div id="used-cbm">27.50 CBM</div>
             </div>
 
             <!-- 20ft Container Progress -->
-            <div style="margin-bottom: 20px;">
-              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+            <div class="calc-progress-group">
+              <div class="calc-progress-header">
                 <strong>20ft FCL (28 CBM Baseline)</strong>
                 <span id="fcl-20-text" style="color: var(--accent-gold); font-weight: 700;">98% of 20ft FCL</span>
               </div>
-              <div style="width: 100%; height: 12px; background: #ECE6DE; border-radius: 10px; overflow: hidden;">
-                <div id="fcl-20-progress" style="width: 98%; height: 100%; background: var(--accent-gold); border-radius: 10px; transition: width 0.3s ease;"></div>
+              <div class="calc-progress-track">
+                <div id="fcl-20-progress" style="width: 98%;"></div>
               </div>
             </div>
 
             <!-- 40ft HQ Container Progress -->
-            <div>
-              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+            <div class="calc-progress-group">
+              <div class="calc-progress-header">
                 <strong>40ft High Cube (68 CBM Baseline)</strong>
                 <span id="fcl-40-text" style="color: #6B625B; font-weight: 700;">40% of 40ft HQ</span>
               </div>
-              <div style="width: 100%; height: 12px; background: #ECE6DE; border-radius: 10px; overflow: hidden;">
-                <div id="fcl-40-progress" style="width: 40%; height: 100%; background: #2C221E; border-radius: 10px; transition: width 0.3s ease;"></div>
+              <div class="calc-progress-track">
+                <div id="fcl-40-progress" style="width: 40%;"></div>
               </div>
+            </div>
+
+            <!-- Compliance Footnotes -->
+            <div class="calc-compliance-pills">
+              <div class="calc-pill"><span>🪵</span> 8–12% Kiln Moisture</div>
+              <div class="calc-pill"><span>📦</span> ISPM-15 Heat-Treated</div>
+              <div class="calc-pill"><span>📜</span> VRIKSH Legality Cert</div>
+              <div class="calc-pill"><span>🚢</span> FOB Mundra / Kandla</div>
             </div>
 
           </div>
@@ -220,12 +263,14 @@
       <!-- RFQ Submission Form -->
       <div id="rfq-form-anchor" class="rfq-wrapper">
         <div class="rfq-intro">
-          <span class="section-tag" style="color: #E8D8B0;">Direct Wholesale Desk</span>
-          <h2>Submit Official Export Request</h2>
-          <p>Please enter your commercial details. Our export management desk will provide an itemized FOB Mundra / Kandla price sheet within 24 hours.</p>
+          <div>
+            <span class="section-tag" style="color: #E8D8B0;">Direct Wholesale Desk</span>
+            <h2>Submit Official Export Request</h2>
+            <p>Enter your commercial details. Our Jodhpur export directors will review your container consolidation and furnish an itemized FOB Mundra price quote within 24 hours.</p>
+          </div>
           
           <div class="rfq-contact-info">
-            <p><strong>Factory Location:</strong> Jodhpur, Rajasthan 342001, India</p>
+            <p><strong>Factory:</strong> Jodhpur, Rajasthan 342001, India</p>
             <p><strong>Export Desk:</strong> export@arawaliarts.com</p>
             <p><strong>Production Turnaround:</strong> 30–45 Days for FCL</p>
             <p><strong>Incoterms Available:</strong> FOB, CIF, Ex-Works</p>
@@ -296,6 +341,6 @@
 
   <script src="products-data.js?v=2026.7"></script>
   <script src="lenis.min.js?v=2026.6"></script>
-  <script src="app.js?v=2026.9"></script>
+  <script src="app.js?v=2026.10"></script>
 </body>
 </html>
