@@ -478,7 +478,7 @@ function initScrollReveals() {
 
 // Setup General UI Interactions
 function initUIComponents() {
-  // Mobile Nav Toggle
+  // Mobile Nav Toggle & Drawer
   const navContainer = document.querySelector('.nav-container');
   const navLinks = document.querySelector('.nav-links');
   
@@ -488,10 +488,43 @@ function initUIComponents() {
     toggleBtn.setAttribute('aria-label', 'Toggle Navigation Menu');
     toggleBtn.innerHTML = '☰';
     toggleBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      toggleBtn.innerHTML = navLinks.classList.contains('open') ? '✕' : '☰';
+      const isOpen = navLinks.classList.toggle('open');
+      toggleBtn.innerHTML = isOpen ? '✕' : '☰';
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
     navContainer.insertBefore(toggleBtn, navLinks);
+
+    // Mobile Collections Accordion
+    const dropdown = navLinks.querySelector('.dropdown');
+    if (dropdown) {
+      const dropbtn = dropdown.querySelector('.dropbtn');
+      if (dropbtn) {
+        dropbtn.addEventListener('click', (e) => {
+          if (window.innerWidth <= 768) {
+            if (!dropdown.classList.contains('is-mobile-open')) {
+              e.preventDefault();
+              dropdown.classList.add('is-mobile-open');
+            } else {
+              // If already open, let the user tap to navigate to collections.html
+              // or clicking the arrow toggles it
+            }
+          }
+        });
+      }
+    }
+
+    // Auto-close drawer on link click (except dropbtn)
+    navLinks.querySelectorAll('a').forEach(link => {
+      if (!link.classList.contains('dropbtn')) {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 768) {
+            navLinks.classList.remove('open');
+            toggleBtn.innerHTML = '☰';
+            document.body.style.overflow = '';
+          }
+        });
+      }
+    });
   }
 
   // Bind all "+ Add to Container" buttons

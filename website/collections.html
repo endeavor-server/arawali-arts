@@ -3,9 +3,527 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>All Export Collections (24 Product Divisions) — Arawali Arts Jodhpur</title>
-  <link rel="stylesheet" href="style.css?v=2026.6">
+  <title>Master Export Collections (24 Product Lines • 500 SKUs) — Arawali Arts Jodhpur</title>
+  <link rel="stylesheet" href="style.css?v=2026.7">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Luxury Collections Redesign Styles */
+    .collections-hero {
+      background: linear-gradient(135deg, #171310 0%, #221C17 60%, #15110E 100%);
+      color: #FAF7F2;
+      padding: 64px 0 54px;
+      border-bottom: 2px solid var(--accent-gold);
+      position: relative;
+      overflow: hidden;
+    }
+    .collections-hero:before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(184, 149, 82, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.76rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      background: rgba(184, 149, 82, 0.12);
+      border: 1px solid rgba(184, 149, 82, 0.35);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .hero-main-title {
+      font-family: var(--font-serif);
+      font-size: 2.85rem;
+      font-weight: 700;
+      line-height: 1.18;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+    .hero-main-desc {
+      font-size: 1.05rem;
+      line-height: 1.68;
+      color: #D3C7BC;
+      max-width: 820px;
+      margin-bottom: 28px;
+    }
+    .hero-stats-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(184, 149, 82, 0.25);
+      border-radius: 12px;
+      padding: 16px 22px;
+      max-width: 860px;
+    }
+    .stat-metric {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-metric-val {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+    .stat-metric-lbl {
+      font-size: 0.74rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #A99B8E;
+      margin-top: 2px;
+    }
+
+    /* Dual Mode View Tabs */
+    .view-mode-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 32px 0 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .view-mode-toggles {
+      display: inline-flex;
+      background: #EFE9DE;
+      padding: 4px;
+      border-radius: 30px;
+      border: 1px solid rgba(184, 149, 82, 0.3);
+    }
+    .view-toggle-btn {
+      padding: 8px 20px;
+      border-radius: 24px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .view-toggle-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(21, 17, 14, 0.2);
+    }
+
+    /* Live Search & Filter Bar */
+    .search-filter-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+    .collections-search-box {
+      flex: 1;
+      min-width: 280px;
+      position: relative;
+    }
+    .collections-search-box input {
+      width: 100%;
+      padding: 12px 18px 12px 42px;
+      border-radius: 30px;
+      border: 1px solid var(--border-light);
+      background: #FFFFFF;
+      font-size: 0.92rem;
+      color: var(--primary);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .collections-search-box input:focus {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(184, 149, 82, 0.18);
+    }
+    .search-icon-svg {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.05rem;
+      color: #8C7B70;
+      pointer-events: none;
+    }
+    .jump-category-select {
+      padding: 11px 18px;
+      border-radius: 30px;
+      border: 1px solid var(--border-light);
+      background: #FFFFFF;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Department Filter Pills */
+    .dept-filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .dept-pill-btn {
+      padding: 9px 18px;
+      border-radius: 20px;
+      border: 1px solid var(--border-light);
+      background: #FFFFFF;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .dept-pill-btn:hover,
+    .dept-pill-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 4px 10px rgba(21, 17, 14, 0.15);
+    }
+
+    /* Curated Collection Card Design */
+    .lux-collection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+    }
+    .lux-col-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(21, 17, 14, 0.05);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .lux-col-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(21, 17, 14, 0.12);
+      border-color: var(--accent-gold);
+    }
+    .lux-col-img-wrap {
+      height: 220px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-color: #EFE9DE;
+      overflow: hidden;
+    }
+    .lux-col-img-wrap:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.45) 100%);
+    }
+    .lux-col-badge-float {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(18, 16, 14, 0.85);
+      backdrop-filter: blur(8px);
+      color: var(--accent-gold);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 5px 11px;
+      border-radius: 20px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      z-index: 2;
+      border: 1px solid rgba(184, 149, 82, 0.35);
+    }
+    .lux-col-sku-count {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--primary);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      z-index: 2;
+    }
+    .lux-col-body {
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .lux-col-dept-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+    }
+    .lux-col-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .lux-col-desc {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 14px;
+      flex-grow: 1;
+    }
+    .lux-col-materials {
+      font-size: 0.8rem;
+      color: #554438;
+      background: #FAF7F2;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border-left: 3px solid var(--accent-gold);
+      margin-bottom: 14px;
+    }
+    .lux-col-specs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      background: #F8F5F0;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 16px;
+    }
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .spec-lbl {
+      font-size: 0.68rem;
+      color: #8C7B70;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .spec-val {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 1px;
+    }
+    .lux-col-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: auto;
+    }
+    .lux-btn-explore {
+      flex: 1;
+      text-align: center;
+      padding: 10px 14px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      background: var(--primary);
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .lux-btn-explore:hover {
+      background: var(--accent-gold);
+    }
+    .lux-btn-rfq {
+      padding: 9px 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .lux-btn-rfq:hover {
+      border-color: var(--accent-gold);
+      background: rgba(184, 149, 82, 0.08);
+      color: var(--accent-gold);
+    }
+
+    /* Complete 500-SKU Directory Section */
+    .sku-directory-section {
+      display: none;
+      margin-top: 20px;
+    }
+    .sku-directory-section.active {
+      display: block;
+    }
+    .cat-group-header {
+      background: #FAF7F2;
+      border: 1px solid rgba(184, 149, 82, 0.25);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 36px 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .cat-group-header h3 {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0;
+    }
+    .cat-group-dept-pill {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(184, 149, 82, 0.15);
+      color: var(--accent-gold);
+    }
+    .sku-products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .sku-prod-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+    }
+    .sku-prod-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(21, 17, 14, 0.08);
+      border-color: var(--accent-gold);
+    }
+    .sku-prod-img {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      background-color: #F5EFEB;
+      position: relative;
+    }
+    .sku-prod-tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(18, 16, 14, 0.85);
+      color: var(--accent-gold);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+    .sku-prod-body {
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .sku-prod-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.35;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .sku-prod-material {
+      font-size: 0.76rem;
+      color: #63574C;
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sku-prod-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: auto;
+    }
+    .sku-prod-fob {
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+    .sku-prod-cbm {
+      font-size: 0.72rem;
+      color: #8C7B70;
+    }
+    .sku-prod-add-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 7px 10px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: #FAF7F2;
+      color: var(--primary);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .sku-prod-add-btn:hover {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .hero-main-title {
+        font-size: 2.1rem;
+      }
+      .collections-hero {
+        padding: 42px 0 36px;
+      }
+      .lux-collection-grid {
+        grid-template-columns: 1fr;
+      }
+      .view-mode-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .view-mode-toggles {
+        width: 100%;
+        display: flex;
+      }
+      .view-toggle-btn {
+        flex: 1;
+        text-align: center;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -28,7 +546,7 @@
         <a href="index.html">Home</a>
         <a href="catalog.html">Full Catalog (500 SKUs)</a>
         <div class="dropdown">
-          <a href="collections.html" class="dropbtn active">Collections ▾</a>
+          <a href="collections.html" class="dropbtn active">Collections</a>
           <div class="dropdown-content">
             <div class="mega-col">
               <div class="mega-col-title">🪑 Furniture & Storage</div>
@@ -38,18 +556,18 @@
                 <a href="case-goods.html">Credenzas & Sideboards <span class="cat-count">10 SKUs</span></a>
                 <a href="case-goods.html">Bookcases & Étagères <span class="cat-count">10 SKUs</span></a>
                 <a href="living-dining.html">Bar Stools & Seating <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-patio">Patio & Balcony Living <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=furniture">Patio & Balcony Living <span class="cat-count">10 SKUs</span></a>
               </div>
             </div>
             <div class="mega-col">
               <div class="mega-col-title">🍷 Kitchen & Entertaining</div>
               <div class="mega-col-links">
                 <a href="tabletop.html">Tabletop & Serveware <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-barware">Barware & Whiskey Gear <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-coffee">Home Barista & Coffee <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-bbq">BBQ & Carving Boards <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-wine">Wine Cellar & Vineyard <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-butcher">Kitchen Prep & Islands <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=kitchen">Barware & Whiskey Gear <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=kitchen">Home Barista & Coffee <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=kitchen">BBQ & Carving Boards <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=kitchen">Wine Cellar & Vineyard <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=kitchen">Kitchen Prep & Islands <span class="cat-count">10 SKUs</span></a>
               </div>
             </div>
             <div class="mega-col">
@@ -57,23 +575,24 @@
               <div class="mega-col-links">
                 <a href="wall-decor.html">Architectural Wall Decor <span class="cat-count">10 SKUs</span></a>
                 <a href="wall-decor.html">Mirrors & Jharokhas <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-lighting">Chandeliers & Pendants <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-candles">Candles & Candelabras <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-hardware">Hardware & Ironmongery <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-fireplace">Fireplace & Mantels <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=decor">Chandeliers & Pendants <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=decor">Candles & Candelabras <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=decor">Hardware & Ironmongery <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=decor">Fireplace & Mantels <span class="cat-count">10 SKUs</span></a>
               </div>
             </div>
             <div class="mega-col">
               <div class="mega-col-title">🌿 Lifestyle & Giftware</div>
               <div class="mega-col-links">
-                <a href="#cat-desk">Desk & Home Office <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-boxes">Keepsake & Jewelry Boxes <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-games">Games & Pastimes <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-bath">Bathroom & Spa Accents <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-pet">Luxury Pet Furniture <span class="cat-count">10 SKUs</span></a>
-                <a href="#cat-spiritual">Spiritual & Zen Crafts <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=lifestyle">Desk & Home Office <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=lifestyle">Keepsake & Jewelry Boxes <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=lifestyle">Games & Pastimes <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=lifestyle">Bathroom & Spa Accents <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=lifestyle">Luxury Pet Furniture <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html?dept=lifestyle">Spiritual & Zen Crafts <span class="cat-count">10 SKUs</span></a>
               </div>
             </div>
+            <a href="collections.html" class="mobile-all-collections-btn">✦ Explore All 24 Master Collections →</a>
           </div>
         </div>
         <a href="compliance.html">Export Compliance</a>
@@ -84,584 +603,883 @@
     </div>
   </header>
 
-  <!-- BANNER -->
-  <section class="category-banner">
+  <!-- LUXURY EDITORIAL HERO BANNER -->
+  <section class="collections-hero">
     <div class="container">
-      <div class="breadcrumb"><a href="index.html">Home</a> / <span>Export Collections Directory</span></div>
-      <span class="section-tag">24 Commercial Export Product Lines</span>
-      <h1 class="category-heading">Master Export Collections</h1>
-      <p class="category-intro">From high-velocity Amazon retail decor to full container-load solid wood and wrought-iron furniture collections. Handcrafted in Jodhpur, certified Lacey Act & EUDR compliant, and optimized for maximum container cubic efficiency.</p>
+      <div class="breadcrumb" style="color: #A99B8E; margin-bottom: 14px;">
+        <a href="index.html" style="color: #FAF7F2;">Home</a> / <span style="color: var(--accent-gold);">Export Collections Directory</span>
+      </div>
+      <div class="hero-eyebrow">✦ Jodhpur Handicrafts Export Vertical • 500 SKUs</div>
+      <h1 class="hero-main-title">The Master Export Collections</h1>
+      <p class="hero-main-desc">
+        Four specialized manufacturing divisions and twenty-four commercial product lines. Handcrafted from sustainably harvested, kiln-dried Indian Rosewood (Sheesham), seasoned Mango, and Acacia, combined with architectural hand-forged wrought iron. Fully certified for the US Lacey Act, VRIKSH timber legality, and EUDR deforestation compliance.
+      </p>
+      
+      <!-- Executive Metrics Strip -->
+      <div class="hero-stats-strip">
+        <div class="stat-metric">
+          <span class="stat-metric-val">500</span>
+          <span class="stat-metric-lbl">Export SKUs</span>
+        </div>
+        <div class="stat-metric">
+          <span class="stat-metric-val">24</span>
+          <span class="stat-metric-lbl">Curated Lines</span>
+        </div>
+        <div class="stat-metric">
+          <span class="stat-metric-val">4</span>
+          <span class="stat-metric-lbl">Core Divisions</span>
+        </div>
+        <div class="stat-metric">
+          <span class="stat-metric-val">8–12%</span>
+          <span class="stat-metric-lbl">Kiln Moisture</span>
+        </div>
+        <div class="stat-metric">
+          <span class="stat-metric-val">FOB Mundra</span>
+          <span class="stat-metric-lbl">Port Direct</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- MAIN SECTION WITH FILTER TABS -->
-  <section class="section">
+  <!-- MAIN SECTION WITH DUAL VIEW & FILTERS -->
+  <section class="section" style="padding-top: 36px;">
     <div class="container">
-      
-      <!-- Filter Tabs -->
-      <div class="collection-tabs">
-        <button class="tab-btn active" data-filter="all">All 24 Collections</button>
-        <button class="tab-btn" data-filter="furniture">🪑 Furniture & Storage (6)</button>
-        <button class="tab-btn" data-filter="kitchen">🍷 Kitchen & Entertaining (6)</button>
-        <button class="tab-btn" data-filter="decor">🏮 Architectural Decor (6)</button>
-        <button class="tab-btn" data-filter="lifestyle">🌿 Lifestyle & Giftware (6)</button>
+
+      <!-- Dual Mode View Switcher -->
+      <div class="view-mode-bar">
+        <div class="view-mode-toggles">
+          <button class="view-toggle-btn active" id="btnViewLookbook" data-view="lookbook">✦ Curated Lookbook (24 Collections)</button>
+          <button class="view-toggle-btn" id="btnViewDirectory" data-view="directory">📋 500-SKU Catalog Directory (50 Categories)</button>
+        </div>
+        <div style="font-size: 0.85rem; color: #63574C;">
+          Showing: <strong id="lblActiveView">24 Export Collections</strong> (<span id="lblActiveSkus">500 Total SKUs</span>)
+        </div>
       </div>
 
-      <!-- Grid -->
-      <div class="collections-catalog-grid">
+      <!-- Live Search & Category Jump -->
+      <div class="search-filter-wrap">
+        <div class="collections-search-box">
+          <span class="search-icon-svg">🔍</span>
+          <input type="text" id="collectionsSearchInput" placeholder="Search collections, wood species (Sheesham, Acacia), or SKU tags...">
+        </div>
+        <select class="jump-category-select" id="jumpCategorySelect">
+          <option value="all">Jump to Category / Line (50 Available)...</option>
+        </select>
+      </div>
+
+      <!-- Department Filter Pills -->
+      <div class="dept-filter-pills" id="deptFilterPills">
+        <button class="dept-pill-btn active" data-filter="all">All Collections (500 SKUs)</button>
+        <button class="dept-pill-btn" data-filter="furniture">🪑 Furniture & Storage (140 SKUs)</button>
+        <button class="dept-pill-btn" data-filter="kitchen">🍷 Kitchen & Entertaining (70 SKUs)</button>
+        <button class="dept-pill-btn" data-filter="decor">🏮 Architectural Decor (130 SKUs)</button>
+        <button class="dept-pill-btn" data-filter="lifestyle">🌿 Lifestyle & Giftware (160 SKUs)</button>
+      </div>
+
+      <!-- VIEW 1: CURATED COLLECTIONS LOOKBOOK (24 LINES) -->
+      <div class="lux-collection-grid" id="curatedCollectionsGrid">
 
         <!-- Living Tables & Accents -->
-        <div class="collection-card" data-dept="furniture">
-          <div class="collection-card-img" style="background-image: url('../assets/hero_live_edge_table.jpg');">
-            <span class="collection-badge">Organic Modern & Japandi</span>
+        <div class="lux-col-card" data-dept="furniture" data-cat="Cat 03: Coffee, Accent & Occasional Tables">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/hero_live_edge_table.jpg');">
+            <span class="lux-col-badge-float">Organic Modern & Japandi</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">FURNITURE COLLECTION</span>
-            <h3 class="collection-card-title">Living Tables & Accents</h3>
-            <p class="collection-card-desc">Live-edge Sheesham coffee tables, C-tables, nesting accent pairs, and minimalist entryway consoles.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">FURNITURE COLLECTION</span>
+            <h3 class="lux-col-title">Living Tables & Accents</h3>
+            <p class="lux-col-desc">Live-edge Sheesham coffee tables, C-tables, nesting accent pairs, and minimalist entryway consoles.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Solid Sheesham, Acacia & Matte Black Iron
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 25 Pcs</span>
-              <span><strong>FOB:</strong> $48.00 – $95.00</span>
-              <span><strong>CBM:</strong> 0.080 – 0.160 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">25 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$48.00 – $95.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.080 – 0.160 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="living-dining.html" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-LI" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="living-dining.html" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 03: Coffee, Accent & Occasional Tables">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Dining Tables & Trestles -->
-        <div class="collection-card" data-dept="furniture">
-          <div class="collection-card-img" style="background-image: url('../assets/dining_table_trestle.jpg');">
-            <span class="collection-badge">Heritage Industrial</span>
+        <div class="lux-col-card" data-dept="furniture" data-cat="Cat 05: Dining Tables & Hospitality Seating">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/dining_table_trestle.jpg');">
+            <span class="lux-col-badge-float">Heritage Industrial</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">FURNITURE COLLECTION</span>
-            <h3 class="collection-card-title">Dining Tables & Trestles</h3>
-            <p class="collection-card-desc">78-inch solid timber slab dining tables with exposed mortise-and-tenon breadboard ends on forged iron trestles.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">FURNITURE COLLECTION</span>
+            <h3 class="lux-col-title">Dining Tables & Trestles</h3>
+            <p class="lux-col-desc">78-inch solid timber slab dining tables with exposed mortise-and-tenon breadboard ends on forged iron trestles.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Kiln-Dried Sheesham & Heavy-Gauge Steel
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 15 Pcs</span>
-              <span><strong>FOB:</strong> $165.00 – $240.00</span>
-              <span><strong>CBM:</strong> 0.280 – 0.420 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">15 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$165.00 – $240.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.280 – 0.420 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="living-dining.html" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-DI" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="living-dining.html" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 05: Dining Tables & Hospitality Seating">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Credenzas & Sideboards -->
-        <div class="collection-card" data-dept="furniture">
-          <div class="collection-card-img" style="background-image: url('../assets/hero_jaali_sideboard.jpg');">
-            <span class="collection-badge">Moorish Modern</span>
+        <div class="lux-col-card" data-dept="furniture" data-cat="Cat 04: Case Goods, Credenzas & Storage Buffets">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/hero_jaali_sideboard.jpg');">
+            <span class="lux-col-badge-float">Moorish Modern</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">FURNITURE COLLECTION</span>
-            <h3 class="collection-card-title">Credenzas & Sideboards</h3>
-            <p class="collection-card-desc">3-door solid Mango sideboards with hand-pierced black iron jaali lattice screens, internal shelving, and magnetic catches.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">FURNITURE COLLECTION</span>
+            <h3 class="lux-col-title">Credenzas & Sideboards</h3>
+            <p class="lux-col-desc">3-door solid Mango sideboards with hand-pierced black iron jaali lattice screens, internal shelving, and magnetic catches.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Solid Mango Wood & Forged Iron Jaali
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 20 Pcs</span>
-              <span><strong>FOB:</strong> $145.00 – $220.00</span>
-              <span><strong>CBM:</strong> 0.450 – 0.680 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">20 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$145.00 – $220.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.450 – 0.680 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="case-goods.html" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-CR" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="case-goods.html" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 04: Case Goods, Credenzas & Storage Buffets">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Bookcases & Étagères -->
-        <div class="collection-card" data-dept="furniture">
-          <div class="collection-card-img" style="background-image: url('../assets/reclaimed_wood_bookcase.jpg');">
-            <span class="collection-badge">Architectural Loft</span>
+        <div class="lux-col-card" data-dept="furniture" data-cat="Cat 07: Home Organization, Shelving & Bookcases">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/reclaimed_wood_bookcase.jpg');">
+            <span class="lux-col-badge-float">Architectural Loft</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">FURNITURE COLLECTION</span>
-            <h3 class="collection-card-title">Bookcases & Étagères</h3>
-            <p class="collection-card-desc">Tall open-back shelving units crafted with thick solid timber shelves, riveted steel uprights, and industrial casters.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">FURNITURE COLLECTION</span>
+            <h3 class="lux-col-title">Bookcases & Étagères</h3>
+            <p class="lux-col-desc">Tall open-back shelving units crafted with thick solid timber shelves, riveted steel uprights, and industrial casters.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Seasoned Mango Hardwood & Riveted Steel
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 15 Pcs</span>
-              <span><strong>FOB:</strong> $135.00 – $210.00</span>
-              <span><strong>CBM:</strong> 0.380 – 0.580 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">15 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$135.00 – $210.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.380 – 0.580 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="case-goods.html" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-BO" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="case-goods.html" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 07: Home Organization, Shelving & Bookcases">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Bar Stools & Seating -->
-        <div class="collection-card" data-dept="furniture">
-          <div class="collection-card-img" style="background-image: url('../assets/dining_bench_live_edge.jpg');">
-            <span class="collection-badge">Modern Farmhouse</span>
+        <div class="lux-col-card" data-dept="furniture" data-cat="Cat 47: Bar Stools, Counter Chairs & Island Seating">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/crank_bar_stool_iron.jpg');">
+            <span class="lux-col-badge-float">Modern Farmhouse</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">FURNITURE COLLECTION</span>
-            <h3 class="collection-card-title">Bar Stools & Seating</h3>
-            <p class="collection-card-desc">Live-edge dining benches, cast-iron tractor seat swivel counter stools, and upholstered hardwood chairs.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">FURNITURE COLLECTION</span>
+            <h3 class="lux-col-title">Bar Stools & Seating</h3>
+            <p class="lux-col-desc">Live-edge dining benches, cast-iron tractor seat swivel counter stools, and upholstered hardwood chairs.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Solid Rosewood, Acacia & Cast Iron
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 30 Pcs</span>
-              <span><strong>FOB:</strong> $38.00 – $88.00</span>
-              <span><strong>CBM:</strong> 0.040 – 0.120 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">30 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$38.00 – $88.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.040 – 0.120 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="living-dining.html" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-SE" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="living-dining.html" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 47: Bar Stools, Counter Chairs & Island Seating">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Patio & Balcony Living -->
-        <div class="collection-card" data-dept="furniture">
-          <div class="collection-card-img" style="background-image: url('../assets/console_table_iron.jpg');">
-            <span class="collection-badge">Outdoor Bistro</span>
+        <div class="lux-col-card" data-dept="furniture" data-cat="Cat 30: Outdoor Patio Furniture & Balcony Living">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/bistro_pedestal_table_cast_iron.jpg');">
+            <span class="lux-col-badge-float">Outdoor Bistro</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">FURNITURE COLLECTION</span>
-            <h3 class="collection-card-title">Patio & Balcony Living</h3>
-            <p class="collection-card-desc">Weather-treated Acacia slatted folding chairs, compact bistro tables, and powder-coated outdoor consoles.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">FURNITURE COLLECTION</span>
+            <h3 class="lux-col-title">Patio & Balcony Living</h3>
+            <p class="lux-col-desc">Weather-treated Acacia slatted folding chairs, compact bistro tables, and powder-coated outdoor consoles.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Weatherized Acacia & Galvanized Iron
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 40 Pcs</span>
-              <span><strong>FOB:</strong> $32.00 – $78.00</span>
-              <span><strong>CBM:</strong> 0.060 – 0.150 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">40 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$32.00 – $78.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.060 – 0.150 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=patio" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-PA" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=furniture" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 30: Outdoor Patio Furniture & Balcony Living">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Tabletop & Serveware -->
-        <div class="collection-card" data-dept="kitchen">
-          <div class="collection-card-img" style="background-image: url('../assets/charcuterie_board_deluxe.jpg');">
-            <span class="collection-badge">Culinary Luxury</span>
+        <div class="lux-col-card" data-dept="kitchen" data-cat="Cat 01: Tabletop, Serveware & Culinary Woodcraft">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/charcuterie_board_deluxe.jpg');">
+            <span class="lux-col-badge-float">Culinary Luxury</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">KITCHEN COLLECTION</span>
-            <h3 class="collection-card-title">Tabletop & Serveware</h3>
-            <p class="collection-card-desc">End-grain Acacia carving blocks with juice moats, cheese knife sets, turned salad bowls & paddle boards.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">KITCHEN COLLECTION</span>
+            <h3 class="lux-col-title">Tabletop & Serveware</h3>
+            <p class="lux-col-desc">End-grain Acacia carving blocks with juice moats, cheese knife sets, turned salad bowls & paddle boards.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Acacia, Mango Wood & Brass Cutlery
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 60 Pcs</span>
-              <span><strong>FOB:</strong> $4.80 – $22.00</span>
-              <span><strong>CBM:</strong> 0.003 – 0.015 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">60 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$4.80 – $22.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.003 – 0.015 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="tabletop.html" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-TA" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="tabletop.html" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 01: Tabletop, Serveware & Culinary Woodcraft">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Barware & Whiskey Gear -->
-        <div class="collection-card" data-dept="kitchen">
-          <div class="collection-card-img" style="background-image: url('../assets/00000037-PHOTO-2026-11-18-12-01-59.jpg');">
-            <span class="collection-badge">Cocktail Enthusiast</span>
+        <div class="lux-col-card" data-dept="kitchen" data-cat="Cat 09: Barware, Wine Storage & Entertaining Essentials">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/carved_wooden_coaster_set.jpg');">
+            <span class="lux-col-badge-float">Cocktail Enthusiast</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">KITCHEN COLLECTION</span>
-            <h3 class="collection-card-title">Barware & Whiskey Gear</h3>
-            <p class="collection-card-desc">Old Fashioned cocktail smoker kits, magnetic wall bottle openers, beer flight tasting paddles & wooden flasks.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">KITCHEN COLLECTION</span>
+            <h3 class="lux-col-title">Barware & Whiskey Gear</h3>
+            <p class="lux-col-desc">Old Fashioned cocktail smoker kits, magnetic wall bottle openers, beer flight tasting paddles & wooden flasks.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Indian Rosewood, Acacia & Stainless Steel
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 80 Pcs</span>
-              <span><strong>FOB:</strong> $3.50 – $18.50</span>
-              <span><strong>CBM:</strong> 0.001 – 0.008 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">80 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$3.50 – $18.50</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.001 – 0.008 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=barware" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-BA" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="tabletop.html" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 09: Barware, Wine Storage & Entertaining Essentials">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Home Barista & Coffee -->
-        <div class="collection-card" data-dept="kitchen">
-          <div class="collection-card-img" style="background-image: url('../assets/hero_jodhpur_workshop.jpg');">
-            <span class="collection-badge">Specialty Coffee</span>
+        <div class="lux-col-card" data-dept="kitchen" data-cat="Cat 22: Home Barista, Coffee Bar & Tea Stations">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/pour_over_coffee_stand.jpg');">
+            <span class="lux-col-badge-float">Specialty Coffee</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">KITCHEN COLLECTION</span>
-            <h3 class="collection-card-title">Home Barista & Coffee</h3>
-            <p class="collection-card-desc">Wood & iron pour-over dripper stands, espresso knock boxes, pod carousels & 8-compartment tea chests.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">KITCHEN COLLECTION</span>
+            <h3 class="lux-col-title">Home Barista & Coffee</h3>
+            <p class="lux-col-desc">Wood & iron pour-over dripper stands, espresso knock boxes, pod carousels & 8-compartment tea chests.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Live-Edge Acacia & Matte Black Iron
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 60 Pcs</span>
-              <span><strong>FOB:</strong> $5.50 – $16.00</span>
-              <span><strong>CBM:</strong> 0.002 – 0.012 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">60 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$5.50 – $16.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.002 – 0.012 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=barista" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-CO" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=kitchen" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 22: Home Barista, Coffee Bar & Tea Stations">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- BBQ & Carving Boards -->
-        <div class="collection-card" data-dept="kitchen">
-          <div class="collection-card-img" style="background-image: url('../assets/charcuterie_board_deluxe.jpg');">
-            <span class="collection-badge">Pitmaster Outdoor</span>
+        <div class="lux-col-card" data-dept="kitchen" data-cat="Cat 24: Outdoor Cooking, BBQ & Grill Accessories">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/cast_iron_hibachi_grill.jpg');">
+            <span class="lux-col-badge-float">Pitmaster Outdoor</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">KITCHEN COLLECTION</span>
-            <h3 class="collection-card-title">BBQ & Carving Boards</h3>
-            <p class="collection-card-desc">Heavy-duty 2.5-inch thick end-grain brisket carving blocks, grill caddies, and heat-resistant iron smoker tools.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">KITCHEN COLLECTION</span>
+            <h3 class="lux-col-title">BBQ & Carving Boards</h3>
+            <p class="lux-col-desc">Heavy-duty 2.5-inch thick end-grain brisket carving blocks, grill caddies, and heat-resistant iron smoker tools.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Dense End-Grain Acacia & Black Iron
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 40 Pcs</span>
-              <span><strong>FOB:</strong> $12.00 – $29.00</span>
-              <span><strong>CBM:</strong> 0.008 – 0.025 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">40 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$12.00 – $29.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.008 – 0.025 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=bbq" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-BB" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=kitchen" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 24: Outdoor Cooking, BBQ & Grill Accessories">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Wine Cellar & Vineyard -->
-        <div class="collection-card" data-dept="kitchen">
-          <div class="collection-card-img" style="background-image: url('../assets/00000040-PHOTO-2026-11-18-12-02-00.jpg');">
-            <span class="collection-badge">Sommelier Heritage</span>
+        <div class="lux-col-card" data-dept="kitchen" data-cat="Cat 31: Wine Cellar & Vineyard Estate Furnishings">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/wine_riddling_rack.jpg');">
+            <span class="lux-col-badge-float">Sommelier Heritage</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">KITCHEN COLLECTION</span>
-            <h3 class="collection-card-title">Wine Cellar & Vineyard</h3>
-            <p class="collection-card-desc">Wall-mounted stemware racks, countertop wave wine holders, riddling racks, and barrel stave displays.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">KITCHEN COLLECTION</span>
+            <h3 class="lux-col-title">Wine Cellar & Vineyard</h3>
+            <p class="lux-col-desc">Wall-mounted stemware racks, countertop wave wine holders, riddling racks, and barrel stave displays.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Solid Sheesham & Forged Steel Rings
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 50 Pcs</span>
-              <span><strong>FOB:</strong> $8.50 – $28.00</span>
-              <span><strong>CBM:</strong> 0.005 – 0.020 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">50 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$8.50 – $28.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.005 – 0.020 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=wine" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-WI" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=kitchen" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 31: Wine Cellar & Vineyard Estate Furnishings">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Kitchen Prep & Islands -->
-        <div class="collection-card" data-dept="kitchen">
-          <div class="collection-card-img" style="background-image: url('../assets/dining_table_trestle.jpg');">
-            <span class="collection-badge">Professional Culinary</span>
+        <div class="lux-col-card" data-dept="kitchen" data-cat="Cat 44: Kitchen Island Carts, Baker’s Racks & Butcher Blocks">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/apothecary_chest_industrial.jpg');">
+            <span class="lux-col-badge-float">Professional Culinary</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">KITCHEN COLLECTION</span>
-            <h3 class="collection-card-title">Kitchen Prep & Islands</h3>
-            <p class="collection-card-desc">Mobile kitchen butcher prep tables with locking iron casters, knife slots, and slatted vegetable storage racks.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">KITCHEN COLLECTION</span>
+            <h3 class="lux-col-title">Kitchen Prep & Islands</h3>
+            <p class="lux-col-desc">Mobile kitchen butcher prep tables with locking iron casters, knife slots, and slatted vegetable storage racks.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> End-Grain Acacia & Industrial Frame
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 15 Pcs</span>
-              <span><strong>FOB:</strong> $85.00 – $165.00</span>
-              <span><strong>CBM:</strong> 0.220 – 0.450 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">15 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$85.00 – $165.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.220 – 0.450 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=butcher" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-BU" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=kitchen" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 44: Kitchen Island Carts, Baker’s Racks & Butcher Blocks">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Architectural Wall Decor -->
-        <div class="collection-card" data-dept="decor">
-          <div class="collection-card-img" style="background-image: url('../assets/00000048-PHOTO-2026-11-18-12-02-03.jpg');">
-            <span class="collection-badge">Rajasthani Jaali</span>
+        <div class="lux-col-card" data-dept="decor" data-cat="Cat 02: Architectural Wall Decor & Wrought Iron Art">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/iron_jaali_wall_sconce.jpg');">
+            <span class="lux-col-badge-float">Rajasthani Jaali</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">DECOR COLLECTION</span>
-            <h3 class="collection-card-title">Architectural Wall Decor</h3>
-            <p class="collection-card-desc">Distressed timber wall sconces encasing hand-pierced wrought iron lattice grills with tea-light brackets.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">DECOR COLLECTION</span>
+            <h3 class="lux-col-title">Architectural Wall Decor</h3>
+            <p class="lux-col-desc">Distressed timber wall sconces encasing hand-pierced wrought iron lattice grills with tea-light brackets.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Solid Timber & Hand-Pierced Wrought Iron
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 80 Pcs</span>
-              <span><strong>FOB:</strong> $12.50 – $19.50</span>
-              <span><strong>CBM:</strong> 0.010 – 0.025 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">80 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$12.50 – $19.50</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.010 – 0.025 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="wall-decor.html" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-WA" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="wall-decor.html" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 02: Architectural Wall Decor & Wrought Iron Art">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Mirrors & Jharokhas -->
-        <div class="collection-card" data-dept="decor">
-          <div class="collection-card-img" style="background-image: url('../assets/hero_jharokha_mirror.jpg');">
-            <span class="collection-badge">Heritage Royal</span>
+        <div class="lux-col-card" data-dept="decor" data-cat="Cat 39: Mirrors, Jharokha Art & Dressing Glasses">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/hero_jharokha_mirror.jpg');">
+            <span class="lux-col-badge-float">Heritage Royal</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">DECOR COLLECTION</span>
-            <h3 class="collection-card-title">Mirrors & Jharokhas</h3>
-            <p class="collection-card-desc">36-inch cathedral arch solid wood mirrors with opening shutter doors and hand-beaten iron fretwork grilles.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">DECOR COLLECTION</span>
+            <h3 class="lux-col-title">Mirrors & Jharokhas</h3>
+            <p class="lux-col-desc">36-inch cathedral arch solid wood mirrors with opening shutter doors and hand-beaten iron fretwork grilles.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Mango Wood, Forged Iron & 4mm Mirror
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 40 Pcs</span>
-              <span><strong>FOB:</strong> $28.00 – $44.00</span>
-              <span><strong>CBM:</strong> 0.035 – 0.065 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">40 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$28.00 – $44.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.035 – 0.065 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="wall-decor.html" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-MI" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="wall-decor.html" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 39: Mirrors, Jharokha Art & Dressing Glasses">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Chandeliers & Pendants -->
-        <div class="collection-card" data-dept="decor">
-          <div class="collection-card-img" style="background-image: url('../assets/iron_jaali_wall_sconce.jpg');">
-            <span class="collection-badge">Boho & Moorish</span>
+        <div class="lux-col-card" data-dept="decor" data-cat="Cat 26: Luxury Lighting Pendants & Chandeliers">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/hanging_lantern_cage.jpg');">
+            <span class="lux-col-badge-float">Boho & Moorish</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">DECOR COLLECTION</span>
-            <h3 class="collection-card-title">Chandeliers & Pendants</h3>
-            <p class="collection-card-desc">Turned wooden bead cascading chandeliers, pierced Moroccan iron pendants, and hanging ambient lanterns.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">DECOR COLLECTION</span>
+            <h3 class="lux-col-title">Chandeliers & Pendants</h3>
+            <p class="lux-col-desc">Turned wooden bead cascading chandeliers, pierced Moroccan iron pendants, and hanging ambient lanterns.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Mango Wood Beads & Wrought Iron Filigree
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 40 Pcs</span>
-              <span><strong>FOB:</strong> $18.00 – $58.00</span>
-              <span><strong>CBM:</strong> 0.018 – 0.060 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">40 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$18.00 – $58.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.018 – 0.060 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=lighting" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-LI" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=decor" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 26: Luxury Lighting Pendants & Chandeliers">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Candles & Candelabras -->
-        <div class="collection-card" data-dept="decor">
-          <div class="collection-card-img" style="background-image: url('../assets/iron_jaali_wall_sconce.jpg');">
-            <span class="collection-badge">Warm Hygge</span>
+        <div class="lux-col-card" data-dept="decor" data-cat="Cat 35: Candle Holders, Candelabras & Votive Lanterns">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/tabletop_bioethanol_fire_bowl.jpg');">
+            <span class="lux-col-badge-float">Warm Hygge</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">DECOR COLLECTION</span>
-            <h3 class="collection-card-title">Candles & Candelabras</h3>
-            <p class="collection-card-desc">Turned wood taper candlestick trios, multi-arm black iron candelabras, and glass hurricane wood pedestals.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">DECOR COLLECTION</span>
+            <h3 class="lux-col-title">Candles & Candelabras</h3>
+            <p class="lux-col-desc">Turned wood taper candlestick trios, multi-arm black iron candelabras, and glass hurricane wood pedestals.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Hand-Turned Sheesham & Cast Iron
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 100 Pcs</span>
-              <span><strong>FOB:</strong> $4.50 – $16.50</span>
-              <span><strong>CBM:</strong> 0.002 – 0.010 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">100 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$4.50 – $16.50</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.002 – 0.010 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=candle" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-CA" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=decor" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 35: Candle Holders, Candelabras & Votive Lanterns">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Hardware & Ironmongery -->
-        <div class="collection-card" data-dept="decor">
-          <div class="collection-card-img" style="background-image: url('../assets/00000042-PHOTO-2026-11-18-12-02-01.jpg');">
-            <span class="collection-badge">Architectural DIY</span>
+        <div class="lux-col-card" data-dept="decor" data-cat="Cat 23: Hardware, Knobs, Pulls & Architectural Ironmongery">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/sku_aa_wd_015.jpg');">
+            <span class="lux-col-badge-float">Architectural DIY</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">DECOR COLLECTION</span>
-            <h3 class="collection-card-title">Hardware & Ironmongery</h3>
-            <p class="collection-card-desc">Hand-forged iron cabinet pulls, turned wood/brass mushroom knobs, sliding barn door handles, and clavos.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">DECOR COLLECTION</span>
+            <h3 class="lux-col-title">Hardware & Ironmongery</h3>
+            <p class="lux-col-desc">Hand-forged iron cabinet pulls, turned wood/brass mushroom knobs, sliding barn door handles, and clavos.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Hand-Beaten Iron, Rosewood & Brass
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 200 Pcs</span>
-              <span><strong>FOB:</strong> $1.20 – $12.00</span>
-              <span><strong>CBM:</strong> 0.0005 – 0.004 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">200 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$1.20 – $12.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.0005 – 0.004 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=hardware" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-HA" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=decor" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 23: Hardware, Knobs, Pulls & Architectural Ironmongery">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Fireplace & Mantels -->
-        <div class="collection-card" data-dept="decor">
-          <div class="collection-card-img" style="background-image: url('../assets/dining_bench_live_edge.jpg');">
-            <span class="collection-badge">Cozy Hearth</span>
+        <div class="lux-col-card" data-dept="decor" data-cat="Cat 12: Fireplace, Hearth & Mantle Ironcraft">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/fireplace_tool_set_iron.jpg');">
+            <span class="lux-col-badge-float">Cozy Hearth</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">DECOR COLLECTION</span>
-            <h3 class="collection-card-title">Fireplace & Mantels</h3>
-            <p class="collection-card-desc">Live-edge solid timber floating fireplace mantels, 3-fold wrought iron mesh spark screens, and log storage hoops.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">DECOR COLLECTION</span>
+            <h3 class="lux-col-title">Fireplace & Mantels</h3>
+            <p class="lux-col-desc">Live-edge solid timber floating fireplace mantels, 3-fold wrought iron mesh spark screens, and log storage hoops.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Solid Sheesham Slabs & Wrought Iron
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 25 Pcs</span>
-              <span><strong>FOB:</strong> $22.00 – $65.00</span>
-              <span><strong>CBM:</strong> 0.040 – 0.120 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">25 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$22.00 – $65.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.040 – 0.120 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=fireplace" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-FI" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=decor" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 12: Fireplace, Hearth & Mantle Ironcraft">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Desk & Home Office -->
-        <div class="collection-card" data-dept="lifestyle">
-          <div class="collection-card-img" style="background-image: url('../assets/00000039-PHOTO-2026-11-18-12-02-00.jpg');">
-            <span class="collection-badge">Executive Ergonomics</span>
+        <div class="lux-col-card" data-dept="lifestyle" data-cat="Cat 08: Desk Accessories, Keepsakes & Luxury Stationery">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/perpetual_desk_calendar.jpg');">
+            <span class="lux-col-badge-float">Executive Ergonomics</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">LIFESTYLE COLLECTION</span>
-            <h3 class="collection-card-title">Desk & Home Office</h3>
-            <p class="collection-card-desc">Solid wood dual monitor risers, tactile stone paperweights, vertical laptop stands, and perpetual calendars.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">LIFESTYLE COLLECTION</span>
+            <h3 class="lux-col-title">Desk & Home Office</h3>
+            <p class="lux-col-desc">Solid wood dual monitor risers, tactile stone paperweights, vertical laptop stands, and perpetual calendars.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Sheesham, Acacia & Solid Brass Core
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 80 Pcs</span>
-              <span><strong>FOB:</strong> $2.20 – $28.00</span>
-              <span><strong>CBM:</strong> 0.001 – 0.015 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">80 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$2.20 – $28.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.001 – 0.015 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="tabletop.html" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-DE" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=lifestyle" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 08: Desk Accessories, Keepsakes & Luxury Stationery">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Keepsake & Jewelry Boxes -->
-        <div class="collection-card" data-dept="lifestyle">
-          <div class="collection-card-img" style="background-image: url('../assets/00000036-PHOTO-2026-11-18-12-01-58.jpg');">
-            <span class="collection-badge">Artisanal Luxury</span>
+        <div class="lux-col-card" data-dept="lifestyle" data-cat="Cat 29: Jewelry Boxes, Vanity Organizers & Caskets">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/book_keepsake_box.jpg');">
+            <span class="lux-col-badge-float">Artisanal Luxury</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">LIFESTYLE COLLECTION</span>
-            <h3 class="collection-card-title">Keepsake & Jewelry Boxes</h3>
-            <p class="collection-card-desc">Book-shaped keepsake boxes, glass-top watch display cases, and secret puzzle chests with brass fittings.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">LIFESTYLE COLLECTION</span>
+            <h3 class="lux-col-title">Keepsake & Jewelry Boxes</h3>
+            <p class="lux-col-desc">Book-shaped keepsake boxes, glass-top watch display cases, and secret puzzle chests with brass fittings.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Dalbergia sissoo with Velvet Lining
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 80 Pcs</span>
-              <span><strong>FOB:</strong> $6.50 – $18.00</span>
-              <span><strong>CBM:</strong> 0.002 – 0.008 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">80 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$6.50 – $18.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.002 – 0.008 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="tabletop.html" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-BO" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=lifestyle" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 29: Jewelry Boxes, Vanity Organizers & Caskets">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Games & Pastimes -->
-        <div class="collection-card" data-dept="lifestyle">
-          <div class="collection-card-img" style="background-image: url('../assets/00000040-PHOTO-2026-11-18-12-02-00.jpg');">
-            <span class="collection-badge">Heirloom Leisure</span>
+        <div class="lux-col-card" data-dept="lifestyle" data-cat="Cat 21: Games, Pastimes & Handcrafted Leisure">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/hardwood_chess_board.jpg');">
+            <span class="lux-col-badge-float">Heirloom Leisure</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">LIFESTYLE COLLECTION</span>
-            <h3 class="collection-card-title">Games & Pastimes</h3>
-            <p class="collection-card-desc">16-inch folding Sheesham chessboards with Staunton pieces, wooden dominoes in slide-lid boxes, and cribbage.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">LIFESTYLE COLLECTION</span>
+            <h3 class="lux-col-title">Games & Pastimes</h3>
+            <p class="lux-col-desc">16-inch folding Sheesham chessboards with Staunton pieces, wooden dominoes in slide-lid boxes, and cribbage.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Sheesham, Boxwood & Brass Inlay
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 60 Pcs</span>
-              <span><strong>FOB:</strong> $5.50 – $21.00</span>
-              <span><strong>CBM:</strong> 0.003 – 0.015 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">60 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$5.50 – $21.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.003 – 0.015 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=games" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-GA" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=lifestyle" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 21: Games, Pastimes & Handcrafted Leisure">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Bathroom & Spa Accents -->
-        <div class="collection-card" data-dept="lifestyle">
-          <div class="collection-card-img" style="background-image: url('../assets/00000037-PHOTO-2026-11-18-12-01-59.jpg');">
-            <span class="collection-badge">Spa Wellness</span>
+        <div class="lux-col-card" data-dept="lifestyle" data-cat="Cat 11: Bathroom, Spa & Wellness Woodcraft">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/bathroom_bathtub_caddy.jpg');">
+            <span class="lux-col-badge-float">Spa Wellness</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">LIFESTYLE COLLECTION</span>
-            <h3 class="collection-card-title">Bathroom & Spa Accents</h3>
-            <p class="collection-card-desc">Expandable Acacia bathtub caddies, self-draining slatted soap dishes, tissue box covers & apothecary jars.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">LIFESTYLE COLLECTION</span>
+            <h3 class="lux-col-title">Bathroom & Spa Accents</h3>
+            <p class="lux-col-desc">Expandable Acacia bathtub caddies, self-draining slatted soap dishes, tissue box covers & apothecary jars.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Water-Resistant Acacia & Teak Oils
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 100 Pcs</span>
-              <span><strong>FOB:</strong> $2.40 – $18.50</span>
-              <span><strong>CBM:</strong> 0.001 – 0.010 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">100 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$2.40 – $18.50</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.001 – 0.010 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=bath" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-BA" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=lifestyle" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 11: Bathroom, Spa & Wellness Woodcraft">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Luxury Pet Furniture -->
-        <div class="collection-card" data-dept="lifestyle">
-          <div class="collection-card-img" style="background-image: url('../assets/hero_live_edge_table.jpg');">
-            <span class="collection-badge">Pampered Canine</span>
+        <div class="lux-col-card" data-dept="lifestyle" data-cat="Cat 18: Luxury Pet Furniture & Elevated Feeders">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/pet_feeder_elevated.jpg');">
+            <span class="lux-col-badge-float">Pampered Canine</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">LIFESTYLE COLLECTION</span>
-            <h3 class="collection-card-title">Luxury Pet Furniture</h3>
-            <p class="collection-card-desc">Elevated solid wood dual ceramic dog bowl risers, dog leash wall plaques with treat shelves, and pet toy bins.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">LIFESTYLE COLLECTION</span>
+            <h3 class="lux-col-title">Luxury Pet Furniture</h3>
+            <p class="lux-col-desc">Elevated solid wood dual ceramic dog bowl risers, dog leash wall plaques with treat shelves, and pet toy bins.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Oiled Acacia, Mango Wood & Ceramic
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 40 Pcs</span>
-              <span><strong>FOB:</strong> $8.50 – $32.00</span>
-              <span><strong>CBM:</strong> 0.012 – 0.045 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">40 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$8.50 – $32.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.012 – 0.045 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=pet" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-PE" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=lifestyle" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 18: Luxury Pet Furniture & Elevated Feeders">Browse SKUs</button>
             </div>
           </div>
         </div>
         <!-- Spiritual & Zen Crafts -->
-        <div class="collection-card" data-dept="lifestyle">
-          <div class="collection-card-img" style="background-image: url('../assets/00000044-PHOTO-2026-11-18-12-02-02.jpg');">
-            <span class="collection-badge">Mindfulness Nook</span>
+        <div class="lux-col-card" data-dept="lifestyle" data-cat="Cat 20: Sacred, Meditation & Altar Crafts">
+          <div class="lux-col-img-wrap" style="background-image: url('../assets/carved_mandala_headboard.jpg');">
+            <span class="lux-col-badge-float">Mindfulness Nook</span>
+            <span class="lux-col-sku-count">10–25 SKUs</span>
           </div>
-          <div class="collection-card-body">
-            <span class="collection-dept">LIFESTYLE COLLECTION</span>
-            <h3 class="collection-card-title">Spiritual & Zen Crafts</h3>
-            <p class="collection-card-desc">Carved wooden backflow incense burners, crescent moon crystal shelves, singing bowl cushions, and Zen gardens.</p>
-            <div style="font-size: 0.8rem; margin-bottom: 12px; color: #4A3525;">
+          <div class="lux-col-body">
+            <span class="lux-col-dept-tag">LIFESTYLE COLLECTION</span>
+            <h3 class="lux-col-title">Spiritual & Zen Crafts</h3>
+            <p class="lux-col-desc">Carved wooden backflow incense burners, crescent moon crystal shelves, singing bowl cushions, and Zen gardens.</p>
+            <div class="lux-col-materials">
               <strong>Materials:</strong> Seasoned Hardwood, Sand & River Rock
             </div>
-            <div class="collection-meta">
-              <span><strong>MOQ:</strong> 80 Pcs</span>
-              <span><strong>FOB:</strong> $3.50 – $16.00</span>
-              <span><strong>CBM:</strong> 0.001 – 0.006 CBM</span>
+            <div class="lux-col-specs-grid">
+              <div class="spec-item">
+                <span class="spec-lbl">MOQ</span>
+                <span class="spec-val">80 Pcs</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">FOB Range</span>
+                <span class="spec-val">$3.50 – $16.00</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-lbl">Average CBM</span>
+                <span class="spec-val">0.001 – 0.006 CBM</span>
+              </div>
             </div>
-            <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-              <a href="catalog.html?cat=sacred" class="collection-link-btn">View Line Sheet →</a>
-              <button class="card-btn-add" data-sku="COL-CAT-SP" style="padding: 6px 12px; font-size: 0.78rem;">+ RFQ Line</button>
+            <div class="lux-col-actions">
+              <a href="catalog.html?dept=lifestyle" class="lux-btn-explore">View Line Sheet →</a>
+              <button class="lux-btn-rfq btn-explore-category" data-cat="Cat 20: Sacred, Meditation & Altar Crafts">Browse SKUs</button>
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- VIEW 2: COMPLETE 500-SKU MASTER CATALOG DIRECTORY (50 CATEGORIES) -->
+      <div class="sku-directory-section" id="masterSkuDirectory">
+        <div style="text-align: center; padding: 40px 20px; color: #8C7B70;" id="skuLoadingSpinner">
+          <div style="font-size: 1.8rem; margin-bottom: 8px;">⏳</div>
+          <p>Loading full 500-SKU export catalog across 50 categories...</p>
+        </div>
+        <div id="skuCategoryContainer"></div>
       </div>
 
     </div>
@@ -693,25 +1511,271 @@
     </div>
   </footer>
 
-  <script src="products-data.js?v=2026.6"></script>
-  <script src="lenis.min.js?v=2026.6"></script>
-  <script src="app.js?v=2026.6"></script>
+  <script src="products-data.js?v=2026.7"></script>
+  <script src="lenis.min.js?v=2026.7"></script>
+  <script src="app.js?v=2026.7"></script>
   <script>
-    // Simple instant tab filtering
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        const filter = btn.getAttribute("data-filter");
-        document.querySelectorAll(".collection-card").forEach(card => {
-          if (filter === "all" || card.getAttribute("data-dept") === filter) {
-            card.style.display = "flex";
-          } else {
-            card.style.display = "none";
-          }
+    function initCollectionsPage() {
+      const prods = window.ALL_PRODUCTS_500 || window.MASTER_PRODUCTS_500 || [];
+      const btnViewLookbook = document.getElementById("btnViewLookbook");
+      const btnViewDirectory = document.getElementById("btnViewDirectory");
+      const curatedGrid = document.getElementById("curatedCollectionsGrid");
+      const skuDirectory = document.getElementById("masterSkuDirectory");
+      const lblActiveView = document.getElementById("lblActiveView");
+      const deptPillBtns = document.querySelectorAll(".dept-pill-btn");
+      const searchInput = document.getElementById("collectionsSearchInput");
+      const jumpSelect = document.getElementById("jumpCategorySelect");
+      const skuContainer = document.getElementById("skuCategoryContainer");
+      const skuSpinner = document.getElementById("skuLoadingSpinner");
+
+      let currentView = "lookbook";
+      let currentDept = "all";
+      let currentQuery = "";
+
+      // Populate Category Jump Select dropdown
+      const categoriesMap = {};
+      prods.forEach(p => {
+        if (!categoriesMap[p.Category]) {
+          categoriesMap[p.Category] = { dept: p.Department, items: [] };
+        }
+        categoriesMap[p.Category].items.push(p);
+      });
+
+      const catKeys = Object.keys(categoriesMap).sort();
+      catKeys.forEach((catName, idx) => {
+        const opt = document.createElement("option");
+        opt.value = catName;
+        opt.textContent = `${catName} (${categoriesMap[catName].items.length} SKUs)`;
+        jumpSelect.appendChild(opt);
+      });
+
+      // Helper to safely escape attributes
+      function escapeHtml(str) {
+        if (!str) return '';
+        return str.toString()
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      // Render 500 SKUs into Category Sections
+      function renderSkuDirectory() {
+        if (skuContainer.children.length > 0) return; // already rendered
+        if (skuSpinner) skuSpinner.style.display = "none";
+
+        catKeys.forEach((catName, catIdx) => {
+          const catData = categoriesMap[catName];
+          const groupDiv = document.createElement("div");
+          groupDiv.className = "cat-group-section";
+          groupDiv.id = "cat-group-" + catIdx;
+          groupDiv.dataset.catName = catName;
+          groupDiv.dataset.dept = catData.dept;
+
+          groupDiv.innerHTML = `
+            <div class="cat-group-header">
+              <div>
+                <span class="cat-group-dept-pill">${escapeHtml(catData.dept.toUpperCase())}</span>
+                <h3 style="margin-top: 6px;">${escapeHtml(catName)}</h3>
+              </div>
+              <span style="font-size: 0.85rem; font-weight: 700; color: #8C7B70;">${catData.items.length} SKUs</span>
+            </div>
+            <div class="sku-products-grid">
+              ${catData.items.map(p => `
+                <div class="sku-prod-card" data-sku="${escapeHtml(p.SKU)}" data-name="${escapeHtml(p.Product_Name.toLowerCase())}" data-material="${escapeHtml((p.Material_Construction || '').toLowerCase())}">
+                  <div class="sku-prod-img" style="background-image: url('${escapeHtml(p.image || p.Image || '../assets/charcuterie_board_deluxe.jpg')}');">
+                    <span class="sku-prod-tag">${escapeHtml(p.SKU)}</span>
+                  </div>
+                  <div class="sku-prod-body">
+                    <h4 class="sku-prod-title" title="${escapeHtml(p.Product_Name)}">${escapeHtml(p.Product_Name)}</h4>
+                    <div class="sku-prod-material">${escapeHtml(p.Material_Construction || 'Seasoned Hardwood')}</div>
+                    <div class="sku-prod-meta">
+                      <span class="sku-prod-fob">$${parseFloat(p.FOB_Price_USD || 0).toFixed(2)}</span>
+                      <span class="sku-prod-cbm">${parseFloat(p.CBM || 0).toFixed(3)} CBM</span>
+                    </div>
+                    <button class="sku-prod-add-btn card-btn-add" data-sku="${escapeHtml(p.SKU)}">+ Add to Container</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+          skuContainer.appendChild(groupDiv);
+        });
+
+        // Re-bind add-to-container buttons
+        if (window.RFQCart) {
+          skuContainer.querySelectorAll('.card-btn-add').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              e.preventDefault();
+              const sku = btn.dataset.sku;
+              if (sku) {
+                window.RFQCart.add(sku);
+                btn.innerHTML = '✓ Added';
+                setTimeout(() => btn.innerHTML = '+ Add to Container', 1200);
+              }
+            });
+          });
+        }
+      }
+
+      // Filter Logic for both Lookbook and 500-SKU Directory
+      function applyFilter() {
+        const q = currentQuery.toLowerCase().trim();
+
+        if (currentView === "lookbook") {
+          const cards = curatedGrid.querySelectorAll(".lux-col-card");
+          let visibleCount = 0;
+          cards.forEach(card => {
+            const cardDept = card.dataset.dept;
+            const text = card.textContent.toLowerCase();
+            const matchesDept = (currentDept === "all" || cardDept === currentDept);
+            const matchesQuery = (!q || text.includes(q));
+
+            if (matchesDept && matchesQuery) {
+              card.style.display = "flex";
+              visibleCount++;
+            } else {
+              card.style.display = "none";
+            }
+          });
+          lblActiveView.textContent = `${visibleCount} Export Collections`;
+        } else {
+          renderSkuDirectory();
+          const groups = skuContainer.querySelectorAll(".cat-group-section");
+          let visibleSkus = 0;
+
+          groups.forEach(group => {
+            const groupDept = group.dataset.dept;
+            const matchesDept = (currentDept === "all" || groupDept === currentDept);
+
+            if (!matchesDept) {
+              group.style.display = "none";
+              group.querySelectorAll(".sku-prod-card").forEach(c => c.style.display = "none");
+              return;
+            }
+
+            const cards = group.querySelectorAll(".sku-prod-card");
+            let groupVisible = 0;
+
+            cards.forEach(card => {
+              const name = card.dataset.name;
+              const sku = card.dataset.sku.toLowerCase();
+              const mat = card.dataset.material;
+              const matchesQuery = (!q || name.includes(q) || sku.includes(q) || mat.includes(q));
+
+              if (matchesQuery) {
+                card.style.display = "flex";
+                groupVisible++;
+                visibleSkus++;
+              } else {
+                card.style.display = "none";
+              }
+            });
+
+            group.style.display = groupVisible > 0 ? "block" : "none";
+          });
+
+          lblActiveView.textContent = `${visibleSkus} Catalog Products`;
+        }
+      }
+
+      // View Switcher Event
+      btnViewLookbook.addEventListener("click", () => {
+        currentView = "lookbook";
+        btnViewLookbook.classList.add("active");
+        btnViewDirectory.classList.remove("active");
+        curatedGrid.style.display = "grid";
+        skuDirectory.classList.remove("active");
+        applyFilter();
+      });
+
+      btnViewDirectory.addEventListener("click", () => {
+        currentView = "directory";
+        btnViewDirectory.classList.add("active");
+        btnViewLookbook.classList.remove("active");
+        curatedGrid.style.display = "none";
+        skuDirectory.classList.add("active");
+        applyFilter();
+      });
+
+      // Department Pills Event
+      deptPillBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          deptPillBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentDept = btn.dataset.filter;
+          applyFilter();
         });
       });
-    });
+
+      // Live Search Event
+      let debounceTimer;
+      searchInput.addEventListener("input", (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          currentQuery = e.target.value;
+          applyFilter();
+        }, 120);
+      });
+
+      // Jump to Category Event
+      jumpSelect.addEventListener("change", (e) => {
+        const cat = e.target.value;
+        if (cat === "all") return;
+
+        // Switch to directory view and scroll
+        if (currentView !== "directory") {
+          btnViewDirectory.click();
+        }
+        
+        setTimeout(() => {
+          const targetGroup = Array.from(document.querySelectorAll(".cat-group-section")).find(g => g.dataset.catName === cat);
+          if (targetGroup) {
+            targetGroup.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 100);
+      });
+
+      // Browse SKUs button on collection cards
+      document.querySelectorAll(".btn-explore-category").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const targetCat = btn.dataset.cat;
+          btnViewDirectory.click();
+          setTimeout(() => {
+            const targetGroup = Array.from(document.querySelectorAll(".cat-group-section")).find(g => g.dataset.catName === targetCat);
+            if (targetGroup) {
+              targetGroup.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }, 150);
+        });
+      });
+
+      // Parse URL parameters (e.g. ?dept=furniture or ?view=directory)
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlDept = urlParams.get("dept");
+      const urlView = urlParams.get("view");
+      const urlCat = urlParams.get("cat");
+
+      if (urlDept) {
+        const targetBtn = document.querySelector(`.dept-pill-btn[data-filter="${urlDept}"]`);
+        if (targetBtn) targetBtn.click();
+      }
+      if (urlView === "directory") {
+        btnViewDirectory.click();
+      }
+      if (urlCat) {
+        jumpSelect.value = urlCat;
+        jumpSelect.dispatchEvent(new Event("change"));
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initCollectionsPage);
+    } else {
+      initCollectionsPage();
+    }
   </script>
 </body>
 </html>
