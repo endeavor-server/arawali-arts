@@ -67,18 +67,18 @@
 
     /* FLOATING TOP NAV (Ghost Bar) */
     .mag-top-nav {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 52px;
-      z-index: 100;
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 8px 16px;
       pointer-events: none;
-      background: linear-gradient(180deg, rgba(10, 8, 7, 0.75) 0%, rgba(10, 8, 7, 0) 100%);
+      background: linear-gradient(180deg, rgba(10, 8, 7, 0.88) 0%, rgba(10, 8, 7, 0.4) 70%, rgba(10, 8, 7, 0) 100%);
     }
 
     .mag-nav-group {
@@ -627,11 +627,11 @@
 
     /* FLOATING BOTTOM PILL NAV */
     .mag-bottom-nav {
-      position: absolute;
+      position: fixed;
       bottom: 14px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 100;
+      z-index: 1000;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -815,6 +815,153 @@
       opacity: 1;
       pointer-events: auto;
     }
+
+    /* ==========================================================
+       NATIVE CONTINUOUS SCROLL VIEW (Mobile & Touch Finger Scroll)
+       ========================================================== */
+    .mag-scroll-view {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding: 68px 12px 100px 12px;
+      background: var(--bg-desk);
+      z-index: 20;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    .mag-scroll-container {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .mag-scroll-card {
+      width: 100%;
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--page-cream);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 1px rgba(184, 149, 82, 0.4);
+      border: 1px solid rgba(184, 149, 82, 0.3);
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    .mag-scroll-card-header {
+      background: #14100E;
+      color: var(--accent-gold);
+      font-family: var(--font-cinzel);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(184, 149, 82, 0.35);
+    }
+
+    .mag-scroll-card-header .scroll-page-tag {
+      color: #FAF7F2;
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      opacity: 0.85;
+      font-weight: 500;
+    }
+
+    .mag-scroll-card.is-cover .mag-scroll-body {
+      background: linear-gradient(135deg, #14100E 0%, #221A15 50%, #100C0A 100%) !important;
+      color: #FAF7F2 !important;
+    }
+
+    .mag-scroll-card:not(.is-cover) .mag-scroll-body {
+      background: var(--page-cream) !important;
+      color: #241D18 !important;
+    }
+
+    .mag-scroll-body {
+      padding: 0;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .mag-scroll-body .mag-page-scroll-content {
+      width: 100%;
+      height: auto !important;
+      min-height: unset !important;
+      overflow: visible !important;
+      box-sizing: border-box;
+    }
+
+    .mag-scroll-body .page-inner {
+      height: auto !important;
+      min-height: 480px !important;
+      padding: clamp(16px, 4vw, 28px) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      gap: 16px !important;
+    }
+
+    .mag-scroll-body .cover-container {
+      height: auto !important;
+      min-height: 520px !important;
+      padding: clamp(20px, 4vw, 36px) !important;
+    }
+
+    .mag-scroll-body .cover-photo-inset {
+      height: 240px !important;
+      margin: 16px 0 !important;
+    }
+
+    .mag-scroll-body .mag-chapter-splash {
+      min-height: 460px !important;
+      height: auto !important;
+      padding: clamp(24px, 5vw, 40px) clamp(18px, 4vw, 32px) !important;
+    }
+
+    .mag-scroll-body .mag-product-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: clamp(10px, 2vw, 16px) !important;
+      margin: 12px 0 !important;
+    }
+
+    .mag-scroll-body .mag-product-img {
+      height: 120px !important;
+    }
+
+    /* Mobile Nav Tweaks */
+    @media (max-width: 480px) {
+      .mag-top-nav {
+        padding: 6px 10px;
+      }
+      .mag-nav-group {
+        gap: 6px;
+      }
+      .mag-ghost-btn {
+        padding: 5px 10px;
+        font-size: 0.72rem;
+      }
+      .mag-ghost-rfq {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+      }
+      .mag-ghost-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+      }
+      #btnFullscreen {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -833,6 +980,7 @@
       </div>
 
       <div class="mag-nav-group">
+        <button type="button" class="mag-ghost-btn" id="btnViewMode" title="Switch between 3D Flipbook and Continuous Scroll View">📜 Scroll View</button>
         <button type="button" class="mag-ghost-icon" id="btnSoundToggle" title="Toggle Sound">🔊</button>
         <button type="button" class="mag-ghost-btn" id="btnTocToggle">📑 Chapters</button>
         <a href="../website/rfq.html" class="mag-ghost-rfq" id="navRfqPill">📦 RFQ (<span id="cart-count">0</span>)</a>
@@ -1624,17 +1772,35 @@
       </div>
     </main>
 
+    <!-- NATIVE CONTINUOUS SCROLL VIEW (Mobile & Touch Finger Scroll) -->
+    <main id="magazine-scroll-view" class="mag-scroll-view" style="display: none;">
+      <div class="mag-scroll-container" id="scrollContainer">
+        <!-- Dynamically populated from master page content -->
+      </div>
+    </main>
+
     <!-- FLOATING BOTTOM NAV -->
     <footer class="mag-bottom-nav">
-      <div class="mag-nav-pill">
+      <!-- Flipbook Navigation Pill -->
+      <div class="mag-nav-pill" id="pillFlipbookControls">
         <button type="button" class="mag-pill-btn" id="btnPrevPage" title="Previous Page">‹</button>
         <span class="mag-pill-counter">
           Page <strong id="lblCurrentPage">1</strong> / <span id="lblTotalPages">18</span>
         </span>
         <button type="button" class="mag-pill-btn" id="btnNextPage" title="Next Page">›</button>
       </div>
-      <div class="mag-hint">
-        Tap edges, click arrows, or swipe to turn
+
+      <!-- Continuous Scroll Navigation Pill -->
+      <div class="mag-nav-pill" id="pillScrollControls" style="display: none;">
+        <button type="button" class="mag-pill-btn" id="btnScrollToTop" title="Scroll to Top" style="font-size: 0.76rem; font-weight: 700; padding: 2px 8px; font-family: var(--font-sans);">↑ Top</button>
+        <span class="mag-pill-counter">
+          Page <strong id="lblScrollCurrentPage">1</strong> / 18
+        </span>
+        <button type="button" class="mag-pill-btn" id="btnScrollToBottom" title="Scroll to Bottom" style="font-size: 0.76rem; font-weight: 700; padding: 2px 8px; font-family: var(--font-sans);">↓ End</button>
+      </div>
+
+      <div class="mag-hint" id="lblMagHint">
+        Swipe finger left/right, tap edges, or click arrows
       </div>
     </footer>
 
@@ -1656,7 +1822,7 @@
   </div>
 
   <!-- DEPENDENCY: StPageFlip Browser Bundle -->
-  <script src="page-flip.browser.js"></script>
+  <script src="page-flip.browser.js?v=2026.23"></script>
 
   <script>
     (function() {
@@ -1692,7 +1858,13 @@
           <span class="toc-name">${ch.title}</span>
         `;
         item.onclick = () => {
-          if (pageFlipInstance) {
+          if (currentViewMode === "scroll") {
+            const card = document.getElementById(`scroll-card-${ch.page}`);
+            const scrollView = document.getElementById("magazine-scroll-view");
+            if (card && scrollView) {
+              scrollView.scrollTo({ top: Math.max(0, card.offsetTop - 70), behavior: "smooth" });
+            }
+          } else if (pageFlipInstance) {
             pageFlipInstance.turnToPage(ch.page - 1);
           }
           closeToc();
@@ -1715,10 +1887,134 @@
       document.getElementById("btnTocClose").onclick = closeToc;
       tocBackdrop.onclick = closeToc;
 
-      // 2. Flipbook Dimensions Calculation
+      // 2. View Mode Architecture (3D Flipbook vs Native Continuous Scroll)
+      let currentViewMode = "flipbook";
       const flipContainer = document.getElementById("flipbook-book");
       let pageFlipInstance = null;
 
+      function buildScrollView() {
+        const container = document.getElementById("scrollContainer");
+        if (!container) return;
+        container.innerHTML = "";
+
+        const pages = document.querySelectorAll("#flipbook-book .mag-page");
+        pages.forEach((page, idx) => {
+          const pageNum = idx + 1;
+          const isCover = page.classList.contains("page-cover-front") || page.classList.contains("page-cover-back");
+          const ch = chapters.find(c => c.page === pageNum) || { title: `Page ${pageNum}` };
+
+          const card = document.createElement("article");
+          card.className = "mag-scroll-card" + (isCover ? " is-cover" : "");
+          card.id = `scroll-card-${pageNum}`;
+
+          // Header badge
+          const header = document.createElement("header");
+          header.className = "mag-scroll-card-header";
+          header.innerHTML = `
+            <span>PAGE ${String(pageNum).padStart(2, '0')} • ${ch.title.toUpperCase()}</span>
+            <span class="scroll-page-tag">Arawali Arts Jodhpur</span>
+          `;
+          card.appendChild(header);
+
+          // Body container
+          const body = document.createElement("div");
+          body.className = "mag-scroll-body";
+
+          // Clone page content
+          const clone = page.cloneNode(true);
+          clone.className = "mag-page-scroll-content" + (isCover ? " is-cover-content" : "");
+          body.appendChild(clone);
+          card.appendChild(body);
+
+          container.appendChild(card);
+        });
+
+        // IntersectionObserver for real-time page counter sync during finger scroll
+        if ("IntersectionObserver" in window) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const num = parseInt(entry.target.id.replace("scroll-card-", ""), 10);
+                if (!isNaN(num)) {
+                  document.getElementById("lblScrollCurrentPage").textContent = num;
+                  document.querySelectorAll(".toc-item").forEach((item, i) => {
+                    item.classList.toggle("active", i === num - 1);
+                  });
+                }
+              }
+            });
+          }, {
+            root: document.getElementById("magazine-scroll-view"),
+            threshold: 0.35
+          });
+
+          document.querySelectorAll(".mag-scroll-card").forEach(c => observer.observe(c));
+        }
+      }
+
+      function setViewMode(mode) {
+        currentViewMode = mode;
+        const btnViewMode = document.getElementById("btnViewMode");
+        const magStage = document.getElementById("magazine-stage");
+        const scrollView = document.getElementById("magazine-scroll-view");
+        const pillFlip = document.getElementById("pillFlipbookControls");
+        const pillScroll = document.getElementById("pillScrollControls");
+        const hint = document.getElementById("lblMagHint");
+
+        if (mode === "scroll") {
+          magStage.style.display = "none";
+          scrollView.style.display = "block";
+          pillFlip.style.display = "none";
+          pillScroll.style.display = "flex";
+          btnViewMode.textContent = "📖 3D Flip";
+          hint.textContent = "Scroll vertically with finger • Tap 📖 3D Flip for book";
+          try { sessionStorage.setItem("arawali_lookbook_view", "scroll"); } catch (e) {}
+
+          // Sync scroll view to current flipbook page
+          if (pageFlipInstance) {
+            const cur = pageFlipInstance.getCurrentPageIndex() + 1;
+            const target = document.getElementById(`scroll-card-${cur}`);
+            if (target && scrollView) {
+              setTimeout(() => {
+                scrollView.scrollTop = Math.max(0, target.offsetTop - 70);
+              }, 40);
+            }
+          }
+        } else {
+          scrollView.style.display = "none";
+          magStage.style.display = "flex";
+          pillScroll.style.display = "none";
+          pillFlip.style.display = "flex";
+          btnViewMode.textContent = "📜 Scroll View";
+          hint.textContent = "Swipe finger left/right, tap edges, or click arrows";
+          try { sessionStorage.setItem("arawali_lookbook_view", "flipbook"); } catch (e) {}
+
+          // Sync flipbook to scrolled card
+          const curScroll = parseInt(document.getElementById("lblScrollCurrentPage").textContent, 10);
+          if (!isNaN(curScroll) && pageFlipInstance && curScroll >= 1) {
+            try {
+              pageFlipInstance.flip(curScroll - 1);
+            } catch (e) {}
+          }
+        }
+      }
+
+      document.getElementById("btnViewMode").onclick = () => {
+        const nextMode = currentViewMode === "flipbook" ? "scroll" : "flipbook";
+        setViewMode(nextMode);
+      };
+
+      document.getElementById("btnScrollToTop").onclick = () => {
+        const scrollView = document.getElementById("magazine-scroll-view");
+        if (scrollView) scrollView.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      document.getElementById("btnScrollToBottom").onclick = () => {
+        const scrollView = document.getElementById("magazine-scroll-view");
+        if (scrollView) scrollView.scrollTo({ top: scrollView.scrollHeight, behavior: "smooth" });
+      };
+
+      // 3. Flipbook Dimensions Calculation
       function calcBookDimensions() {
         const winWidth = window.innerWidth;
         const winHeight = window.innerHeight;
@@ -1728,7 +2024,6 @@
           // Portrait single-page mode
           const availW = winWidth - 24;
           const availH = winHeight - 96;
-          // Standard ratio ~1 : 1.414
           let w = availW;
           let h = w * 1.414;
           if (h > availH) {
@@ -1742,7 +2037,6 @@
           };
         } else {
           // Desktop 2-page spread mode
-          // 2 pages side-by-side: aspect ratio is 2 * (1 / 1.414) = 1.414 : 1
           const availW = winWidth - 48;
           const availH = winHeight - 100;
           let spreadH = availH;
@@ -1751,7 +2045,6 @@
             spreadW = availW;
             spreadH = spreadW / 1.414;
           }
-          // Cap single page height between 520px and 780px
           spreadH = Math.min(Math.max(spreadH, 500), 780);
           const singleW = (spreadH * 1.414) / 2;
 
@@ -1776,13 +2069,13 @@
           size: "fixed",
           maxShadowOpacity: 0.6,
           showCover: true,
-          mobileScrollSupport: false,
+          mobileScrollSupport: true,
           usePortrait: dims.isPortrait,
           startPage: (function() {
-          const p = new URLSearchParams(window.location.search).get("page");
-          const idx = parseInt(p, 10);
-          return (!isNaN(idx) && idx >= 0) ? idx : 0;
-        })()
+            const p = new URLSearchParams(window.location.search).get("page");
+            const idx = parseInt(p, 10);
+            return (!isNaN(idx) && idx >= 0) ? idx : 0;
+          })()
         });
 
         const pages = document.querySelectorAll(".mag-page");
@@ -1805,6 +2098,133 @@
 
         document.getElementById("lblTotalPages").textContent = pages.length;
       }
+
+      // ==========================================================
+      // NATIVE FINGER TOUCH & SWIPE GESTURE ENGINE (Mobile / Touch)
+      // ==========================================================
+      const stage = document.getElementById("magazine-stage");
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchStartTime = 0;
+      let touchCurrentX = 0;
+      let touchCurrentY = 0;
+      let isTouching = false;
+      let isHorizontalSwipe = null;
+
+      function onTouchStart(e) {
+        if (currentViewMode !== "flipbook" || !pageFlipInstance) return;
+        if (e.touches.length !== 1) {
+          isTouching = false;
+          return;
+        }
+
+        // Do not intercept interactive buttons, links, inputs, or navigation bars
+        if (e.target.closest("button, a, input, select, textarea, #toc-drawer, .mag-top-nav, .mag-bottom-nav")) {
+          return;
+        }
+
+        const t = e.touches[0];
+        touchStartX = t.clientX;
+        touchStartY = t.clientY;
+        touchCurrentX = t.clientX;
+        touchCurrentY = t.clientY;
+        touchStartTime = Date.now();
+        isTouching = true;
+        isHorizontalSwipe = null;
+      }
+
+      function onTouchMove(e) {
+        if (!isTouching || e.touches.length !== 1) return;
+        const t = e.touches[0];
+        touchCurrentX = t.clientX;
+        touchCurrentY = t.clientY;
+
+        const dx = touchCurrentX - touchStartX;
+        const dy = touchCurrentY - touchStartY;
+        const absX = Math.abs(dx);
+        const absY = Math.abs(dy);
+
+        // Lock horizontal axis if movement is primarily horizontal
+        if (isHorizontalSwipe === null && (absX > 8 || absY > 8)) {
+          isHorizontalSwipe = absX >= absY;
+        }
+
+        // Prevent iOS browser history navigation / rubber-band during horizontal swipe
+        if (isHorizontalSwipe) {
+          if (e.cancelable) e.preventDefault();
+        }
+      }
+
+      function onTouchEnd(e) {
+        if (!isTouching) return;
+        isTouching = false;
+
+        const dx = touchCurrentX - touchStartX;
+        const dy = touchCurrentY - touchStartY;
+        const absX = Math.abs(dx);
+        const absY = Math.abs(dy);
+        const elapsed = Date.now() - touchStartTime;
+
+        // 1. Horizontal finger swipe detection:
+        // Quick flick (>= 28px within 600ms) or drag (>= 60px within 1000ms)
+        const isSwipe = (absX >= 28 && absX > absY * 1.05 && elapsed <= 600) ||
+                        (absX >= 60 && absX > absY && elapsed <= 1000);
+
+        if (isSwipe) {
+          if (dx < 0) {
+            pageFlipInstance.flipNext();
+          } else {
+            pageFlipInstance.flipPrev();
+          }
+          return;
+        }
+
+        // 2. Edge tap navigation (Kindle / Apple Books paradigm):
+        if (elapsed < 280 && absX < 12 && absY < 12) {
+          const rect = stage.getBoundingClientRect();
+          const tapX = touchCurrentX - rect.left;
+          const stageW = rect.width;
+
+          if (stageW > 0) {
+            if (tapX < stageW * 0.25) {
+              pageFlipInstance.flipPrev();
+            } else if (tapX > stageW * 0.75) {
+              pageFlipInstance.flipNext();
+            }
+          }
+        }
+      }
+
+      stage.addEventListener("touchstart", onTouchStart, { passive: true });
+      stage.addEventListener("touchmove", onTouchMove, { passive: false });
+      stage.addEventListener("touchend", onTouchEnd, { passive: true });
+      stage.addEventListener("touchcancel", () => { isTouching = false; }, { passive: true });
+
+      // Trackpad two-finger horizontal wheel scroll with debounce
+      let wheelDebounceTimer = null;
+      let accumulatedDeltaX = 0;
+
+      window.addEventListener("wheel", (e) => {
+        if (currentViewMode !== "flipbook" || !pageFlipInstance) return;
+        if (e.target.closest("#toc-drawer, #magazine-scroll-view")) return;
+
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 12) {
+          if (e.cancelable) e.preventDefault();
+          accumulatedDeltaX += e.deltaX;
+
+          if (!wheelDebounceTimer) {
+            wheelDebounceTimer = setTimeout(() => {
+              if (accumulatedDeltaX > 25) {
+                pageFlipInstance.flipNext();
+              } else if (accumulatedDeltaX < -25) {
+                pageFlipInstance.flipPrev();
+              }
+              accumulatedDeltaX = 0;
+              wheelDebounceTimer = null;
+            }, 120);
+          }
+        }
+      }, { passive: false });
 
       // 3. Web Audio Acoustic Synthesizer (Realistic Page Flutter Sound)
       let audioCtx = null;
@@ -1910,13 +2330,12 @@
       window.addEventListener("resize", () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-          if (pageFlipInstance) {
-            const dims = calcBookDimensions();
-            // Re-render flipbook on significant size/orientation change
-            pageFlipInstance.destroy();
-            initMagazine();
+          if (pageFlipInstance && currentViewMode === "flipbook") {
+            try {
+              pageFlipInstance.update();
+            } catch (e) {}
           }
-        }, 300);
+        }, 250);
       });
 
       // 5. Toast Notification System
@@ -1969,9 +2388,16 @@
       }
 
       // 7. Initialize
+      buildScrollView();
       initMagazine();
       attachAddButtons();
       updateRfqCount();
+
+      // Check URL query parameter ?view=scroll
+      const initParam = new URLSearchParams(window.location.search).get("view");
+      if (initParam === "scroll") {
+        setViewMode("scroll");
+      }
 
     })();
   </script>
