@@ -310,7 +310,10 @@ function syncAllProductsToCatalog() {
           cbm: parseFloat(item.CBM) || 0.01,
           moq: parseInt(item.MOQ) || 50,
           fobTier: item.FOB_Mundra_USD,
-          retailEst: item.Western_Retail_USD,
+          retailEst: item.Western_Retail_USD || '$45 – $60',
+          style: item.Style_Trend || 'Japandi Two-Tone',
+          targetBuyers: item.Target_Buyers || 'Crate & Barrel, Zara Home',
+          leadTime: item.LeadTime || '45–60 Days (FOB Mundra)',
           masterPack: 'Export 5-ply Corrugated Carton with Corner Buffers',
           image: item.Image,
           desc: item.Description
@@ -684,111 +687,166 @@ function initContainerDock() {
   updateDock();
 }
 
-// Quick View Spec Sheet Modal
+// Quick View Spec Sheet Modal (Endeavor Architecture Parity)
 function initQuickSpecModal() {
   let modal = document.querySelector('.modal-overlay');
   if (!modal) {
     modal = document.createElement('div');
     modal.className = 'modal-overlay';
     modal.innerHTML = `
-      <div class="modal-dialog">
+      <div class="modal-dialog" data-lenis-prevent="true">
         <button class="modal-close-btn" aria-label="Close dialog">✕</button>
         
         <!-- LEFT: STUDIO VISUAL & COMPLIANCE DOSSIER -->
         <div class="modal-image-col">
           <div class="modal-img-wrapper">
             <img id="modal-img" src="" alt="Product Specification Preview">
+            <div class="modal-img-origin-badge">📍 Jodhpur Guild • Estd. 2011</div>
             <div class="modal-zoom-hint">&#10022; 100% Commercial Studio Master</div>
           </div>
-          <div class="modal-compliance-strip">
-            <div class="modal-comp-badge">
-              <span class="comp-icon">&#127807;</span>
-              <span>VRIKSH Legal Timber Certified</span>
+
+          <!-- Official Export Compliance & Quality Audit Dossier -->
+          <div class="modal-compliance-card">
+            <div class="comp-card-header">
+              <span class="comp-card-dot"></span>
+              <span class="comp-card-title">EXPORT QUALITY &amp; COMPLIANCE AUDIT</span>
             </div>
-            <div class="modal-comp-badge">
-              <span class="comp-icon">&#129717;</span>
-              <span id="modal-moisture-badge">8%–10% Kiln Moisture (Anti-Warp)</span>
+            <div class="comp-card-rows">
+              <div class="comp-item">
+                <div class="comp-item-icon">&#127807;</div>
+                <div class="comp-item-content">
+                  <div class="comp-item-title-row">
+                    <span class="comp-name">VRIKSH Legal Timber</span>
+                    <span class="comp-status-tag green">VERIFIED</span>
+                  </div>
+                  <p class="comp-desc">Lacey Act &amp; EUDR Deforestation Geolocation pre-cleared for US &amp; EU customs.</p>
+                </div>
+              </div>
+
+              <div class="comp-item">
+                <div class="comp-item-icon">&#129717;</div>
+                <div class="comp-item-content">
+                  <div class="comp-item-title-row">
+                    <span class="comp-name" id="modal-moisture-badge">8%–10% Kiln Moisture</span>
+                    <span class="comp-status-tag gold">ANTI-WARP SLA</span>
+                  </div>
+                  <p class="comp-desc">Automated sensor vacuum kiln seasoning; zero acclimatization warping guaranteed.</p>
+                </div>
+              </div>
+
+              <div class="comp-item">
+                <div class="comp-item-icon">&#128230;</div>
+                <div class="comp-item-content">
+                  <div class="comp-item-title-row">
+                    <span class="comp-name">ISTA-1A Drop-Tested Carton</span>
+                    <span class="comp-status-tag blue">TESTED PASS</span>
+                  </div>
+                  <p class="comp-desc">5-ply master export pack with high-density EPS edge buffers engineered for ocean freight.</p>
+                </div>
+              </div>
             </div>
-            <div class="modal-comp-badge">
-              <span class="comp-icon">&#128230;</span>
-              <span>ISTA-1A Drop-Tested 5-Ply Carton</span>
+            <div class="comp-card-footer">
+              <span>Port: Mundra (INMUN)</span>
+              <span>•</span>
+              <span id="modal-lead-time">Lead Time: 45–60 Days</span>
             </div>
           </div>
         </div>
 
-        <!-- RIGHT: COMMERCIAL EXPORT SPECIFICATIONS -->
+        <!-- RIGHT: COMMERCIAL EXPORT SPECIFICATIONS & PINNED ACTION DOCK -->
         <div class="modal-info-col">
-          <!-- Metadata Bar -->
-          <div class="modal-header-meta">
-            <div class="modal-badge-group">
-              <span id="modal-sku" class="modal-sku-tag">SKU</span>
-              <span id="modal-cat-tag" class="modal-cat-tag">Category</span>
+          
+          <!-- Top Scrollable Specs Container -->
+          <div class="modal-info-scroll" data-lenis-prevent="true">
+            <!-- Metadata Bar -->
+            <div class="modal-header-meta">
+              <div class="modal-badge-group">
+                <span id="modal-sku" class="modal-sku-tag">SKU</span>
+                <span id="modal-cat-tag" class="modal-cat-tag">Category</span>
+                <span id="modal-benchmark-tag" class="modal-benchmark-tag">Retail Est: $45–$60</span>
+              </div>
+              <span class="modal-verified-pill">&#10003; Export Verified</span>
             </div>
-            <span class="modal-verified-pill">&#10003; Export Verified</span>
+
+            <!-- Title & Executive Summary -->
+            <h2 id="modal-title" class="modal-title">Product Name</h2>
+            <p id="modal-desc" class="modal-desc"></p>
+
+            <!-- Commercial 3-Up Metric Cards (Endeavor Parity) -->
+            <div class="modal-metrics-card">
+              <div class="modal-metric-cell">
+                <span class="metric-label">FOB Mundra Tier</span>
+                <span class="metric-val" id="modal-fob">--</span>
+                <span class="metric-sub">Port of Lading (FCL)</span>
+              </div>
+              <div class="modal-metric-cell">
+                <span class="metric-label">Unit Volume</span>
+                <span class="metric-val" id="modal-cbm">--</span>
+                <span class="metric-sub">Shipping Density</span>
+              </div>
+              <div class="modal-metric-cell">
+                <span class="metric-label">Minimum Order</span>
+                <span class="metric-val" id="modal-moq">--</span>
+                <span class="metric-sub">Master Pack MOQ</span>
+              </div>
+            </div>
+
+            <!-- Technical Specifications Dossier (Clean 2-Column Grid) -->
+            <div class="modal-spec-section-header">
+              <span class="spec-sec-title">Commercial Specifications &amp; Yield</span>
+              <span class="spec-sec-tag">Standard Export Grade</span>
+            </div>
+
+            <div class="modal-specs-dossier-grid">
+              <div class="dossier-cell">
+                <span class="dossier-label">Timber / Species</span>
+                <span class="dossier-val" id="modal-species">Solid Mango Wood</span>
+              </div>
+              <div class="dossier-cell">
+                <span class="dossier-label">Style / Trend</span>
+                <span class="dossier-val" id="modal-style">Japandi Two-Tone</span>
+              </div>
+              <div class="dossier-cell">
+                <span class="dossier-label">Dimensions (US)</span>
+                <span class="dossier-val" id="modal-dim-in">Dia 12" x 5.5"</span>
+              </div>
+              <div class="dossier-cell">
+                <span class="dossier-label">Dimensions (Metric)</span>
+                <span class="dossier-val" id="modal-dim-cm">Dia 30 x 14 cm</span>
+              </div>
+              <div class="dossier-cell">
+                <span class="dossier-label">Master Packaging</span>
+                <span class="dossier-val" id="modal-pack">5-Ply Carton + EPS</span>
+              </div>
+              <div class="dossier-cell">
+                <span class="dossier-label">Target Retail Benchmark</span>
+                <span class="dossier-val" id="modal-target-retail">Crate &amp; Barrel, Zara Home</span>
+              </div>
+              <div class="dossier-cell full-width">
+                <span class="dossier-label">Container Yield (Est.)</span>
+                <span class="dossier-val highlight" id="modal-yield">~1,860 pcs (20ft FCL) • ~4,530 pcs (40ft HQ)</span>
+              </div>
+              <div class="dossier-cell full-width">
+                <span class="dossier-label">Trade Regulatory Compliance</span>
+                <span class="dossier-val">US Lacey Act • EUDR Geolocation • ISPM-15 Heat Treated</span>
+              </div>
+            </div>
           </div>
 
-          <!-- Title & Executive Summary -->
-          <h2 id="modal-title" class="modal-title">Product Name</h2>
-          <p id="modal-desc" class="modal-desc"></p>
-
-          <!-- Commercial 3-Up Metric Cards (Endeavor Parity) -->
-          <div class="modal-metrics-card">
-            <div class="modal-metric-cell">
-              <span class="metric-label">FOB Mundra Tier</span>
-              <span class="metric-val" id="modal-fob">--</span>
-              <span class="metric-sub">Port of Lading</span>
-            </div>
-            <div class="modal-metric-cell">
-              <span class="metric-label">Unit Volume</span>
-              <span class="metric-val" id="modal-cbm">--</span>
-              <span class="metric-sub">Shipping Density</span>
-            </div>
-            <div class="modal-metric-cell">
-              <span class="metric-label">Minimum Order</span>
-              <span class="metric-val" id="modal-moq">--</span>
-              <span class="metric-sub">Master Pack MOQ</span>
-            </div>
-          </div>
-
-          <!-- Technical Specs Grid -->
-          <div class="modal-spec-section-title">Technical Specifications & Yield</div>
-          <div class="modal-specs-grid">
-            <div class="spec-row">
-              <span class="spec-label">Timber & Construction:</span>
-              <span class="spec-val" id="modal-species"></span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-label">Dimensions (Imperial):</span>
-              <span class="spec-val" id="modal-dim-in"></span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-label">Dimensions (Metric):</span>
-              <span class="spec-val" id="modal-dim-cm"></span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-label">Export Packaging:</span>
-              <span class="spec-val" id="modal-pack"></span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-label">Container Yield (Est.):</span>
-              <span class="spec-val" id="modal-yield">~1,860 pcs (20ft FCL) • ~4,530 pcs (40ft HQ)</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-label">Trade Regulatory:</span>
-              <span class="spec-val">US Lacey Act • EUDR Due Diligence • ISPM-15 Heat Treated</span>
-            </div>
-          </div>
-
-          <!-- Interactive Container Order Dock -->
+          <!-- Pinned Sticky Action Footer (Always 100% visible immediately!) -->
           <div class="modal-action-dock">
             <div class="modal-qty-controls">
-              <span class="modal-qty-label">Order Units:</span>
-              <div class="modal-stepper">
-                <button type="button" class="stepper-btn" id="modal-qty-minus">−</button>
-                <input type="number" id="modal-qty-input" class="modal-qty-input" value="50" min="10" step="10">
-                <button type="button" class="stepper-btn" id="modal-qty-plus">+</button>
+              <div class="modal-qty-left">
+                <span class="modal-qty-label">Order Volume:</span>
+                <div class="modal-stepper">
+                  <button type="button" class="stepper-btn" id="modal-qty-minus" aria-label="Decrease quantity">−</button>
+                  <input type="number" id="modal-qty-input" class="modal-qty-input" value="50" min="10" step="10">
+                  <button type="button" class="stepper-btn" id="modal-qty-plus" aria-label="Increase quantity">+</button>
+                </div>
               </div>
-              <span class="modal-live-cbm" id="modal-live-cbm">0.75 CBM • 180 kg</span>
+              <div class="modal-live-cbm-badge">
+                <span id="modal-live-cbm">0.75 CBM • 180 kg payload</span>
+              </div>
             </div>
 
             <div class="modal-btn-group">
@@ -796,22 +854,26 @@ function initQuickSpecModal() {
               <a href="rfq.html" class="modal-btn-secondary" id="modal-direct-rfq">Review Container →</a>
             </div>
           </div>
+
         </div>
       </div>
     `;
     document.body.appendChild(modal);
 
-    modal.querySelector('.modal-close-btn').addEventListener('click', () => {
+    function closeModal() {
       modal.classList.remove('open');
-    });
+      if (window.lenis && typeof window.lenis.start === 'function') {
+        window.lenis.start();
+      }
+    }
 
+    modal.querySelector('.modal-close-btn').addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
-      if (e.target === modal) modal.classList.remove('open');
+      if (e.target === modal) closeModal();
     });
-
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.classList.contains('open')) {
-        modal.classList.remove('open');
+        closeModal();
       }
     });
 
@@ -869,9 +931,39 @@ function initQuickSpecModal() {
     document.getElementById('modal-img').src = item.image;
     document.getElementById('modal-sku').textContent = item.sku;
     document.getElementById('modal-cat-tag').textContent = item.category?.split(':')[1]?.trim() || item.category || 'Export Collection';
+    
+    const benchmarkEl = document.getElementById('modal-benchmark-tag');
+    if (benchmarkEl) {
+      benchmarkEl.textContent = `Retail Est: ${item.retailEst || '$45 – $60'}`;
+    }
+
     document.getElementById('modal-title').textContent = item.title;
-    document.getElementById('modal-desc').textContent = item.desc;
-    document.getElementById('modal-species').textContent = item.species;
+
+    // Clean concise description (1-2 crisp editorial sentences)
+    let cleanDesc = item.desc || '';
+    if (cleanDesc.includes('. ')) {
+      const sentences = cleanDesc.split('. ');
+      cleanDesc = sentences.slice(0, 2).join('. ') + '.';
+    }
+    document.getElementById('modal-desc').textContent = cleanDesc;
+
+    document.getElementById('modal-species').textContent = item.species || 'Solid Hardwood (Sheesham / Mango / Acacia)';
+    
+    const styleEl = document.getElementById('modal-style');
+    if (styleEl) {
+      styleEl.textContent = item.style || 'Artisanal Contemporary';
+    }
+
+    const targetEl = document.getElementById('modal-target-retail');
+    if (targetEl) {
+      targetEl.textContent = item.targetBuyers || 'Crate & Barrel, Zara Home, RH';
+    }
+
+    const leadEl = document.getElementById('modal-lead-time');
+    if (leadEl) {
+      leadEl.textContent = `Lead Time: ${item.leadTime || '45–60 Days'}`;
+    }
+
     document.getElementById('modal-moisture-badge').textContent = item.moisture || '8%–10% Kiln Moisture (Anti-Warp)';
     document.getElementById('modal-dim-in').textContent = item.dimInches;
     document.getElementById('modal-dim-cm').textContent = item.dimCm || 'Standard Export Metric';
@@ -901,7 +993,7 @@ function initQuickSpecModal() {
       const q = parseInt(qtyInput.value, 10) || item.moq;
       RFQCart.add(sku, q);
       if (window.soundFX) window.soundFX.playTick(1200);
-      addBtn.textContent = `&#10003; Added ${q} Units to RFQ!`;
+      addBtn.textContent = `✓ Added ${q} Units to RFQ!`;
       addBtn.style.background = 'linear-gradient(135deg, #2E7D32 0%, #388E3C 100%)';
       setTimeout(() => {
         modal.classList.remove('open');
@@ -909,6 +1001,9 @@ function initQuickSpecModal() {
     };
 
     modal.classList.add('open');
+    if (window.lenis && typeof window.lenis.stop === 'function') {
+      window.lenis.stop();
+    }
   }
   window.openProductSpec = openModal;
 }
@@ -1293,7 +1388,8 @@ function initDepartmentPage(config) {
 window.initDepartmentPage = initDepartmentPage;
 
 // ==========================================================================
-// 500-SKU GLOBAL COMMAND PALETTE (Cmd+K / Ctrl+K)
+// ==========================================================================
+// 500-SKU GLOBAL COMMAND PALETTE (Cmd+K / Ctrl+K) — Full Virtual Scroll
 // ==========================================================================
 function initCommandPalette() {
   const navBtn = document.getElementById('nav-cmd-k-btn');
@@ -1305,17 +1401,17 @@ function initCommandPalette() {
     backdrop.id = 'cmd-palette-backdrop';
     backdrop.className = 'cmd-palette-backdrop';
     backdrop.innerHTML = `
-      <div class="cmd-palette-modal" role="dialog" aria-modal="true" aria-label="Command Search">
+      <div class="cmd-palette-modal" role="dialog" aria-modal="true" aria-label="Command Search" data-lenis-prevent="true">
         <div class="cmd-palette-header">
           <span class="cmd-palette-search-icon">🔍</span>
           <input type="text" id="cmd-palette-input" class="cmd-palette-input" placeholder="Search 500 SKUs by name, wood species, jaali, or CBM..." autocomplete="off">
           <button type="button" id="cmd-palette-close" class="cmd-palette-close" aria-label="Close Search">✕</button>
         </div>
-        <div id="cmd-palette-results" class="cmd-palette-results"></div>
+        <div id="cmd-palette-results" class="cmd-palette-results" data-lenis-prevent="true"></div>
         <div class="cmd-palette-footer">
           <div class="cmd-palette-keys">
             <span><kbd>↑</kbd> <kbd>↓</kbd> Navigate</span>
-            <span><kbd>Enter</kbd> Select</span>
+            <span><kbd>Enter</kbd> Open Specs</span>
             <span><kbd>Esc</kbd> Close</span>
           </div>
           <span id="cmd-palette-count">500 SKUs indexed</span>
@@ -1330,9 +1426,22 @@ function initCommandPalette() {
   const closeBtn = document.getElementById('cmd-palette-close');
   const countLabel = document.getElementById('cmd-palette-count');
 
+  let currentFilteredList = [];
+  let displayedCount = 0;
+  const BATCH_SIZE = 35;
+  let selectedIndex = -1;
+
+  // Prevent wheel events from propagating to Lenis
+  resultsBox.addEventListener('wheel', (e) => {
+    e.stopPropagation();
+  }, { passive: true });
+
   function openPalette() {
     backdrop.classList.add('open');
-    soundFX.playTick(1200);
+    if (window.lenis && typeof window.lenis.stop === 'function') {
+      window.lenis.stop();
+    }
+    if (window.soundFX) soundFX.playTick(1200);
     setTimeout(() => {
       if (input) {
         input.focus();
@@ -1344,7 +1453,10 @@ function initCommandPalette() {
 
   function closePalette() {
     backdrop.classList.remove('open');
-    soundFX.playTick(800);
+    if (window.lenis && typeof window.lenis.start === 'function') {
+      window.lenis.start();
+    }
+    if (window.soundFX) soundFX.playTick(800);
   }
 
   if (navBtn) {
@@ -1359,49 +1471,66 @@ function initCommandPalette() {
     if (e.target === backdrop) closePalette();
   });
 
-  // Global Keyboard Shortcuts (Cmd+K, Ctrl+K, Escape)
+  // Global Keyboard Shortcuts (Cmd+K, Ctrl+K, Escape, Arrows, Enter)
   document.addEventListener('keydown', (e) => {
     if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
       if (backdrop.classList.contains('open')) closePalette();
       else openPalette();
-    } else if (e.key === 'Escape' && backdrop.classList.contains('open')) {
-      e.preventDefault();
-      closePalette();
-    }
-  });
-
-  function renderResults(q) {
-    const items = window.ALL_PRODUCTS_500 || Object.values(window.PRODUCT_CATALOG || {});
-    const query = q.toLowerCase();
-    const filtered = query
-      ? items.filter(it => {
-          const sku = (it.SKU || it.sku || '').toLowerCase();
-          const name = (it.Product_Name || it.Title || it.title || '').toLowerCase();
-          const spec = (it.Material_Species || it.species || '').toLowerCase();
-          const cat = (it.Category || it.category || '').toLowerCase();
-          return sku.includes(query) || name.includes(query) || spec.includes(query) || cat.includes(query);
-        }).slice(0, 20)
-      : items.slice(0, 12);
-
-    countLabel.textContent = `${filtered.length} of ${items.length} SKUs`;
-    resultsBox.innerHTML = '';
-
-    if (filtered.length === 0) {
-      resultsBox.innerHTML = '<div style="padding: 24px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">No matching export SKUs found. Try searching by timber species (Sheesham, Mango), iron jaali, or product title.</div>';
       return;
     }
 
-    filtered.forEach(it => {
+    if (!backdrop.classList.contains('open')) return;
+
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closePalette();
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      updateSelectedItem(selectedIndex + 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      updateSelectedItem(selectedIndex - 1);
+    } else if (e.key === 'Enter') {
+      const items = resultsBox.querySelectorAll('.cmd-result-item');
+      if (selectedIndex >= 0 && selectedIndex < items.length) {
+        e.preventDefault();
+        items[selectedIndex].click();
+      }
+    }
+  });
+
+  function updateSelectedItem(newIndex) {
+    const items = resultsBox.querySelectorAll('.cmd-result-item');
+    if (!items.length) return;
+    if (selectedIndex >= 0 && selectedIndex < items.length) {
+      items[selectedIndex].classList.remove('selected');
+    }
+    selectedIndex = Math.max(0, Math.min(newIndex, items.length - 1));
+    const activeItem = items[selectedIndex];
+    if (activeItem) {
+      activeItem.classList.add('selected');
+      activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }
+
+  function renderBatch() {
+    const nextItems = currentFilteredList.slice(displayedCount, displayedCount + BATCH_SIZE);
+    if (!nextItems.length) return;
+
+    nextItems.forEach((it, idx) => {
+      const globalIndex = displayedCount + idx;
       const sku = it.SKU || it.sku;
       const title = it.Product_Name || it.Title || it.title;
       const cbm = it.CBM || it.cbm;
       const moq = it.MOQ || it.moq || 20;
-      const species = it.Material_Species || it.species || 'Seasoned Hardwood';
-      const img = it.Image_File || it.image || `../assets/sku_${sku.toLowerCase().replace(/-/g, '_')}.jpg`;
+      const species = it.Material_Species || it.species || it.Material_Construction || 'Seasoned Hardwood';
+      const img = it.Image || it.Image_File || it.image || `../assets/sku_${sku.toLowerCase().replace(/-/g, '_')}.jpg`;
 
       const row = document.createElement('div');
       row.className = 'cmd-result-item';
+      row.dataset.index = globalIndex;
+      row.dataset.sku = sku;
       row.innerHTML = `
         <img class="cmd-result-thumb" src="${img}" alt="${title}" onerror="this.src='../assets/hero_live_edge_table.jpg'">
         <div class="cmd-result-info">
@@ -1409,9 +1538,12 @@ function initCommandPalette() {
             <span class="cmd-result-sku">${sku}</span>
             <span class="cmd-result-title">${title}</span>
           </div>
-          <div class="cmd-result-meta">${species} • ${cbm} CBM/pc • MOQ ${moq}</div>
+          <div class="cmd-result-meta">${species} • ${cbm} CBM/pc • MOQ ${moq} Pcs</div>
         </div>
-        <button type="button" class="cmd-result-action" data-sku="${sku}">+ Add RFQ</button>
+        <div class="cmd-result-actions-group">
+          <button type="button" class="cmd-result-spec-btn" data-sku="${sku}" title="View Full Export Spec Sheet">Specs ℹ</button>
+          <button type="button" class="cmd-result-action" data-sku="${sku}">+ Add RFQ</button>
+        </div>
       `;
 
       row.onclick = (e) => {
@@ -1419,8 +1551,8 @@ function initCommandPalette() {
           e.stopPropagation();
           if (window.RFQCart) {
             RFQCart.add(sku, moq, cbm);
-            soundFX.playChime();
-            e.target.textContent = '&#10003; Added!';
+            if (window.soundFX) soundFX.playChime();
+            e.target.textContent = '✓ Added!';
             e.target.style.background = '#2E7D32';
             e.target.style.color = '#FFF';
             setTimeout(() => {
@@ -1431,11 +1563,58 @@ function initCommandPalette() {
           }
           return;
         }
-        window.location.href = `rfq.html?sku=${sku}`;
+
+        // Clicking Specs ℹ button or row opens Quick Spec modal directly
+        closePalette();
+        if (window.openProductSpec) {
+          window.openProductSpec(sku);
+        }
       };
 
       resultsBox.appendChild(row);
     });
+
+    displayedCount += nextItems.length;
+    countLabel.textContent = `Showing ${displayedCount} of ${currentFilteredList.length} SKUs`;
+  }
+
+  // Infinite scroll on resultsBox
+  resultsBox.addEventListener('scroll', () => {
+    if (resultsBox.scrollTop + resultsBox.clientHeight >= resultsBox.scrollHeight - 120) {
+      if (displayedCount < currentFilteredList.length) {
+        renderBatch();
+      }
+    }
+  });
+
+  function renderResults(q) {
+    if (typeof syncAllProductsToCatalog === 'function') {
+      syncAllProductsToCatalog();
+    }
+    const items = window.ALL_PRODUCTS_500 || Object.values(window.PRODUCT_CATALOG || {});
+    const query = q.toLowerCase();
+
+    currentFilteredList = query
+      ? items.filter(it => {
+          const sku = (it.SKU || it.sku || '').toLowerCase();
+          const name = (it.Product_Name || it.Title || it.title || '').toLowerCase();
+          const spec = (it.Material_Species || it.species || it.Material_Construction || '').toLowerCase();
+          const cat = (it.Category || it.category || '').toLowerCase();
+          return sku.includes(query) || name.includes(query) || spec.includes(query) || cat.includes(query);
+        })
+      : items;
+
+    resultsBox.innerHTML = '';
+    displayedCount = 0;
+    selectedIndex = -1;
+
+    if (currentFilteredList.length === 0) {
+      resultsBox.innerHTML = '<div style="padding: 28px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">No matching export SKUs found. Try searching by timber species (Sheesham, Mango, Acacia), iron jaali, or product title.</div>';
+      countLabel.textContent = `0 of ${items.length} SKUs`;
+      return;
+    }
+
+    renderBatch();
   }
 
   if (input) {
