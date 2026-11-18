@@ -177,6 +177,75 @@
       transform: translateY(-1px);
     }
 
+    @media (max-width: 640px) {
+      .mag-top-nav {
+        padding: 6px 10px;
+        height: 48px;
+      }
+      .mag-ghost-btn {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+      }
+      .mag-ghost-rfq {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+      }
+      #btnSoundToggle, #btnFullscreen {
+        display: none !important;
+      }
+      .page-inner {
+        padding: 8px 6px !important;
+      }
+      .spread-header {
+        font-size: 0.52rem !important;
+        margin-bottom: 6px !important;
+        padding-bottom: 4px !important;
+      }
+      .spread-footer {
+        font-size: 0.52rem !important;
+        padding-top: 4px !important;
+      }
+      .mag-product-grid {
+        gap: 6px !important;
+      }
+      .mag-product-card {
+        padding: 4px !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+      }
+      .mag-product-img {
+        height: 95px !important;
+      }
+      .mag-product-title {
+        font-size: 0.62rem !important;
+        line-height: 1.15 !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+      }
+      .mag-product-meta {
+        font-size: 0.50rem !important;
+        line-height: 1.15 !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+      }
+      .mag-product-pricing {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 3px !important;
+        padding-top: 3px !important;
+      }
+      .mag-fob-price {
+        font-size: 0.64rem !important;
+      }
+      .mag-btn-add {
+        width: 100% !important;
+        text-align: center !important;
+        padding: 2px 4px !important;
+        font-size: 0.58rem !important;
+      }
+    }
+
     /* MAGAZINE STAGE */
     #magazine-stage {
       position: relative;
@@ -241,7 +310,7 @@
       width: 100%;
     }
 
-    /* Only the actual front and back covers get the dark hardcover styling */
+    /* Hardcover front and back covers */
     .mag-page.page-cover-front,
     .mag-page.page-cover-back {
       background: linear-gradient(135deg, #14100E 0%, #221A15 50%, #100C0A 100%) !important;
@@ -249,8 +318,15 @@
       border: 2px solid var(--accent-gold) !important;
     }
 
-    /* All inner pages (including Page 2 inside cover and Page 17) stay pristine warm cream */
-    .mag-page:not(.page-cover-front):not(.page-cover-back) {
+    /* Chapter Splash Pages (Cinematic Dark Luxury Hardbound Feature) */
+    .mag-page.page-chapter-splash {
+      background: #14100E !important;
+      color: #FFFFFF !important;
+      border: 1px solid #33271E !important;
+    }
+
+    /* All ordinary inner catalog pages stay warm cream */
+    .mag-page:not(.page-cover-front):not(.page-cover-back):not(.page-chapter-splash) {
       background: var(--page-cream) !important;
       color: #241D18 !important;
       border: 1px solid #E8E2DA !important;
@@ -431,57 +507,88 @@
       color: var(--accent-gold);
     }
 
-    /* CHAPTER SPLASH PAGES */
-    .mag-chapter-splash {
+    /* CHAPTER SPLASH PAGES (Dark Luxury Hardbound Feature) */
+    .chapter-splash, .mag-chapter-splash {
       height: 100%;
+      min-height: 100%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: clamp(20px, 4vw, 36px);
+      padding: clamp(24px, 5vw, 42px);
       position: relative;
-      background-size: cover;
-      background-position: center;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
       box-sizing: border-box;
-      color: #FFFFFF;
+      color: #FFFFFF !important;
+      overflow: hidden;
     }
 
-    .mag-chapter-splash::before {
+    .chapter-splash::before, .mag-chapter-splash::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(18,16,14,0.85) 60%, rgba(18,16,14,0.98) 100%);
+      background: linear-gradient(180deg, rgba(16, 12, 10, 0.25) 0%, rgba(16, 12, 10, 0.75) 45%, rgba(16, 12, 10, 0.98) 100%);
+      z-index: 1;
+    }
+
+    .chapter-splash-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.6) 100%);
+      z-index: 1;
+      pointer-events: none;
     }
 
     .chapter-splash-content {
       position: relative;
       z-index: 2;
+      margin-bottom: 24px;
     }
 
     .chapter-tag {
-      font-size: 0.65rem;
+      font-size: clamp(0.65rem, 1.3vw, 0.75rem);
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--accent-gold);
+      color: var(--accent-gold) !important;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       display: inline-block;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
     }
 
     .chapter-title {
       font-family: var(--font-cinzel);
-      font-size: clamp(1.4rem, 3.2vw, 2.2rem);
-      line-height: 1.15;
-      margin-bottom: 10px;
-      color: #FFFFFF;
-      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+      font-size: clamp(1.4rem, 3.4vw, 2.3rem);
+      line-height: 1.18;
+      margin-bottom: 12px;
+      color: #FFFFFF !important;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.95);
     }
 
     .chapter-desc {
-      font-size: clamp(0.72rem, 1.4vw, 0.82rem);
-      color: #DDD4C8;
-      line-height: 1.5;
-      margin-bottom: 16px;
-      max-width: 440px;
+      font-size: clamp(0.72rem, 1.4vw, 0.84rem);
+      color: #E6DDD0 !important;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      max-width: 480px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+    }
+
+    .spec-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(184, 149, 82, 0.4);
+      color: #FAF7F2 !important;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
     }
 
     /* PRODUCT GRID IN SPREAD */
@@ -559,6 +666,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
       margin-top: auto;
       padding-top: 4px;
       border-top: 1px solid #F0EAE1;
@@ -567,19 +676,21 @@
     .mag-fob-price {
       font-family: var(--font-sans);
       font-weight: 700;
-      font-size: clamp(0.68rem, 1.3vw, 0.8rem);
+      font-size: clamp(0.62rem, 1.2vw, 0.78rem);
       color: var(--primary);
+      white-space: nowrap;
     }
 
     .mag-btn-add {
       background: rgba(184, 149, 82, 0.12);
       border: 1px solid rgba(184, 149, 82, 0.4);
       color: #7D5E23;
-      padding: 3px 8px;
+      padding: 2px 7px;
       border-radius: 4px;
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       font-weight: 700;
       cursor: pointer;
+      white-space: nowrap;
       transition: all 0.2s ease;
     }
 
@@ -972,7 +1083,7 @@
     <!-- FLOATING TOP NAV -->
     <header class="mag-top-nav">
       <div class="mag-nav-group">
-        <a href="../website/index.html" class="mag-ghost-btn">‹ Portal</a>
+        <a href="../website/index.html" class="mag-ghost-btn">← Main Site Menu</a>
       </div>
 
       <div class="mag-ghost-title">
@@ -1123,7 +1234,7 @@
         </div>
 
                 <!-- ================= PAGE 04: DIVISION I CHAPTER SPLASH ================= -->
-        <div class="mag-page">
+        <div class="mag-page page-chapter-splash">
           <div class="chapter-splash" style="background-image: url('../assets/hero_live_edge_table.jpg');">
             <div class="chapter-splash-overlay"></div>
             <div class="chapter-splash-content">
@@ -2772,7 +2883,7 @@
         </div>
 
         <!-- ================= PAGE 30: DIVISION II CHAPTER SPLASH ================= -->
-        <div class="mag-page">
+        <div class="mag-page page-chapter-splash">
           <div class="chapter-splash" style="background-image: url('../assets/charcuterie_board_deluxe.jpg');">
             <div class="chapter-splash-overlay"></div>
             <div class="chapter-splash-content">
@@ -3455,7 +3566,7 @@
         </div>
 
         <!-- ================= PAGE 41: DIVISION III CHAPTER SPLASH ================= -->
-        <div class="mag-page">
+        <div class="mag-page page-chapter-splash">
           <div class="chapter-splash" style="background-image: url('../assets/pierced_iron_lantern_moroccan.jpg');">
             <div class="chapter-splash-overlay"></div>
             <div class="chapter-splash-content">
@@ -4138,7 +4249,7 @@
         </div>
 
         <!-- ================= PAGE 52: DIVISION IV CHAPTER SPLASH ================= -->
-        <div class="mag-page">
+        <div class="mag-page page-chapter-splash">
           <div class="chapter-splash" style="background-image: url('../assets/hardwood_chess_board.jpg');">
             <div class="chapter-splash-overlay"></div>
             <div class="chapter-splash-content">
@@ -6620,9 +6731,9 @@
         const isMobile = winWidth <= 800;
 
         if (isMobile) {
-          // Portrait single-page mode
-          const availW = winWidth - 24;
-          const availH = winHeight - 96;
+          // Portrait single-page mode - guarantee clean fit within mobile screen bounds
+          const availW = Math.min(winWidth - 16, 380);
+          const availH = winHeight - 110;
           let w = availW;
           let h = w * 1.414;
           if (h > availH) {
@@ -6630,8 +6741,8 @@
             w = h / 1.414;
           }
           return {
-            width: Math.floor(Math.max(w, 300)),
-            height: Math.floor(Math.max(h, 440)),
+            width: Math.floor(Math.max(w, 280)),
+            height: Math.floor(Math.max(h, 400)),
             isPortrait: true
           };
         } else {
@@ -6667,7 +6778,7 @@
           height: dims.height,
           size: "fixed",
           maxShadowOpacity: 0.6,
-          showCover: true,
+          showCover: !dims.isPortrait,
           mobileScrollSupport: true,
           usePortrait: dims.isPortrait,
           startPage: (function() {
