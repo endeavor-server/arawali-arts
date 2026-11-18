@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Master Export Collections (24 Product Lines • 500 SKUs) — Arawali Arts Jodhpur</title>
-  <link rel="stylesheet" href="style.css?v=2026.24">
+  <link rel="stylesheet" href="style.css?v=2026.25">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* Luxury Collections Redesign Styles (Endeavor Parity) */
@@ -318,6 +318,450 @@
       color: #FFFFFF;
       border-color: var(--primary);
     }
+
+    /* ==========================================================================
+       MAJOR E-COMMERCE VERTICAL SIDEBAR FILTER ARCHITECTURE
+       ========================================================================== */
+    .collections-catalog-layout {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 10px;
+    }
+
+    /* Left Sidebar */
+    .catalog-vertical-sidebar {
+      width: 280px;
+      min-width: 280px;
+      max-width: 280px;
+      position: sticky;
+      top: 76px;
+      max-height: calc(100vh - 96px);
+      overflow-y: auto;
+      background: #FFFFFF;
+      border: 1px solid rgba(184, 149, 82, 0.28);
+      border-radius: 14px;
+      padding: 22px 18px;
+      box-shadow: 0 4px 20px rgba(21, 17, 14, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-sizing: border-box;
+      -webkit-overflow-scrolling: touch;
+      z-index: 100;
+    }
+    .catalog-vertical-sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .catalog-vertical-sidebar::-webkit-scrollbar-track {
+      background: #FDFBF8;
+    }
+    .catalog-vertical-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(184, 149, 82, 0.3);
+      border-radius: 4px;
+    }
+
+    /* Sidebar Header */
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 14px;
+      border-bottom: 1.5px solid rgba(184, 149, 82, 0.2);
+    }
+    .sidebar-header-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar-header-title h3 {
+      font-family: var(--font-cinzel, serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1A1410;
+      letter-spacing: 0.05em;
+      margin: 0;
+    }
+    .sidebar-reset-btn {
+      background: transparent;
+      border: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #8C651F;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      padding: 4px 6px;
+      transition: color 0.2s;
+    }
+    .sidebar-reset-btn:hover {
+      color: #1A1410;
+    }
+    .sidebar-close-mobile {
+      display: none;
+      background: transparent;
+      border: 1px solid rgba(184, 149, 82, 0.3);
+      border-radius: 6px;
+      font-size: 1.1rem;
+      color: #1A1410;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+
+    /* Active Filter Chips */
+    .sidebar-active-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-bottom: 4px;
+    }
+    .sidebar-active-chips:empty {
+      display: none;
+    }
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(184, 149, 82, 0.12);
+      border: 1px solid rgba(184, 149, 82, 0.3);
+      color: #8C651F;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-chip:hover {
+      background: rgba(184, 149, 82, 0.22);
+      color: #1A1410;
+    }
+    .filter-chip-remove {
+      font-size: 0.8rem;
+      line-height: 1;
+    }
+
+    /* Facet Groups */
+    .sidebar-facet-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(184, 149, 82, 0.14);
+    }
+    .sidebar-facet-group:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .facet-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #8C651F;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .facet-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Custom Radio & Checkbox rows */
+    .facet-radio, .facet-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #362D24;
+      cursor: pointer;
+      user-select: none;
+      padding: 5px 8px;
+      border-radius: 6px;
+      transition: background 0.15s ease, color 0.15s ease;
+      position: relative;
+    }
+    .facet-radio:hover, .facet-checkbox:hover {
+      background: rgba(184, 149, 82, 0.08);
+      color: #1A1410;
+    }
+    .facet-radio input, .facet-checkbox input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    /* Custom Check Indicator */
+    .facet-check-indicator {
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      border: 1.5px solid #C4B5A5;
+      border-radius: 4px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .facet-checkbox input:checked ~ .facet-check-indicator {
+      background: #8C651F;
+      border-color: #8C651F;
+    }
+    .facet-checkbox input:checked ~ .facet-check-indicator::after {
+      content: "✓";
+      color: #FFFFFF;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+    .facet-check-text, .facet-radio-text {
+      flex: 1;
+      font-size: 0.84rem;
+      line-height: 1.25;
+    }
+    .facet-checkbox input:checked ~ .facet-check-text,
+    .facet-radio input:checked ~ .facet-radio-text {
+      font-weight: 700;
+      color: #1A1410;
+    }
+
+    /* Custom Radio Indicator */
+    .facet-radio-indicator {
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      border: 1.5px solid #C4B5A5;
+      border-radius: 50%;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .facet-radio input:checked ~ .facet-radio-indicator {
+      border-color: #8C651F;
+      background: #FFFFFF;
+    }
+    .facet-radio input:checked ~ .facet-radio-indicator::after {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #8C651F;
+    }
+
+    .facet-count {
+      font-size: 0.72rem;
+      background: rgba(184, 149, 82, 0.12);
+      color: #8C651F;
+      padding: 1px 7px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    /* Sidebar Compliance Badges */
+    .sidebar-compliance-badges {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .badge-pill {
+      font-size: 0.72rem;
+      background: #FAF7F2;
+      border: 1px solid rgba(184, 149, 82, 0.2);
+      padding: 6px 10px;
+      border-radius: 6px;
+      color: #63574C;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .sidebar-mobile-apply {
+      display: none;
+      margin-top: 10px;
+    }
+    .sidebar-apply-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #A88134, #7D5D1E);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.92rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* Right Main Content */
+    .catalog-main-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Top Control Bar */
+    .catalog-control-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      background: #FFFFFF;
+      border: 1px solid rgba(184, 149, 82, 0.25);
+      border-radius: 12px;
+      padding: 12px 18px;
+      box-shadow: 0 4px 16px rgba(21, 17, 14, 0.04);
+    }
+    .catalog-search-bar {
+      flex: 1;
+      min-width: 260px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #FAF7F2;
+      border: 1.5px solid rgba(184, 149, 82, 0.22);
+      border-radius: 8px;
+      padding: 0 12px;
+      height: 42px;
+      transition: all 0.2s ease;
+    }
+    .catalog-search-bar:focus-within {
+      background: #FFFFFF;
+      border-color: #8C651F;
+      box-shadow: 0 0 0 3px rgba(184, 149, 82, 0.15);
+    }
+    .catalog-search-bar input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.88rem;
+      color: #1A1410;
+      font-family: inherit;
+    }
+    .catalog-jump-wrapper {
+      min-width: 240px;
+    }
+    .catalog-jump-select {
+      width: 100%;
+      height: 42px;
+      padding: 0 14px;
+      border-radius: 8px;
+      background: #FAF7F2;
+      border: 1.5px solid rgba(184, 149, 82, 0.22);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #362D24;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .catalog-jump-select:hover, .catalog-jump-select:focus {
+      background: #FFFFFF;
+      border-color: #8C651F;
+    }
+    .mobile-filter-drawer-trigger {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      height: 42px;
+      padding: 0 16px;
+      background: #FAF7F2;
+      border: 1.5px solid rgba(184, 149, 82, 0.35);
+      border-radius: 8px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #8C651F;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .mobile-filter-count {
+      background: #8C651F;
+      color: #FFFFFF;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+    .catalog-active-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
+      color: #63574C;
+      white-space: nowrap;
+      margin-left: auto;
+    }
+
+    /* Backdrop for Mobile Drawer */
+    .sidebar-drawer-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(18, 16, 14, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 99998;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .sidebar-drawer-backdrop.is-active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 992px) {
+      .collections-catalog-layout {
+        flex-direction: column;
+      }
+      .catalog-vertical-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 320px;
+        max-width: 85vw;
+        height: 100vh;
+        height: 100dvh;
+        background: #FFFFFF;
+        z-index: 100000;
+        border-radius: 0 16px 16px 0;
+        box-shadow: 20px 0 60px rgba(0, 0, 0, 0.35);
+        padding: 24px 20px 40px;
+        transform: translateX(-105%);
+        transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .catalog-vertical-sidebar.is-drawer-open {
+        transform: translateX(0);
+      }
+      .sidebar-close-mobile {
+        display: block;
+      }
+      .sidebar-mobile-apply {
+        display: block;
+      }
+      .mobile-filter-drawer-trigger {
+        display: inline-flex;
+      }
+      .catalog-jump-wrapper {
+        display: none;
+      }
+      .catalog-active-status {
+        width: 100%;
+        margin-left: 0;
+        justify-content: space-between;
+        padding-top: 8px;
+        border-top: 1px solid rgba(184, 149, 82, 0.15);
+      }
+    }
 </style>
 </head>
 <body>
@@ -447,65 +891,191 @@
   <section class="section" style="padding-top: 36px;">
     <div class="container">
 
-      <!-- Master Collections Command Console (Endeavor Parity) -->
-      <div class="dept-command-console collections-command-console">
-        
-        <!-- Row 1: Dual Mode View Switcher + Live Status Badge -->
-        <div class="console-view-header">
-          <div class="view-mode-toggles" role="tablist" aria-label="Catalog View Mode">
-            <button class="view-toggle-btn active" id="btnViewLookbook" data-view="lookbook" role="tab" aria-selected="true">
-              <span class="toggle-icon">✦</span> Curated Lookbook (24 Collections)
+      <!-- Backdrop for Mobile Filter Drawer -->
+      <div class="sidebar-drawer-backdrop" id="sidebarDrawerBackdrop"></div>
+
+      <!-- MAJOR E-COMMERCE 2-COLUMN CATALOG LAYOUT -->
+      <div class="collections-catalog-layout">
+
+        <!-- LEFT COLUMN: VERTICAL E-COMMERCE FILTER SIDEBAR -->
+        <aside class="catalog-vertical-sidebar" id="catalogVerticalSidebar">
+          
+          <!-- Sidebar Header -->
+          <div class="sidebar-header">
+            <div class="sidebar-header-title">
+              <span class="sidebar-filter-icon">⚙️</span>
+              <h3>Filters</h3>
+            </div>
+            <button type="button" class="sidebar-reset-btn" id="sidebarResetFilters">Reset All</button>
+            <button type="button" class="sidebar-close-mobile" id="sidebarCloseMobile" aria-label="Close filters">✕</button>
+          </div>
+
+          <!-- Active Filter Chips -->
+          <div class="sidebar-active-chips" id="sidebarActiveChips"></div>
+
+          <!-- Facet Group 1: Catalog Mode -->
+          <div class="sidebar-facet-group">
+            <div class="facet-title">Catalog Display Mode</div>
+            <div class="facet-options">
+              <label class="facet-radio">
+                <input type="radio" name="catalogMode" value="lookbook" checked id="radioModeLookbook">
+                <span class="facet-radio-indicator"></span>
+                <span class="facet-radio-text">✦ Curated Lookbook (24 Lines)</span>
+              </label>
+              <label class="facet-radio">
+                <input type="radio" name="catalogMode" value="directory" id="radioModeDirectory">
+                <span class="facet-radio-indicator"></span>
+                <span class="facet-radio-text">📋 500-SKU Master Catalog</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Facet Group 2: Master Product Division -->
+          <div class="sidebar-facet-group">
+            <div class="facet-title">Department / Division</div>
+            <div class="facet-options">
+              <label class="facet-checkbox">
+                <input type="checkbox" name="deptFilter" value="all" checked class="dept-checkbox-all">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">All Master Divisions</span>
+                <span class="facet-count">500</span>
+              </label>
+              <label class="facet-checkbox">
+                <input type="checkbox" name="deptFilter" value="furniture" class="dept-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">🪑 Furniture & Storage</span>
+                <span class="facet-count">140</span>
+              </label>
+              <label class="facet-checkbox">
+                <input type="checkbox" name="deptFilter" value="kitchen" class="dept-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">🍷 Kitchen & Entertaining</span>
+                <span class="facet-count">70</span>
+              </label>
+              <label class="facet-checkbox">
+                <input type="checkbox" name="deptFilter" value="decor" class="dept-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">🏮 Architectural Decor</span>
+                <span class="facet-count">130</span>
+              </label>
+              <label class="facet-checkbox">
+                <input type="checkbox" name="deptFilter" value="lifestyle" class="dept-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">🌿 Lifestyle & Giftware</span>
+                <span class="facet-count">160</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Facet Group 3: Timber & Primary Materials -->
+          <div class="sidebar-facet-group">
+            <div class="facet-title">Timber & Materials</div>
+            <div class="facet-options">
+              <label class="facet-checkbox">
+                <input type="checkbox" name="matFilter" value="sheesham" class="mat-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">Solid Sheesham (Rosewood)</span>
+              </label>
+              <label class="facet-checkbox">
+                <input type="checkbox" name="matFilter" value="mango" class="mat-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">Seasoned Mango Wood</span>
+              </label>
+              <label class="facet-checkbox">
+                <input type="checkbox" name="matFilter" value="acacia" class="mat-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">Kiln-Dried Acacia</span>
+              </label>
+              <label class="facet-checkbox">
+                <input type="checkbox" name="matFilter" value="iron" class="mat-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">Hand-Forged Wrought Iron</span>
+              </label>
+              <label class="facet-checkbox">
+                <input type="checkbox" name="matFilter" value="cast-iron" class="mat-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">Cast Iron & Brass Hardware</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Facet Group 4: FOB Price Tier (Mundra Port) -->
+          <div class="sidebar-facet-group">
+            <div class="facet-title">FOB Mundra Price Tier</div>
+            <div class="facet-options">
+              <label class="facet-checkbox">
+                <input type="checkbox" name="priceFilter" value="tier1" class="price-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">Under $15.00 FOB</span>
+              </label>
+              <label class="facet-checkbox">
+                <input type="checkbox" name="priceFilter" value="tier2" class="price-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">$15.00 – $40.00 FOB</span>
+              </label>
+              <label class="facet-checkbox">
+                <input type="checkbox" name="priceFilter" value="tier3" class="price-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">$40.00 – $100.00 FOB</span>
+              </label>
+              <label class="facet-checkbox">
+                <input type="checkbox" name="priceFilter" value="tier4" class="price-checkbox-item">
+                <span class="facet-check-indicator"></span>
+                <span class="facet-check-text">$100.00+ FOB</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Facet Group 5: Verified Export Standards -->
+          <div class="sidebar-facet-group">
+            <div class="facet-title">Verified Standards</div>
+            <div class="sidebar-compliance-badges">
+              <span class="badge-pill">🪵 8%–10% Kiln SLA</span>
+              <span class="badge-pill">🌿 US Lacey Act & VRIKSH</span>
+              <span class="badge-pill">🇪🇺 EUDR Deforestation Compliant</span>
+              <span class="badge-pill">📦 ISTA-1A 5-Ply Tested</span>
+              <span class="badge-pill">🚢 Port Direct (Mundra Lading)</span>
+            </div>
+          </div>
+
+          <!-- Mobile Apply Button -->
+          <div class="sidebar-mobile-apply">
+            <button type="button" class="sidebar-apply-btn" id="sidebarApplyBtn">View Filtered Results</button>
+          </div>
+
+        </aside>
+
+        <!-- RIGHT COLUMN: MAIN WORKSPACE -->
+        <main class="catalog-main-content">
+
+          <!-- Top Control Header (Search + Jump + Status) -->
+          <div class="catalog-control-header">
+            
+            <div class="catalog-search-bar">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="collectionsSearchInput" placeholder="Search 500 SKUs, wood species, dimensions..." autocomplete="off">
+              <button type="button" class="search-clear-btn" id="collectionsSearchClear" aria-label="Clear search">✕</button>
+            </div>
+
+            <div class="catalog-jump-wrapper">
+              <select class="catalog-jump-select" id="jumpCategorySelect" aria-label="Jump to Category">
+                <option value="all">Jump to Category / Line (50 Available)...</option>
+              </select>
+            </div>
+
+            <!-- Mobile Drawer Trigger Button -->
+            <button type="button" class="mobile-filter-drawer-trigger" id="mobileFilterDrawerTrigger">
+              <span>⚡ Filter & Refine</span>
+              <span class="mobile-filter-count" id="mobileFilterCount">0</span>
             </button>
-            <button class="view-toggle-btn" id="btnViewDirectory" data-view="directory" role="tab" aria-selected="false">
-              <span class="toggle-icon">📋</span> 500-SKU Catalog Directory (50 Categories)
-            </button>
-          </div>
-          <div class="console-export-status">
-            <span class="status-pulse-dot"></span>
-            <span class="status-text">Showing: <strong id="lblActiveView">24 Export Collections</strong> (<span id="lblActiveSkus">500 Total SKUs</span>)</span>
-          </div>
-        </div>
 
-        <!-- Row 2: Search + Category Jump Select -->
-        <div class="console-search-bar">
-          <div class="console-search-wrap">
-            <span class="console-search-icon">🔍</span>
-            <input type="text" id="collectionsSearchInput" class="dept-search-input" placeholder="Search collections, wood species (Sheesham, Acacia), or SKU tags..." autocomplete="off">
-            <button type="button" class="search-clear-btn" id="collectionsSearchClear" aria-label="Clear search">✕</button>
-          </div>
-          <div class="console-select-wrap">
-            <select class="jump-category-select" id="jumpCategorySelect" aria-label="Jump to Category">
-              <option value="all">Jump to Category / Line (50 Available)...</option>
-            </select>
-          </div>
-        </div>
+            <!-- Active Status Badge -->
+            <div class="catalog-active-status">
+              <span class="status-pulse-dot"></span>
+              <span class="status-text"><strong id="lblActiveView">24 Export Collections</strong> (<span id="lblActiveSkus">500 Total SKUs</span>)</span>
+            </div>
 
-        <!-- Row 3: Department Navigation Rail (Wrapping, No Clipping!) -->
-        <div class="console-filter-wrapper">
-          <div class="filter-rail-label">Filter Department:</div>
-          <div class="dept-filter-pills" id="deptFilterPills">
-            <button class="dept-pill-btn active" data-filter="all">All Collections (500 SKUs)</button>
-            <button class="dept-pill-btn" data-filter="furniture">🪑 Furniture & Storage (140 SKUs)</button>
-            <button class="dept-pill-btn" data-filter="kitchen">🍷 Kitchen & Entertaining (70 SKUs)</button>
-            <button class="dept-pill-btn" data-filter="decor">🏮 Architectural Decor (130 SKUs)</button>
-            <button class="dept-pill-btn" data-filter="lifestyle">🌿 Lifestyle & Giftware (160 SKUs)</button>
           </div>
-        </div>
-
-        <!-- Row 4: Live Telemetry & Export Specs Strip -->
-        <div class="console-telemetry-footer">
-          <div class="telemetry-count">
-            <span>Commercial Status: <strong id="lblConsoleMode">Curated Lookbook Mode Active</strong></span>
-          </div>
-          <div class="telemetry-specs">
-            <span class="spec-pill">🪵 8%–10% Kiln Moisture SLA</span>
-            <span class="spec-pill">🌿 VRIKSH / Lacey Act Certified</span>
-            <span class="spec-pill">📦 ISTA-1A 5-Ply Drop Tested</span>
-            <span class="spec-pill">🚢 FOB Mundra Port Direct</span>
-          </div>
-        </div>
-
-      </div>
 
       <!-- VIEW 1: CURATED COLLECTIONS LOOKBOOK (24 LINES) -->
       <div class="lux-collection-grid" id="curatedCollectionsGrid">
@@ -1313,6 +1883,9 @@
         <div id="skuCategoryContainer"></div>
       </div>
 
+        </main>
+      </div><!-- /.collections-catalog-layout -->
+
     </div>
   </section>
 
@@ -1354,19 +1927,59 @@
 
   <script src="products-data.js?v=2026.24"></script>
   <script src="lenis.min.js?v=2026.24"></script>
-  <script src="app.js?v=2026.24"></script>
+  <script src="app.js?v=2026.25"></script>
   <script>
     function initCollectionsPage() {
       const prods = window.ALL_PRODUCTS_500 || window.MASTER_PRODUCTS_500 || [];
-      const btnViewLookbook = document.getElementById("btnViewLookbook");
-      const btnViewDirectory = document.getElementById("btnViewDirectory");
+      const radioModeLookbook = document.getElementById("radioModeLookbook");
+      const radioModeDirectory = document.getElementById("radioModeDirectory");
       const curatedGrid = document.getElementById("curatedCollectionsGrid");
       const skuDirectory = document.getElementById("masterSkuDirectory");
       const lblActiveView = document.getElementById("lblActiveView");
-      const deptPillBtns = document.querySelectorAll(".dept-pill-btn");
+      const lblActiveSkus = document.getElementById("lblActiveSkus");
+      
       const searchInput = document.getElementById("collectionsSearchInput");
       const searchClearBtn = document.getElementById("collectionsSearchClear");
-      const lblConsoleMode = document.getElementById("lblConsoleMode");
+      
+      const jumpSelect = document.getElementById("jumpCategorySelect");
+      const skuContainer = document.getElementById("skuCategoryContainer");
+      const skuSpinner = document.getElementById("skuLoadingSpinner");
+
+      // Vertical Sidebar Elements
+      const sidebar = document.getElementById("catalogVerticalSidebar");
+      const sidebarBackdrop = document.getElementById("sidebarDrawerBackdrop");
+      const mobileTrigger = document.getElementById("mobileFilterDrawerTrigger");
+      const mobileClose = document.getElementById("sidebarCloseMobile");
+      const mobileApply = document.getElementById("sidebarApplyBtn");
+      const mobileCount = document.getElementById("mobileFilterCount");
+      const resetBtn = document.getElementById("sidebarResetFilters");
+      const activeChipsContainer = document.getElementById("sidebarActiveChips");
+
+      const deptCheckboxAll = document.querySelector(".dept-checkbox-all");
+      const deptCheckboxes = document.querySelectorAll(".dept-checkbox-item");
+      const matCheckboxes = document.querySelectorAll(".mat-checkbox-item");
+      const priceCheckboxes = document.querySelectorAll(".price-checkbox-item");
+
+      let currentView = "lookbook";
+      let currentQuery = "";
+
+      // Mobile Drawer open/close
+      function openDrawer() {
+        if (sidebar) sidebar.classList.add("open");
+        if (sidebarBackdrop) sidebarBackdrop.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeDrawer() {
+        if (sidebar) sidebar.classList.remove("open");
+        if (sidebarBackdrop) sidebarBackdrop.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      if (mobileTrigger) mobileTrigger.addEventListener("click", openDrawer);
+      if (mobileClose) mobileClose.addEventListener("click", closeDrawer);
+      if (sidebarBackdrop) sidebarBackdrop.addEventListener("click", closeDrawer);
+      if (mobileApply) mobileApply.addEventListener("click", closeDrawer);
+
+      // Search Clear Button
       if (searchClearBtn) {
         searchClearBtn.addEventListener("click", () => {
           searchInput.value = "";
@@ -1376,14 +1989,6 @@
           searchInput.focus();
         });
       }
-
-      const jumpSelect = document.getElementById("jumpCategorySelect");
-      const skuContainer = document.getElementById("skuCategoryContainer");
-      const skuSpinner = document.getElementById("skuLoadingSpinner");
-
-      let currentView = "lookbook";
-      let currentDept = "all";
-      let currentQuery = "";
 
       // Populate Category Jump Select dropdown
       const categoriesMap = {};
@@ -1435,8 +2040,10 @@
               <span style="font-size: 0.85rem; font-weight: 700; color: #8C7B70;">${catData.items.length} SKUs</span>
             </div>
             <div class="sku-products-grid">
-              ${catData.items.map(p => `
-                <div class="sku-prod-card" data-sku="${escapeHtml(p.SKU)}" data-name="${escapeHtml(p.Product_Name.toLowerCase())}" data-material="${escapeHtml((p.Material_Construction || '').toLowerCase())}">
+              ${catData.items.map(p => {
+                const fobVal = parseFloat(p.FOB_Mundra_USD ? p.FOB_Mundra_USD.replace(/[^0-9.]/g, '') : (p.FOB_Price_USD || 0)) || 0;
+                return `
+                <div class="sku-prod-card" data-sku="${escapeHtml(p.SKU)}" data-fob="${fobVal}" data-name="${escapeHtml(p.Product_Name.toLowerCase())}" data-material="${escapeHtml((p.Material_Construction || '').toLowerCase())}">
                   <div class="sku-prod-img" style="background-image: url('${escapeHtml(p.image || p.Image || '../assets/charcuterie_board_deluxe.jpg')}');">
                     <span class="sku-prod-tag">${escapeHtml(p.SKU)}</span>
                   </div>
@@ -1444,13 +2051,13 @@
                     <h4 class="sku-prod-title" title="${escapeHtml(p.Product_Name)}">${escapeHtml(p.Product_Name)}</h4>
                     <div class="sku-prod-material">${escapeHtml(p.Material_Construction || 'Seasoned Hardwood')}</div>
                     <div class="sku-prod-meta">
-                      <span class="sku-prod-fob">${escapeHtml(p.FOB_Mundra_USD || ('$' + parseFloat(p.FOB_Price_USD || 0).toFixed(2)))}</span>
+                      <span class="sku-prod-fob">$${fobVal.toFixed(2)} FOB</span>
                       <span class="sku-prod-cbm">${parseFloat(p.CBM || 0).toFixed(3)} CBM</span>
                     </div>
                     <button class="sku-prod-add-btn card-btn-add" data-sku="${escapeHtml(p.SKU)}">+ Add to Container</button>
                   </div>
                 </div>
-              `).join('')}
+              `;}).join('')}
             </div>
           `;
           skuContainer.appendChild(groupDiv);
@@ -1472,9 +2079,114 @@
         }
       }
 
+      // Read current active facets
+      function getActiveFacets() {
+        const checkedDepts = [];
+        if (!deptCheckboxAll.checked) {
+          deptCheckboxes.forEach(cb => {
+            if (cb.checked) checkedDepts.push(cb.value);
+          });
+        }
+        const checkedMats = [];
+        matCheckboxes.forEach(cb => {
+          if (cb.checked) checkedMats.push(cb.value);
+        });
+        const checkedPrices = [];
+        priceCheckboxes.forEach(cb => {
+          if (cb.checked) checkedPrices.push(cb.value);
+        });
+        return { depts: checkedDepts, mats: checkedMats, prices: checkedPrices };
+      }
+
+      // Check if price matches selected price tiers
+      function matchPriceTier(price, tiers) {
+        if (!tiers || tiers.length === 0) return true;
+        return tiers.some(tier => {
+          if (tier === "tier1") return price < 15.0;
+          if (tier === "tier2") return price >= 15.0 && price <= 40.0;
+          if (tier === "tier3") return price > 40.0 && price <= 100.0;
+          if (tier === "tier4") return price > 100.0;
+          return true;
+        });
+      }
+
+      // Render Active Filter Chips
+      function renderActiveChips(facets) {
+        if (!activeChipsContainer) return;
+        activeChipsContainer.innerHTML = "";
+        let filterCount = 0;
+
+        facets.depts.forEach(d => {
+          filterCount++;
+          const chip = document.createElement("span");
+          chip.className = "filter-chip";
+          chip.innerHTML = `${escapeHtml(d.charAt(0).toUpperCase() + d.slice(1))} <span class="filter-chip-remove">✕</span>`;
+          chip.addEventListener("click", () => {
+            const cb = document.querySelector(`.dept-checkbox-item[value="${d}"]`);
+            if (cb) {
+              cb.checked = false;
+              handleDeptChange();
+            }
+          });
+          activeChipsContainer.appendChild(chip);
+        });
+
+        facets.mats.forEach(m => {
+          filterCount++;
+          const chip = document.createElement("span");
+          chip.className = "filter-chip";
+          chip.innerHTML = `${escapeHtml(m.charAt(0).toUpperCase() + m.slice(1))} <span class="filter-chip-remove">✕</span>`;
+          chip.addEventListener("click", () => {
+            const cb = document.querySelector(`.mat-checkbox-item[value="${m}"]`);
+            if (cb) {
+              cb.checked = false;
+              applyFilter();
+            }
+          });
+          activeChipsContainer.appendChild(chip);
+        });
+
+        facets.prices.forEach(p => {
+          filterCount++;
+          const labelMap = { tier1: "< $15 FOB", tier2: "$15–$40 FOB", tier3: "$40–$100 FOB", tier4: "$100+ FOB" };
+          const chip = document.createElement("span");
+          chip.className = "filter-chip";
+          chip.innerHTML = `${labelMap[p] || p} <span class="filter-chip-remove">✕</span>`;
+          chip.addEventListener("click", () => {
+            const cb = document.querySelector(`.price-checkbox-item[value="${p}"]`);
+            if (cb) {
+              cb.checked = false;
+              applyFilter();
+            }
+          });
+          activeChipsContainer.appendChild(chip);
+        });
+
+        if (currentQuery) {
+          filterCount++;
+          const chip = document.createElement("span");
+          chip.className = "filter-chip";
+          chip.innerHTML = `"${escapeHtml(currentQuery)}" <span class="filter-chip-remove">✕</span>`;
+          chip.addEventListener("click", () => {
+            searchInput.value = "";
+            if (searchClearBtn) searchClearBtn.style.display = "none";
+            currentQuery = "";
+            applyFilter();
+          });
+          activeChipsContainer.appendChild(chip);
+        }
+
+        if (mobileCount) {
+          mobileCount.textContent = filterCount;
+          mobileCount.style.display = filterCount > 0 ? "inline-flex" : "none";
+        }
+      }
+
       // Filter Logic for both Lookbook and 500-SKU Directory
       function applyFilter() {
         const q = currentQuery.toLowerCase().trim();
+        const facets = getActiveFacets();
+        renderActiveChips(facets);
 
         if (currentView === "lookbook") {
           const cards = curatedGrid.querySelectorAll(".lux-col-card");
@@ -1482,18 +2194,20 @@
           cards.forEach(card => {
             const cardDept = card.dataset.dept;
             const text = card.textContent.toLowerCase();
-            const matchesDept = (currentDept === "all" || cardDept === currentDept);
+
+            const matchesDept = (facets.depts.length === 0 || facets.depts.includes(cardDept));
+            const matchesMat = (facets.mats.length === 0 || facets.mats.some(m => text.includes(m)));
             const matchesQuery = (!q || text.includes(q));
 
-            if (matchesDept && matchesQuery) {
+            if (matchesDept && matchesMat && matchesQuery) {
               card.style.display = "flex";
               visibleCount++;
             } else {
               card.style.display = "none";
             }
           });
-          lblActiveView.textContent = `${visibleCount} Export Collections`;
-          if (lblConsoleMode) lblConsoleMode.textContent = `Curated Lookbook Mode Active (${visibleCount} of 24 Lines)`;
+          if (lblActiveView) lblActiveView.textContent = `${visibleCount} Export Collections`;
+          if (lblActiveSkus) lblActiveSkus.textContent = `${visibleCount * 21} Total SKUs`;
         } else {
           renderSkuDirectory();
           const groups = skuContainer.querySelectorAll(".cat-group-section");
@@ -1501,7 +2215,7 @@
 
           groups.forEach(group => {
             const groupDept = group.dataset.dept;
-            const matchesDept = (currentDept === "all" || groupDept === currentDept);
+            const matchesDept = (facets.depts.length === 0 || facets.depts.includes(groupDept));
 
             if (!matchesDept) {
               group.style.display = "none";
@@ -1516,9 +2230,13 @@
               const name = card.dataset.name;
               const sku = card.dataset.sku.toLowerCase();
               const mat = card.dataset.material;
+              const fob = parseFloat(card.dataset.fob || 0);
+
+              const matchesMat = (facets.mats.length === 0 || facets.mats.some(m => mat.includes(m)));
+              const matchesPrice = matchPriceTier(fob, facets.prices);
               const matchesQuery = (!q || name.includes(q) || sku.includes(q) || mat.includes(q));
 
-              if (matchesQuery) {
+              if (matchesMat && matchesPrice && matchesQuery) {
                 card.style.display = "flex";
                 groupVisible++;
                 visibleSkus++;
@@ -1530,39 +2248,82 @@
             group.style.display = groupVisible > 0 ? "block" : "none";
           });
 
-          lblActiveView.textContent = `${visibleSkus} Catalog Products`;
-          if (lblConsoleMode) lblConsoleMode.textContent = `500-SKU Directory Mode Active (${visibleSkus} SKUs)`;
+          if (lblActiveView) lblActiveView.textContent = `${visibleSkus} Catalog Products`;
+          if (lblActiveSkus) lblActiveSkus.textContent = `${visibleSkus} Filtered SKUs`;
         }
       }
 
-      // View Switcher Event
-      btnViewLookbook.addEventListener("click", () => {
-        currentView = "lookbook";
-        btnViewLookbook.classList.add("active");
-        btnViewDirectory.classList.remove("active");
-        curatedGrid.style.display = "grid";
-        skuDirectory.classList.remove("active");
+      // Department Checkbox Coordination
+      function handleDeptChange() {
+        const anyChecked = Array.from(deptCheckboxes).some(cb => cb.checked);
+        if (anyChecked) {
+          deptCheckboxAll.checked = false;
+        } else {
+          deptCheckboxAll.checked = true;
+        }
         applyFilter();
+      }
+
+      if (deptCheckboxAll) {
+        deptCheckboxAll.addEventListener("change", () => {
+          if (deptCheckboxAll.checked) {
+            deptCheckboxes.forEach(cb => cb.checked = false);
+            applyFilter();
+          } else {
+            // Prevent unchecking all with nothing selected
+            deptCheckboxAll.checked = true;
+          }
+        });
+      }
+
+      deptCheckboxes.forEach(cb => {
+        cb.addEventListener("change", handleDeptChange);
       });
 
-      btnViewDirectory.addEventListener("click", () => {
-        currentView = "directory";
-        btnViewDirectory.classList.add("active");
-        btnViewLookbook.classList.remove("active");
-        curatedGrid.style.display = "none";
-        skuDirectory.classList.add("active");
-        applyFilter();
+      matCheckboxes.forEach(cb => {
+        cb.addEventListener("change", applyFilter);
       });
 
-      // Department Pills Event
-      deptPillBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-          deptPillBtns.forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
-          currentDept = btn.dataset.filter;
+      priceCheckboxes.forEach(cb => {
+        cb.addEventListener("change", applyFilter);
+      });
+
+      // Reset All button
+      if (resetBtn) {
+        resetBtn.addEventListener("click", () => {
+          deptCheckboxAll.checked = true;
+          deptCheckboxes.forEach(cb => cb.checked = false);
+          matCheckboxes.forEach(cb => cb.checked = false);
+          priceCheckboxes.forEach(cb => cb.checked = false);
+          searchInput.value = "";
+          if (searchClearBtn) searchClearBtn.style.display = "none";
+          currentQuery = "";
           applyFilter();
         });
-      });
+      }
+
+      // Mode Switcher (Radio buttons)
+      if (radioModeLookbook) {
+        radioModeLookbook.addEventListener("change", () => {
+          if (radioModeLookbook.checked) {
+            currentView = "lookbook";
+            curatedGrid.style.display = "grid";
+            skuDirectory.classList.remove("active");
+            applyFilter();
+          }
+        });
+      }
+
+      if (radioModeDirectory) {
+        radioModeDirectory.addEventListener("change", () => {
+          if (radioModeDirectory.checked) {
+            currentView = "directory";
+            curatedGrid.style.display = "none";
+            skuDirectory.classList.add("active");
+            applyFilter();
+          }
+        });
+      }
 
       // Live Search Event
       let debounceTimer;
@@ -1584,7 +2345,8 @@
 
         // Switch to directory view and scroll
         if (currentView !== "directory") {
-          btnViewDirectory.click();
+          radioModeDirectory.checked = true;
+          radioModeDirectory.dispatchEvent(new Event("change"));
         }
         
         setTimeout(() => {
@@ -1592,7 +2354,7 @@
           if (targetGroup) {
             targetGroup.scrollIntoView({ behavior: "smooth", block: "start" });
           }
-        }, 100);
+        }, 120);
       });
 
       // Browse SKUs button on collection cards
@@ -1600,7 +2362,8 @@
         btn.addEventListener("click", (e) => {
           e.preventDefault();
           const targetCat = btn.dataset.cat;
-          btnViewDirectory.click();
+          radioModeDirectory.checked = true;
+          radioModeDirectory.dispatchEvent(new Event("change"));
           setTimeout(() => {
             const targetGroup = Array.from(document.querySelectorAll(".cat-group-section")).find(g => g.dataset.catName === targetCat);
             if (targetGroup) {
@@ -1617,16 +2380,23 @@
       const urlCat = urlParams.get("cat");
 
       if (urlDept) {
-        const targetBtn = document.querySelector(`.dept-pill-btn[data-filter="${urlDept}"]`);
-        if (targetBtn) targetBtn.click();
+        const targetCb = document.querySelector(`.dept-checkbox-item[value="${urlDept}"]`);
+        if (targetCb) {
+          targetCb.checked = true;
+          handleDeptChange();
+        }
       }
       if (urlView === "directory") {
-        btnViewDirectory.click();
+        radioModeDirectory.checked = true;
+        radioModeDirectory.dispatchEvent(new Event("change"));
       }
       if (urlCat) {
         jumpSelect.value = urlCat;
         jumpSelect.dispatchEvent(new Event("change"));
       }
+
+      // Initial filter pass
+      applyFilter();
     }
 
     if (document.readyState === "loading") {

@@ -543,6 +543,12 @@ function initUIComponents() {
       const isOpen = navLinks.classList.toggle('open');
       toggleBtn.innerHTML = isOpen ? '✕' : '☰';
       document.body.style.overflow = isOpen ? 'hidden' : '';
+
+      // When opening on mobile, ensure search button is at the top of the drawer
+      const searchBtn = navLinks.querySelector('#nav-cmd-k-btn');
+      if (isOpen && searchBtn && navLinks.firstElementChild !== searchBtn) {
+        navLinks.insertBefore(searchBtn, navLinks.firstElementChild);
+      }
     });
     navContainer.insertBefore(toggleBtn, navLinks);
 
@@ -558,12 +564,20 @@ function initUIComponents() {
       navLinks.appendChild(drawerFooter);
     }
 
-    // Auto-close on viewport resize back to desktop
+    // Auto-close on viewport resize back to desktop & restore search button position
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 768 && navLinks.classList.contains('open')) {
-        navLinks.classList.remove('open');
-        toggleBtn.innerHTML = '☰';
-        document.body.style.overflow = '';
+      if (window.innerWidth > 768) {
+        if (navLinks.classList.contains('open')) {
+          navLinks.classList.remove('open');
+          toggleBtn.innerHTML = '☰';
+          document.body.style.overflow = '';
+        }
+        // Restore search button before compliance link if needed
+        const searchBtn = navLinks.querySelector('#nav-cmd-k-btn');
+        const compLink = navLinks.querySelector('a[href*="compliance"]');
+        if (searchBtn && compLink && searchBtn.nextElementSibling !== compLink) {
+          navLinks.insertBefore(searchBtn, compLink);
+        }
       }
     });
 
