@@ -546,23 +546,62 @@ function initUIComponents() {
     });
     navContainer.insertBefore(toggleBtn, navLinks);
 
-    // Mobile Collections Accordion
+    // Desktop & Mobile Dropdown Controller (Hover Intent Bridge & Click Toggle)
     const dropdown = navLinks.querySelector('.dropdown');
     if (dropdown) {
       const dropbtn = dropdown.querySelector('.dropbtn');
+      const dropdownContent = dropdown.querySelector('.dropdown-content');
+      let closeTimer = null;
+
+      function openDropdown() {
+        if (closeTimer) {
+          clearTimeout(closeTimer);
+          closeTimer = null;
+        }
+        dropdown.classList.add('is-open');
+      }
+
+      function scheduleCloseDropdown() {
+        if (closeTimer) clearTimeout(closeTimer);
+        closeTimer = setTimeout(() => {
+          dropdown.classList.remove('is-open');
+          closeTimer = null;
+        }, 180);
+      }
+
+      // Desktop Hover Intent Bridge
+      dropdown.addEventListener('mouseenter', openDropdown);
+      dropdown.addEventListener('mouseleave', scheduleCloseDropdown);
+      if (dropdownContent) {
+        dropdownContent.addEventListener('mouseenter', openDropdown);
+        dropdownContent.addEventListener('mouseleave', scheduleCloseDropdown);
+      }
+
+      // Click Toggle (Mobile + Touch / Hybrid Laptops)
       if (dropbtn) {
         dropbtn.addEventListener('click', (e) => {
           if (window.innerWidth <= 768) {
             if (!dropdown.classList.contains('is-mobile-open')) {
               e.preventDefault();
               dropdown.classList.add('is-mobile-open');
-            } else {
-              // If already open, let the user tap to navigate to collections.html
-              // or clicking the arrow toggles it
+            }
+          } else {
+            // On desktop: if user clicks, toggle is-open
+            // If already open, allow following the link to collections.html
+            if (!dropdown.classList.contains('is-open')) {
+              e.preventDefault();
+              openDropdown();
             }
           }
         });
       }
+
+      // Close when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+          dropdown.classList.remove('is-open');
+        }
+      });
     }
 
     // Auto-close drawer on link click (except dropbtn)

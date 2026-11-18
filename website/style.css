@@ -256,37 +256,102 @@ a {
   border-radius: 999px;
 }
 
-/* Mega Menu Dropdown */
+/* Mega Menu Dropdown (Unbreakable Hover Bridge & Intent Transition) */
 .dropdown {
   position: static;
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* Invisible downward bridge extending hit-zone to navbar bottom */
+.dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: transparent;
+  pointer-events: auto;
 }
 
 .dropdown-content {
-  display: none;
+  display: grid;
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
   width: 100%;
   background-color: var(--bg-surface);
-  box-shadow: 0 20px 48px rgba(21, 17, 14, 0.14);
+  box-shadow: 0 24px 56px rgba(21, 17, 14, 0.16), 0 4px 12px rgba(0, 0, 0, 0.04);
   border: 1px solid var(--border-subtle);
-  border-radius: 0 0 14px 14px;
+  border-top: 1px solid rgba(184, 149, 82, 0.25);
+  border-radius: 0 0 16px 16px;
   z-index: 1050;
-  padding: 32px 40px;
+  padding: 32px 40px 36px;
   grid-template-columns: repeat(4, 1fr);
   gap: 32px;
   text-align: left;
+
+  /* Graceful hover intent transition: opens instantly (0s delay), closes with 180ms grace buffer */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.22s ease;
+  transition-delay: 0.18s;
 }
 
-.dropdown:hover .dropdown-content {
-  display: grid;
-  animation: dropIn 0.24s var(--ease);
+/* Invisible upper hover bridge ensuring continuous cursor tracking between navbar and mega menu */
+.dropdown-content::before {
+  content: '';
+  position: absolute;
+  top: -24px;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: transparent;
+  pointer-events: auto;
 }
 
-@keyframes dropIn {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Open on hover of .dropdown, or hover of .dropdown-content itself, or active .is-open class */
+.dropdown:hover .dropdown-content,
+.dropdown.is-open .dropdown-content,
+.dropdown-content:hover {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.mobile-all-collections-btn {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  margin-top: 8px;
+  background: rgba(184, 149, 82, 0.08);
+  border: 1px solid rgba(184, 149, 82, 0.25);
+  border-radius: 8px;
+  color: var(--accent-gold);
+  font-family: var(--font-cinzel);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.mobile-all-collections-btn:hover {
+  background: rgba(184, 149, 82, 0.16);
+  border-color: var(--accent-gold);
+  color: var(--primary);
+  transform: translateY(-1px);
 }
 
 .mega-col-title {
