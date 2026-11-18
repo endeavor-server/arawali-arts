@@ -645,12 +645,26 @@ function initUIComponents() {
     document.body.style.overflow = '';
   }
 
+  window.openLkhDrawer = openLkhDrawer;
+  window.closeLkhDrawer = closeLkhDrawer;
+
   if (toggleBtn) {
     toggleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
       openLkhDrawer();
     });
   }
+
+  // Document-level delegation for hamburger toggle so it NEVER fails regardless of re-render or click target
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('#nav-mobile-btn, .nav-mobile-toggle');
+    if (btn) {
+      e.preventDefault();
+      e.stopPropagation();
+      openLkhDrawer();
+    }
+  });
 
   const drawerCloseBtn = document.getElementById('lkhDrawerClose');
   if (drawerCloseBtn) {
@@ -715,6 +729,7 @@ function initUIComponents() {
   const dropdown = navLinks ? navLinks.querySelector('.dropdown') : null;
   if (dropdown) {
     const dropdownContent = dropdown.querySelector('.dropdown-content');
+    const dropbtn = dropdown.querySelector('.dropbtn');
     let closeTimer = null;
 
     function openDropdown() {
@@ -739,46 +754,21 @@ function initUIComponents() {
       dropdownContent.addEventListener('mouseenter', openDropdown);
       dropdownContent.addEventListener('mouseleave', scheduleCloseDropdown);
     }
-  }
-        dropdownContent.addEventListener('mouseenter', openDropdown);
-        dropdownContent.addEventListener('mouseleave', scheduleCloseDropdown);
-      }
 
-      // Click Toggle (Mobile Accordion + Desktop Click)
-      if (dropbtn) {
-        dropbtn.addEventListener('click', (e) => {
-          if (window.innerWidth <= 768) {
-            e.preventDefault();
-            dropdown.classList.toggle('is-mobile-open');
-          } else {
-            // On desktop: if user clicks, toggle is-open
-            // If already open, allow following the link to collections.html
-            if (!dropdown.classList.contains('is-open')) {
-              e.preventDefault();
-              openDropdown();
-            }
-          }
-        });
-      }
-
-      // Close when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target)) {
-          dropdown.classList.remove('is-open');
+    // Click Toggle (Desktop Click)
+    if (dropbtn) {
+      dropbtn.addEventListener('click', (e) => {
+        if (!dropdown.classList.contains('is-open')) {
+          e.preventDefault();
+          openDropdown();
         }
       });
     }
 
-    // Auto-close drawer on link click (except dropbtn)
-    navLinks.querySelectorAll('a').forEach(link => {
-      if (!link.classList.contains('dropbtn')) {
-        link.addEventListener('click', () => {
-          if (window.innerWidth <= 768) {
-            navLinks.classList.remove('open');
-            toggleBtn.innerHTML = '☰';
-            document.body.style.overflow = '';
-          }
-        });
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('is-open');
       }
     });
   }
