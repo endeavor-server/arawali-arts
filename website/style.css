@@ -221,39 +221,45 @@ a {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   flex-wrap: nowrap;
 }
 
-.nav-links > a, .dropbtn {
+.nav-links > a, .nav-item, .dropbtn {
   font-size: 0.86rem;
-  font-weight: 600;
-  color: #362D24;
+  font-weight: 500;
+  color: #2E251E;
   padding: 8px 4px;
   position: relative;
-  transition: color 0.2s ease;
+  transition: color 0.18s ease;
   text-decoration: none;
   white-space: nowrap;
+  letter-spacing: 0.01em;
 }
 
-.nav-links > a:hover, .dropbtn:hover {
-  color: #A88134;
-}
-
-.nav-links > a.active, .dropbtn.active {
+.nav-links > a:hover, .nav-item:hover, .dropbtn:hover {
   color: #8C651F;
-  font-weight: 700;
 }
 
-.nav-links > a.active::after, .dropbtn.active::after {
+.nav-links > a.active, .nav-item.active, .dropbtn.active {
+  color: #8C651F;
+  font-weight: 600;
+}
+
+.nav-links > a.active::after, .nav-item.active::after, .dropbtn.active::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 2.5px;
-  background: linear-gradient(90deg, #A88134, #D4AC5C);
+  height: 2px;
+  background: #8C651F;
   border-radius: 999px;
+}
+
+.nav-link-catalogue {
+  color: #8C651F !important;
+  font-weight: 600 !important;
 }
 
 /* Mega Menu Dropdown (Unbreakable Hover Bridge & Intent Transition) */
@@ -504,6 +510,124 @@ a {
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(184, 149, 82, 0.42);
   color: #0A0805 !important;
+}
+
+/* Luxury Editorial Desktop Nav Actions */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 6px;
+}
+
+.nav-search-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 12px;
+  background: #FAF8F5;
+  border: 1px solid rgba(184, 149, 82, 0.28);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.81rem;
+  font-weight: 500;
+  color: #5C4F42;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-search-trigger:hover {
+  background: #FFFFFF;
+  border-color: #8C651F;
+  color: #1A1410;
+  box-shadow: 0 2px 8px rgba(184, 149, 82, 0.15);
+}
+
+.nav-search-trigger .search-kbd {
+  background: #FFFFFF;
+  border: 1px solid #D5CCC0;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #8C651F;
+}
+
+.nav-util-link {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #4A3E34;
+  text-decoration: none;
+  padding: 6px 8px;
+  transition: color 0.18s ease;
+  white-space: nowrap;
+}
+
+.nav-util-link:hover, .nav-util-link.active {
+  color: #8C651F;
+  font-weight: 600;
+}
+
+.nav-cart-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 10px;
+  background: #FAF8F5;
+  border: 1px solid rgba(184, 149, 82, 0.28);
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #2D251E;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-cart-trigger:hover {
+  background: #FFFFFF;
+  border-color: #8C651F;
+  color: #8C651F;
+}
+
+.nav-cart-trigger .cart-badge {
+  background: #8C651F;
+  color: #FFFFFF;
+  font-size: 0.68rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+.nav-cta-btn {
+  height: 36px;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #1A1410;
+  color: #FAF6F0 !important;
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-cta-btn:hover {
+  background: #8C651F;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(140, 101, 31, 0.25);
 }
 
 /* Hero Section (2026 Editorial Modern - Dark Cinematic Luxury) */
@@ -2489,7 +2613,7 @@ a {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   html, body {
     overflow-x: hidden !important;
     max-width: 100vw !important;
@@ -2539,369 +2663,240 @@ a {
     background: rgba(184, 149, 82, 0.12);
     border-color: var(--accent-gold);
   }
+  .nav-mobile-actions {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-mobile-action-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: #1A1410;
+    cursor: pointer;
+    padding: 6px;
+    position: relative;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
 
   /* ==========================================================================
-     ENDEAVOR-GRADE MOBILE NAVIGATION DRAWER
+     LAKKADHAARA-GRADE MINIMAL LUXURY MOBILE NAVIGATION DRAWER
      ========================================================================== */
   .nav-links {
-    display: none;
+    display: none !important; /* Hide old desktop list on mobile */
+  }
+
+  .lkh-mobile-drawer {
     position: fixed;
-    top: 60px;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     width: 100vw;
-    max-width: 100vw;
-    height: calc(100vh - 60px);
-    height: calc(100dvh - 60px);
-    background: #FAF8F5 !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    justify-content: flex-start !important;
-    padding: 16px 18px 120px 18px !important;
-    box-sizing: border-box !important;
-    gap: 0 !important;
-    z-index: 99999;
+    height: 100vh;
+    height: 100dvh;
+    background: #FFFFFF !important;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     overflow-y: auto;
-    overflow-x: hidden !important;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    box-sizing: border-box;
   }
-  .nav-links.open {
-    display: flex !important;
-    animation: mobileDrawerSlide 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  @keyframes mobileDrawerSlide {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
+  .lkh-mobile-drawer.is-open {
+    transform: translateX(0);
   }
 
-  /* 1. Quick Search Trigger Bar (Pinned at top of drawer) */
-  .nav-links .nav-search-btn {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 10px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 12px 14px !important;
-    margin: 0 0 12px 0 !important;
-    background: #FFFFFF !important;
-    border: 1px solid rgba(184, 149, 82, 0.28) !important;
-    border-radius: 10px !important;
-    color: #6B5E52 !important;
-    font-size: 0.88rem !important;
-    font-weight: 500 !important;
-    cursor: pointer !important;
-    min-height: 44px !important;
-    box-shadow: 0 2px 6px rgba(21, 17, 14, 0.04) !important;
+  /* 1. Clean Lakkadhaara Header Bar */
+  .lkh-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #F0ECE4;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
-  .nav-links .nav-search-btn .search-icon {
-    font-size: 0.95rem;
+  .lkh-drawer-close {
+    background: transparent;
+    border: none;
+    font-size: 1.45rem;
+    font-weight: 300;
+    color: #1A1410;
+    cursor: pointer;
+    padding: 6px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
   }
-  .nav-links .nav-search-btn .search-text {
+  .lkh-drawer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+  }
+  .lkh-drawer-brand .lkh-brand-sub {
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    color: #8C651F;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .lkh-drawer-brand .lkh-brand-title {
+    font-family: var(--font-cinzel, serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #1A1410;
+  }
+  .lkh-drawer-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lkh-action-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.15rem;
+    color: #1A1410;
+    cursor: pointer;
+    padding: 6px;
+    position: relative;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lkh-cart-badge {
+    position: absolute;
+    top: -2px;
+    right: -4px;
+    background: #8C651F;
+    color: #FFFFFF;
+    font-size: 0.62rem;
+    font-weight: 700;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+  }
+
+  /* 2. Direct Category Navigation Rows (Zero Clutter, Pure White) */
+  .lkh-nav-list {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
     flex: 1;
-    text-align: left;
+    background: #FFFFFF;
+  }
+  .lkh-nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    font-size: 1.12rem;
+    font-weight: 450;
+    color: #181512;
+    text-decoration: none;
+    border-bottom: 1px solid #F5F1EB;
+    transition: background 0.15s ease, color 0.15s ease;
+    box-sizing: border-box;
+    background: #FFFFFF;
+  }
+  .lkh-nav-item:hover,
+  .lkh-nav-item:active {
+    background: #FAF8F5;
+    color: #8C651F;
+  }
+  .lkh-nav-item .lkh-arrow {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #4A4036;
+    transition: transform 0.15s ease;
+  }
+  .lkh-nav-item:hover .lkh-arrow {
+    transform: translateX(4px);
+    color: #8C651F;
+  }
+  .lkh-nav-item.lkh-nav-featured {
+    font-weight: 600;
+    color: #8C651F;
+  }
+
+  /* 3. Quiet Bottom Section */
+  .lkh-drawer-bottom {
+    padding: 22px 20px 36px 20px;
+    background: #FAF8F5;
+    border-top: 1px solid #EFEAE2;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .lkh-utility-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 4px;
+  }
+  .lkh-util-link {
+    font-size: 0.86rem;
     font-weight: 500;
+    color: #4A3E34;
+    text-decoration: none;
+    transition: color 0.15s ease;
   }
-  .nav-links .nav-search-btn .search-kbd {
-    background: #F4EFE6 !important;
-    border: 1px solid rgba(184, 149, 82, 0.22) !important;
-    color: #8C651F !important;
-    padding: 2px 6px !important;
-    border-radius: 5px !important;
-    font-weight: 700 !important;
-    font-size: 0.72rem !important;
+  .lkh-util-link:hover {
+    color: #8C651F;
   }
-
-  /* 2. Full-Width Navigation List Rows */
-  .nav-links > a:not(.nav-btn-primary):not(.nav-btn-secondary),
-  .nav-links .dropdown .dropbtn {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 14px 16px !important;
-    font-size: 1.02rem !important;
-    font-weight: 600 !important;
-    color: #241D17 !important;
-    background: #FFFFFF !important;
-    border: none !important;
-    border-bottom: 1px solid rgba(184, 149, 82, 0.12) !important;
-    border-radius: 0 !important;
-    text-decoration: none !important;
-    min-height: 50px !important;
-    position: relative !important;
-    transition: all 0.15s ease !important;
+  .lkh-rfq-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 20px;
+    background: #1A1410;
+    color: #FAF6F0 !important;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.94rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    box-sizing: border-box;
+    text-align: center;
+    transition: background 0.2s;
   }
-  .nav-links > a:not(.nav-btn-primary):not(.nav-btn-secondary):first-of-type {
-    border-top-left-radius: 10px !important;
-    border-top-right-radius: 10px !important;
+  .lkh-rfq-cta:hover {
+    background: #8C651F;
   }
-
-  /* Right chevron indicator for non-active links */
-  .nav-links > a:not(.nav-btn-primary):not(.nav-btn-secondary):not(.active)::after {
-    content: '›' !important;
-    font-size: 1.25rem !important;
-    font-weight: 400 !important;
-    color: #B89552 !important;
-    line-height: 1 !important;
-    position: static !important;
-    height: auto !important;
-    background: transparent !important;
-    border-radius: 0 !important;
+  .lkh-footer-desk {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+    font-size: 0.74rem;
+    color: #786C60;
+    line-height: 1.5;
   }
-
-  /* Active Link (Endeavor Gold Bar Indicator on Left) */
-  .nav-links > a.active {
-    color: #8C651F !important;
-    font-weight: 700 !important;
-    background: rgba(184, 149, 82, 0.08) !important;
-    border-left: 4px solid #B89552 !important;
-    padding-left: 12px !important;
-  }
-  .nav-links > a.active::after {
-    content: '✓' !important;
-    font-size: 0.92rem !important;
-    font-weight: 700 !important;
-    color: #8C651F !important;
-    line-height: 1 !important;
-    position: static !important;
-    height: auto !important;
-    background: transparent !important;
-    border-radius: 0 !important;
-  }
-
-  /* 3. Mobile Collections Dropdown & Clean Inset Accordion */
-  .nav-links .dropdown {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    border: none !important;
-    background: transparent !important;
-    position: relative !important;
-    height: auto !important;
-    align-items: stretch !important;
-  }
-  .nav-links .dropdown::after,
-  .nav-links .dropdown-content::before {
-    display: none !important;
-  }
-  .nav-links .dropdown .dropbtn {
-    border-bottom: 1px solid rgba(184, 149, 82, 0.12) !important;
-    cursor: pointer !important;
-  }
-  .nav-links .dropdown .dropbtn::after {
-    content: '▾' !important;
-    font-size: 1rem !important;
-    color: #B89552 !important;
-    transition: transform 0.25s ease !important;
-    transform: none !important;
-    position: static !important;
-    height: auto !important;
-    background: transparent !important;
-    border-radius: 0 !important;
-  }
-  .nav-links .dropdown.is-mobile-open .dropbtn::after {
-    transform: rotate(180deg) !important;
-    color: #8C651F !important;
-  }
-
-  /* Inset Accordion Content */
-  .nav-links .dropdown-content {
-    display: none !important;
-    position: static !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    background: #F5EFE6 !important;
-    border-left: 3.5px solid #B89552 !important;
-    border-right: 1px solid rgba(184, 149, 82, 0.2) !important;
-    border-bottom: 1px solid rgba(184, 149, 82, 0.2) !important;
-    border-radius: 0 0 10px 10px !important;
-    padding: 14px 12px !important;
-    margin: 0 !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-    box-shadow: none !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    transform: none !important;
-    overflow: visible !important;
-  }
-  .nav-links .dropdown.is-mobile-open .dropdown-content {
-    display: flex !important;
-    animation: mobileAccordionExpand 0.22s ease-out;
-  }
-  @keyframes mobileAccordionExpand {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .nav-links .dropdown:hover .dropdown-content {
-    display: none; /* strictly disable hover on touch screens */
-  }
-  .nav-links .dropdown.is-mobile-open:hover .dropdown-content {
-    display: flex !important;
-  }
-
-  .nav-links .dropdown-content .mega-col {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    border-bottom: 1px solid rgba(184, 149, 82, 0.16) !important;
-    padding-bottom: 10px !important;
-  }
-  .nav-links .dropdown-content .mega-col:last-of-type {
-    border-bottom: none !important;
-    padding-bottom: 2px !important;
-  }
-  .nav-links .dropdown-content .mega-col-title {
-    font-size: 0.82rem !important;
-    font-weight: 700 !important;
-    color: #8C651F !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    margin-bottom: 6px !important;
-    padding: 2px 4px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-  }
-  .nav-links .dropdown-content .mega-col-links {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    gap: 5px !important;
-  }
-  .nav-links .dropdown-content .mega-col-links a {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 8px 10px !important;
-    font-size: 0.84rem !important;
-    font-weight: 600 !important;
-    color: #362D24 !important;
-    background: #FFFFFF !important;
-    border-radius: 6px !important;
-    border: 1px solid rgba(184, 149, 82, 0.15) !important;
-    text-decoration: none !important;
-    transition: all 0.15s ease !important;
-    min-height: 40px !important;
-  }
-  .nav-links .dropdown-content .mega-col-links a:hover,
-  .nav-links .dropdown-content .mega-col-links a:active {
-    background: rgba(184, 149, 82, 0.12) !important;
+  .lkh-desk-email {
     color: #1A1410 !important;
-    border-color: var(--accent-gold) !important;
-  }
-  .nav-links .dropdown-content .cat-count {
-    font-size: 0.7rem !important;
-    background: rgba(184, 149, 82, 0.12) !important;
-    color: #8C651F !important;
-    padding: 2px 6px !important;
-    border-radius: 8px !important;
-    font-weight: 700 !important;
-  }
-  .nav-links .dropdown-content .mobile-all-collections-btn {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 12px 14px !important;
-    margin-top: 6px !important;
-    background: rgba(184, 149, 82, 0.12) !important;
-    border: 1px solid rgba(184, 149, 82, 0.35) !important;
-    border-radius: 8px !important;
-    color: #8C651F !important;
-    font-family: inherit !important;
-    font-size: 0.84rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.04em !important;
-    text-decoration: none !important;
-    min-height: 44px !important;
-    text-align: center !important;
-  }
-
-  /* 4. Bottom Prominent Action CTAs */
-  .nav-links .nav-btn-secondary {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 13px 18px !important;
-    font-size: 0.95rem !important;
-    font-weight: 700 !important;
-    border-radius: 9px !important;
-    margin-top: 14px !important;
-    background: #FFFFFF !important;
-    color: #8C651F !important;
-    border: 1.5px solid rgba(184, 149, 82, 0.4) !important;
-    text-decoration: none !important;
-    min-height: 48px !important;
-    box-shadow: 0 2px 8px rgba(21, 17, 14, 0.04) !important;
-  }
-  .nav-links .nav-btn-primary {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 14px 18px !important;
-    font-size: 0.98rem !important;
-    font-weight: 700 !important;
-    border-radius: 9px !important;
-    margin-top: 8px !important;
-    background: linear-gradient(135deg, #B89552 0%, #8C651F 100%) !important;
-    color: #FFFFFF !important;
-    border: none !important;
-    text-decoration: none !important;
-    box-shadow: 0 4px 14px rgba(168, 129, 52, 0.35) !important;
-    min-height: 48px !important;
-  }
-
-  /* 5. Jodhpur Export Desk Authenticity Card */
-  .nav-drawer-footer {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 6px !important;
-    margin-top: 18px !important;
-    padding: 16px 14px !important;
-    background: #FAF7F2 !important;
-    border: 1px dashed rgba(184, 149, 82, 0.35) !important;
-    border-radius: 12px !important;
-    text-align: center !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-  .drawer-footer-tag {
-    font-size: 0.72rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.08em !important;
-    color: #8C651F !important;
-    text-transform: uppercase !important;
-  }
-  .drawer-footer-text {
-    font-size: 0.78rem !important;
-    color: #63574C !important;
-    line-height: 1.4 !important;
-  }
-  .drawer-footer-email {
-    font-size: 0.82rem !important;
-    font-weight: 600 !important;
-    color: #1A1410 !important;
-    text-decoration: underline !important;
+    font-weight: 600;
+    text-decoration: underline;
     text-underline-offset: 3px !important;
     margin-top: 2px !important;
   }

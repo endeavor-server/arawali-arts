@@ -528,86 +528,218 @@ function initScrollReveals() {
   }
 }
 
-// Setup General UI Interactions
+// Setup General UI Interactions (Lakkadhaara-Grade Mobile Drawer & Desktop Nav)
 function initUIComponents() {
-  // Mobile Nav Toggle & Drawer
   const navContainer = document.querySelector('.nav-container');
   const navLinks = document.querySelector('.nav-links');
   
-  if (navContainer && navLinks && !document.querySelector('.nav-mobile-toggle')) {
-    const toggleBtn = document.createElement('button');
+  // 1. Ensure Mobile Toggle Button Exists (Pinned left on mobile)
+  let toggleBtn = document.querySelector('.nav-mobile-toggle');
+  if (navContainer && !toggleBtn) {
+    toggleBtn = document.createElement('button');
     toggleBtn.className = 'nav-mobile-toggle';
-    toggleBtn.setAttribute('aria-label', 'Toggle Navigation Menu');
+    toggleBtn.setAttribute('aria-label', 'Open Navigation Menu');
     toggleBtn.innerHTML = '☰';
-    toggleBtn.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('open');
-      toggleBtn.innerHTML = isOpen ? '✕' : '☰';
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+    navContainer.insertBefore(toggleBtn, navContainer.firstChild);
+  }
 
-      // When opening on mobile, ensure search button is at the top of the drawer
-      const searchBtn = navLinks.querySelector('#nav-cmd-k-btn');
-      if (isOpen && searchBtn && navLinks.firstElementChild !== searchBtn) {
-        navLinks.insertBefore(searchBtn, navLinks.firstElementChild);
+  // 2. Ensure Mobile Header Actions (Search & Cart) Exist on mobile
+  let mobileActions = document.querySelector('.nav-mobile-actions');
+  if (navContainer && !mobileActions) {
+    mobileActions = document.createElement('div');
+    mobileActions.className = 'nav-mobile-actions';
+    mobileActions.innerHTML = `
+      <button type="button" class="nav-mobile-action-btn" id="mobileSearchTrigger" aria-label="Search Catalog">🔍</button>
+      <a href="rfq.html" class="nav-mobile-action-btn" id="mobileCartTrigger" aria-label="RFQ Cart">
+        <span>📦</span>
+        <span class="lkh-cart-badge nav-rfq-count">0</span>
+      </a>
+    `;
+    navContainer.appendChild(mobileActions);
+  }
+
+  // 3. Mount Lakkadhaara-Grade Fullscreen Drawer (#lkhMobileDrawer)
+  let drawer = document.getElementById('lkhMobileDrawer');
+  if (!drawer) {
+    drawer = document.createElement('div');
+    drawer.className = 'lkh-mobile-drawer';
+    drawer.id = 'lkhMobileDrawer';
+    drawer.setAttribute('aria-hidden', 'true');
+    drawer.innerHTML = `
+      <div class="lkh-drawer-header">
+        <button type="button" class="lkh-drawer-close" id="lkhDrawerClose" aria-label="Close navigation">✕</button>
+        <a href="index.html" class="lkh-drawer-brand">
+          <span class="lkh-brand-sub">ESTD. 2011 • JODHPUR</span>
+          <span class="lkh-brand-title">ARAWALI ARTS</span>
+        </a>
+        <div class="lkh-drawer-actions">
+          <button type="button" class="lkh-action-btn" id="lkhDrawerSearchBtn" aria-label="Search Catalog">🔍</button>
+          <a href="rfq.html" class="lkh-action-btn" id="lkhDrawerCartBtn" aria-label="RFQ Cart">
+            <span>📦</span>
+            <span class="lkh-cart-badge nav-rfq-count">0</span>
+          </a>
+        </div>
+      </div>
+
+      <nav class="lkh-nav-list" aria-label="Mobile Navigation Categories">
+        <a href="living-dining.html" class="lkh-nav-item">
+          <span>Living Room & Accents</span>
+          <span class="lkh-arrow">→</span>
+        </a>
+        <a href="living-dining.html#cat-dining" class="lkh-nav-item">
+          <span>Dining Tables & Seating</span>
+          <span class="lkh-arrow">→</span>
+        </a>
+        <a href="case-goods.html" class="lkh-nav-item">
+          <span>Cabinetry & Storage</span>
+          <span class="lkh-arrow">→</span>
+        </a>
+        <a href="tabletop.html" class="lkh-nav-item">
+          <span>Kitchenware & Entertaining</span>
+          <span class="lkh-arrow">→</span>
+        </a>
+        <a href="wall-decor.html" class="lkh-nav-item">
+          <span>Architectural Wall Decor</span>
+          <span class="lkh-arrow">→</span>
+        </a>
+        <a href="collections.html#cat-lifestyle" class="lkh-nav-item">
+          <span>Lifestyle & Luxury Giftware</span>
+          <span class="lkh-arrow">→</span>
+        </a>
+        <a href="collections.html" class="lkh-nav-item lkh-nav-featured">
+          <span>All Categories (24 Lines)</span>
+          <span class="lkh-arrow">→</span>
+        </a>
+        <a href="../catalogue/arawali_arts_corporate_brochure.html" target="_blank" class="lkh-nav-item lkh-nav-featured">
+          <span>Export Catalogue & Brochure ↗</span>
+          <span class="lkh-arrow">→</span>
+        </a>
+      </nav>
+
+      <div class="lkh-drawer-bottom">
+        <div class="lkh-utility-links">
+          <a href="compliance.html" class="lkh-util-link">Export Compliance & Certifications</a>
+          <a href="rfq.html" class="lkh-util-link">Container CBM Estimator</a>
+        </div>
+        <a href="rfq.html" class="lkh-rfq-cta">Request an RFQ / Wholesale Price List</a>
+        <div class="lkh-footer-desk">
+          <span>✦ Jodhpur Artisanal Export Guild • Mundra Port Direct</span>
+          <span>Solid Sheesham, Mango & Acacia • Lacey Act & VRIKSH Certified</span>
+          <a href="mailto:export@arawaliarts.com" class="lkh-desk-email">export@arawaliarts.com</a>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(drawer);
+  }
+
+  // Drawer Open/Close Controllers
+  function openLkhDrawer() {
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLkhDrawer() {
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLkhDrawer();
+    });
+  }
+
+  const drawerCloseBtn = document.getElementById('lkhDrawerClose');
+  if (drawerCloseBtn) {
+    drawerCloseBtn.addEventListener('click', closeLkhDrawer);
+  }
+
+  // Close drawer on clicking any nav item inside drawer
+  drawer.querySelectorAll('.lkh-nav-item, .lkh-util-link, .lkh-rfq-cta').forEach(link => {
+    link.addEventListener('click', closeLkhDrawer);
+  });
+
+  // Wire search triggers to open Cmd+K search modal
+  const openSearchModal = () => {
+    closeLkhDrawer();
+    const cmdKModal = document.getElementById('cmd-k-modal');
+    if (cmdKModal) {
+      cmdKModal.classList.add('active');
+      const input = cmdKModal.querySelector('input');
+      if (input) setTimeout(() => input.focus(), 80);
+    }
+  };
+
+  const lkhSearchBtn = document.getElementById('lkhDrawerSearchBtn');
+  if (lkhSearchBtn) lkhSearchBtn.addEventListener('click', openSearchModal);
+
+  const mobileSearchTrigger = document.getElementById('mobileSearchTrigger');
+  if (mobileSearchTrigger) mobileSearchTrigger.addEventListener('click', openSearchModal);
+
+  // Close drawer on ESC key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+      closeLkhDrawer();
+    }
+  });
+
+  // Auto-close on viewport resize back to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 992 && drawer.classList.contains('is-open')) {
+      closeLkhDrawer();
+    }
+  });
+
+  // Sync RFQ item counter across all badges
+  function updateAllCartBadges() {
+    let count = 0;
+    try {
+      if (typeof RFQCart !== 'undefined' && RFQCart.getItems) {
+        count = RFQCart.getItems().length;
+      }
+    } catch(e) {}
+    document.querySelectorAll('.nav-rfq-count').forEach(el => {
+      el.textContent = count;
+      if (el.classList.contains('lkh-cart-badge') || el.classList.contains('cart-badge')) {
+        el.style.display = count > 0 ? 'inline-flex' : 'none';
       }
     });
-    navContainer.insertBefore(toggleBtn, navLinks);
+  }
+  updateAllCartBadges();
+  window.addEventListener('rfq-cart-updated', updateAllCartBadges);
 
-    // Endeavor-style mobile drawer info card
-    if (!navLinks.querySelector('.nav-drawer-footer')) {
-      const drawerFooter = document.createElement('div');
-      drawerFooter.className = 'nav-drawer-footer';
-      drawerFooter.innerHTML = `
-        <div class="drawer-footer-tag">✦ DIRECT EXPORT CONSOLS • MUNDRA & KANDLA</div>
-        <div class="drawer-footer-text">Kiln-dried Sheesham, Mango & Acacia • Lacey Act & VRIKSH Certified</div>
-        <a href="mailto:export@arawaliarts.com" class="drawer-footer-email">✉ export@arawaliarts.com</a>
-      `;
-      navLinks.appendChild(drawerFooter);
+  // Desktop Mega Dropdown Controller (Hover Intent Bridge)
+  const dropdown = navLinks ? navLinks.querySelector('.dropdown') : null;
+  if (dropdown) {
+    const dropdownContent = dropdown.querySelector('.dropdown-content');
+    let closeTimer = null;
+
+    function openDropdown() {
+      if (closeTimer) {
+        clearTimeout(closeTimer);
+        closeTimer = null;
+      }
+      dropdown.classList.add('is-open');
     }
 
-    // Auto-close on viewport resize back to desktop & restore search button position
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        if (navLinks.classList.contains('open')) {
-          navLinks.classList.remove('open');
-          toggleBtn.innerHTML = '☰';
-          document.body.style.overflow = '';
-        }
-        // Restore search button before compliance link if needed
-        const searchBtn = navLinks.querySelector('#nav-cmd-k-btn');
-        const compLink = navLinks.querySelector('a[href*="compliance"]');
-        if (searchBtn && compLink && searchBtn.nextElementSibling !== compLink) {
-          navLinks.insertBefore(searchBtn, compLink);
-        }
-      }
-    });
+    function scheduleCloseDropdown() {
+      if (closeTimer) clearTimeout(closeTimer);
+      closeTimer = setTimeout(() => {
+        dropdown.classList.remove('is-open');
+        closeTimer = null;
+      }, 180);
+    }
 
-    // Desktop & Mobile Dropdown Controller (Hover Intent Bridge & Click Toggle)
-    const dropdown = navLinks.querySelector('.dropdown');
-    if (dropdown) {
-      const dropbtn = dropdown.querySelector('.dropbtn');
-      const dropdownContent = dropdown.querySelector('.dropdown-content');
-      let closeTimer = null;
-
-      function openDropdown() {
-        if (closeTimer) {
-          clearTimeout(closeTimer);
-          closeTimer = null;
-        }
-        dropdown.classList.add('is-open');
-      }
-
-      function scheduleCloseDropdown() {
-        if (closeTimer) clearTimeout(closeTimer);
-        closeTimer = setTimeout(() => {
-          dropdown.classList.remove('is-open');
-          closeTimer = null;
-        }, 180);
-      }
-
-      // Desktop Hover Intent Bridge
-      dropdown.addEventListener('mouseenter', openDropdown);
-      dropdown.addEventListener('mouseleave', scheduleCloseDropdown);
-      if (dropdownContent) {
+    dropdown.addEventListener('mouseenter', openDropdown);
+    dropdown.addEventListener('mouseleave', scheduleCloseDropdown);
+    if (dropdownContent) {
+      dropdownContent.addEventListener('mouseenter', openDropdown);
+      dropdownContent.addEventListener('mouseleave', scheduleCloseDropdown);
+    }
+  }
         dropdownContent.addEventListener('mouseenter', openDropdown);
         dropdownContent.addEventListener('mouseleave', scheduleCloseDropdown);
       }

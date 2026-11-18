@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Master Export Product Catalog (500 SKUs) — Arawali Arts Jodhpur</title>
-  <link rel="stylesheet" href="style.css?v=2026.25">
+  <link rel="stylesheet" href="style.css?v=2026.26">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* Catalog Specific 2026 Controls */
@@ -223,11 +223,15 @@
         <span class="brand-main">ARAWALI ARTS</span>
       </a>
       <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="catalog.html" class="active">Full Catalog (500 SKUs)</a>
+        <a href="living-dining.html" class="nav-item ">Living & Dining</a>
+        <a href="case-goods.html" class="nav-item ">Cabinetry & Storage</a>
+        <a href="tabletop.html" class="nav-item ">Kitchen & Entertaining</a>
+        <a href="wall-decor.html" class="nav-item ">Architectural Decor</a>
+        <a href="collections.html#cat-lifestyle" class="nav-item">Lifestyle & Gifts</a>
         <div class="dropdown">
-          <a href="collections.html" class="dropbtn">Collections</a>
+          <a href="collections.html" class="dropbtn nav-item active">Categories</a>
           <div class="dropdown-content">
+            <!-- Col 1: Solid Wood Furniture -->
             <div class="mega-col">
               <div class="mega-col-title">🪑 Furniture & Storage</div>
               <div class="mega-col-links">
@@ -239,6 +243,8 @@
                 <a href="collections.html#cat-patio">Patio & Balcony Living <span class="cat-count">10 SKUs</span></a>
               </div>
             </div>
+
+            <!-- Col 2: Kitchen, Bar & Entertaining -->
             <div class="mega-col">
               <div class="mega-col-title">🍷 Kitchen & Entertaining</div>
               <div class="mega-col-links">
@@ -250,6 +256,8 @@
                 <a href="collections.html#cat-butcher">Kitchen Prep & Islands <span class="cat-count">10 SKUs</span></a>
               </div>
             </div>
+
+            <!-- Col 3: Architectural Decor & Lighting -->
             <div class="mega-col">
               <div class="mega-col-title">🏮 Architectural Decor</div>
               <div class="mega-col-links">
@@ -261,6 +269,8 @@
                 <a href="collections.html#cat-fireplace">Fireplace & Mantels <span class="cat-count">10 SKUs</span></a>
               </div>
             </div>
+
+            <!-- Col 4: Lifestyle, Giftware & Specialty -->
             <div class="mega-col">
               <div class="mega-col-title">🌿 Lifestyle & Giftware</div>
               <div class="mega-col-links">
@@ -272,17 +282,26 @@
                 <a href="collections.html#cat-spiritual">Spiritual & Zen Crafts <span class="cat-count">10 SKUs</span></a>
               </div>
             </div>
+
+            <a href="collections.html" class="mobile-all-collections-btn">View All 24 Export Categories (500 SKUs) →</a>
           </div>
         </div>
-        <button type="button" class="nav-search-btn" id="nav-cmd-k-btn" aria-label="Search 500 SKUs (Cmd+K)">
-          <span class="search-icon">🔍</span>
-          <span class="search-text">Search 500 SKUs</span>
-          <kbd class="search-kbd">⌘K</kbd>
-        </button>
-        <a href="compliance.html">Export Compliance</a>
-        <a href="rfq.html">Container Calculator</a>
-        <a href="../catalogue/arawali_arts_corporate_brochure.html" target="_blank" class="nav-btn-secondary">Digital Lookbook ↗</a>
-        <a href="rfq.html" class="nav-btn-primary">Request an RFQ</a>
+        <a href="../catalogue/arawali_arts_corporate_brochure.html" target="_blank" class="nav-item nav-link-catalogue">Export Catalogue ↗</a>
+
+        <div class="nav-actions">
+          <button type="button" class="nav-search-trigger" id="nav-cmd-k-btn" aria-label="Search Catalog (Cmd+K)">
+            <span class="search-icon">🔍</span>
+            <span class="search-text">Search</span>
+            <kbd class="search-kbd">⌘K</kbd>
+          </button>
+          <a href="compliance.html" class="nav-util-link ">Compliance</a>
+          <a href="rfq.html" class="nav-cart-trigger" aria-label="RFQ Cart">
+            <span class="cart-icon">📦</span>
+            <span class="cart-label">RFQ</span>
+            <span class="cart-badge nav-rfq-count">0</span>
+          </a>
+          <a href="rfq.html" class="nav-cta-btn ">Request an RFQ</a>
+        </div>
       </nav>
     </div>
   </header>
@@ -402,7 +421,7 @@
           <li><a href="compliance.html">VRIKSH & Lacey Act</a></li>
           <li><a href="compliance.html#eudr">EUDR Deforestation Due Diligence</a></li>
           <li><a href="rfq.html">Container CBM Estimator</a></li>
-          <li><a href="../catalogue/arawali_arts_corporate_brochure.html" target="_blank">Digital Corporate Lookbook ↗</a></li>
+          <li><a href="../catalogue/arawali_arts_corporate_brochure.html" target="_blank">Export Catalogue & Brochure ↗</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -417,7 +436,7 @@
   <!-- Scripts -->
   <script src="products-data.js?v=2026.24"></script>
   <script src="lenis.min.js?v=2026.24"></script>
-  <script src="app.js?v=2026.25"></script>
+  <script src="app.js?v=2026.26"></script>
   <script>
     (function() {
       const allItems = window.ALL_PRODUCTS_500 || [];
