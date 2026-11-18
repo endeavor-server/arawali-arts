@@ -406,6 +406,54 @@ const RFQCart = {
   }
 };
 
+// Web Audio API Acoustic Synthesizer (Endeavor Architecture Parity - Zero Network Calls)
+const soundFX = {
+  ctx: null,
+  init() {
+    if (!this.ctx && typeof window !== 'undefined') {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) this.ctx = new AudioCtx();
+    }
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+  },
+  playTick(pitch = 1100) {
+    try {
+      this.init();
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(pitch, this.ctx.currentTime);
+      gain.gain.setValueAtTime(0.018, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.025);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.025);
+    } catch (e) {}
+  },
+  playChime(pitch = 780) {
+    try {
+      this.init();
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(pitch, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(pitch * 1.5, this.ctx.currentTime + 0.12);
+      gain.gain.setValueAtTime(0.035, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.14);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.14);
+    } catch (e) {}
+  }
+};
+window.soundFX = soundFX;
+
 // DOM Initialization
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof syncAllProductsToCatalog === 'function') {
@@ -418,6 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initQuickSpecModal();
   initContainerCalculator();
   initRFQPageIntegration();
+  initCommandPalette();
 });
 
 // 2026 Luxury Inertial Smooth Scroll (Lenis)
@@ -752,10 +801,13 @@ function showToast(message) {
 function initContainerCalculator() {
   const containerList = document.getElementById('calculator-items-list') || document.querySelector('.calculator-card > div > div:first-child > div');
   const usedCbmDisplay = document.getElementById('used-cbm');
+  const usedWeightDisplay = document.getElementById('used-weight');
   const fcl20Progress = document.getElementById('fcl-20-progress');
   const fcl20Text = document.getElementById('fcl-20-text');
   const fcl40Progress = document.getElementById('fcl-40-progress');
   const fcl40Text = document.getElementById('fcl-40-text');
+  const weightProgress = document.getElementById('weight-progress');
+  const weightLimitText = document.getElementById('weight-limit-text');
   const skuSelect = document.getElementById('catalog-sku-select');
   const addSkuBtn = document.getElementById('btn-add-sku-to-cbm');
 
@@ -768,13 +820,17 @@ function initContainerCalculator() {
     const removeBtn = row.querySelector('.calc-remove-btn');
 
     if (input) {
-      input.addEventListener('input', recalculate);
+      input.addEventListener('input', () => {
+        soundFX.playTick(1000);
+        recalculate();
+      });
     }
     if (minusBtn && input) {
       minusBtn.onclick = () => {
         const step = parseInt(input.step, 10) || 10;
         const current = parseInt(input.value, 10) || 0;
         input.value = Math.max(0, current - step);
+        soundFX.playTick(850);
         recalculate();
       };
     }
@@ -783,6 +839,7 @@ function initContainerCalculator() {
         const step = parseInt(input.step, 10) || 10;
         const current = parseInt(input.value, 10) || 0;
         input.value = current + step;
+        soundFX.playTick(1250);
         recalculate();
       };
     }
@@ -792,6 +849,7 @@ function initContainerCalculator() {
         if (sku) {
           RFQCart.remove(sku);
         }
+        soundFX.playTick(700);
         row.remove();
         recalculate();
       };
@@ -871,6 +929,7 @@ function initContainerCalculator() {
           const newInput = row.querySelector('.cbm-qty-input');
           if (newInput) newInput.focus();
         }
+        soundFX.playChime(880);
         recalculate();
       };
     }
@@ -897,18 +956,30 @@ function initContainerCalculator() {
     const roundedCbm = totalCbm.toFixed(2);
     usedCbmDisplay.textContent = roundedCbm + ' CBM';
 
+    // Volume progress (20ft FCL = 28 CBM, 40ft HQ = 68 CBM)
     const pct20 = Math.min(Math.round((totalCbm / 28) * 100), 100);
-    fcl20Progress.style.width = pct20 + '%';
-    fcl20Text.textContent = `${pct20}% of 20ft FCL (28 CBM)`;
+    if (fcl20Progress) fcl20Progress.style.width = pct20 + '%';
+    if (fcl20Text) fcl20Text.textContent = `${pct20}% of 20ft FCL (28 CBM)`;
 
     const pct40 = Math.min(Math.round((totalCbm / 68) * 100), 100);
-    fcl40Progress.style.width = pct40 + '%';
-    fcl40Text.textContent = `${pct40}% of 40ft HQ (68 CBM)`;
+    if (fcl40Progress) fcl40Progress.style.width = pct40 + '%';
+    if (fcl40Text) fcl40Text.textContent = `${pct40}% of 40ft HQ (68 CBM)`;
 
-    updateRFQSummary();
+    // Weight progress (Average export packaged density = 240 kg / CBM, 20ft legal payload ceiling = 21.8 MT)
+    const totalWeightKg = Math.round(totalCbm * 240);
+    const totalWeightMt = (totalWeightKg / 1000).toFixed(2);
+    if (usedWeightDisplay) {
+      usedWeightDisplay.innerHTML = `${totalWeightMt} MT <span class="sub-weight">(${totalWeightKg.toLocaleString()} kg)</span>`;
+    }
+    const maxPayloadKg = 21800; // 21.8 Metric Tonnes
+    const pctWeight = Math.min(Math.round((totalWeightKg / maxPayloadKg) * 100), 100);
+    if (weightProgress) weightProgress.style.width = pctWeight + '%';
+    if (weightLimitText) weightLimitText.textContent = `${pctWeight}% of Max Payload (21.8 MT)`;
+
+    updateRFQSummary(totalWeightMt);
   }
 
-  function updateRFQSummary() {
+  function updateRFQSummary(totalWeightMt) {
     const rfqTextarea = document.getElementById('message');
     if (!rfqTextarea) return;
     const currentCart = RFQCart.get();
@@ -919,7 +990,11 @@ function initContainerCalculator() {
         const it = currentCart[s];
         lines.push(`• ${it.sku}: ${it.title} — Qty: ${it.qty} pcs (Total: ${(it.qty * it.cbm).toFixed(3)} CBM)`);
       });
-      lines.push(`\nCalculated Total Container Volume: ${RFQCart.getTotalCBM().toFixed(2)} CBM`);
+      const cbm = RFQCart.getTotalCBM().toFixed(2);
+      lines.push(`\nCalculated Total Container Volume: ${cbm} CBM`);
+      if (totalWeightMt) {
+        lines.push(`Estimated Gross Cargo Weight: ${totalWeightMt} Metric Tonnes`);
+      }
       rfqTextarea.value = lines.join('\n');
     }
   }
@@ -1084,3 +1159,157 @@ function initDepartmentPage(config) {
   render();
 }
 window.initDepartmentPage = initDepartmentPage;
+
+// ==========================================================================
+// 500-SKU GLOBAL COMMAND PALETTE (Cmd+K / Ctrl+K)
+// ==========================================================================
+function initCommandPalette() {
+  const navBtn = document.getElementById('nav-cmd-k-btn');
+
+  // Build Palette Modal DOM if not present
+  let backdrop = document.getElementById('cmd-palette-backdrop');
+  if (!backdrop) {
+    backdrop = document.createElement('div');
+    backdrop.id = 'cmd-palette-backdrop';
+    backdrop.className = 'cmd-palette-backdrop';
+    backdrop.innerHTML = `
+      <div class="cmd-palette-modal" role="dialog" aria-modal="true" aria-label="Command Search">
+        <div class="cmd-palette-header">
+          <span class="cmd-palette-search-icon">🔍</span>
+          <input type="text" id="cmd-palette-input" class="cmd-palette-input" placeholder="Search 500 SKUs by name, wood species, jaali, or CBM..." autocomplete="off">
+          <button type="button" id="cmd-palette-close" class="cmd-palette-close" aria-label="Close Search">✕</button>
+        </div>
+        <div id="cmd-palette-results" class="cmd-palette-results"></div>
+        <div class="cmd-palette-footer">
+          <div class="cmd-palette-keys">
+            <span><kbd>↑</kbd> <kbd>↓</kbd> Navigate</span>
+            <span><kbd>Enter</kbd> Select</span>
+            <span><kbd>Esc</kbd> Close</span>
+          </div>
+          <span id="cmd-palette-count">500 SKUs indexed</span>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(backdrop);
+  }
+
+  const input = document.getElementById('cmd-palette-input');
+  const resultsBox = document.getElementById('cmd-palette-results');
+  const closeBtn = document.getElementById('cmd-palette-close');
+  const countLabel = document.getElementById('cmd-palette-count');
+
+  function openPalette() {
+    backdrop.classList.add('open');
+    soundFX.playTick(1200);
+    setTimeout(() => {
+      if (input) {
+        input.focus();
+        input.select();
+        renderResults(input.value.trim());
+      }
+    }, 50);
+  }
+
+  function closePalette() {
+    backdrop.classList.remove('open');
+    soundFX.playTick(800);
+  }
+
+  if (navBtn) {
+    navBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openPalette();
+    });
+  }
+
+  if (closeBtn) closeBtn.onclick = closePalette;
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop) closePalette();
+  });
+
+  // Global Keyboard Shortcuts (Cmd+K, Ctrl+K, Escape)
+  document.addEventListener('keydown', (e) => {
+    if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      if (backdrop.classList.contains('open')) closePalette();
+      else openPalette();
+    } else if (e.key === 'Escape' && backdrop.classList.contains('open')) {
+      e.preventDefault();
+      closePalette();
+    }
+  });
+
+  function renderResults(q) {
+    const items = window.ALL_PRODUCTS_500 || Object.values(window.PRODUCT_CATALOG || {});
+    const query = q.toLowerCase();
+    const filtered = query
+      ? items.filter(it => {
+          const sku = (it.SKU || it.sku || '').toLowerCase();
+          const name = (it.Product_Name || it.Title || it.title || '').toLowerCase();
+          const spec = (it.Material_Species || it.species || '').toLowerCase();
+          const cat = (it.Category || it.category || '').toLowerCase();
+          return sku.includes(query) || name.includes(query) || spec.includes(query) || cat.includes(query);
+        }).slice(0, 20)
+      : items.slice(0, 12);
+
+    countLabel.textContent = `${filtered.length} of ${items.length} SKUs`;
+    resultsBox.innerHTML = '';
+
+    if (filtered.length === 0) {
+      resultsBox.innerHTML = '<div style="padding: 24px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">No matching export SKUs found. Try searching by timber species (Sheesham, Mango), iron jaali, or product title.</div>';
+      return;
+    }
+
+    filtered.forEach(it => {
+      const sku = it.SKU || it.sku;
+      const title = it.Product_Name || it.Title || it.title;
+      const cbm = it.CBM || it.cbm;
+      const moq = it.MOQ || it.moq || 20;
+      const species = it.Material_Species || it.species || 'Seasoned Hardwood';
+      const img = it.Image_File || it.image || `../assets/sku_${sku.toLowerCase().replace(/-/g, '_')}.jpg`;
+
+      const row = document.createElement('div');
+      row.className = 'cmd-result-item';
+      row.innerHTML = `
+        <img class="cmd-result-thumb" src="${img}" alt="${title}" onerror="this.src='../assets/hero_live_edge_table.jpg'">
+        <div class="cmd-result-info">
+          <div class="cmd-result-top">
+            <span class="cmd-result-sku">${sku}</span>
+            <span class="cmd-result-title">${title}</span>
+          </div>
+          <div class="cmd-result-meta">${species} • ${cbm} CBM/pc • MOQ ${moq}</div>
+        </div>
+        <button type="button" class="cmd-result-action" data-sku="${sku}">+ Add RFQ</button>
+      `;
+
+      row.onclick = (e) => {
+        if (e.target.classList.contains('cmd-result-action')) {
+          e.stopPropagation();
+          if (window.RFQCart) {
+            RFQCart.add(sku, moq, cbm);
+            soundFX.playChime();
+            e.target.textContent = '✓ Added!';
+            e.target.style.background = '#2E7D32';
+            e.target.style.color = '#FFF';
+            setTimeout(() => {
+              e.target.textContent = '+ Add RFQ';
+              e.target.style.background = '';
+              e.target.style.color = '';
+            }, 1200);
+          }
+          return;
+        }
+        window.location.href = `rfq.html?sku=${sku}`;
+      };
+
+      resultsBox.appendChild(row);
+    });
+  }
+
+  if (input) {
+    input.addEventListener('input', (e) => {
+      renderResults(e.target.value.trim());
+    });
+  }
+}
+window.initCommandPalette = initCommandPalette;

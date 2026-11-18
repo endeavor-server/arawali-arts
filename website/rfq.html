@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2026.12">
+  <link rel="stylesheet" href="style.css?v=2026.15">
 </head>
 <body>
 
@@ -86,6 +86,11 @@
             </div>
           </div>
         </div>
+        <button type="button" class="nav-search-btn" id="nav-cmd-k-btn" aria-label="Search 500 SKUs (Cmd+K)">
+          <span class="search-icon">🔍</span>
+          <span class="search-text">Search 500 SKUs</span>
+          <kbd class="search-kbd">⌘K</kbd>
+        </button>
         <a href="compliance.html">Export Compliance</a>
         <a href="rfq.html" class="active">Container Calculator</a>
         <a href="../catalogue/arawali_arts_corporate_brochure.html" target="_blank" class="nav-btn-secondary">Digital Lookbook ↗</a>
@@ -221,14 +226,22 @@
             </div>
             
             <div class="calc-cockpit-box">
-              <span class="calc-volume-label">Calculated Batch Volume</span>
-              <div id="used-cbm">27.50 CBM</div>
+              <div class="calc-cockpit-metrics">
+                <div class="cockpit-metric">
+                  <span class="calc-volume-label">Calculated Batch Volume</span>
+                  <div id="used-cbm" class="tabular-nums">27.50 CBM</div>
+                </div>
+                <div class="cockpit-metric">
+                  <span class="calc-volume-label">Est. Cargo Payload Weight</span>
+                  <div id="used-weight" class="tabular-nums">6.60 MT <span class="sub-weight">(6,600 kg)</span></div>
+                </div>
+              </div>
             </div>
 
             <!-- 20ft Container Progress -->
             <div class="calc-progress-group">
               <div class="calc-progress-header">
-                <strong>20ft FCL (28 CBM Baseline)</strong>
+                <strong>20ft FCL Volume (28 CBM Nominal)</strong>
                 <span id="fcl-20-text" style="color: var(--accent-gold); font-weight: 700;">98% of 20ft FCL</span>
               </div>
               <div class="calc-progress-track">
@@ -239,11 +252,22 @@
             <!-- 40ft HQ Container Progress -->
             <div class="calc-progress-group">
               <div class="calc-progress-header">
-                <strong>40ft High Cube (68 CBM Baseline)</strong>
+                <strong>40ft HQ Volume (68 CBM Nominal)</strong>
                 <span id="fcl-40-text" style="color: #6B625B; font-weight: 700;">40% of 40ft HQ</span>
               </div>
               <div class="calc-progress-track">
                 <div id="fcl-40-progress" style="width: 40%;"></div>
+              </div>
+            </div>
+
+            <!-- Payload Weight Progress (21.8 MT baseline) -->
+            <div class="calc-progress-group">
+              <div class="calc-progress-header">
+                <strong>Container Payload Weight (21.8 MT Max)</strong>
+                <span id="weight-limit-text" style="color: #8E6D38; font-weight: 700;">30% of Max Payload</span>
+              </div>
+              <div class="calc-progress-track">
+                <div id="weight-progress" style="width: 30%; height: 100%; background: linear-gradient(90deg, #8E6D38, #C5A059); border-radius: 10px; transition: width 0.3s ease;"></div>
               </div>
             </div>
 
@@ -341,6 +365,6 @@
 
   <script src="products-data.js?v=2026.7"></script>
   <script src="lenis.min.js?v=2026.6"></script>
-  <script src="app.js?v=2026.10"></script>
+  <script src="app.js?v=2026.15"></script>
 </body>
 </html>
