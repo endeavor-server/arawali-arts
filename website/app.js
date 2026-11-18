@@ -546,6 +546,27 @@ function initUIComponents() {
     });
     navContainer.insertBefore(toggleBtn, navLinks);
 
+    // Endeavor-style mobile drawer info card
+    if (!navLinks.querySelector('.nav-drawer-footer')) {
+      const drawerFooter = document.createElement('div');
+      drawerFooter.className = 'nav-drawer-footer';
+      drawerFooter.innerHTML = `
+        <div class="drawer-footer-tag">✦ DIRECT EXPORT CONSOLS • MUNDRA & KANDLA</div>
+        <div class="drawer-footer-text">Kiln-dried Sheesham, Mango & Acacia • Lacey Act & VRIKSH Certified</div>
+        <a href="mailto:export@arawaliarts.com" class="drawer-footer-email">✉ export@arawaliarts.com</a>
+      `;
+      navLinks.appendChild(drawerFooter);
+    }
+
+    // Auto-close on viewport resize back to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && navLinks.classList.contains('open')) {
+        navLinks.classList.remove('open');
+        toggleBtn.innerHTML = '☰';
+        document.body.style.overflow = '';
+      }
+    });
+
     // Desktop & Mobile Dropdown Controller (Hover Intent Bridge & Click Toggle)
     const dropdown = navLinks.querySelector('.dropdown');
     if (dropdown) {
@@ -577,14 +598,12 @@ function initUIComponents() {
         dropdownContent.addEventListener('mouseleave', scheduleCloseDropdown);
       }
 
-      // Click Toggle (Mobile + Touch / Hybrid Laptops)
+      // Click Toggle (Mobile Accordion + Desktop Click)
       if (dropbtn) {
         dropbtn.addEventListener('click', (e) => {
           if (window.innerWidth <= 768) {
-            if (!dropdown.classList.contains('is-mobile-open')) {
-              e.preventDefault();
-              dropdown.classList.add('is-mobile-open');
-            }
+            e.preventDefault();
+            dropdown.classList.toggle('is-mobile-open');
           } else {
             // On desktop: if user clicks, toggle is-open
             // If already open, allow following the link to collections.html
