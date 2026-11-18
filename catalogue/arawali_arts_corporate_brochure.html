@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Arawali Arts — Official Corporate Export Lookbook (2026/2027 Digital Edition)</title>
-  <meta name="description" content="Official B2B Digital Export Lookbook for Arawali Arts Jodhpur. Live-synced solid timber furniture, architectural jaali ironwork, and international wholesale export specifications.">
+  <title>Arawali Arts — Official Corporate Export Lookbook & Magazine (2026/2027 Edition)</title>
+  <meta name="description" content="Official B2B Digital Export Magazine & Lookbook for Arawali Arts Jodhpur. Interactive 3D page-flip brochure featuring solid hardwood furniture, architectural iron jaali decor, and global export specifications.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../website/style.css?v=2026.11">
   <style>
     :root {
       --primary: #12100E;
@@ -19,118 +20,125 @@
       --text: #241D18;
       --text-muted: #6B6156;
       --text-light: #94887B;
-      --bg-page: #FBF9F6;
+      --bg-page: #0E0C0A;
       --bg-cream: #FAF7F2;
       --bg-surface: #FFFFFF;
       --border: #E8E2DA;
-      --border-medium: #D5CCC0;
+      --border-dark: #3A2F27;
       --shadow-sm: 0 4px 14px rgba(18, 16, 14, 0.04);
-      --shadow-md: 0 12px 32px rgba(18, 16, 14, 0.08);
-      --shadow-lg: 0 20px 50px rgba(18, 16, 14, 0.12);
+      --shadow-md: 0 12px 32px rgba(18, 16, 14, 0.12);
+      --shadow-lg: 0 20px 50px rgba(18, 16, 14, 0.25);
       --font-serif: 'Playfair Display', Georgia, serif;
       --font-cinzel: 'Cinzel', serif;
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
-    /* Global Reset & Base */
+    /* Global View-Only Reset */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    html {
-      overflow-x: hidden;
-      width: 100%;
-      max-width: 100vw;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--font-sans);
+    html, body {
       background-color: var(--bg-page);
-      color: var(--text);
-      line-height: 1.6;
+      color: #FAF7F2;
+      font-family: var(--font-sans);
       overflow-x: hidden;
       width: 100%;
       max-width: 100vw;
-      position: relative;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Top Sticky Lookbook Navigation */
-    .lookbook-nav {
+    @media print {
+      body { display: none !important; }
+    }
+
+    /* Magazine Header Bar */
+    .mag-header {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(18, 16, 14, 0.94);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(184, 149, 82, 0.3);
-      padding: 12px 24px;
-      color: #FFFFFF;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+      background: rgba(18, 16, 14, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(184, 149, 82, 0.35);
+      padding: 12px 20px;
     }
 
-    .lookbook-nav-container {
-      max-width: 1280px;
+    .mag-header-inner {
+      max-width: 1400px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    .nav-brand {
+    .mag-brand {
       display: flex;
       flex-direction: column;
       text-decoration: none;
       color: #FFFFFF;
     }
 
-    .nav-brand-sub {
+    .mag-brand-sub {
       font-size: 0.62rem;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.18em;
       color: var(--accent-gold);
       font-weight: 700;
       text-transform: uppercase;
     }
 
-    .nav-brand-main {
+    .mag-brand-main {
       font-family: var(--font-cinzel);
       font-size: 1.25rem;
       letter-spacing: 0.08em;
       font-weight: 700;
       color: #FFFFFF;
+      line-height: 1.1;
     }
 
-    .nav-links-row {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .nav-link {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #D3C7BC;
-      text-decoration: none;
-      transition: color 0.2s ease;
-      letter-spacing: 0.02em;
-    }
-
-    .nav-link:hover, .nav-link.active {
-      color: var(--accent-gold);
-    }
-
-    .nav-actions {
+    .mag-controls-bar {
       display: flex;
       align-items: center;
       gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .badge-view-only {
-      font-size: 0.72rem;
+    /* Mode Toggles */
+    .view-switcher-toggles {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(184, 149, 82, 0.3);
+      padding: 3px;
+      border-radius: 30px;
+    }
+
+    .view-switch-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: #D3C7BC;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .view-switch-btn.active {
+      background: var(--accent-gold);
+      color: #12100E;
+      box-shadow: 0 2px 8px rgba(184, 149, 82, 0.4);
+    }
+
+    .badge-view-status {
+      font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -139,1189 +147,1714 @@
       border: 1px solid rgba(184, 149, 82, 0.35);
       padding: 5px 12px;
       border-radius: 20px;
+      white-space: nowrap;
     }
 
-    .btn-action-rfq {
+    .btn-mag-rfq {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 9px 18px;
-      font-size: 0.82rem;
+      padding: 7px 16px;
+      font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       border-radius: 999px;
       text-decoration: none;
       background: var(--accent-gold);
-      border: 1px solid var(--accent-gold);
-      color: #FFFFFF;
-      transition: all 0.25s ease;
+      color: #12100E;
+      transition: all 0.2s ease;
     }
 
-    .btn-action-rfq:hover {
+    .btn-mag-rfq:hover {
       background: var(--accent-gold-hover);
       transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(184, 149, 82, 0.35);
     }
 
-    /* Main Container */
-    .lookbook-wrapper {
+    /* Magazine Flipbook Workspace */
+    #flipbook-workspace {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 80px;
+      min-height: calc(100vh - 120px);
       width: 100%;
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 24px 20px 100px;
       box-sizing: border-box;
     }
 
-    /* Hero Banner: Luxury Noir Editorial */
-    .lookbook-hero {
-      background: linear-gradient(135deg, #140F0C 0%, #241A14 50%, #120E0B 100%);
-      color: #FFFFFF;
-      border-radius: 18px;
-      padding: 56px 48px;
-      margin-bottom: 36px;
-      border: 1px solid rgba(184, 149, 82, 0.3);
-      box-shadow: var(--shadow-lg);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(184, 149, 82, 0.4);
-      background: rgba(184, 149, 82, 0.12);
-      color: var(--accent-light);
-      padding: 6px 16px;
-      border-radius: 30px;
-      font-size: 0.76rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-weight: 700;
-      margin-bottom: 22px;
-    }
-
-    .hero-title {
-      font-family: var(--font-cinzel);
-      font-size: 2.75rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      line-height: 1.15;
-      margin-bottom: 14px;
-      color: #FFFFFF;
-    }
-
-    .hero-title em {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 400;
-      color: var(--accent-gold);
-    }
-
-    .hero-desc {
-      font-size: 1.05rem;
-      color: #DDD4CB;
-      line-height: 1.7;
-      max-width: 760px;
-      margin-bottom: 36px;
-      font-weight: 300;
-    }
-
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      padding-top: 28px;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .metric-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 16px 14px;
-      text-align: center;
-    }
-
-    .metric-num {
-      font-family: var(--font-serif);
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--accent-gold);
-      line-height: 1.1;
-      margin-bottom: 4px;
-    }
-
-    .metric-label {
-      font-size: 0.74rem;
-      color: #BDB2A7;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 600;
-    }
-
-    /* Live Catalog Filter & Control Cockpit */
-    .live-catalog-controls {
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 32px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .controls-header {
+    /* Interactive Flip Toolbar */
+    .flip-toolbar {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 18px;
+      justify-content: center;
+      gap: 12px;
+      background: rgba(24, 20, 16, 0.95);
+      border: 1px solid rgba(184, 149, 82, 0.35);
+      border-radius: 40px;
+      padding: 8px 18px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+      max-width: 100%;
+      box-sizing: border-box;
       flex-wrap: wrap;
-      gap: 14px;
     }
 
-    .controls-title {
-      font-family: var(--font-serif);
-      font-size: 1.35rem;
+    .flip-tool-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FAF7F2;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.76rem;
       font-weight: 700;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .live-badge {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: #2E7D32;
-      background: #E8F5E9;
-      border: 1px solid rgba(46, 125, 50, 0.3);
-      padding: 3px 8px;
-      border-radius: 12px;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 4px;
-    }
-
-    .live-badge::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      background: #2E7D32;
-      border-radius: 50%;
-      animation: pulseLive 1.6s infinite ease-in-out;
-    }
-
-    @keyframes pulseLive {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(1.3); }
-    }
-
-    .search-box {
-      position: relative;
-      min-width: 280px;
-      max-width: 380px;
-      flex: 1;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 10px 14px 10px 36px;
-      font-family: inherit;
-      font-size: 0.88rem;
-      border: 1px solid var(--border-medium);
-      border-radius: 999px;
-      background: #FAF8F5;
-      color: var(--text);
-      outline: none;
       transition: all 0.2s ease;
     }
 
-    .search-input:focus {
-      border-color: var(--accent-gold);
-      background: #FFFFFF;
-      box-shadow: 0 0 0 3px rgba(184, 149, 82, 0.15);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 0.85rem;
-      color: var(--text-light);
-      pointer-events: none;
-    }
-
-    /* Category Pill Switcher */
-    .category-pills-row {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-    }
-
-    .cat-pill-btn {
-      padding: 8px 16px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      border: 1px solid var(--border-medium);
-      background: #FAF8F5;
-      color: var(--text-muted);
-      border-radius: 999px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .cat-pill-btn:hover {
-      background: #FFFFFF;
-      color: var(--primary);
-      border-color: var(--accent-gold);
-    }
-
-    .cat-pill-btn.active {
-      background: var(--primary);
-      color: #FFFFFF;
-      border-color: var(--primary);
-    }
-
-    .cat-pill-btn.active .pill-count {
+    .flip-tool-btn:hover {
       background: var(--accent-gold);
-      color: #FFFFFF;
+      color: #12100E;
+      border-color: var(--accent-gold);
     }
 
-    .pill-count {
-      font-size: 0.7rem;
-      background: rgba(0,0,0,0.06);
-      padding: 2px 6px;
-      border-radius: 10px;
-    }
-
-    /* Live Product Grid */
-    .live-product-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-bottom: 48px;
-      width: 100%;
-      min-width: 0;
-    }
-
-    .product-card {
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      box-shadow: var(--shadow-sm);
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-      box-sizing: border-box;
-      min-width: 0;
-      position: relative;
-    }
-
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-md);
-      border-color: rgba(184, 149, 82, 0.4);
-    }
-
-    .card-media {
-      position: relative;
-      height: 220px;
-      background: #F0EAE1;
-      overflow: hidden;
-    }
-
-    .card-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-
-    .product-card:hover .card-img {
-      transform: scale(1.05);
-    }
-
-    .card-sku-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: rgba(18, 16, 14, 0.88);
-      color: #FFFFFF;
-      padding: 4px 9px;
-      border-radius: 6px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      border: 1px solid rgba(184, 149, 82, 0.35);
-      z-index: 2;
-    }
-
-    .card-dept-tag {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(255, 255, 255, 0.92);
-      color: var(--primary);
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      z-index: 2;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    .card-content {
-      padding: 18px 16px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      box-sizing: border-box;
-    }
-
-    .card-title {
-      font-family: var(--font-serif);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 6px;
-      line-height: 1.35;
-    }
-
-    .card-material {
+    .page-indicator-badge {
       font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      line-height: 1.45;
+      font-weight: 700;
+      color: var(--accent-gold);
+      padding: 0 8px;
+      white-space: nowrap;
+    }
+
+    /* Quick Jump Dropdown */
+    .mag-jump-select {
+      background: #1C1713;
+      border: 1px solid rgba(184, 149, 82, 0.3);
+      color: #E8D8B0;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+      outline: none;
+      cursor: pointer;
+      max-width: 220px;
+    }
+
+    /* Flipbook Canvas / Container */
+    .magazine-stage {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      perspective: 2500px;
+    }
+
+    #flipbook-book {
+      margin: 0 auto;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Base Magazine Page Styling */
+    .mag-page {
+      background-color: #FAF7F2;
+      color: #241D18;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-sizing: border-box;
+      border: 1px solid #E8E2DA;
+      user-select: none;
+    }
+
+    .mag-page.--hard {
+      background: linear-gradient(135deg, #120F0D 0%, #201813 50%, #100C0A 100%);
+      color: #FAF7F2;
+      border: 2px solid var(--accent-gold);
+    }
+
+    .page-inner {
+      padding: 32px 30px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    /* Running Header & Footer for Magazine Spreads */
+    .spread-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8C7E72;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(184, 149, 82, 0.25);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .spread-header strong {
+      color: var(--accent-gold);
+    }
+
+    .spread-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.68rem;
+      color: #8C7E72;
+      padding-top: 12px;
+      border-top: 1px solid rgba(184, 149, 82, 0.2);
+      margin-top: auto;
+    }
+
+    .spread-page-num {
+      font-family: var(--font-cinzel);
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* COVER DESIGN (Page 1) */
+    .cover-container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      padding: 44px 30px;
+      box-sizing: border-box;
+      background: radial-gradient(circle at center, rgba(184, 149, 82, 0.15) 0%, transparent 70%),
+                  linear-gradient(180deg, #17120F 0%, #0E0B09 100%);
+      border: 3px double rgba(184, 149, 82, 0.45);
+      margin: 12px;
+      border-radius: 4px;
+    }
+
+    .cover-badge {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      border: 1px solid rgba(184, 149, 82, 0.4);
+      padding: 6px 18px;
+      border-radius: 30px;
+      background: rgba(184, 149, 82, 0.08);
+      font-weight: 700;
+    }
+
+    .cover-brand {
+      margin: 20px 0;
+    }
+
+    .cover-estd {
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #A99B8E;
+      margin-bottom: 10px;
+    }
+
+    .cover-title {
+      font-family: var(--font-cinzel);
+      font-size: 2.6rem;
+      letter-spacing: 0.08em;
+      color: #FFFFFF;
+      font-weight: 800;
+      line-height: 1.1;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.8);
+    }
+
+    .cover-gold-rule {
+      width: 80px;
+      height: 2px;
+      background: var(--accent-gold);
+      margin: 18px auto;
+    }
+
+    .cover-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.18rem;
+      color: var(--accent-light);
+      margin-bottom: 8px;
+    }
+
+    .cover-desc {
+      font-size: 0.82rem;
+      color: #BFB3A6;
+      max-width: 380px;
+      line-height: 1.6;
+    }
+
+    .cover-photo-inset {
+      width: 100%;
+      height: 220px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(184, 149, 82, 0.3);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+      margin: 18px 0;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .cover-footer {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    /* EDITORIAL SPREADS */
+    .mag-headline {
+      font-family: var(--font-serif);
+      font-size: 1.65rem;
+      color: var(--primary);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .mag-subhead {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .mag-lead-para {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #4A3E35;
+      margin-bottom: 14px;
+    }
+
+    .mag-dropcap::first-letter {
+      font-family: var(--font-cinzel);
+      font-size: 2.8rem;
+      float: left;
+      line-height: 0.8;
+      margin-right: 8px;
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    /* Product Spread Cards Grid */
+    .mag-product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 10px;
+      flex-grow: 1;
+    }
+
+    .mag-product-card {
+      background: #FFFFFF;
+      border: 1px solid #EBE4DA;
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .mag-product-img {
+      height: 120px;
+      border-radius: 6px;
+      background-size: cover;
+      background-position: center;
+      background-color: #F0ECE4;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .mag-sku-badge {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: rgba(18, 16, 14, 0.85);
+      color: var(--accent-gold);
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .mag-product-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+      line-height: 1.3;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
 
-    .card-specs-matrix {
-      background: #FAF8F5;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 12px;
+    .mag-product-meta {
+      font-size: 0.7rem;
+      color: #7A6F64;
+      margin-bottom: 6px;
+    }
+
+    .mag-product-pricing {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
       margin-top: auto;
-      margin-bottom: 14px;
+      padding-top: 6px;
+      border-top: 1px solid #F0ECE4;
+    }
+
+    .mag-fob-price {
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    .mag-btn-add {
+      background: var(--primary);
+      color: #FFFFFF;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .mag-btn-add:hover {
+      background: var(--accent-gold);
+      color: #12100E;
+    }
+
+    /* Full-Bleed Chapter Divider Spread */
+    .mag-chapter-splash {
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      justify-content: flex-end;
+      padding: 36px 30px;
+      box-sizing: border-box;
+      color: #FFFFFF;
+    }
+
+    .mag-chapter-splash:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(18, 16, 14, 0.88) 100%);
+    }
+
+    .chapter-splash-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .chapter-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .chapter-title {
+      font-family: var(--font-cinzel);
+      font-size: 1.85rem;
+      color: #FFFFFF;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .chapter-desc {
+      font-size: 0.84rem;
+      color: #D3C7BC;
+      line-height: 1.6;
+      max-width: 400px;
+    }
+
+    /* Compliance Matrix Card inside Magazine */
+    .mag-compliance-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .mag-comp-card {
+      background: #FFFFFF;
+      border: 1px solid #EBE4DA;
+      border-radius: 8px;
+      padding: 12px;
       font-size: 0.76rem;
     }
 
-    .spec-line {
-      display: flex;
-      justify-content: space-between;
-      color: var(--text-muted);
-    }
-
-    .spec-line strong {
-      color: var(--text);
-    }
-
-    .card-pricing-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 10px;
-      border-top: 1px dashed var(--border);
-      margin-bottom: 12px;
-    }
-
-    .fob-price-label {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .fob-price-value {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--accent-gold);
-    }
-
-    .btn-add-rfq {
-      width: 100%;
-      padding: 10px 14px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      border-radius: 8px;
-      border: 1px solid var(--border-medium);
-      background: #FAF8F5;
-      color: var(--primary);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .btn-add-rfq:hover {
-      background: var(--accent-gold);
-      border-color: var(--accent-gold);
-      color: #FFFFFF;
-    }
-
-    .btn-add-rfq.added {
-      background: #2E7D32;
-      border-color: #2E7D32;
-      color: #FFFFFF;
-    }
-
-    /* Section Divider & Editorial Cards */
-    .editorial-section {
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 40px;
-      margin-bottom: 36px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .section-headline {
-      font-family: var(--font-serif);
-      font-size: 1.85rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
-
-    .section-sub {
-      font-size: 0.88rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent-gold);
-      font-weight: 700;
-      margin-bottom: 24px;
-    }
-
-    .credentials-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
-
-    .credential-card {
-      background: var(--bg-cream);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-    }
-
-    .credential-card h4 {
-      font-family: var(--font-cinzel);
-      font-size: 1.1rem;
-      color: var(--primary);
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
-
-    .credential-card p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    .compliance-matrix {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .compliance-card {
-      border: 1px solid var(--border-medium);
-      border-radius: 10px;
-      padding: 16px;
-      background: #FFFFFF;
-    }
-
-    .compliance-card strong {
+    .mag-comp-card strong {
       display: block;
       color: var(--primary);
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       margin-bottom: 4px;
     }
 
-    .compliance-card span {
-      font-size: 0.78rem;
-      color: var(--text-muted);
+    .mag-comp-card span {
+      color: #6B6156;
       line-height: 1.45;
       display: block;
     }
 
-    /* Commercial Table */
-    .specs-table-wrapper {
+    /* Continuous Feed Mode (Alternative Full 500-SKU Grid View) */
+    #continuous-feed-view {
+      display: none;
       width: 100%;
-      overflow-x: auto;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      margin-top: 18px;
-      -webkit-overflow-scrolling: touch;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 30px 20px 100px;
+      box-sizing: border-box;
     }
 
-    .commercial-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-      min-width: 600px;
+    #continuous-feed-view.active {
+      display: block;
     }
 
-    .commercial-table th, .commercial-table td {
-      padding: 14px 18px;
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-    }
-
-    .commercial-table th {
-      background: #FAF8F5;
-      font-family: var(--font-cinzel);
-      color: var(--primary);
-      font-weight: 700;
-      letter-spacing: 0.05em;
-    }
-
-    .commercial-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    /* CTA Card */
-    .cta-banner {
-      background: linear-gradient(135deg, #140F0C 0%, #221812 100%);
-      color: #FFFFFF;
-      border-radius: 16px;
-      padding: 44px;
-      text-align: center;
-      border: 1px solid rgba(184, 149, 82, 0.35);
-      margin-bottom: 40px;
-    }
-
-    .cta-banner h3 {
-      font-family: var(--font-cinzel);
-      font-size: 1.85rem;
-      color: #FFFFFF;
-      margin-bottom: 12px;
-    }
-
-    .cta-banner p {
-      font-size: 0.95rem;
-      color: #DDD4CB;
-      max-width: 620px;
-      margin: 0 auto 24px;
-      line-height: 1.6;
-    }
-
-    /* Floating Container Dock Sync */
-    .lookbook-dock {
+    /* Floating Container Progress Cockpit */
+    .mag-container-dock {
       position: fixed;
-      bottom: 20px;
+      bottom: max(18px, env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%);
-      z-index: 999;
-      background: rgba(18, 16, 14, 0.96);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(18, 16, 14, 0.95);
       border: 1px solid rgba(184, 149, 82, 0.45);
       border-radius: 999px;
       padding: 8px 18px;
       display: flex;
       align-items: center;
-      gap: 16px;
-      box-shadow: 0 14px 40px rgba(0,0,0,0.5);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      gap: 14px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+      z-index: 9999;
+      color: #FAF7F2;
+      font-size: 0.84rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
-    .dock-load-text {
-      font-size: 0.85rem;
-      color: #DDD4CB;
-    }
-
-    .dock-cbm-highlight {
-      font-family: var(--font-serif);
-      font-size: 1.05rem;
+    .dock-vol {
       color: var(--accent-gold);
       font-weight: 700;
     }
 
-    .dock-cta-btn {
-      padding: 8px 18px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+    .dock-rfq-btn {
       background: var(--accent-gold);
-      color: #FFFFFF;
+      color: #12100E;
       text-decoration: none;
-      border-radius: 999px;
-      transition: background 0.2s ease;
-      white-space: nowrap;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+      transition: background 0.15s ease;
     }
 
-    .dock-cta-btn:hover {
+    .dock-rfq-btn:hover {
       background: var(--accent-gold-hover);
     }
 
-    /* Footer */
-    .lookbook-footer {
-      border-top: 1px solid var(--border);
-      padding: 30px 20px 50px;
-      text-align: center;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .lookbook-footer p {
-      margin-bottom: 6px;
-    }
-
-    /* Mobile Responsive Rules */
-    @media (max-width: 900px) {
-      .hero-title {
-        font-size: 2.2rem;
-      }
-      .hero-metrics {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .live-product-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-      }
-      .credentials-grid {
-        grid-template-columns: 1fr;
-      }
-      .compliance-matrix {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .nav-links-row {
-        display: none;
-      }
-      .badge-view-only {
-        display: none;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .lookbook-wrapper {
-        padding: 16px 12px 90px;
-      }
-      .lookbook-hero {
-        padding: 36px 20px;
-        border-radius: 14px;
-      }
-      .hero-title {
-        font-size: 1.85rem;
-      }
-      .hero-metrics {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-      .metric-card {
-        padding: 12px 8px;
-      }
-      .metric-num {
-        font-size: 1.45rem;
-      }
-      .live-catalog-controls {
-        padding: 18px 14px;
-        border-radius: 12px;
-      }
-      .controls-header {
+    @media (max-width: 768px) {
+      .mag-header-inner {
         flex-direction: column;
         align-items: stretch;
       }
-      .search-box {
-        max-width: 100%;
-        min-width: 100%;
+      .flip-toolbar {
+        border-radius: 20px;
+        padding: 6px 12px;
+        gap: 8px;
       }
-      .live-product-grid {
+      .flip-tool-btn {
+        padding: 5px 10px;
+        font-size: 0.72rem;
+      }
+      .mag-page {
+        border: none;
+      }
+      .page-inner {
+        padding: 20px 18px;
+      }
+      .cover-container {
+        padding: 28px 18px;
+      }
+      .cover-title {
+        font-size: 1.95rem;
+      }
+      .mag-product-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
-      }
-      .editorial-section {
-        padding: 24px 16px;
-        border-radius: 12px;
-      }
-      .section-headline {
-        font-size: 1.45rem;
-      }
-      .compliance-matrix {
-        grid-template-columns: 1fr;
-      }
-      .cta-banner {
-        padding: 30px 18px;
-        border-radius: 12px;
-      }
-      .cta-banner h3 {
-        font-size: 1.45rem;
-      }
-      .lookbook-dock {
-        width: calc(100% - 24px);
-        justify-content: space-between;
-        padding: 8px 14px;
-      }
-      .dock-load-text {
-        font-size: 0.78rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- TOP STICKY LOOKBOOK NAVIGATION -->
-  <header class="lookbook-nav">
-    <div class="lookbook-nav-container">
-      <a href="../website/index.html" class="nav-brand">
-        <span class="nav-brand-sub">ESTD. 2011 • JODHPUR</span>
-        <span class="nav-brand-main">ARAWALI ARTS</span>
+  <!-- STICKY MAGAZINE HEADER -->
+  <header class="mag-header">
+    <div class="mag-header-inner">
+      <a href="../website/index.html" class="mag-brand">
+        <span class="mag-brand-sub">ESTD. 2011 • JODHPUR, RAJASTHAN</span>
+        <span class="mag-brand-main">ARAWALI ARTS</span>
       </a>
 
-      <nav class="nav-links-row">
-        <a href="../website/index.html" class="nav-link">Home</a>
-        <a href="../website/catalog.html" class="nav-link">Catalog (500 SKUs)</a>
-        <a href="../website/collections.html" class="nav-link">Collections Lookbook</a>
-        <a href="../website/compliance.html" class="nav-link">Export Compliance</a>
-        <a href="../website/rfq.html" class="nav-link">Container Calculator</a>
-      </nav>
+      <div class="mag-controls-bar">
+        <!-- View Mode Switcher -->
+        <div class="view-switcher-toggles">
+          <button type="button" class="view-switch-btn active" id="btnModeMagazine">📖 3D Flipbook Magazine</button>
+          <button type="button" class="view-switch-btn" id="btnModeContinuous">📋 500-SKU Grid Feed</button>
+        </div>
 
-      <div class="nav-actions">
-        <span class="badge-view-only">✦ Digital Lookbook • View Only</span>
-        <a href="../website/rfq.html" class="btn-action-rfq">Request RFQ →</a>
+        <span class="badge-view-status">✦ View Only • Digital Edition</span>
+        <a href="../website/rfq.html" class="btn-mag-rfq">Review Container RFQ →</a>
       </div>
     </div>
   </header>
 
-  <main class="lookbook-wrapper">
+  <!-- WORKSPACE 1: 3D INTERACTIVE FLIPBOOK MAGAZINE -->
+  <main id="flipbook-workspace">
 
-    <!-- HERO SECTION -->
-    <section class="lookbook-hero">
-      <div class="hero-eyebrow">
-        <span>✦ 2026/2027 Export Volume • Master Digital Lookbook</span>
-      </div>
-      <h1 class="hero-title">
-        Artisanal Heritage.<br>
-        <em>Engineered for Global Living.</em>
-      </h1>
-      <p class="hero-desc">
-        Explore our live wholesale catalog of authentic handcrafted solid hardwood furniture, architectural iron jaali fretwork, and luxury tabletop giftware. Direct mixed-container consolidations manufactured in Jodhpur and exported worldwide.
-      </p>
+    <!-- Interactive Navigation Toolbar -->
+    <div class="flip-toolbar">
+      <button type="button" class="flip-tool-btn" id="btnFirstPage" title="First Page">⏮ First</button>
+      <button type="button" class="flip-tool-btn" id="btnPrevPage" title="Previous Page">◀ Prev Spread</button>
+      
+      <span class="page-indicator-badge">
+        Page <span id="lblCurrentPage">1</span> / <span id="lblTotalPages">18</span>
+      </span>
 
-      <div class="hero-metrics">
-        <div class="metric-card">
-          <div class="metric-num">500</div>
-          <div class="metric-label">Export SKUs</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-num">8–12%</div>
-          <div class="metric-label">Kiln Moisture</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-num">15+</div>
-          <div class="metric-label">Years Operating</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-num">Mundra</div>
-          <div class="metric-label">Direct Sea Port</div>
-        </div>
-      </div>
-    </section>
+      <button type="button" class="flip-tool-btn" id="btnNextPage" title="Next Page">Next Spread ▶</button>
+      <button type="button" class="flip-tool-btn" id="btnLastPage" title="Last Page">Last ⏭</button>
 
-    <!-- LIVE CATALOG ENGINE & FILTER COCKPIT -->
-    <section class="live-catalog-controls" id="catalog-explorer">
-      <div class="controls-header">
-        <div class="controls-title">
-          <span>Live Export Showroom</span>
-          <span class="live-badge">Live Synced Catalog</span>
-        </div>
+      <!-- Category Quick Jump -->
+      <select class="mag-jump-select" id="jumpChapterSelect" aria-label="Jump to Magazine Chapter">
+        <option value="0">Jump to Chapter...</option>
+        <option value="0">1. Cover Page</option>
+        <option value="1">2. Letter from Export Director</option>
+        <option value="2">3. Table of Contents</option>
+        <option value="3">4. Division I: Solid Wood Furniture</option>
+        <option value="4">5. Furniture Showcase (Tables & Accents)</option>
+        <option value="5">6. Storage & Case Goods</option>
+        <option value="6">7. Joinery & Wood Finishes</option>
+        <option value="7">8. Division II: Kitchen & Entertaining</option>
+        <option value="8">9. Tabletop & Barware Showcase</option>
+        <option value="9">10. Division III: Architectural Decor</option>
+        <option value="10">11. Jaali Lighting & Mirrors</option>
+        <option value="11">12. Division IV: Lifestyle & Giftware</option>
+        <option value="12">13. Keepsakes & Heirloom Games</option>
+        <option value="13">14. Compliance Dossier (Lacey & EUDR)</option>
+        <option value="14">15. Container Logistics & CBM Guide</option>
+        <option value="15">16. Commercial Incoterms (FOB/CIF)</option>
+        <option value="16">17. Jodhpur Factory Operations</option>
+        <option value="17">18. Back Cover & Export Desk</option>
+      </select>
 
-        <div class="search-box">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="lookbook-search" class="search-input" placeholder="Search 500 SKUs by name, wood, code...">
-        </div>
-      </div>
-
-      <div class="category-pills-row" id="category-pills">
-        <button type="button" class="cat-pill-btn active" data-filter="curated">
-          🌟 Curated Highlights <span class="pill-count" id="count-curated">18</span>
-        </button>
-        <button type="button" class="cat-pill-btn" data-filter="kitchen">
-          🍷 Tabletop & Gifts <span class="pill-count" id="count-kitchen">70</span>
-        </button>
-        <button type="button" class="cat-pill-btn" data-filter="decor">
-          🏮 Architectural Decor <span class="pill-count" id="count-decor">130</span>
-        </button>
-        <button type="button" class="cat-pill-btn" data-filter="living">
-          🪑 Living & Dining <span class="pill-count" id="count-living">140</span>
-        </button>
-        <button type="button" class="cat-pill-btn" data-filter="casegoods">
-          🚪 Case Goods & Storage <span class="pill-count" id="count-casegoods">60</span>
-        </button>
-        <button type="button" class="cat-pill-btn" data-filter="all">
-          📦 Full 500-SKU Master List <span class="pill-count">500</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- LIVE PRODUCT GRID (POPULATED FROM products-data.js) -->
-    <div class="live-product-grid" id="products-grid">
-      <!-- Injected via JavaScript from window.ALL_PRODUCTS_500 -->
+      <button type="button" class="flip-tool-btn" id="btnToggleFullscreen">⛶ Fullscreen</button>
     </div>
 
-    <!-- MANUFACTURING & COMPLIANCE DOSSIER -->
-    <section class="editorial-section">
-      <h2 class="section-headline">Manufacturing Capabilities & Timber Engineering</h2>
-      <div class="section-sub">Industrial Kiln Seasoning • Wrought Iron Jaali Fabrication</div>
+    <!-- Magazine Flipbook Stage -->
+    <div class="magazine-stage">
+      <div id="flipbook-book">
 
-      <div class="credentials-grid">
-        <div class="credential-card">
-          <h4>Equilibrium Kiln Seasoning (8%–12%)</h4>
-          <p>Every log of Sheesham (Dalbergia sissoo), Mango (Mangifera indica), and Acacia undergoes chemical seasoning in our automated hot-air kilns, guaranteeing dimensional stability and zero splitting under dry central heating.</p>
+        <!-- ================= PAGE 1: FRONT HARDCOVER ================= -->
+        <div class="mag-page --hard" data-density="hard">
+          <div class="cover-container">
+            <span class="cover-badge">✦ OFFICIAL B2B EXPORT VOLUME • 2026/2027 ✦</span>
+
+            <div class="cover-brand">
+              <div class="cover-estd">JODHPUR HANDICRAFTS GUILD • ESTD. 2011</div>
+              <h1 class="cover-title">ARAWALI ARTS</h1>
+              <div class="cover-gold-rule"></div>
+              <div class="cover-subtitle">Artisanal Heritage. Engineered for Global Living.</div>
+              <p class="cover-desc">Master Wholesale Lookbook & Technical Export Dossier for Retail Chains, Importers & Interior Designers across North America & Europe.</p>
+            </div>
+
+            <div class="cover-photo-inset" style="background-image: url('../assets/hero_live_edge_table.jpg');"></div>
+
+            <div class="cover-footer">
+              SOLID SHEESHAM • MANGO • ACACIA • HAND-FORGED WROUGHT IRON JAALI
+            </div>
+          </div>
         </div>
-        <div class="credential-card">
-          <h4>Architectural Ironmongery & Jaali</h4>
-          <p>Our in-house blacksmithing forge pairs authentic hand-pierced Rajasthani jaali lattices with multi-stage electrostatic anti-rust powder coatings, built for humid coastal and sub-zero climates.</p>
+
+        <!-- ================= PAGE 2: INSIDE COVER & MISSION ================= -->
+        <div class="mag-page">
+          <div class="page-inner">
+            <div class="spread-header">
+              <span>Arawali Arts Jodhpur</span>
+              <strong>Export Director Letter</strong>
+            </div>
+
+            <span class="mag-subhead">15-Year Manufacturing Legacy</span>
+            <h2 class="mag-headline">Handcrafted in Jodhpur.<br>Built for Global Scale.</h2>
+
+            <p class="mag-lead-para mag-dropcap">
+              From our multi-bay industrial manufactory in Jodhpur, Rajasthan, Arawali Arts engineers export-grade solid wood furniture, architectural wrought iron jaali fretwork, and luxury culinary tabletop decor. We bridge traditional Thar artisanal craftsmanship with industrial-grade quality control.
+            </p>
+
+            <p class="mag-lead-para">
+              Every timber shipment is kiln-dried to strict 8%–12% equilibrium moisture content in our automated seasoning facilities, preventing warp, crack, or twist under North American central heating and European coastal climates.
+            </p>
+
+            <div style="background: #F5EFE6; border-left: 3px solid var(--accent-gold); padding: 14px 16px; border-radius: 4px; margin: 16px 0;">
+              <strong style="color: var(--primary); font-size: 0.85rem; display: block; margin-bottom: 4px;">Direct Port Consolidations</strong>
+              <p style="font-size: 0.78rem; color: #63564A; line-height: 1.5; margin: 0;">
+                Located within rapid freight transit to Mundra and Kandla container terminals, we support 100% mixed container consolidations (20ft FCL & 40ft High Cube) with full Lacey Act, VRIKSH, and EUDR legal origin verification.
+              </p>
+            </div>
+
+            <div style="margin-top: auto; padding-top: 14px; border-top: 1px dashed #D5CCC0; display: flex; justify-content: space-between; align-items: flex-end;">
+              <div>
+                <div style="font-family: var(--font-cinzel); font-size: 0.85rem; font-weight: 700; color: var(--primary);">Nikhil Saini</div>
+                <div style="font-size: 0.72rem; color: #8C7E72;">Head of Export & International Trade</div>
+              </div>
+              <div style="font-size: 0.7rem; color: var(--accent-gold); font-weight: 700; text-transform: uppercase;">
+                Jodhpur • Rajasthan • India
+              </div>
+            </div>
+
+            <div class="spread-footer">
+              <span>Corporate Overview</span>
+              <span class="spread-page-num">02</span>
+            </div>
+          </div>
         </div>
+
+        <!-- ================= PAGE 3: TABLE OF CONTENTS ================= -->
+        <div class="mag-page">
+          <div class="page-inner">
+            <div class="spread-header">
+              <span>Catalog Index</span>
+              <strong>Table of Contents</strong>
+            </div>
+
+            <span class="mag-subhead">Volume Navigation</span>
+            <h2 class="mag-headline">Master Export Divisions</h2>
+
+            <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 18px; flex-grow: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dotted #C8BEB2; padding-bottom: 6px;">
+                <span style="font-weight: 700; color: var(--primary); font-size: 0.86rem;">01. Division I: Solid Wood Furniture & Storage</span>
+                <span style="color: var(--accent-gold); font-weight: 700; font-size: 0.84rem;">Page 04–07</span>
+              </div>
+              <div style="font-size: 0.74rem; color: #7A6F64; margin-top: -8px; padding-left: 12px;">
+                Living Tables, Slab Dining Trestles, Jaali Credenzas, Étagères & Bar Stools
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dotted #C8BEB2; padding-bottom: 6px;">
+                <span style="font-weight: 700; color: var(--primary); font-size: 0.86rem;">02. Division II: Kitchen & Entertaining (Naturehood)</span>
+                <span style="color: var(--accent-gold); font-weight: 700; font-size: 0.84rem;">Page 08–09</span>
+              </div>
+              <div style="font-size: 0.74rem; color: #7A6F64; margin-top: -8px; padding-left: 12px;">
+                Acacia Paddle Charcuteries, Coaster Sets, Coffee Pour-Over Stands & Barware
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dotted #C8BEB2; padding-bottom: 6px;">
+                <span style="font-weight: 700; color: var(--primary); font-size: 0.86rem;">03. Division III: Architectural Decor & Lighting</span>
+                <span style="color: var(--accent-gold); font-weight: 700; font-size: 0.84rem;">Page 10–11</span>
+              </div>
+              <div style="font-size: 0.74rem; color: #7A6F64; margin-top: -8px; padding-left: 12px;">
+                Pierced Iron Jaali Wall Sconces, Jharokha Arched Mirrors & Hanging Lanterns
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dotted #C8BEB2; padding-bottom: 6px;">
+                <span style="font-weight: 700; color: var(--primary); font-size: 0.86rem;">04. Division IV: Lifestyle, Giftware & Specialty</span>
+                <span style="color: var(--accent-gold); font-weight: 700; font-size: 0.84rem;">Page 12–13</span>
+              </div>
+              <div style="font-size: 0.74rem; color: #7A6F64; margin-top: -8px; padding-left: 12px;">
+                Hardwood Chess Sets, Keepsake Boxes, Spa Bathtub Caddies & Pet Dining
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dotted #C8BEB2; padding-bottom: 6px;">
+                <span style="font-weight: 700; color: var(--primary); font-size: 0.86rem;">05. International Compliance & Lacey Dossier</span>
+                <span style="color: var(--accent-gold); font-weight: 700; font-size: 0.84rem;">Page 14</span>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dotted #C8BEB2; padding-bottom: 6px;">
+                <span style="font-weight: 700; color: var(--primary); font-size: 0.86rem;">06. Container CBM & Commercial Logistics</span>
+                <span style="color: var(--accent-gold); font-weight: 700; font-size: 0.84rem;">Page 15–16</span>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dotted #C8BEB2; padding-bottom: 6px;">
+                <span style="font-weight: 700; color: var(--primary); font-size: 0.86rem;">07. Factory Operations & Back Cover</span>
+                <span style="color: var(--accent-gold); font-weight: 700; font-size: 0.84rem;">Page 17–18</span>
+              </div>
+            </div>
+
+            <div class="spread-footer">
+              <span class="spread-page-num">03</span>
+              <span>Table of Contents</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 4: DIVISION I CHAPTER COVER ================= -->
+        <div class="mag-page">
+          <div class="mag-chapter-splash" style="background-image: url('../assets/hero_live_edge_table.jpg');">
+            <div class="chapter-splash-content">
+              <div class="chapter-tag">DIVISION I • 140 SKUS</div>
+              <h2 class="chapter-title">Solid Wood Furniture & Case Goods</h2>
+              <p class="chapter-desc">
+                Architectural living, dining, and storage lines engineered in solid Sheesham (Dalbergia sissoo) and seasoned Mango wood. Hand-forged wrought iron joinery, mortise-and-tenon construction, and equilibrium moisture seasoning.
+              </p>
+            </div>
+            <div class="spread-footer" style="border-top-color: rgba(255,255,255,0.2); color: #DDD;">
+              <span>Division I Overview</span>
+              <span class="spread-page-num" style="color: #FFF;">04</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 5: DIVISION I SHOWCASE (TABLES) ================= -->
+        <div class="mag-page">
+          <div class="page-inner">
+            <div class="spread-header">
+              <span>Division I: Furniture</span>
+              <strong>Living & Dining Tables</strong>
+            </div>
+
+            <div class="mag-product-grid">
+              <!-- Item 1 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/hero_live_edge_table.jpg');">
+                  <span class="mag-sku-badge">AA-CT-701</span>
+                </div>
+                <div class="mag-product-title">Live-Edge Sheesham Coffee Table</div>
+                <div class="mag-product-meta">48"L × 24"W × 18"H • 0.150 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$78.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-CT-701" data-name="Live-Edge Coffee Table" data-cbm="0.150">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/dining_table_trestle.jpg');">
+                  <span class="mag-sku-badge">AA-DT-901</span>
+                </div>
+                <div class="mag-product-title">Heritage Trestle Slab Dining Table</div>
+                <div class="mag-product-meta">78"L × 38"W × 30"H • 0.350 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$220.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-DT-901" data-name="Trestle Dining Table" data-cbm="0.350">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/crank_bar_stool_iron.jpg');">
+                  <span class="mag-sku-badge">AA-BS-401</span>
+                </div>
+                <div class="mag-product-title">Cast-Iron Screw Swivel Bar Stool</div>
+                <div class="mag-product-meta">16"Dia × 24-30"H • 0.045 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$46.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-BS-401" data-name="Swivel Bar Stool" data-cbm="0.045">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/bistro_pedestal_table_cast_iron.jpg');">
+                  <span class="mag-sku-badge">AA-PT-501</span>
+                </div>
+                <div class="mag-product-title">Cast-Iron Pedestal Bistro Table</div>
+                <div class="mag-product-meta">30"Dia × 30"H • 0.080 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$68.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-PT-501" data-name="Bistro Table" data-cbm="0.080">+ Add RFQ</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="spread-footer">
+              <span class="spread-page-num">05</span>
+              <span>Living & Dining</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 6: DIVISION I EXTENDED (STORAGE) ================= -->
+        <div class="mag-page">
+          <div class="page-inner">
+            <div class="spread-header">
+              <span>Division I: Storage</span>
+              <strong>Case Goods & Credenzas</strong>
+            </div>
+
+            <div class="mag-product-grid">
+              <!-- Item 1 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/hero_jaali_sideboard.jpg');">
+                  <span class="mag-sku-badge">AA-SB-801</span>
+                </div>
+                <div class="mag-product-title">Moorish Jaali Pierced Metal Sideboard</div>
+                <div class="mag-product-meta">60"L × 18"W × 34"H • 0.650 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$185.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-SB-801" data-name="Jaali Metal Sideboard" data-cbm="0.650">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/reclaimed_wood_bookcase.jpg');">
+                  <span class="mag-sku-badge">AA-BC-301</span>
+                </div>
+                <div class="mag-product-title">Open-Back Loft Timber Étagère</div>
+                <div class="mag-product-meta">36"L × 15"W × 72"H • 0.420 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$160.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-BC-301" data-name="Loft Bookcase" data-cbm="0.420">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/apothecary_chest_industrial.jpg');">
+                  <span class="mag-sku-badge">AA-AP-902</span>
+                </div>
+                <div class="mag-product-title">Multi-Drawer Industrial Apothecary Chest</div>
+                <div class="mag-product-meta">42"L × 16"W × 38"H • 0.480 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$195.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-AP-902" data-name="Apothecary Chest" data-cbm="0.480">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/wine_riddling_rack.jpg');">
+                  <span class="mag-sku-badge">AA-WR-201</span>
+                </div>
+                <div class="mag-product-title">A-Frame Rustic Wine Riddling Rack</div>
+                <div class="mag-product-meta">20"L × 18"W × 48"H • 0.120 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$54.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-WR-201" data-name="Wine Riddling Rack" data-cbm="0.120">+ Add RFQ</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="spread-footer">
+              <span>Case Goods & Storage</span>
+              <span class="spread-page-num">06</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 7: TIMBER JOINERY & FINISHES ================= -->
+        <div class="mag-page">
+          <div class="page-inner">
+            <div class="spread-header">
+              <span>Technical Craftsmanship</span>
+              <strong>Joinery & Timber Finishes</strong>
+            </div>
+
+            <span class="mag-subhead">Authentic Furniture Engineering</span>
+            <h2 class="mag-headline">Built for Heavy Wholesale Turnover</h2>
+
+            <p class="mag-lead-para">
+              Our case goods feature authentic floating timber panel construction to accommodate seasonal humidity expansion, reinforced mortise-and-tenon breadboard ends, and heavy-gauge solid iron hardware forged right on our factory premises.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0;">
+              <div style="background: #FFF; border: 1px solid #E0D8CE; border-radius: 6px; padding: 10px; text-align: center;">
+                <div style="height: 38px; background: #684C38; border-radius: 4px; margin-bottom: 6px;"></div>
+                <strong style="font-size: 0.76rem; color: var(--primary);">Smoked Walnut</strong>
+                <span style="font-size: 0.65rem; color: #8C7E72; display: block;">Hand-waxed matte</span>
+              </div>
+              <div style="background: #FFF; border: 1px solid #E0D8CE; border-radius: 6px; padding: 10px; text-align: center;">
+                <div style="height: 38px; background: #9E7449; border-radius: 4px; margin-bottom: 6px;"></div>
+                <strong style="font-size: 0.76rem; color: var(--primary);">Natural Honey</strong>
+                <span style="font-size: 0.65rem; color: #8C7E72; display: block;">Polyurethane sealed</span>
+              </div>
+              <div style="background: #FFF; border: 1px solid #E0D8CE; border-radius: 6px; padding: 10px; text-align: center;">
+                <div style="height: 38px; background: #26221F; border-radius: 4px; margin-bottom: 6px;"></div>
+                <strong style="font-size: 0.76rem; color: var(--primary);">Yakisugi Black</strong>
+                <span style="font-size: 0.65rem; color: #8C7E72; display: block;">Charred textural grain</span>
+              </div>
+            </div>
+
+            <div style="background: #F8F5F0; border: 1px solid #E8E2DA; border-radius: 8px; padding: 12px; font-size: 0.76rem; margin-top: auto;">
+              <strong style="color: var(--primary); display: block; margin-bottom: 4px;">Quality Assurance Standard</strong>
+              <span style="color: #63564A; line-height: 1.5;">Every unit passes through a 3-point inspection station: moisture pin probe meter check, dry fit joint tolerance, and 5-ply corner impact drop verification.</span>
+            </div>
+
+            <div class="spread-footer">
+              <span class="spread-page-num">07</span>
+              <span>Joinery Standards</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 8: DIVISION II CHAPTER (KITCHEN & NATUREHOOD) ================= -->
+        <div class="mag-page">
+          <div class="mag-chapter-splash" style="background-image: url('../assets/charcuterie_board_deluxe.jpg');">
+            <div class="chapter-splash-content">
+              <div class="chapter-tag">DIVISION II • 70 SKUS</div>
+              <h2 class="chapter-title">Kitchenware & Entertaining</h2>
+              <p class="chapter-desc">
+                The home of our retail-tested <em>Naturehood</em> line. Organic live-edge paddle cutting boards, artisanal barware, and high-velocity giftware engineered for wholesale container loading.
+              </p>
+            </div>
+            <div class="spread-footer" style="border-top-color: rgba(255,255,255,0.2); color: #DDD;">
+              <span>Division II Overview</span>
+              <span class="spread-page-num" style="color: #FFF;">08</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 9: DIVISION II SHOWCASE ================= -->
+        <div class="mag-page">
+          <div class="page-inner">
+            <div class="spread-header">
+              <span>Division II: Culinary</span>
+              <strong>Tabletop & Barware</strong>
+            </div>
+
+            <div class="mag-product-grid">
+              <!-- Item 1 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/charcuterie_board_deluxe.jpg');">
+                  <span class="mag-sku-badge">AA-TT-001</span>
+                </div>
+                <div class="mag-product-title">Live-Edge Acacia Paddle Charcuterie</div>
+                <div class="mag-product-meta">22"L × 10"W × 1"H • 0.003 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$9.50 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-TT-001" data-name="Charcuterie Board" data-cbm="0.003">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/carved_wooden_coaster_set.jpg');">
+                  <span class="mag-sku-badge">AA-CST-201</span>
+                </div>
+                <div class="mag-product-title">Hand-Carved Mandala Coaster Set (4-Pc)</div>
+                <div class="mag-product-meta">4"Dia with Iron Caddy • 0.001 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$3.80 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-CST-201" data-name="Coaster Set" data-cbm="0.001">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/pour_over_coffee_stand.jpg');">
+                  <span class="mag-sku-badge">AA-CF-301</span>
+                </div>
+                <div class="mag-product-title">Sheesham Barista Pour-Over Station</div>
+                <div class="mag-product-meta">8"L × 6"W × 11"H • 0.005 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$14.50 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-CF-301" data-name="Coffee Pour-Over Stand" data-cbm="0.005">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/cast_iron_hibachi_grill.jpg');">
+                  <span class="mag-sku-badge">AA-BQ-401</span>
+                </div>
+                <div class="mag-product-title">Cast-Iron Tabletop Hibachi Yakitori Grill</div>
+                <div class="mag-product-meta">15"L × 8"W × 7"H • 0.012 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$32.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-BQ-401" data-name="Hibachi Grill" data-cbm="0.012">+ Add RFQ</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="spread-footer">
+              <span class="spread-page-num">09</span>
+              <span>Tabletop & Gifts</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 10: DIVISION III CHAPTER (ARCHITECTURAL DECOR) ================= -->
+        <div class="mag-page">
+          <div class="mag-chapter-splash" style="background-image: url('../assets/iron_jaali_wall_sconce.jpg');">
+            <div class="chapter-splash-content">
+              <div class="chapter-tag">DIVISION III • 130 SKUS</div>
+              <h2 class="chapter-title">Architectural Decor & Lighting</h2>
+              <p class="chapter-desc">
+                Hand-pierced wrought iron jaali lattices and traditional Rajasthani Jharokha window arch mirrors. Electrostatic powder coatings designed for luxury residential and hospitality projects worldwide.
+              </p>
+            </div>
+            <div class="spread-footer" style="border-top-color: rgba(255,255,255,0.2); color: #DDD;">
+              <span>Division III Overview</span>
+              <span class="spread-page-num" style="color: #FFF;">10</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 11: DIVISION III SHOWCASE ================= -->
+        <div class="mag-page">
+          <div class="page-inner">
+            <div class="spread-header">
+              <span>Division III: Lighting</span>
+              <strong>Jaali Wall Decor & Sconces</strong>
+            </div>
+
+            <div class="mag-product-grid">
+              <!-- Item 1 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/iron_jaali_wall_sconce.jpg');">
+                  <span class="mag-sku-badge">AA-WSC-601</span>
+                </div>
+                <div class="mag-product-title">Jodhpur Iron Jaali Wall Sconce</div>
+                <div class="mag-product-meta">8"W × 6"D × 16"H • 0.015 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$16.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-WSC-601" data-name="Jaali Sconce" data-cbm="0.015">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/hero_jharokha_mirror.jpg');">
+                  <span class="mag-sku-badge">AA-MR-101</span>
+                </div>
+                <div class="mag-product-title">Carved Jharokha Arched Wall Mirror</div>
+                <div class="mag-product-meta">24"W × 36"H • 0.035 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$38.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-MR-101" data-name="Jharokha Mirror" data-cbm="0.035">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/hanging_lantern_cage.jpg');">
+                  <span class="mag-sku-badge">AA-LT-201</span>
+                </div>
+                <div class="mag-product-title">Turned Wood & Iron Pendant Lantern</div>
+                <div class="mag-product-meta">10"Dia × 18"H • 0.022 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$24.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-LT-201" data-name="Pendant Lantern" data-cbm="0.022">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/tabletop_bioethanol_fire_bowl.jpg');">
+                  <span class="mag-sku-badge">AA-FB-301</span>
+                </div>
+                <div class="mag-product-title">Cast-Iron Bioethanol Fire Bowl</div>
+                <div class="mag-product-meta">12"Dia × 6"H • 0.010 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$28.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-FB-301" data-name="Fire Bowl" data-cbm="0.010">+ Add RFQ</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="spread-footer">
+              <span class="spread-page-num">11</span>
+              <span>Architectural Decor</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 12: DIVISION IV CHAPTER (LIFESTYLE) ================= -->
+        <div class="mag-page">
+          <div class="mag-chapter-splash" style="background-image: url('../assets/book_keepsake_box.jpg');">
+            <div class="chapter-splash-content">
+              <div class="chapter-tag">DIVISION IV • 160 SKUS</div>
+              <h2 class="chapter-title">Lifestyle, Giftware & Specialty</h2>
+              <p class="chapter-desc">
+                High-density wooden accents designed for retail gift packaging and e-commerce velocity. Keepsake boxes, tournament chess sets, wellness bath caddies, and designer pet furniture.
+              </p>
+            </div>
+            <div class="spread-footer" style="border-top-color: rgba(255,255,255,0.2); color: #DDD;">
+              <span>Division IV Overview</span>
+              <span class="spread-page-num" style="color: #FFF;">12</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 13: DIVISION IV SHOWCASE ================= -->
+        <div class="mag-page">
+          <div class="page-inner">
+            <div class="spread-header">
+              <span>Division IV: Gifts</span>
+              <strong>Heirloom Accents & Games</strong>
+            </div>
+
+            <div class="mag-product-grid">
+              <!-- Item 1 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/hardwood_chess_board.jpg');">
+                  <span class="mag-sku-badge">AA-GM-201</span>
+                </div>
+                <div class="mag-product-title">Sheesham & Boxwood Tournament Chess</div>
+                <div class="mag-product-meta">16" × 16" with Drawer • 0.008 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$29.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-GM-201" data-name="Tournament Chess Set" data-cbm="0.008">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/book_keepsake_box.jpg');">
+                  <span class="mag-sku-badge">AA-WB-101</span>
+                </div>
+                <div class="mag-product-title">Hand-Carved Book Keepsake Box</div>
+                <div class="mag-product-meta">8"L × 6"W × 2.5"H • 0.003 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$8.50 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-WB-101" data-name="Book Keepsake Box" data-cbm="0.003">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/bathroom_bathtub_caddy.jpg');">
+                  <span class="mag-sku-badge">AA-BT-301</span>
+                </div>
+                <div class="mag-product-title">Expandable Solid Acacia Bathtub Caddy</div>
+                <div class="mag-product-meta">28-40"L × 9"W • 0.006 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$16.50 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-BT-301" data-name="Bathtub Caddy" data-cbm="0.006">+ Add RFQ</button>
+                </div>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="mag-product-card">
+                <div class="mag-product-img" style="background-image: url('../assets/pet_feeder_elevated.jpg');">
+                  <span class="mag-sku-badge">AA-PT-171</span>
+                </div>
+                <div class="mag-product-title">Elevated 2-Bowl Acacia & Steel Dog Feeder</div>
+                <div class="mag-product-meta">18"L × 9"W × 8"H • 0.015 CBM</div>
+                <div class="mag-product-pricing">
+                  <span class="mag-fob-price">$18.00 FOB</span>
+                  <button type="button" class="mag-btn-add" data-sku="AA-PT-171" data-name="Elevated Dog Feeder" data-cbm="0.015">+ Add RFQ</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="spread-footer">
+              <span class="spread-page-num">13</span>
+              <span>Lifestyle & Gifts</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 14: INTERNATIONAL COMPLIANCE DOSSIER ================= -->
+        <div class="mag-page">
+          <div class="page-inner">
+            <div class="spread-header">
+              <span>Trade Regulatory Compliance</span>
+              <strong>US Lacey & EUDR Standards</strong>
+            </div>
+
+            <span class="mag-subhead">100% Audit-Proof Export Filings</span>
+            <h2 class="mag-headline">Legal Timber Due Diligence</h2>
+
+            <p class="mag-lead-para">
+              We furnish verified supply-chain declarations for United States Customs & Border Protection (CBP), USDA APHIS, and European Union Deforestation Regulation (EUDR) competent authorities.
+            </p>
+
+            <div class="mag-compliance-grid">
+              <div class="mag-comp-card">
+                <strong>✓ VRIKSH Legality Verification</strong>
+                <span>Certified Indian Rosewood (Dalbergia sissoo) legality standard. Exempts commercial shipments from CITES Appendix II permits under EPCH governance.</span>
+              </div>
+              <div class="mag-comp-card">
+                <strong>✓ US Lacey Act Declarations</strong>
+                <span>Precise botanical names, harvest coordinates, and HTS codes pre-populated on commercial invoices and ocean bills of lading.</span>
+              </div>
+              <div class="mag-comp-card">
+                <strong>✓ EUDR Due Diligence</strong>
+                <span>Polygon GPS farm plot origin mapping verifying zero post-2020 deforestation on all Sheesham and Mango timber concessions.</span>
+              </div>
+              <div class="mag-comp-card">
+                <strong>✓ ISPM-15 Heat Treatment</strong>
+                <span>Automated heat chambers stamping solid timber packaging and pallets with permanent international phytosanitary seals.</span>
+              </div>
+            </div>
+
+            <div class="spread-footer">
+              <span>Compliance Standards</span>
+              <span class="spread-page-num">14</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 15: CONTAINER LOGISTICS & CBM ================= -->
+        <div class="mag-page">
+          <div class="page-inner">
+            <div class="spread-header">
+              <span>Ocean Freight Engineering</span>
+              <strong>Mixed Container Loading</strong>
+            </div>
+
+            <span class="mag-subhead">Volume Optimization</span>
+            <h2 class="mag-headline">20ft FCL & 40ft HQ Consolidations</h2>
+
+            <p class="mag-lead-para">
+              Our loading team creates 3D CAD container load plans maximizing cubic capacity while protecting delicate hand-carved surfaces and iron fretwork.
+            </p>
+
+            <div style="background: #FFF; border: 1px solid #E8E2DA; border-radius: 8px; padding: 14px; margin: 12px 0;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 8px;">
+                <strong>20ft Full Container Load (FCL)</strong>
+                <span style="color: var(--accent-gold); font-weight: 700;">28.0 CBM Nominal</span>
+              </div>
+              <p style="font-size: 0.74rem; color: #63564A; margin-bottom: 12px;">
+                Ideal for specialty retail boutique buyers and initial trial collections. Combines ~200 tabletop decor SKUs + ~40 accent tables.
+              </p>
+
+              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 8px;">
+                <strong>40ft High Cube Container (HQ)</strong>
+                <span style="color: var(--accent-gold); font-weight: 700;">68.0 CBM Nominal</span>
+              </div>
+              <p style="font-size: 0.74rem; color: #63564A; margin: 0;">
+                Lowest ocean freight per unit. Maximize shipping margins with heavy case goods, slab dining tables, and full collection suites.
+              </p>
+            </div>
+
+            <div style="background: #F8F5F0; border-left: 3px solid var(--accent-gold); padding: 10px 12px; border-radius: 4px; font-size: 0.74rem; margin-top: auto;">
+              <strong>Drop-Tested ISTA-3A Packaging:</strong> Double-wall 5-ply corrugated export cartons, 20mm EPE foam corner armor, and moisture-absorbing silica packets in every carton.
+            </div>
+
+            <div class="spread-footer">
+              <span class="spread-page-num">15</span>
+              <span>Container Logistics</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 16: COMMERCIAL TERMS & INCOTERMS ================= -->
+        <div class="mag-page">
+          <div class="page-inner">
+            <div class="spread-header">
+              <span>Wholesale Terms</span>
+              <strong>Incoterms & Commercial FAQ</strong>
+            </div>
+
+            <span class="mag-subhead">Direct Factory Contracting</span>
+            <h2 class="mag-headline">Transparent Export Terms</h2>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 14px; font-size: 0.78rem;">
+              <div>
+                <strong style="color: var(--primary); display: block;">Incoterms Supported:</strong>
+                <span style="color: #63564A;">FOB Mundra Port / Kandla Port, Gujarat, India (Primary). CIF destination sea ports (Long Beach, Newark, Hamburg, Felixstowe) available upon request.</span>
+              </div>
+              <div>
+                <strong style="color: var(--primary); display: block;">Payment Terms:</strong>
+                <span style="color: #63564A;">30% advance deposit upon official Proforma Invoice confirmation, balance 70% against clean Ocean Bill of Lading (B/L) copy scan. Irrevocable LC at sight accepted for container volume orders.</span>
+              </div>
+              <div>
+                <strong style="color: var(--primary); display: block;">Lead Times & Production:</strong>
+                <span style="color: #63564A;">Tabletop & giftware lines: 25–30 Days. Full mixed container furniture builds: 35–45 Days. Custom OEM prototype samples: 7–10 Days with courier air dispatch.</span>
+              </div>
+              <div>
+                <strong style="color: var(--primary); display: block;">Private Labeling & Barcoding:</strong>
+                <span style="color: #63564A;">Custom UPC / EAN barcode stickers, branded hangtags, luxury gift boxes, and custom inner carton master packs supported at zero surcharge for MOQ runs.</span>
+              </div>
+            </div>
+
+            <div class="spread-footer">
+              <span>Commercial Terms</span>
+              <span class="spread-page-num">16</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 17: FACTORY TOUR & CAPACITY ================= -->
+        <div class="mag-page">
+          <div class="page-inner">
+            <div class="spread-header">
+              <span>Manufacturing Infrastructure</span>
+              <strong>Jodhpur Factory Operations</strong>
+            </div>
+
+            <span class="mag-subhead">Direct From The Artisanal Forge</span>
+            <h2 class="mag-headline">Production Scale & Capacity</h2>
+
+            <div style="width: 100%; height: 160px; border-radius: 8px; overflow: hidden; background: url('../assets/hero_jodhpur_workshop.jpg') center/cover; margin: 12px 0; border: 1px solid #D5CCC0;"></div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.74rem;">
+              <div style="background: #FFF; border: 1px solid #EBE4DA; padding: 10px; border-radius: 6px;">
+                <strong style="color: var(--accent-gold); font-size: 1.1rem; display: block;">400 CBM / mo</strong>
+                <span>Seasoning Kiln Throughput</span>
+              </div>
+              <div style="background: #FFF; border: 1px solid #EBE4DA; padding: 10px; border-radius: 6px;">
+                <strong style="color: var(--accent-gold); font-size: 1.1rem; display: block;">15–20 FCL / mo</strong>
+                <span>Export Container Capacity</span>
+              </div>
+              <div style="background: #FFF; border: 1px solid #EBE4DA; padding: 10px; border-radius: 6px;">
+                <strong style="color: var(--accent-gold); font-size: 1.1rem; display: block;">150+ Artisans</strong>
+                <span>Master Carvers & Blacksmiths</span>
+              </div>
+              <div style="background: #FFF; border: 1px solid #EBE4DA; padding: 10px; border-radius: 6px;">
+                <strong style="color: var(--accent-gold); font-size: 1.1rem; display: block;">500 Active SKUs</strong>
+                <span>Catalog Master Lines</span>
+              </div>
+            </div>
+
+            <div class="spread-footer">
+              <span class="spread-page-num">17</span>
+              <span>Factory Operations</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 18: BACK HARDCOVER ================= -->
+        <div class="mag-page --hard" data-density="hard">
+          <div class="cover-container" style="justify-content: center; gap: 24px;">
+            <div class="cover-brand">
+              <div class="cover-estd">DIRECT WHOLESALE DESK • ESTD. 2011</div>
+              <h2 class="cover-title" style="font-size: 2rem;">ARAWALI ARTS</h2>
+              <div class="cover-gold-rule"></div>
+              <div class="cover-subtitle">Your Reliable Manufacturing Partner in Jodhpur</div>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(184, 149, 82, 0.35); border-radius: 12px; padding: 22px 26px; text-align: center; max-width: 360px;">
+              <h4 style="font-family: var(--font-cinzel); font-size: 1rem; color: var(--accent-gold); margin-bottom: 12px;">Contact International Export Desk</h4>
+              <p style="font-size: 0.8rem; color: #DDD4CB; line-height: 1.6; margin-bottom: 8px;">
+                <strong>Factory & Showroom:</strong><br>
+                Industrial Area, Jodhpur, Rajasthan 342001, India
+              </p>
+              <p style="font-size: 0.8rem; color: #DDD4CB; line-height: 1.6; margin-bottom: 14px;">
+                <strong>Email:</strong> export@arawaliarts.com<br>
+                <strong>Incoterms:</strong> FOB Mundra / CIF Major Global Ports
+              </p>
+              <a href="../website/rfq.html" class="btn-mag-rfq" style="display: inline-block; width: 100%; text-align: center; padding: 10px 0;">Request Official B2B Price Quote →</a>
+            </div>
+
+            <div style="font-size: 0.65rem; color: #8C7E72; letter-spacing: 0.1em; text-transform: uppercase;">
+              © 2026 Arawali Arts. All Rights Reserved. Private B2B Export Lookbook.
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <h3 style="font-family: var(--font-cinzel); font-size: 1.1rem; color: var(--primary); margin-bottom: 12px;">Global Legal Timber & Packaging Compliance</h3>
-      <div class="compliance-matrix">
-        <div class="compliance-card">
-          <strong>✓ VRIKSH Legality</strong>
-          <span>Exempt from CITES Appendix II permits; Lacey Act standard.</span>
-        </div>
-        <div class="compliance-card">
-          <strong>✓ EUDR Due Diligence</strong>
-          <span>Full polygon GPS plot origin traceability for European importers.</span>
-        </div>
-        <div class="compliance-card">
-          <strong>✓ ISPM-15 Heat Treated</strong>
-          <span>Phytosanitary stamped solid timber pallets & fumigation.</span>
-        </div>
-        <div class="compliance-card">
-          <strong>✓ ISTA-3A Drop-Tested</strong>
-          <span>5-ply / 7-ply export cartons with high-density edge buffers.</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMMERCIAL EXPORT SPECIFICATIONS -->
-    <section class="editorial-section">
-      <h2 class="section-headline">Wholesale Logistics & Commercial Terms</h2>
-      <div class="section-sub">Flexible Mixed Containers • Direct Port Logistics</div>
-
-      <div class="specs-table-wrapper">
-        <table class="commercial-table">
-          <thead>
-            <tr>
-              <th>Commercial Parameter</th>
-              <th>Standard Wholesale Terms</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Mixed Container Consolidation</strong></td>
-              <td>100% mixed loading allowed: combine tabletop decor, wall sconces, dining sets, and large sideboards in a single 20ft FCL (~28 CBM) or 40ft HQ (~68 CBM).</td>
-            </tr>
-            <tr>
-              <td><strong>Incoterms Available</strong></td>
-              <td>FOB Mundra Port / Kandla Port (Gujarat, India), CIF Major US & EU Ports, or Ex-Works Jodhpur Factory.</td>
-            </tr>
-            <tr>
-              <td><strong>Production Lead Time</strong></td>
-              <td>Small tabletop decor: 25–30 Days. Full container mixed furniture: 35–45 Days. Custom OEM samples: 7–10 Days.</td>
-            </tr>
-            <tr>
-              <td><strong>Commercial Payment Terms</strong></td>
-              <td>30% T/T Advance deposit upon Purchase Order, 70% balance payable against Bill of Lading (B/L) copy; or Irrevocable L/C at sight.</td>
-            </tr>
-            <tr>
-              <td><strong>Private Label & Packaging</strong></td>
-              <td>Buyer laser-engraved branding, custom barcodes/FNSKU stickers, eco-friendly kraft packaging, and custom mail-order drop-ship cartons.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- BOTTOM ACTION BANNER -->
-    <section class="cta-banner">
-      <h3>Ready to Consolidate Your Container?</h3>
-      <p>
-        Use our interactive Container CBM Estimator to simulate your 20ft or 40ft HQ consolidation, or submit your SKU requirements directly to our Jodhpur export desk.
-      </p>
-      <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
-        <a href="../website/rfq.html" class="btn-action-rfq" style="padding: 12px 28px; font-size: 0.9rem;">Open Container Calculator →</a>
-        <a href="mailto:export@arawaliarts.com" class="btn-action-rfq" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); padding: 12px 24px; font-size: 0.9rem;">Email Export Director</a>
-      </div>
-    </section>
-
+    </div>
   </main>
 
-  <!-- LIVE SYNCED CONTAINER DOCK (SYNCS WITH LOCALSTORAGE RFQCART) -->
-  <div class="lookbook-dock" id="lookbook-dock">
-    <div class="dock-load-text">
-      📦 Container Load: <span class="dock-cbm-highlight" id="dock-cbm-val">0.00 CBM</span> (<span id="dock-sku-count">0 SKUs</span>)
+  <!-- WORKSPACE 2: CONTINUOUS 500-SKU GRID VIEW (ALTERNATIVE VIEW) -->
+  <section id="continuous-feed-view">
+    <div style="background: #FFFFFF; border-radius: 16px; padding: 28px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); color: var(--text);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px;">
+        <div>
+          <h2 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--primary);">Full 500-SKU Master Catalog Feed</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">Real-time synchronized inventory with instant CBM calculation and volume FOB Mundra pricing.</p>
+        </div>
+        <div style="min-width: 260px;">
+          <input type="text" id="feed-search" placeholder="Search products, timber or SKU..." style="width: 100%; padding: 10px 16px; border-radius: 30px; border: 1px solid var(--border-medium); outline: none;">
+        </div>
+      </div>
+
+      <!-- Feed Category Filter Pills -->
+      <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; -webkit-overflow-scrolling: touch;" id="feed-category-pills">
+        <button type="button" class="btn-action-rfq" data-filter="all" style="padding: 6px 14px; font-size: 0.74rem;">All 500 SKUs</button>
+        <button type="button" class="btn-action-rfq" data-filter="furniture" style="padding: 6px 14px; font-size: 0.74rem; background: #FFF; color: var(--primary); border: 1px solid var(--border-medium);">🪑 Furniture & Storage</button>
+        <button type="button" class="btn-action-rfq" data-filter="kitchen" style="padding: 6px 14px; font-size: 0.74rem; background: #FFF; color: var(--primary); border: 1px solid var(--border-medium);">🍷 Kitchen & Entertaining</button>
+        <button type="button" class="btn-action-rfq" data-filter="decor" style="padding: 6px 14px; font-size: 0.74rem; background: #FFF; color: var(--primary); border: 1px solid var(--border-medium);">🏮 Architectural Decor</button>
+        <button type="button" class="btn-action-rfq" data-filter="lifestyle" style="padding: 6px 14px; font-size: 0.74rem; background: #FFF; color: var(--primary); border: 1px solid var(--border-medium);">🌿 Lifestyle & Giftware</button>
+      </div>
+
+      <!-- Dynamic Grid Injected via JS -->
+      <div id="feed-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px;">
+        <!-- Filled from products-data.js -->
+      </div>
     </div>
-    <a href="../website/rfq.html" class="dock-cta-btn">Review RFQ →</a>
+  </section>
+
+  <!-- FLOATING CONTAINER RFQ DOCK -->
+  <div class="mag-container-dock" id="mag-container-dock">
+    <span>📦 Container Load: <strong class="dock-vol" id="dock-volume">0.00 CBM</strong> (<span id="dock-count">0</span> SKUs)</span>
+    <a href="../website/rfq.html" class="dock-rfq-btn">Review RFQ →</a>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="lookbook-footer">
-    <p><strong>ARAWALI ARTS</strong> — Master Manufacturer & Exporter of Solid Wood Furniture & Architectural Iron Crafts</p>
-    <p>Factory: Industrial Area, Jodhpur, Rajasthan 342001, India • Export Desk: export@arawaliarts.com</p>
-    <p>© 2026 Arawali Arts. Official Digital Wholesale Lookbook • View-Only Edition.</p>
-  </footer>
+  <!-- Audio for Realistic Page Turn -->
+  <audio id="audioPageFlip" preload="none">
+    <source src="https://cdn.freesound.org/previews/459/459992_9159316-lq.mp3" type="audio/mp3">
+  </audio>
 
-  <!-- LIVE DATA ENGINE -->
-  <script src="../website/products-data.js?v=2026.10"></script>
+  <!-- DEPENDENCY: StPageFlip Browser Bundle -->
+  <script src="page-flip.browser.js"></script>
+  <!-- DATA: Live 500 Products -->
+  <script src="../website/products-data.js?v=2026.11"></script>
+
   <script>
     (function() {
-      // Curated 18 showcase SKUs for editorial lookbook
-      const CURATED_SKUS = [
-        'AA-TT-001', 'AA-TT-002', 'AA-CST-201', 'AA-WB-101', 'AA-SPX-401', 'AA-BMK-501',
-        'AA-WSC-601', 'AA-WMR-602', 'AA-LTN-603', 'AA-CT-701', 'AA-CN-702', 'AA-NST-703',
-        'AA-SB-801', 'AA-TV-802', 'AA-DT-901', 'AA-CH-012', 'AA-BW-081', 'AA-DK-071'
-      ];
+      // 1. Initialize Flipbook Engine
+      const flipContainer = document.getElementById("flipbook-book");
+      let pageFlipInstance = null;
 
-      // Fallback images map
-      const FALLBACK_MAP = {
-        'AA-WB-101': '../assets/00000036-PHOTO-2026-11-18-12-01-58.jpg',
-        'AA-CST-201': '../assets/00000037-PHOTO-2026-11-18-12-01-59.jpg',
-        'AA-CST-202': '../assets/00000042-PHOTO-2026-11-18-12-02-01.jpg',
-        'AA-PBL-301': '../assets/00000039-PHOTO-2026-11-18-12-02-00.jpg',
-        'AA-SPX-401': '../assets/00000040-PHOTO-2026-11-18-12-02-00.jpg',
-        'AA-BMK-501': '../assets/00000041-PHOTO-2026-11-18-12-02-01.jpg',
-        'AA-WSC-601': '../assets/00000048-PHOTO-2026-11-18-12-02-03.jpg',
-        'AA-WMR-602': '../assets/hero_jharokha_mirror.jpg',
-        'AA-LTN-603': '../assets/iron_jaali_wall_sconce.jpg',
-        'AA-CT-701': '../assets/hero_live_edge_table.jpg',
-        'AA-CN-702': '../assets/console_table_iron.jpg',
-        'AA-NST-703': '../assets/nesting_side_tables_round.jpg',
-        'AA-SB-801': '../assets/hero_jaali_sideboard.jpg',
-        'AA-TV-802': '../assets/media_console_slatted.jpg',
-        'AA-DT-901': '../assets/dining_table_trestle.jpg'
-      };
+      function calcBookDimensions() {
+        const winWidth = window.innerWidth;
+        const winHeight = window.innerHeight;
 
-      const grid = document.getElementById('products-grid');
-      const searchInput = document.getElementById('lookbook-search');
-      const pillButtons = document.querySelectorAll('.cat-pill-btn');
-      let currentFilter = 'curated';
-      let currentQuery = '';
-
-      // Simple Cart Manager
-      const Cart = {
-        get() {
-          try {
-            return JSON.parse(localStorage.getItem('arawali_rfq_cart')) || {};
-          } catch(e) {
-            return {};
-          }
-        },
-        add(sku, qty, cbm, title) {
-          const cart = this.get();
-          if (!cart[sku]) {
-            cart[sku] = { sku, qty: qty || 20, cbm: parseFloat(cbm) || 0.05, title: title || sku };
-          } else {
-            cart[sku].qty += (qty || 10);
-          }
-          localStorage.setItem('arawali_rfq_cart', JSON.stringify(cart));
-          updateDock();
-        },
-        getTotalCBM() {
-          const cart = this.get();
-          return Object.values(cart).reduce((sum, it) => sum + (it.qty * (it.cbm || 0)), 0);
-        },
-        getCount() {
-          return Object.keys(this.get()).length;
-        }
-      };
-
-      function updateDock() {
-        const cbmVal = document.getElementById('dock-cbm-val');
-        const countVal = document.getElementById('dock-sku-count');
-        const dock = document.getElementById('lookbook-dock');
-        const count = Cart.getCount();
-        const totalCbm = Cart.getTotalCBM().toFixed(2);
-        
-        if (cbmVal) cbmVal.textContent = totalCbm + ' CBM';
-        if (countVal) countVal.textContent = count + ' SKUs';
-        if (dock) {
-          dock.style.display = count > 0 ? 'flex' : 'none';
+        if (winWidth <= 768) {
+          // Mobile single page portrait mode
+          return {
+            width: Math.min(winWidth - 28, 480),
+            height: Math.min(winHeight - 160, 680)
+          };
+        } else {
+          // Desktop two-page dual spread mode
+          const singleWidth = Math.min((winWidth - 80) / 2, 540);
+          const singleHeight = Math.min(winHeight - 180, 750);
+          return {
+            width: Math.max(singleWidth, 380),
+            height: Math.max(singleHeight, 560)
+          };
         }
       }
 
-      function getFilteredProducts() {
-        if (!window.ALL_PRODUCTS_500) return [];
-        let list = window.ALL_PRODUCTS_500;
+      function initMagazine() {
+        const dims = calcBookDimensions();
 
-        // Apply category filter
-        if (currentFilter === 'curated') {
-          list = list.filter(p => CURATED_SKUS.includes(p.SKU));
-        } else if (currentFilter === 'kitchen') {
-          list = list.filter(p => p.Department === 'kitchen' || p.Category.includes('Cat 01') || p.Category.includes('Cat 02'));
-        } else if (currentFilter === 'decor') {
-          list = list.filter(p => p.Department === 'decor' || p.Category.includes('Cat 03') || p.Category.includes('Wall') || p.Category.includes('Lighting'));
-        } else if (currentFilter === 'living') {
-          list = list.filter(p => p.Department === 'living' || p.Category.includes('Living') || p.Category.includes('Dining'));
-        } else if (currentFilter === 'casegoods') {
-          list = list.filter(p => p.Department === 'casegoods' || p.Category.includes('Case Goods') || p.Category.includes('Storage'));
-        }
-
-        // Apply search query
-        if (currentQuery.trim()) {
-          const q = currentQuery.toLowerCase().trim();
-          list = list.filter(p => 
-            p.SKU.toLowerCase().includes(q) ||
-            (p.Product_Name && p.Product_Name.toLowerCase().includes(q)) ||
-            (p.Category && p.Category.toLowerCase().includes(q)) ||
-            (p.Material_Construction && p.Material_Construction.toLowerCase().includes(q))
-          );
-        }
-
-        return list;
-      }
-
-      function renderGrid() {
-        const products = getFilteredProducts();
-        if (!grid) return;
-
-        if (products.length === 0) {
-          grid.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #FFFFFF; border-radius: 12px; border: 1px dashed var(--border-medium);">
-              <h3 style="font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 8px;">No matching export products found</h3>
-              <p style="color: var(--text-muted); font-size: 0.9rem;">Try adjusting your search terms or select "Full 500-SKU Master List".</p>
-            </div>
-          `;
+        if (typeof St === "undefined" || !St.PageFlip) {
+          console.error("StPageFlip engine not loaded!");
           return;
         }
 
-        const cart = Cart.get();
-        grid.innerHTML = products.map(item => {
-          const inCart = !!cart[item.SKU];
-          const rawImg = item.Image || '';
-          const fallback = FALLBACK_MAP[item.SKU] || '../assets/hero_live_edge_table.jpg';
-          const imgSrc = rawImg.startsWith('http') ? rawImg : (rawImg.startsWith('../') ? rawImg : `../${rawImg}`);
-          const moqNum = parseInt(item.MOQ, 10) || 20;
+        pageFlipInstance = new St.PageFlip(flipContainer, {
+          width: dims.width,
+          height: dims.height,
+          size: "stretch",
+          minWidth: 320,
+          maxWidth: 620,
+          minHeight: 460,
+          maxHeight: 850,
+          maxShadowOpacity: 0.5,
+          showCover: true,
+          mobileScrollSupport: false,
+          usePortrait: window.innerWidth <= 768,
+          startPage: 0
+        });
 
-          return `
-            <article class="product-card" data-sku="${item.SKU}">
-              <div class="card-media">
-                <span class="card-sku-badge">${item.SKU}</span>
-                <span class="card-dept-tag">${item.Department || 'Handicraft'}</span>
-                <img src="${imgSrc}" alt="${item.Product_Name}" class="card-img" loading="lazy" onerror="this.onerror=null;this.src='${fallback}'">
+        const pages = document.querySelectorAll(".mag-page");
+        pageFlipInstance.loadFromHTML(pages);
+
+        // Update page counters on flip
+        pageFlipInstance.on("flip", (e) => {
+          const currentSpreadIndex = e.data;
+          const lblCurrent = document.getElementById("lblCurrentPage");
+          lblCurrent.textContent = currentSpreadIndex + 1;
+
+          // Sound effect
+          const sound = document.getElementById("audioPageFlip");
+          if (sound) {
+            try { sound.currentTime = 0; sound.play().catch(() => {}); } catch(err) {}
+          }
+        });
+
+        document.getElementById("lblTotalPages").textContent = pages.length;
+      }
+
+      window.addEventListener("DOMContentLoaded", initMagazine);
+
+      // Handle window resize
+      let resizeTimer;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (pageFlipInstance) {
+            const dims = calcBookDimensions();
+            pageFlipInstance.update();
+          }
+        }, 200);
+      });
+
+      // 2. Toolbar Navigation Event Handlers
+      document.getElementById("btnFirstPage").addEventListener("click", () => {
+        if (pageFlipInstance) pageFlipInstance.turnToPage(0);
+      });
+      document.getElementById("btnPrevPage").addEventListener("click", () => {
+        if (pageFlipInstance) pageFlipInstance.flipPrev();
+      });
+      document.getElementById("btnNextPage").addEventListener("click", () => {
+        if (pageFlipInstance) pageFlipInstance.flipNext();
+      });
+      document.getElementById("btnLastPage").addEventListener("click", () => {
+        if (pageFlipInstance) {
+          const total = pageFlipInstance.getPageCount();
+          pageFlipInstance.turnToPage(total - 1);
+        }
+      });
+
+      // Jump select
+      const jumpSelect = document.getElementById("jumpChapterSelect");
+      jumpSelect.addEventListener("change", (e) => {
+        const targetPage = parseInt(e.target.value, 10);
+        if (pageFlipInstance && !isNaN(targetPage)) {
+          pageFlipInstance.turnToPage(targetPage);
+        }
+      });
+
+      // Fullscreen Toggle
+      document.getElementById("btnToggleFullscreen").addEventListener("click", () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      });
+
+      // 3. View Switcher Mode (3D Magazine vs Continuous 500-SKU Grid)
+      const btnModeMag = document.getElementById("btnModeMagazine");
+      const btnModeFeed = document.getElementById("btnModeContinuous");
+      const workspaceMag = document.getElementById("flipbook-workspace");
+      const workspaceFeed = document.getElementById("continuous-feed-view");
+
+      btnModeMag.addEventListener("click", () => {
+        btnModeMag.classList.add("active");
+        btnModeFeed.classList.remove("active");
+        workspaceMag.style.display = "flex";
+        workspaceFeed.classList.remove("active");
+      });
+
+      btnModeFeed.addEventListener("click", () => {
+        btnModeFeed.classList.add("active");
+        btnModeMag.classList.remove("active");
+        workspaceMag.style.display = "none";
+        workspaceFeed.classList.add("active");
+        renderContinuousFeed();
+      });
+
+      // 4. Continuous Feed Live Rendering
+      let feedRendered = false;
+      function renderContinuousFeed() {
+        if (feedRendered) return;
+        feedRendered = true;
+
+        const allItems = window.ALL_PRODUCTS_500 || [];
+        const grid = document.getElementById("feed-grid");
+        const searchInput = document.getElementById("feed-search");
+        const pills = document.querySelectorAll("#feed-category-pills button");
+
+        let activeFilter = "all";
+        let activeQuery = "";
+
+        function renderItems() {
+          grid.innerHTML = "";
+          const filtered = allItems.filter(item => {
+            if (activeFilter !== "all") {
+              const cat = (item.Category || "").toLowerCase();
+              if (activeFilter === "furniture" && !cat.includes("table") && !cat.includes("chair") && !cat.includes("credenza") && !cat.includes("shelf") && !cat.includes("seating")) return false;
+              if (activeFilter === "kitchen" && !cat.includes("tabletop") && !cat.includes("serveware") && !cat.includes("bar") && !cat.includes("cutting") && !cat.includes("coffee")) return false;
+              if (activeFilter === "decor" && !cat.includes("wall") && !cat.includes("mirror") && !cat.includes("sconce") && !cat.includes("lighting") && !cat.includes("lantern")) return false;
+              if (activeFilter === "lifestyle" && !cat.includes("box") && !cat.includes("game") && !cat.includes("pet") && !cat.includes("bath") && !cat.includes("clock")) return false;
+            }
+            if (activeQuery) {
+              const q = activeQuery.toLowerCase();
+              const name = (item.Product_Name || "").toLowerCase();
+              const sku = (item.SKU || "").toLowerCase();
+              const mat = (item.Material_Construction || "").toLowerCase();
+              if (!name.includes(q) && !sku.includes(q) && !mat.includes(q)) return false;
+            }
+            return true;
+          });
+
+          filtered.slice(0, 60).forEach(item => {
+            const card = document.createElement("div");
+            card.className = "mag-product-card";
+            card.innerHTML = `
+              <div class="mag-product-img" style="background-image: url('${item.Image}');">
+                <span class="mag-sku-badge">${item.SKU}</span>
               </div>
-
-              <div class="card-content">
-                <h3 class="card-title">${item.Product_Name}</h3>
-                <p class="card-material">${item.Material_Construction || 'Solid Seasoned Hardwood & Hand-Forged Wrought Iron'}</p>
-
-                <div class="card-specs-matrix">
-                  <div class="spec-line">
-                    <span>Dimensions:</span>
-                    <strong>${item.Dimensions || 'Custom Export Standard'}</strong>
-                  </div>
-                  <div class="spec-line">
-                    <span>CBM / Unit:</span>
-                    <strong>${item.CBM} CBM</strong>
-                  </div>
-                  <div class="spec-line">
-                    <span>MOQ Tier:</span>
-                    <strong>${item.MOQ || '20 Pcs'}</strong>
-                  </div>
-                </div>
-
-                <div class="card-pricing-row">
-                  <span class="fob-price-label">FOB Mundra Tier</span>
-                  <span class="fob-price-value">${item.FOB_Mundra_USD || 'Inquire'}</span>
-                </div>
-
-                <button type="button" class="btn-add-rfq ${inCart ? 'added' : ''}" data-sku="${item.SKU}" data-cbm="${item.CBM}" data-title="${item.Product_Name}" data-moq="${moqNum}">
-                  ${inCart ? '✓ In Container RFQ' : '+ Add to Container RFQ'}
-                </button>
+              <div class="mag-product-title">${item.Product_Name}</div>
+              <div class="mag-product-meta">${item.Dimensions} • ${item.CBM} CBM</div>
+              <div class="mag-product-pricing">
+                <span class="mag-fob-price">${item.FOB_Mundra_USD} FOB</span>
+                <button type="button" class="mag-btn-add" data-sku="${item.SKU}" data-name="${item.Product_Name}" data-cbm="${item.CBM}">+ Add RFQ</button>
               </div>
-            </article>
-          `;
-        }).join('');
+            `;
+            grid.appendChild(card);
+          });
+          attachAddEvents();
+        }
 
-        // Wire up Add buttons
-        grid.querySelectorAll('.btn-add-rfq').forEach(btn => {
-          btn.onclick = function() {
-            const sku = this.dataset.sku;
-            const cbm = parseFloat(this.dataset.cbm) || 0.05;
-            const title = this.dataset.title;
-            const moq = parseInt(this.dataset.moq, 10) || 20;
+        pills.forEach(pill => {
+          pill.addEventListener("click", () => {
+            pills.forEach(p => {
+              p.style.background = "#FFF";
+              p.style.color = "var(--primary)";
+            });
+            pill.style.background = "var(--accent-gold)";
+            pill.style.color = "#12100E";
+            activeFilter = pill.dataset.filter;
+            renderItems();
+          });
+        });
 
-            Cart.add(sku, moq, cbm, title);
-            this.classList.add('added');
-            this.innerHTML = '✓ Added to Container';
-            setTimeout(() => {
-              this.innerHTML = '✓ In Container RFQ';
-            }, 1200);
+        searchInput.addEventListener("input", (e) => {
+          activeQuery = e.target.value.trim();
+          renderItems();
+        });
+
+        renderItems();
+      }
+
+      // 5. Container RFQ Cart & Dock Integration
+      function attachAddEvents() {
+        document.querySelectorAll(".mag-btn-add").forEach(btn => {
+          btn.onclick = (e) => {
+            e.preventDefault();
+            const sku = btn.dataset.sku;
+            const name = btn.dataset.name;
+            const cbm = parseFloat(btn.dataset.cbm) || 0.05;
+
+            let cart = JSON.parse(localStorage.getItem("arawali_rfq_cart") || "[]");
+            const existing = cart.find(x => x.sku === sku);
+            if (existing) {
+              existing.qty += 10;
+            } else {
+              cart.push({ sku, name, cbm, qty: 25 });
+            }
+            localStorage.setItem("arawali_rfq_cart", JSON.stringify(cart));
+            updateDock();
+
+            btn.textContent = "✓ Added!";
+            setTimeout(() => { btn.textContent = "+ Add RFQ"; }, 1200);
           };
         });
       }
 
-      // Pill clicks
-      pillButtons.forEach(btn => {
-        btn.onclick = function() {
-          pillButtons.forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-          currentFilter = this.dataset.filter;
-          renderGrid();
-        };
-      });
-
-      // Search input
-      if (searchInput) {
-        let debounceTimer;
-        searchInput.addEventListener('input', (e) => {
-          clearTimeout(debounceTimer);
-          debounceTimer = setTimeout(() => {
-            currentQuery = e.target.value;
-            renderGrid();
-          }, 150);
-        });
+      function updateDock() {
+        const cart = JSON.parse(localStorage.getItem("arawali_rfq_cart") || "[]");
+        const totalCbm = cart.reduce((sum, item) => sum + ((item.cbm || 0) * (item.qty || 1)), 0);
+        document.getElementById("dock-volume").textContent = totalCbm.toFixed(2) + " CBM";
+        document.getElementById("dock-count").textContent = cart.length;
       }
 
-      // Update category pill counts
-      if (window.ALL_PRODUCTS_500) {
-        const counts = {
-          kitchen: window.ALL_PRODUCTS_500.filter(p => p.Department === 'kitchen').length,
-          decor: window.ALL_PRODUCTS_500.filter(p => p.Department === 'decor').length,
-          living: window.ALL_PRODUCTS_500.filter(p => p.Department === 'living').length,
-          casegoods: window.ALL_PRODUCTS_500.filter(p => p.Department === 'casegoods').length
-        };
-        const elKitchen = document.getElementById('count-kitchen');
-        const elDecor = document.getElementById('count-decor');
-        const elLiving = document.getElementById('count-living');
-        const elCasegoods = document.getElementById('count-casegoods');
-        if (elKitchen) elKitchen.textContent = counts.kitchen;
-        if (elDecor) elDecor.textContent = counts.decor;
-        if (elLiving) elLiving.textContent = counts.living;
-        if (elCasegoods) elCasegoods.textContent = counts.casegoods;
-      }
-
-      // Initialize
-      renderGrid();
+      attachAddEvents();
       updateDock();
+
     })();
   </script>
-
 </body>
 </html>
