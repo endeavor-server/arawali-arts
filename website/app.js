@@ -482,25 +482,36 @@ function initContainerDock() {
   if (!dock) {
     dock = document.createElement('div');
     dock.className = 'container-dock';
+    dock.style.display = 'none'; // Hidden by default when empty
     dock.innerHTML = `
       <div class="dock-inner">
         <div class="dock-info">
-          <div>
-            <strong style="color: #FAF5F0; font-size: 0.95rem;">📦 Container CBM Load:</strong>
-            <span id="dock-cbm-val" style="color: var(--accent-gold); font-weight: 700; margin-left: 6px;">0.00 CBM</span>
-            <span id="dock-sku-count" style="color: #AAA; font-size: 0.8rem; margin-left: 8px;">(0 SKUs)</span>
+          <div class="dock-title-row">
+            <span class="dock-icon">📦</span>
+            <strong class="dock-heading">Container Load:</strong>
+            <span id="dock-cbm-val" class="dock-cbm-val">0.00 CBM</span>
+            <span id="dock-sku-count" class="dock-sku-count">(0 SKUs)</span>
           </div>
           <div class="dock-meter-wrap" title="Loading Volume against 20ft FCL Capacity (28 CBM)">
             <div id="dock-meter-fill" class="dock-meter-fill"></div>
           </div>
-          <span id="dock-fcl-pct" style="font-size: 0.8rem; color: #DDD;">0% of 20ft FCL</span>
+          <span id="dock-fcl-pct" class="dock-fcl-pct">0% of 20ft FCL</span>
         </div>
         <div class="dock-actions">
-          <a href="rfq.html" class="dock-btn">Review RFQ & Container Load →</a>
+          <a href="rfq.html" class="dock-btn">Review RFQ →</a>
+          <button type="button" class="dock-minimize-btn" title="Dismiss Dock" aria-label="Dismiss container dock">✕</button>
         </div>
       </div>
     `;
     document.body.appendChild(dock);
+
+    const minBtn = dock.querySelector('.dock-minimize-btn');
+    if (minBtn) {
+      minBtn.onclick = (e) => {
+        e.stopPropagation();
+        dock.classList.toggle('minimized');
+      };
+    }
   }
 
   function updateDock() {
@@ -517,12 +528,14 @@ function initContainerDock() {
     skuCountEl.textContent = `(${skuCount} SKU${skuCount === 1 ? '' : 's'})`;
 
     const pct20 = Math.min(Math.round((totalCbm / 28) * 100), 100);
-    meterEl.style.width = `${pct20}%`;
-    fclPctEl.textContent = `${pct20}% of 20ft FCL (28 CBM)`;
+    if (meterEl) meterEl.style.width = `${pct20}%`;
+    if (fclPctEl) fclPctEl.textContent = `${pct20}% of 20ft FCL (28 CBM)`;
 
     if (skuCount > 0) {
+      dock.style.display = 'flex';
       dock.classList.add('active');
     } else {
+      dock.style.display = 'none';
       dock.classList.remove('active');
     }
   }
