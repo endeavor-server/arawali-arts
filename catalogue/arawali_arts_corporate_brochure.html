@@ -241,10 +241,19 @@
       width: 100%;
     }
 
-    .mag-page.--hard {
-      background: linear-gradient(135deg, #14100E 0%, #221A15 50%, #100C0A 100%);
-      color: #FAF7F2;
-      border: 2px solid var(--accent-gold);
+    /* Only the actual front and back covers get the dark hardcover styling */
+    .mag-page.page-cover-front,
+    .mag-page.page-cover-back {
+      background: linear-gradient(135deg, #14100E 0%, #221A15 50%, #100C0A 100%) !important;
+      color: #FAF7F2 !important;
+      border: 2px solid var(--accent-gold) !important;
+    }
+
+    /* All inner pages (including Page 2 inside cover and Page 17) stay pristine warm cream */
+    .mag-page:not(.page-cover-front):not(.page-cover-back) {
+      background: var(--page-cream) !important;
+      color: #241D18 !important;
+      border: 1px solid #E8E2DA !important;
     }
 
     .page-inner {
@@ -835,7 +844,7 @@
     <main id="magazine-stage">
       <div id="flipbook-book">
 <!-- ================= PAGE 1: FRONT HARDCOVER ================= -->
-        <div class="mag-page --hard" data-density="hard">
+        <div class="mag-page --hard page-cover-front" data-density="hard">
           <div class="cover-container">
             <span class="cover-badge">✦ OFFICIAL B2B EXPORT VOLUME • 2026/2027 ✦</span>
 
@@ -874,9 +883,9 @@
               Every timber shipment is kiln-dried to strict 8%–12% equilibrium moisture content in our automated seasoning facilities, preventing warp, crack, or twist under North American central heating and European coastal climates.
             </p>
 
-            <div style="background: #F5EFE6; border-left: 3px solid var(--accent-gold); padding: 14px 16px; border-radius: 4px; margin: 16px 0;">
-              <strong style="color: var(--primary); font-size: 0.85rem; display: block; margin-bottom: 4px;">Direct Port Consolidations</strong>
-              <p style="font-size: 0.78rem; color: #63564A; line-height: 1.5; margin: 0;">
+            <div style="background: #FAF8F5; border: 1.5px solid #E2D9CC; border-left: 4px solid var(--accent-gold); padding: 16px 18px; border-radius: 8px; margin: 18px 0; box-shadow: 0 2px 10px rgba(24, 19, 14, 0.03);">
+              <strong style="color: #1A1410; font-size: 0.88rem; display: block; margin-bottom: 4px;">Direct Port Consolidations</strong>
+              <p style="font-size: 0.82rem; color: #55483B; line-height: 1.6; margin: 0;">
                 Located within rapid freight transit to Mundra and Kandla container terminals, we support 100% mixed container consolidations (20ft FCL & 40ft High Cube) with full Lacey Act, VRIKSH, and EUDR legal origin verification.
               </p>
             </div>
@@ -1585,7 +1594,7 @@
         </div>
 
         <!-- ================= PAGE 18: BACK HARDCOVER ================= -->
-        <div class="mag-page --hard" data-density="hard">
+        <div class="mag-page --hard page-cover-back" data-density="hard">
           <div class="cover-container" style="justify-content: center; gap: 24px;">
             <div class="cover-brand">
               <div class="cover-estd">DIRECT WHOLESALE DESK • ESTD. 2011</div>
@@ -1769,7 +1778,11 @@
           showCover: true,
           mobileScrollSupport: false,
           usePortrait: dims.isPortrait,
-          startPage: 0
+          startPage: (function() {
+          const p = new URLSearchParams(window.location.search).get("page");
+          const idx = parseInt(p, 10);
+          return (!isNaN(idx) && idx >= 0) ? idx : 0;
+        })()
         });
 
         const pages = document.querySelectorAll(".mag-page");

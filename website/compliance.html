@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2026.20">
+  <link rel="stylesheet" href="style.css?v=2026.22">
 </head>
 <body>
 
@@ -99,185 +99,463 @@
     </div>
   </header>
 
-  <!-- CATEGORY HERO -->
+  <!-- BANNER -->
   <section class="category-banner">
     <div class="container">
-      <div class="breadcrumb"><a href="index.html">Home</a> / <span>Trade & Quality Compliance</span></div>
-      <span class="section-tag">Zero Customs Risk</span>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="bc-sep">/</span>
+        <span>Trade & Quality Compliance</span>
+      </div>
+      <span class="section-tag">✦ ZERO CUSTOMS & LEGAL RISK • 100% AUDITED TIMBER</span>
       <h1 class="category-heading">Export Compliance & Quality Standards</h1>
-      <p class="category-intro">We eliminate commercial risk for North American and European importers by operating strictly under international timber legality conventions, environmental regulations, and certified packaging protocols.</p>
+      <p class="category-intro">
+        We eliminate commercial risk for North American and European importers by operating strictly under international timber legality conventions, environmental regulations, and certified packaging protocols.
+      </p>
+
+      <!-- Executive Compliance Metrics Strip -->
+      <div class="hero-stats-strip">
+        <div class="stat-metric">
+          <span class="stat-metric-val">100%</span>
+          <span class="stat-metric-lbl">VRIKSH Certified</span>
+        </div>
+        <div class="stat-metric">
+          <span class="stat-metric-val">PPQ-505</span>
+          <span class="stat-metric-lbl">US Lacey Act Pre-Filed</span>
+        </div>
+        <div class="stat-metric">
+          <span class="stat-metric-val">EUDR</span>
+          <span class="stat-metric-lbl">GPS Geolocation Mapped</span>
+        </div>
+        <div class="stat-metric">
+          <span class="stat-metric-val">8%–10%</span>
+          <span class="stat-metric-lbl">Kiln Equilibrium SLA</span>
+        </div>
+        <div class="stat-metric">
+          <span class="stat-metric-val">ISPM-15</span>
+          <span class="stat-metric-lbl">IPPC Heat Treated</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- DETAILED COMPLIANCE PILLARS -->
-  <section class="section">
+  <section class="section" style="padding-top: 48px;">
     <div class="container">
 
       <!-- 4-Pillar Certification Badges Strip -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin-bottom: 40px;">
-        <div style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 22px 20px; text-align: center; box-shadow: var(--shadow-sm); border-top: 3px solid var(--accent-gold);">
-          <div style="font-size: 1.8rem; margin-bottom: 8px;">🛡️</div>
-          <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 0.95rem; font-weight: 700; color: var(--primary-color); margin-bottom: 4px;">VRIKSH Legality</div>
-          <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0;">EPCH Chain of Custody & CITES Appendix II Exemption Verified</p>
-        </div>
-        <div style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 22px 20px; text-align: center; box-shadow: var(--shadow-sm); border-top: 3px solid #1E3A8A;">
-          <div style="font-size: 1.8rem; margin-bottom: 8px;">🦅</div>
-          <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 0.95rem; font-weight: 700; color: var(--primary-color); margin-bottom: 4px;">US Lacey Act</div>
-          <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0;">PPQ Form 505 Declarations & Genus/Species Harvest Audit</p>
-        </div>
-        <div style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 22px 20px; text-align: center; box-shadow: var(--shadow-sm); border-top: 3px solid #3F6212;">
-          <div style="font-size: 1.8rem; margin-bottom: 8px;">🌿</div>
-          <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 0.95rem; font-weight: 700; color: var(--primary-color); margin-bottom: 4px;">EUDR Due Diligence</div>
-          <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0;">Zero Deforestation Geolocation & European Traceability</p>
-        </div>
-        <div style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 22px 20px; text-align: center; box-shadow: var(--shadow-sm); border-top: 3px solid #78350F;">
-          <div style="font-size: 1.8rem; margin-bottom: 8px;">📦</div>
-          <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 0.95rem; font-weight: 700; color: var(--primary-color); margin-bottom: 4px;">ISPM-15 & 8-10% Kiln</div>
-          <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0;">IPPC Certified Heat Treatment + Warping-Proof Moisture Lock</p>
-        </div>
-      </div>
-      
-      <div style="display: flex; flex-direction: column; gap: 40px;">
+      <div class="compliance-pillars-grid">
 
-        <!-- 1: Lacey Act & VRIKSH -->
-        <div class="content-box" style="padding: 30px; border-left: 4px solid var(--accent-gold);">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 10px;">
-            <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.4rem; color: var(--primary-color);">1. US Lacey Act & VRIKSH Timber Legality Verification</h3>
-            <span class="comp-badge">USA COMPLIANCE</span>
+        <div class="compliance-pillar-card">
+          <div class="pillar-top-accent"></div>
+          <div class="pillar-icon-box">
+            <svg class="pillar-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
           </div>
-          <p style="font-size: 0.95rem; color: #4A423D; line-height: 1.7; margin-bottom: 14px;">
-            The United States Lacey Act mandates that all timber imports declare scientific genus, species, and legal point of harvest. For our Indian Rosewood (*Dalbergia sissoo*), Arawali Arts provides chain-of-custody certificates through the **VRIKSH Timber Legality Assessment Scheme** (governed by EPCH and recognized by CITES Appendix II exemptions).
-          </p>
-          <ul class="check-list" style="font-size: 0.9rem; color: var(--text-muted);">
-            <li>✓ Legal procurement verification from certified state forest auctions & private farmland mandis</li>
-            <li>✓ Complete PPQ 505 Lacey Act declaration forms filled and submitted prior to bill of lading issuance</li>
-            <li>✓ CITES-compliant exemption permits for smooth US Customs (CBP) clearance</li>
-          </ul>
-        </div>
-
-        <!-- 2: EUDR Deforestation -->
-        <div id="eudr" class="content-box" style="padding: 30px; border-left: 4px solid #3F6212;">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 10px;">
-            <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.4rem; color: var(--primary-color);">2. European Union Deforestation Regulation (EUDR)</h3>
-            <span class="comp-badge" style="background: #ECFCCB; color: #3F6212;">EU DIRECTIVE</span>
+          <span class="pillar-authority">EPCH & CITES CERTIFIED</span>
+          <h3 class="pillar-title">VRIKSH Legality</h3>
+          <p class="pillar-desc">EPCH Chain-of-Custody & CITES Appendix II Exemption Verified for Indian Rosewood (*Dalbergia sissoo*).</p>
+          <div class="pillar-status">
+            <span class="pillar-status-dot"></span>
+            <span class="pillar-status-text">Active Harvest Audit</span>
           </div>
-          <p style="font-size: 0.95rem; color: #4A423D; line-height: 1.7; margin-bottom: 14px;">
-            Under the EUDR mandate, timber imported into the EU must be proven to originate from land that has not experienced deforestation after December 31, 2020. Arawali Arts tracks timber batches with geographic coordinate documentation and provides due diligence statements (DDS) for European buyers.
-          </p>
-          <ul class="check-list" style="font-size: 0.9rem; color: var(--text-muted);">
-            <li>✓ Farm-level and plantation plot traceability for Sheesham, Mango, and Acacia logs</li>
-            <li>✓ Traceable reference numbers for submission into the EU Due Diligence Information System</li>
-            <li>✓ Certified non-toxic, lead-free lacquers compliant with European REACH chemical directives</li>
-          </ul>
         </div>
 
-        <!-- 3: Kiln Seasoning -->
-        <div class="content-box" style="padding: 30px; border-left: 4px solid #1E3A8A;">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 10px;">
-            <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.4rem; color: var(--primary-color);">3. Scientific Kiln Seasoning (8%–12% Moisture Control)</h3>
-            <span class="comp-badge" style="background: #DBEAFE; color: #1E3A8A;">FACTORY STANDARD</span>
+        <div class="compliance-pillar-card">
+          <div class="pillar-top-accent"></div>
+          <div class="pillar-icon-box">
+            <svg class="pillar-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="m4.93 4.93 4.24 4.24"/>
+              <path d="m14.83 9.17 4.24-4.24"/>
+              <path d="m14.83 14.83 4.24 4.24"/>
+              <path d="m9.17 14.83-4.24 4.24"/>
+              <circle cx="12" cy="12" r="4"/>
+            </svg>
           </div>
-          <p style="font-size: 0.95rem; color: #4A423D; line-height: 1.7; margin-bottom: 14px;">
-            The primary failure point of traditional Indian furniture exporters is timber warping, cracking, or glue separation when shipped from dry desert heat (Jodhpur) to humid or centrally heated western homes. We eliminate this with industrial kiln chambers:
-          </p>
-          <ul class="check-list" style="font-size: 0.9rem; color: var(--text-muted);">
-            <li>✓ 15-day steam-assisted kiln seasoning cycle bringing timber moisture down to exactly 8%–12%</li>
-            <li>✓ Chemical pressure impregnation with eco-friendly borate salts protecting against termites and powder-post beetles</li>
-            <li>✓ Calibrated pin-type digital moisture testing recorded on individual quality control tags</li>
-          </ul>
-        </div>
-
-        <!-- 4: Packaging & ISPM-15 -->
-        <div class="content-box" style="padding: 30px; border-left: 4px solid #78350F;">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 10px;">
-            <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.4rem; color: var(--primary-color);">4. ISPM-15 Wood Packaging & ISTA-3A Drop-Testing</h3>
-            <span class="comp-badge" style="background: #FEF3C7; color: #78350F;">LOGISTICS & TRANSIT</span>
+          <span class="pillar-authority">USDA APHIS / US CBP</span>
+          <h3 class="pillar-title">US Lacey Act</h3>
+          <p class="pillar-desc">PPQ Form 505 Declarations & Genus/Species Harvest Audit pre-filed before lading.</p>
+          <div class="pillar-status">
+            <span class="pillar-status-dot"></span>
+            <span class="pillar-status-text">Zero Customs Detention</span>
           </div>
-          <p style="font-size: 0.95rem; color: #4A423D; line-height: 1.7; margin-bottom: 14px;">
-            Zero transit breakage is our standard. Our packaging engineering meets parcel transit standards (FedEx / UPS / DHL) and container ocean freight:
-          </p>
-          <ul class="check-list" style="font-size: 0.9rem; color: var(--text-muted);">
-            <li>✓ All solid timber pallets, wooden crates, and dunnage carry official IPPC heat-treatment (HT) stamps</li>
-            <li>✓ 5-ply and 7-ply heavy-duty corrugated cartons with 25mm high-density expanded polyethylene (EPE) corner protectors</li>
-            <li>✓ Silica gel moisture-trap desiccant bags (250g per pallet) placed inside sea containers to eliminate sweat condensation</li>
-          </ul>
         </div>
 
-        <!-- Export Timber & Customs Tariff Specifications Table -->
-        <div class="content-box" style="padding: 30px; margin-top: 10px;">
-          <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.3rem; color: var(--primary-color); margin-bottom: 8px;">Commercial Timber Species & Harmonized Tariff System (HTS) Matrix</h3>
-          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;">Reference data provided on all commercial invoices, packing lists, and bill of lading filings for smooth customs clearance at US (CBP), UK, and EU borders.</p>
-          
-          <div style="overflow-x: auto;">
-            <table class="catalog-table" style="width: 100%; border-collapse: collapse; font-size: 0.84rem;">
-              <thead>
-                <tr style="background: #2C221E; color: white;">
-                  <th style="padding: 10px 14px; text-align: left;">Wood / Material</th>
-                  <th style="padding: 10px 14px; text-align: left;">Botanical Name</th>
-                  <th style="padding: 10px 14px; text-align: center;">Target Moisture (EMC)</th>
-                  <th style="padding: 10px 14px; text-align: left;">Compliance Standard</th>
-                  <th style="padding: 10px 14px; text-align: center;">Harmonized Tariff (HS)</th>
-                  <th style="padding: 10px 14px; text-align: left;">Primary Export Applications</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="border-bottom: 1px solid #ECE6DE;">
-                  <td style="padding: 10px 14px; font-weight: 600;">Indian Rosewood (Sheesham)</td>
-                  <td style="padding: 10px 14px; font-style: italic;">Dalbergia sissoo</td>
-                  <td style="padding: 10px 14px; text-align: center;"><span class="badge-dept" style="background: #ECFCCB; color: #365314;">8% – 10%</span></td>
-                  <td style="padding: 10px 14px;">VRIKSH Certificate + CITES Exemption</td>
-                  <td style="padding: 10px 14px; text-align: center; font-family: monospace; font-weight: 600;">9403.60.00 / 4420.90</td>
-                  <td style="padding: 10px 14px;">Dining tables, credenzas, case goods, live-edge slabs</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #ECE6DE;">
-                  <td style="padding: 10px 14px; font-weight: 600;">Indian Acacia (Babool)</td>
-                  <td style="padding: 10px 14px; font-style: italic;">Acacia nilotica</td>
-                  <td style="padding: 10px 14px; text-align: center;"><span class="badge-dept" style="background: #ECFCCB; color: #365314;">8% – 11%</span></td>
-                  <td style="padding: 10px 14px;">Lacey Act PPQ-505 + EUDR Traceability</td>
-                  <td style="padding: 10px 14px; text-align: center; font-family: monospace; font-weight: 600;">9403.60.00 / 4419.90</td>
-                  <td style="padding: 10px 14px;">End-grain butcher blocks, charcuterie boards, benches</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #ECE6DE;">
-                  <td style="padding: 10px 14px; font-weight: 600;">Mango Timber</td>
-                  <td style="padding: 10px 14px; font-style: italic;">Mangifera indica</td>
-                  <td style="padding: 10px 14px; text-align: center;"><span class="badge-dept" style="background: #ECFCCB; color: #365314;">9% – 12%</span></td>
-                  <td style="padding: 10px 14px;">Sustainable Agro-Orchard Byproduct</td>
-                  <td style="padding: 10px 14px; text-align: center; font-family: monospace; font-weight: 600;">9403.60.00 / 4420.10</td>
-                  <td style="padding: 10px 14px;">Fluted consoles, turned pedestal bowls, carved wall panels</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #ECE6DE;">
-                  <td style="padding: 10px 14px; font-weight: 600;">Architectural Wrought Iron</td>
-                  <td style="padding: 10px 14px; font-style: italic;">Mild Steel (IS 2062)</td>
-                  <td style="padding: 10px 14px; text-align: center;">N/A (Electrostatic Coat)</td>
-                  <td style="padding: 10px 14px;">Lead-Free Powder Coat (ASTM B117)</td>
-                  <td style="padding: 10px 14px; text-align: center; font-family: monospace; font-weight: 600;">8306.29.00 / 9405.10</td>
-                  <td style="padding: 10px 14px;">Jaali grilles, trestle bases, wall sconces, candelabras</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="compliance-pillar-card">
+          <div class="pillar-top-accent"></div>
+          <div class="pillar-icon-box">
+            <svg class="pillar-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+          </div>
+          <span class="pillar-authority">EU REGULATION 2023/1115</span>
+          <h3 class="pillar-title">EUDR Due Diligence</h3>
+          <p class="pillar-desc">Zero Deforestation Geolocation & European Traceability with verifiable DDS reference keys.</p>
+          <div class="pillar-status">
+            <span class="pillar-status-dot"></span>
+            <span class="pillar-status-text">GPS Farm-Plot Mapped</span>
+          </div>
+        </div>
+
+        <div class="compliance-pillar-card">
+          <div class="pillar-top-accent"></div>
+          <div class="pillar-icon-box">
+            <svg class="pillar-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <span class="pillar-authority">IPPC HT & ISTA-1A DROP</span>
+          <h3 class="pillar-title">ISPM-15 & 8–10% Kiln</h3>
+          <p class="pillar-desc">IPPC Certified Heat Treatment + Warping-Proof Moisture Lock in industrial steam kilns.</p>
+          <div class="pillar-status">
+            <span class="pillar-status-dot"></span>
+            <span class="pillar-status-text">Pin-Sensor Calibrated</span>
           </div>
         </div>
 
       </div>
 
-      <div style="text-align: center; margin-top: 50px;">
-        <a href="rfq.html" class="btn btn-gold">Inquire With Our Export Compliance Desk</a>
+      <!-- Compliance Dossiers Stack -->
+      <div class="compliance-dossiers-stack">
+
+        <!-- Dossier 1: US Lacey Act & VRIKSH -->
+        <article class="compliance-dossier-card" id="vriksh-lacey">
+          <div class="dossier-top-accent"></div>
+          <div class="dossier-header">
+            <div class="dossier-title-wrap">
+              <span class="dossier-step-num">SECTION 01</span>
+              <h2 class="dossier-heading">US Lacey Act & VRIKSH Timber Legality Verification</h2>
+            </div>
+            <span class="dossier-jurisdiction-badge">
+              <span class="badge-flag">🇺🇸</span> USA IMPORT REGULATION
+            </span>
+          </div>
+
+          <p class="dossier-lead">
+            The United States Lacey Act mandates that all commercial timber imports declare scientific genus, botanical species, and legal point of harvest. For our Indian Rosewood (<em>Dalbergia sissoo</em>), Arawali Arts provides chain-of-custody certificates through the <strong>VRIKSH Timber Legality Assessment Scheme</strong>, governed by the Export Promotion Council for Handicrafts (EPCH) and recognized under CITES Appendix II exemptions.
+          </p>
+
+          <div class="dossier-grid">
+            <div class="dossier-features">
+              <h4 class="dossier-features-title">Operational Compliance Safeguards</h4>
+              <ul class="dossier-check-list">
+                <li>
+                  <span class="check-icon">✓</span>
+                  <div>
+                    <strong>Legal Procurement Verification:</strong>
+                    Direct provenance documentation from certified state forest auctions and authorized private farmland mandis across Rajasthan and northern India.
+                  </div>
+                </li>
+                <li>
+                  <span class="check-icon">✓</span>
+                  <div>
+                    <strong>Pre-Lading PPQ-505 Declarations:</strong>
+                    Complete United States Department of Agriculture (USDA) Animal and Plant Health Inspection Service (APHIS) Form 505 filings validated prior to Bill of Lading issuance.
+                  </div>
+                </li>
+                <li>
+                  <span class="check-icon">✓</span>
+                  <div>
+                    <strong>CITES-Compliant Clearance:</strong>
+                    Official CITES Appendix II comparable documentation ensuring zero detention risk at US Customs and Border Protection (CBP) ports of entry.
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="dossier-telemetry-box">
+              <h5 class="telemetry-box-title">Documentary Audit Package</h5>
+              <div class="telemetry-chip-list">
+                <span class="telemetry-chip">PPQ-505 Lacey Declaration</span>
+                <span class="telemetry-chip">VRIKSH Chain-of-Custody</span>
+                <span class="telemetry-chip">EPCH Origin Certificate</span>
+                <span class="telemetry-chip">CITES App. II Exemption</span>
+                <span class="telemetry-chip">State Mandi Transit Passes</span>
+              </div>
+              <div class="telemetry-audit-status">
+                <span class="audit-dot"></span>
+                <span>Audit Status: 100% Commercial Clearance Rate (2011–2026)</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Dossier 2: EUDR Deforestation -->
+        <article class="compliance-dossier-card" id="eudr">
+          <div class="dossier-top-accent"></div>
+          <div class="dossier-header">
+            <div class="dossier-title-wrap">
+              <span class="dossier-step-num">SECTION 02</span>
+              <h2 class="dossier-heading">European Union Deforestation Regulation (EUDR)</h2>
+            </div>
+            <span class="dossier-jurisdiction-badge">
+              <span class="badge-flag">🇪🇺</span> EU DIRECTIVE 2023/1115
+            </span>
+          </div>
+
+          <p class="dossier-lead">
+            Under Regulation (EU) 2023/1115, timber and woodcraft imported into the European Union must be proven to originate from land that has not experienced deforestation after December 31, 2020. Arawali Arts tracks all log batches with precise geographic coordinate documentation and provides due diligence statements (DDS) for European retail chains and wholesale distributors.
+          </p>
+
+          <div class="dossier-grid">
+            <div class="dossier-features">
+              <h4 class="dossier-features-title">Operational Compliance Safeguards</h4>
+              <ul class="dossier-check-list">
+                <li>
+                  <span class="check-icon">✓</span>
+                  <div>
+                    <strong>Farm & Agro-Forestry Plot Traceability:</strong>
+                    Geolocation polygon and point coordinates mapped for every Sheesham, seasoned Mango, and Acacia timber procurement lot.
+                  </div>
+                </li>
+                <li>
+                  <span class="check-icon">✓</span>
+                  <div>
+                    <strong>EU Due Diligence Reference Keys:</strong>
+                    Official reference numbers pre-formatted for direct upload to the European Commission Due Diligence Information System (TRACES NT).
+                  </div>
+                </li>
+                <li>
+                  <span class="check-icon">✓</span>
+                  <div>
+                    <strong>REACH Chemical Directive Certified:</strong>
+                    Certified non-toxic, food-safe, lead-free stains, lacquers, and wax oils compliant with EU REACH Annex XVII standards.
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="dossier-telemetry-box">
+              <h5 class="telemetry-box-title">Documentary Audit Package</h5>
+              <div class="telemetry-chip-list">
+                <span class="telemetry-chip">EUDR DDS Reference Numbers</span>
+                <span class="telemetry-chip">GPS Plot Polygon Mapping</span>
+                <span class="telemetry-chip">Dec 31, 2020 Deforestation Audit</span>
+                <span class="telemetry-chip">REACH Chemical Compliance</span>
+                <span class="telemetry-chip">Farm Mandi Invoices</span>
+              </div>
+              <div class="telemetry-audit-status">
+                <span class="audit-dot"></span>
+                <span>Traceability: Farm-Level Harvest Verification</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Dossier 3: Kiln Seasoning -->
+        <article class="compliance-dossier-card" id="kiln-seasoning">
+          <div class="dossier-top-accent"></div>
+          <div class="dossier-header">
+            <div class="dossier-title-wrap">
+              <span class="dossier-step-num">SECTION 03</span>
+              <h2 class="dossier-heading">Scientific Kiln Seasoning (8%–10% Equilibrium Moisture SLA)</h2>
+            </div>
+            <span class="dossier-jurisdiction-badge">
+              <span class="badge-flag">⚙️</span> FACTORY ENGINEERING SLA
+            </span>
+          </div>
+
+          <p class="dossier-lead">
+            The primary failure point of traditional Indian furniture exporters is timber warping, split joints, or glue separation when shipped from desert climates to centrally heated, air-conditioned Western homes. Arawali Arts eliminates this risk through state-of-the-art automated steam-assisted seasoning chambers.
+          </p>
+
+          <div class="dossier-grid">
+            <div class="dossier-features">
+              <h4 class="dossier-features-title">Operational Compliance Safeguards</h4>
+              <ul class="dossier-check-list">
+                <li>
+                  <span class="check-icon">✓</span>
+                  <div>
+                    <strong>15-Day Automated Seasoning Cycle:</strong>
+                    Microprocessor-controlled steam and heat schedules bringing timber core moisture down to exactly 8%–10% equilibrium.
+                  </div>
+                </li>
+                <li>
+                  <span class="check-icon">✓</span>
+                  <div>
+                    <strong>Borate Vacuum Pressure Impregnation:</strong>
+                    Eco-friendly inorganic borate salt treatment deeply penetrating sapwood and heartwood to permanently prevent borer beetles and termites.
+                  </div>
+                </li>
+                <li>
+                  <span class="check-icon">✓</span>
+                  <div>
+                    <strong>Batch Digital Moisture Testing:</strong>
+                    Calibrated multi-pin digital resistance probes testing core and surface moisture, recorded on individual batch QC travel tags.
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="dossier-telemetry-box">
+              <h5 class="telemetry-box-title">Documentary Audit Package</h5>
+              <div class="telemetry-chip-list">
+                <span class="telemetry-chip">15-Day Kiln Log Graph</span>
+                <span class="telemetry-chip">Dual-Probe Pin Test Record</span>
+                <span class="telemetry-chip">Borate Treatment Certificate</span>
+                <span class="telemetry-chip">8–10% Moisture Guarantee</span>
+                <span class="telemetry-chip">Anti-Splitting Tenon Jointery</span>
+              </div>
+              <div class="telemetry-audit-status">
+                <span class="audit-dot"></span>
+                <span>Quality Metric: < 0.2% Warranty Return Rate</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Dossier 4: Packaging & ISPM-15 -->
+        <article class="compliance-dossier-card" id="packaging-ispm">
+          <div class="dossier-top-accent"></div>
+          <div class="dossier-header">
+            <div class="dossier-title-wrap">
+              <span class="dossier-step-num">SECTION 04</span>
+              <h2 class="dossier-heading">ISPM-15 Wood Packaging & ISTA-1A Drop-Testing</h2>
+            </div>
+            <span class="dossier-jurisdiction-badge">
+              <span class="badge-flag">📦</span> GLOBAL LOGISTICS STANDARD
+            </span>
+          </div>
+
+          <p class="dossier-lead">
+            Zero transit breakage is our standard. Our packaging engineering meets heavy ocean container freight rigors as well as direct-to-consumer parcel distribution (FedEx, UPS, DHL) for omnichannel retail partners.
+          </p>
+
+          <div class="dossier-grid">
+            <div class="dossier-features">
+              <h4 class="dossier-features-title">Operational Compliance Safeguards</h4>
+              <ul class="dossier-check-list">
+                <li>
+                  <span class="check-icon">✓</span>
+                  <div>
+                    <strong>Official IPPC ISPM-15 Heat Treatment:</strong>
+                    Every wooden pallet, skid, and dunnage block is heat-treated to 56°C core temperature for 30 minutes with visible official IPPC HT stamps.
+                  </div>
+                </li>
+                <li>
+                  <span class="check-icon">✓</span>
+                  <div>
+                    <strong>Heavy-Duty 5-Ply & 7-Ply Master Cartons:</strong>
+                    Tested to 200–275 lbs/in² burst strength with 25mm high-density expanded polyethylene (EPE) corner shock absorbers.
+                  </div>
+                </li>
+                <li>
+                  <span class="check-icon">✓</span>
+                  <div>
+                    <strong>Container Ocean Sweat Protection:</strong>
+                    250g active silica gel desiccant bags installed inside sea containers to eliminate condensation and humidity cycling during ocean transit.
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="dossier-telemetry-box">
+              <h5 class="telemetry-box-title">Documentary Audit Package</h5>
+              <div class="telemetry-chip-list">
+                <span class="telemetry-chip">IPPC HT Stamped Certification</span>
+                <span class="telemetry-chip">ISTA-1A Drop-Test Protocol</span>
+                <span class="telemetry-chip">275# Burst Strength 5-Ply</span>
+                <span class="telemetry-chip">EPE Corner Buffer Guards</span>
+                <span class="telemetry-chip">Sea Desiccant Moisture Traps</span>
+              </div>
+              <div class="telemetry-audit-status">
+                <span class="audit-dot"></span>
+                <span>Breakage Rate: < 0.1% Across 15 Years of Export</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Export Timber & Customs Tariff Specifications Table -->
+      <div class="customs-matrix-card">
+        <span class="dossier-step-num">CUSTOMS DOCUMENTATION MATRIX</span>
+        <h3 style="font-family: var(--font-serif); font-size: 1.45rem; font-weight: 700; color: #1A1410; margin-bottom: 8px;">Commercial Timber Species & Harmonized Tariff System (HTS) Matrix</h3>
+        <p style="font-size: 0.92rem; color: #6B5845; margin-bottom: 20px; line-height: 1.6;">Reference data provided on all commercial invoices, packing lists, and bill of lading filings for smooth customs clearance at US (CBP), UK, and EU border points.</p>
+        
+        <div class="customs-table-wrap">
+          <table class="customs-table">
+            <thead>
+              <tr>
+                <th>Wood / Material</th>
+                <th>Botanical Name</th>
+                <th style="text-align: center;">Target Moisture (EMC)</th>
+                <th>Compliance Standard</th>
+                <th style="text-align: center;">Harmonized Tariff (HS)</th>
+                <th>Primary Export Applications</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Indian Rosewood (Sheesham)</strong></td>
+                <td><em>Dalbergia sissoo</em></td>
+                <td style="text-align: center;"><span class="spec-pill" style="color: #2E7D32; font-weight: 700;">8% – 10% SLA</span></td>
+                <td>VRIKSH Certificate + CITES Exemption</td>
+                <td style="text-align: center;"><code class="customs-hs-code">9403.60.00 / 4420.90</code></td>
+                <td>Dining tables, credenzas, case goods, live-edge slabs</td>
+              </tr>
+              <tr>
+                <td><strong>Indian Acacia (Babool)</strong></td>
+                <td><em>Acacia nilotica</em></td>
+                <td style="text-align: center;"><span class="spec-pill" style="color: #2E7D32; font-weight: 700;">8% – 11% SLA</span></td>
+                <td>Lacey Act PPQ-505 + EUDR Traceability</td>
+                <td style="text-align: center;"><code class="customs-hs-code">9403.60.00 / 4419.90</code></td>
+                <td>End-grain butcher blocks, charcuterie boards, benches</td>
+              </tr>
+              <tr>
+                <td><strong>Mango Timber</strong></td>
+                <td><em>Mangifera indica</em></td>
+                <td style="text-align: center;"><span class="spec-pill" style="color: #2E7D32; font-weight: 700;">9% – 12% SLA</span></td>
+                <td>Sustainable Agro-Orchard Byproduct</td>
+                <td style="text-align: center;"><code class="customs-hs-code">9403.60.00 / 4420.10</code></td>
+                <td>Fluted consoles, turned pedestal bowls, carved wall panels</td>
+              </tr>
+              <tr>
+                <td><strong>Architectural Wrought Iron</strong></td>
+                <td><em>Mild Steel (IS 2062)</em></td>
+                <td style="text-align: center;"><span class="spec-pill" style="color: #6B5845;">N/A (Electrostatic)</span></td>
+                <td>Lead-Free Powder Coat (ASTM B117)</td>
+                <td style="text-align: center;"><code class="customs-hs-code">8306.29.00 / 9405.10</code></td>
+                <td>Jaali grilles, trestle bases, wall sconces, candelabras</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Compliance Inquiry Callout Box -->
+      <div class="compliance-inquiry-box">
+        <h3>Direct Inquiries With Our Export Compliance Desk</h3>
+        <p>Need custom Lacey Act PPQ-505 pre-clearance, EUDR due diligence statement keys, or container loading phytosanitary documentation? Our Jodhpur export compliance desk issues complete commercial packs within 24 hours of vessel booking.</p>
+        <div class="inquiry-btn-group">
+          <a href="rfq.html" class="nav-btn-primary" style="padding: 12px 28px; font-size: 0.92rem;">Inquire With Compliance Desk →</a>
+          <a href="catalog.html" class="nav-btn-secondary" style="padding: 12px 28px; font-size: 0.92rem;">Explore 500-SKU Catalog ↗</a>
+        </div>
       </div>
 
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- CANONICAL 4-COLUMN FOOTER -->
+  <!-- FAST ACCESS FOOTER (CANONICAL 4-COLUMN) -->
   <footer class="footer">
     <div class="container footer-content">
       <div class="footer-col">
         <h3 class="footer-brand">ARAWALI ARTS</h3>
-        <p>Manufacturer and global exporter of authentic Jodhpur handcrafted wooden furniture, architectural iron jaali decor, and tabletop giftware.</p>
+        <p>Manufacturer and global exporter of authentic Jodhpur handcrafted wooden furniture, architectural iron jaali decor, and luxury tabletop giftware.</p>
         <p class="copyright">© 2026 Arawali Arts. All Rights Reserved. Private B2B Export Division.</p>
       </div>
       <div class="footer-col">
         <h4>Product Divisions</h4>
         <ul class="footer-links">
+          <li><a href="collections.html"><strong>All 24 Collections Directory</strong></a></li>
           <li><a href="tabletop.html">Tabletop & Gifts (Naturehood)</a></li>
           <li><a href="wall-decor.html">Architectural Wall Decor</a></li>
           <li><a href="living-dining.html">Living & Dining Furniture</a></li>
@@ -285,15 +563,25 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Direct Contact</h4>
+        <h4>Trade & Compliance</h4>
+        <ul class="footer-links">
+          <li><a href="compliance.html">VRIKSH & Lacey Act</a></li>
+          <li><a href="compliance.html#eudr">EUDR Deforestation Due Diligence</a></li>
+          <li><a href="rfq.html">Container CBM Estimator</a></li>
+          <li><a href="../catalogue/arawali_arts_corporate_brochure.html" target="_blank">Digital Corporate Lookbook ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Export Desk</h4>
         <p>Industrial Area, Jodhpur, Rajasthan 342001, India</p>
         <p>Email: export@arawaliarts.com</p>
+        <p style="margin-top: 8px; color: var(--accent-gold); font-size: 0.85rem;">Direct Inquiries: USA • UK • European Union</p>
       </div>
     </div>
   </footer>
 
-  <script src="products-data.js?v=2026.17"></script>
-  <script src="lenis.min.js?v=2026.17"></script>
-  <script src="app.js?v=2026.20"></script>
+  <script src="products-data.js?v=2026.22"></script>
+  <script src="lenis.min.js?v=2026.22"></script>
+  <script src="app.js?v=2026.22"></script>
 </body>
 </html>
