@@ -2062,19 +2062,38 @@ a {
     white-space: nowrap;
   }
 
-  /* Mobile Top Bar: Pure single-line without awkward text wrapping */
+  /* Mobile Top Bar: Pure single-line without awkward text wrapping or overflow */
   .top-bar {
-    padding: 6px 14px;
-    font-size: 0.68rem;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    padding: 6px 14px !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.04em !important;
+    overflow: hidden !important;
+    text-align: center !important;
   }
   .top-bar-content {
-    justify-content: center;
-    text-align: center;
-    flex-wrap: nowrap;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+  .top-bar-content span {
+    display: inline-block !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
   .top-bar-link {
     display: none !important;
