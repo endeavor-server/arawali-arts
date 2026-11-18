@@ -1490,7 +1490,10 @@ a {
 
 @media (max-width: 768px) {
   .navbar {
-    overflow: visible;
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+    overflow: visible !important;
   }
   .nav-container {
     position: static;
@@ -1514,10 +1517,13 @@ a {
     left: 0;
     right: 0;
     width: 100%;
-    max-height: calc(100vh - 75px);
-    background: #FFFFFF;
+    height: calc(100vh - 65px);
+    height: calc(100dvh - 65px);
+    max-height: calc(100vh - 65px);
+    max-height: calc(100dvh - 65px);
+    background: #FFFFFF !important;
     flex-direction: column;
-    padding: 20px 20px 48px;
+    padding: 20px 20px 100px;
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
     border-top: 1px solid rgba(184, 149, 82, 0.2);
     border-bottom: 3px solid var(--accent-gold);
