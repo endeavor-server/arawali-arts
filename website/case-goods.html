@@ -8,77 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2026.19">
-  <style>
-    .dept-controls {
-      background: #FFFFFF;
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow-sm);
-    }
-    .dept-search-row {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    .dept-search-input {
-      flex: 1;
-      padding: 12px 16px;
-      border: 1.5px solid var(--border-subtle);
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-family: inherit;
-      background: #FAFAFA;
-      transition: all 0.2s ease;
-    }
-    .dept-search-input:focus {
-      outline: none;
-      border-color: var(--accent-gold);
-      background: #FFF;
-      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2);
-    }
-    .dept-filter-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-    .filter-tag-btn {
-      background: var(--bg-subtle);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-main);
-      padding: 6px 14px;
-      border-radius: 16px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .filter-tag-btn:hover, .filter-tag-btn.active {
-      background: var(--primary);
-      color: #FFF;
-      border-color: var(--primary);
-    }
-    .dept-summary-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-    .target-buyer-tag {
-      font-size: 0.72rem;
-      background: #EDE8E2;
-      color: #4A3525;
-      padding: 2px 6px;
-      border-radius: 4px;
-      display: inline-block;
-      margin-top: 6px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css?v=2026.20">
 </head>
 <body>
 
@@ -177,18 +107,43 @@
     <div class="container">
 
       <!-- Department Controls -->
-      <div class="dept-controls">
-        <div class="dept-search-row">
-          <input type="text" id="casegoodsSearch" class="dept-search-input" placeholder="🔍 Search sideboards, credenzas, bookcases, and storage chests...">
+            <!-- Collection Command Console (Endeavor Parity) -->
+      <div class="dept-command-console">
+        
+        <!-- Top Toolbar: Search Bar + Live Filter Badge -->
+        <div class="console-search-bar">
+          <div class="console-search-wrap">
+            <span class="console-search-icon">🔍</span>
+            <input type="text" id="casegoodsSearch" class="dept-search-input" placeholder="Search 60 case goods by timber species, dimension, or SKU..." autocomplete="off">
+            <button type="button" class="search-clear-btn" aria-label="Clear search">✕</button>
+          </div>
+          <div class="console-export-status">
+            <span class="status-pulse-dot"></span>
+            <span class="status-text">100% Export-Verified Production</span>
+          </div>
         </div>
-        <div id="casegoodsFilters" class="dept-filter-tags">
-          <!-- Populated dynamically via app.js -->
-        </div>
-      </div>
 
-      <div class="dept-summary-bar">
-        <span>Showing <strong id="casegoodsCount" style="color: var(--primary);">60 SKUs</strong> in Case Goods & Storage</span>
-        <span>Soft-Close Hardware • Kiln-Dried 8%–10% MC • Corner-Buffered 5-Ply Master Pack</span>
+        <!-- Subcategory Navigation Rail -->
+        <div class="console-filter-wrapper">
+          <div class="filter-rail-label">Subcategories:</div>
+          <div id="casegoodsFilters" class="dept-filter-tags">
+            <!-- Populated dynamically via app.js -->
+          </div>
+        </div>
+
+        <!-- Integrated Telemetry & Summary Footer -->
+        <div class="console-telemetry-footer">
+          <div class="telemetry-count">
+            <span>Showing <strong id="casegoodsCount">SKUs</strong> in Case Goods & Storage</span>
+          </div>
+          <div class="telemetry-specs">
+            <span class="spec-pill">🪵 8%–10% Kiln-Dried SLA</span>
+            <span class="spec-pill">🌿 VRIKSH / Lacey Act Certified</span>
+            <span class="spec-pill">📦 ISTA-1A 5-Ply Drop Tested</span>
+            <span class="spec-pill">⚙️ Soft-Close Hardware</span>
+          </div>
+        </div>
+
       </div>
 
       <!-- Dynamic Grid (60 SKUs) -->
@@ -228,7 +183,7 @@
 
   <script src="products-data.js?v=2026.17"></script>
   <script src="lenis.min.js?v=2026.17"></script>
-  <script src="app.js?v=2026.19"></script>
+  <script src="app.js?v=2026.20"></script>
   <script>
     function runInit() {
       if (window.initDepartmentPage) {

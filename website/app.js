@@ -1276,7 +1276,7 @@ function initDepartmentPage(config) {
 
     if (counterId) {
       const counterEl = document.getElementById(counterId);
-      if (counterEl) counterEl.textContent = `${items.length} of ${deptItems.length} SKUs`;
+      if (counterEl) counterEl.innerHTML = `${items.length} of ${deptItems.length} SKUs`;
     }
 
     grid.innerHTML = '';
@@ -1347,7 +1347,7 @@ function initDepartmentPage(config) {
     
     const allBtn = document.createElement('button');
     allBtn.className = 'filter-tag-btn active';
-    allBtn.textContent = `All (${deptItems.length})`;
+    allBtn.innerHTML = `<span>All</span> <span class="badge-pill">${deptItems.length}</span>`;
     allBtn.onclick = () => {
       filterBox.querySelectorAll('.filter-tag-btn').forEach(b => b.classList.remove('active'));
       allBtn.classList.add('active');
@@ -1361,7 +1361,7 @@ function initDepartmentPage(config) {
       const cCount = deptItems.filter(i => i.Category === c).length;
       const btn = document.createElement('button');
       btn.className = 'filter-tag-btn';
-      btn.textContent = `${cName} (${cCount})`;
+      btn.innerHTML = `<span>${cName}</span> <span class="badge-pill">${cCount}</span>`;
       btn.onclick = () => {
         filterBox.querySelectorAll('.filter-tag-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -1376,10 +1376,27 @@ function initDepartmentPage(config) {
   if (searchInputId) {
     const searchEl = document.getElementById(searchInputId);
     if (searchEl) {
+      const parentWrap = searchEl.closest('.console-search-wrap');
+      const clearBtn = parentWrap ? parentWrap.querySelector('.search-clear-btn') : null;
+
       searchEl.addEventListener('input', (e) => {
         searchQuery = e.target.value.toLowerCase().trim();
+        if (parentWrap) {
+          if (searchQuery.length > 0) parentWrap.classList.add('has-value');
+          else parentWrap.classList.remove('has-value');
+        }
         render();
       });
+
+      if (clearBtn) {
+        clearBtn.onclick = () => {
+          searchEl.value = '';
+          searchQuery = '';
+          if (parentWrap) parentWrap.classList.remove('has-value');
+          searchEl.focus();
+          render();
+        };
+      }
     }
   }
 

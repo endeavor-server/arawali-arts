@@ -3597,3 +3597,260 @@ a {
     max-width: 100%;
   }
 }
+
+
+
+/* ==========================================================================
+   DEPARTMENT COMMAND CONSOLE (Endeavor Parity Architecture)
+   ========================================================================== */
+.dept-command-console {
+  background: #FFFFFF;
+  border: 1px solid rgba(226, 217, 205, 0.9);
+  border-radius: 20px;
+  padding: 24px 28px 18px;
+  margin-bottom: 34px;
+  box-shadow: 0 10px 32px rgba(24, 19, 14, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dept-command-console::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #A88134 0%, #D4AC5C 50%, #B89552 100%);
+}
+
+/* Top Row: Search + Status Badge */
+.console-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.console-search-wrap {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  align-items: center;
+  background: #FAF8F5;
+  border: 1.5px solid #E2D9CC;
+  border-radius: 12px;
+  padding: 0 16px;
+  height: 48px;
+  transition: all 0.22s ease;
+  position: relative;
+}
+
+.console-search-wrap:focus-within {
+  border-color: #B89552;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3.5px rgba(184, 149, 82, 0.18);
+}
+
+.console-search-icon {
+  font-size: 1.1rem;
+  color: #8C651F;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.dept-search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #1A1410;
+  outline: none;
+  width: 100%;
+}
+
+.dept-search-input::placeholder {
+  color: #8A7A6A;
+  font-weight: 400;
+}
+
+.search-clear-btn {
+  background: transparent;
+  border: none;
+  color: #9A8A7A;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px;
+  display: none;
+  transition: color 0.15s ease;
+}
+.search-clear-btn:hover {
+  color: #1A1410;
+}
+.console-search-wrap.has-value .search-clear-btn {
+  display: block;
+}
+
+.console-export-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(46, 125, 50, 0.08);
+  border: 1px solid rgba(46, 125, 50, 0.25);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #1B5E20;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+
+.status-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2E7D32;
+  box-shadow: 0 0 8px rgba(46, 125, 50, 0.6);
+  animation: pulse-green 2s infinite ease-in-out;
+}
+
+@keyframes pulse-green {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* Subcategory Navigation Rail */
+.console-filter-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.filter-rail-label {
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8A641F;
+  flex-shrink: 0;
+}
+
+.dept-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  flex: 1;
+}
+
+.filter-tag-btn {
+  background: #FAF8F5;
+  border: 1px solid #E2D9CC;
+  color: #382E24;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+}
+
+.filter-tag-btn:hover {
+  background: #FFFFFF;
+  border-color: #B89552;
+  color: #1A1410;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(184, 149, 82, 0.14);
+}
+
+.filter-tag-btn .badge-pill {
+  background: #EDE6DC;
+  color: #6E5F50;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  transition: all 0.2s ease;
+}
+
+.filter-tag-btn.active {
+  background: linear-gradient(135deg, #B89552 0%, #D4AC5C 50%, #A88134 100%);
+  color: #140F08;
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(184, 149, 82, 0.3);
+  transform: translateY(-1px);
+}
+
+.filter-tag-btn.active .badge-pill {
+  background: rgba(18, 14, 10, 0.18);
+  color: #140F08;
+  font-weight: 800;
+}
+
+/* Console Integrated Telemetry Footer */
+.console-telemetry-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid #F0EAE1;
+  font-size: 0.78rem;
+  color: #7A6C5D;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.telemetry-count strong {
+  color: #1A1410;
+  font-weight: 800;
+}
+
+.telemetry-specs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.telemetry-specs .spec-pill {
+  background: #FAF8F5;
+  border: 1px solid #ECE5DC;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #55483B;
+}
+
+@media (max-width: 820px) {
+  .dept-command-console {
+    padding: 16px 18px 12px;
+    gap: 14px;
+  }
+  .console-search-wrap {
+    min-width: 100%;
+  }
+  .console-export-status {
+    width: 100%;
+    justify-content: center;
+  }
+  .console-telemetry-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
