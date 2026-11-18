@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arawali Arts — Full Expanded Export Product Catalogue (US & European Edition)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FDFBF7;
+      --card-bg: #FFFFFF;
+      --primary: #2C221E;
+      --accent: #B8860B;
+      --accent-light: #E8D8B0;
+      --text: #3D3531;
+      --text-muted: #7A726D;
+      --border: #E8E2D9;
+      --dark-wood: #4A3525;
+      --shadow: 0 10px 30px rgba(44, 34, 30, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 40px 24px; }
+
+    /* Cover / Header */
+    .catalog-cover {
+      background: linear-gradient(135deg, #1C1613 0%, #362922 100%);
+      color: #FAF6F0;
+      padding: 70px 40px;
+      border-radius: 16px;
+      text-align: center;
+      margin-bottom: 50px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      border: 1px solid rgba(184, 134, 11, 0.3);
+      position: relative;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 18px;
+      background: rgba(184, 134, 11, 0.2);
+      color: #E8D8B0;
+      border: 1px solid rgba(184, 134, 11, 0.4);
+      border-radius: 30px;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .catalog-cover h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 3.4rem;
+      letter-spacing: 3px;
+      margin-bottom: 14px;
+      color: #FFFFFF;
+    }
+
+    .catalog-cover p.tagline {
+      font-size: 1.25rem;
+      color: #D3C9BF;
+      max-width: 800px;
+      margin: 0 auto 28px;
+      font-weight: 300;
+    }
+
+    .meta-bar {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.92rem;
+      color: #BDB2A7;
+    }
+
+    .meta-bar span strong { color: #FAF6F0; }
+
+    /* Category Nav */
+    .cat-nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .cat-nav a {
+      padding: 8px 18px;
+      border-radius: 30px;
+      background: #F2ECE3;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      border: 1px solid #E0D7CB;
+    }
+
+    .cat-nav a:hover {
+      background: var(--primary);
+      color: #FFF;
+    }
+
+    /* Section Headers */
+    .category-header {
+      margin: 50px 0 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      color: var(--primary);
+      letter-spacing: 1px;
+    }
+
+    .category-tag {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Product Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(44, 34, 30, 0.12);
+    }
+
+    .product-img-wrapper {
+      width: 100%;
+      height: 270px;
+      background: #EFEBE4;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .product-img-wrapper img {
+      transform: scale(1.03);
+    }
+
+    .sku-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(28, 22, 19, 0.88);
+      backdrop-filter: blur(4px);
+      color: #FAF6F0;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .source-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(184, 134, 11, 0.9);
+      color: #FFFFFF;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .product-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .product-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+      flex-grow: 1;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-bottom: 16px;
+      background: #FAF8F5;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .spec-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid #ECE7DE;
+    }
+
+    .spec-table td:first-child {
+      font-weight: 600;
+      color: var(--primary);
+      width: 40%;
+    }
+
+    .spec-table td:last-child {
+      color: #554D48;
+    }
+
+    /* Furniture Mock/Render Box */
+    .furniture-render {
+      background: linear-gradient(135deg, #EAE4DC 0%, #DBD3C8 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #5C5047;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .furniture-render-icon {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    /* Export Terms Box */
+    .export-terms {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px;
+      margin: 60px 0;
+      box-shadow: var(--shadow);
+    }
+
+    .terms-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .terms-table th, .terms-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    .terms-table th {
+      background: #F4EFE6;
+      color: var(--primary);
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+    }
+
+    /* Footer */
+    .catalog-footer {
+      background: #1C1613;
+      color: #FAF6F0;
+      padding: 50px 30px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .catalog-footer h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      color: var(--accent-light);
+      margin-bottom: 12px;
+    }
+
+    .catalog-footer p {
+      color: #BDB2A7;
+      max-width: 650px;
+      margin: 0 auto 24px;
+    }
+
+    .rfq-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #FFFFFF;
+      padding: 14px 34px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: background 0.2s ease;
+    }
+
+    .rfq-btn:hover { background: #996e08; }
+
+    @media print {
+      body { background: white; }
+      .container { max-width: 100%; padding: 0; }
+      .catalog-cover { box-shadow: none; border: 1px solid #000; }
+      .product-card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- COVER / HEADER -->
+    <header class="catalog-cover">
+      <div class="badge">Master Export Collection 2026 / 2027</div>
+      <h1>ARAWALI ARTS</h1>
+      <p class="tagline">Handcrafted Solid Hardwood Furniture, Architectural Wrought Iron Jaali Decor, and Luxury Tabletop Accents</p>
+      
+      <div class="meta-bar">
+        <span><strong>Hub:</strong> Jodhpur (Rajasthan), India</span>
+        <span><strong>Legacy:</strong> 15+ Years Manufacturing</span>
+        <span><strong>Target:</strong> USA, UK & European Importers</span>
+        <span><strong>Timber Verification:</strong> VRIKSH & EUDR Compliant</span>
+      </div>
+    </header>
+
+    <!-- CATEGORY NAVIGATION -->
+    <nav class="cat-nav">
+      <a href="#cat-tabletop">Tabletop & Gifts</a>
+      <a href="#cat-wall">Architectural Wall Decor</a>
+      <a href="#cat-tables">Accent & Living Tables</a>
+      <a href="#cat-storage">Case Goods & Storage</a>
+      <a href="#cat-dining">Dining & Hospitality</a>
+    </nav>
+
+    <!-- CATEGORY 1: TABLETOP & GIFTWARE (NATUREHOOD) -->
+    <div id="cat-tabletop" class="category-header">
+      <h2 class="section-title">1. Tabletop, Bar & Desk Accessories (Naturehood Line)</h2>
+      <span class="category-tag">Amazon & Retail Proven</span>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Item 1: Book Box -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-WB-101</span>
+          <span class="source-badge">In Production</span>
+          <img src="../assets/00000036-PHOTO-2026-11-18-12-01-58.jpg" alt="Artisanal Book Keepsake Box">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Artisanal Book Keepsake Box</h3>
+          <p class="product-desc">Master-crafted solid Sheesham/Acacia timber box shaped like an antique hardcover tome with carved fluted page edges. Dual-tone contrasting heartwood with a silky satin lacquer.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>7.5" x 5.0" x 2.2" (19 x 12.7 x 5.5 cm)</td></tr>
+            <tr><td>Wood</td><td>Kiln-dried Sheesham / Acacia Hardwood</td></tr>
+            <tr><td>Finish</td><td>Hand-rubbed natural walnut / honey satin</td></tr>
+            <tr><td>Packaging</td><td>Gift kraft box with bubble & 5-ply master</td></tr>
+            <tr><td>MOQ</td><td>100 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 2: Round Coasters -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-CST-201</span>
+          <span class="source-badge">In Production</span>
+          <img src="../assets/00000037-PHOTO-2026-11-18-12-01-59.jpg" alt="Round Coaster Set">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Round Hardwood Coaster Set (4-Piece)</h3>
+          <p class="product-desc">Turned solid hardwood coasters with beveled edges and moisture-repellent food-safe seal. Available with custom laser-engraved buyer logos or Naturehood branding.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>Dia 4.0" x 0.4" Thickness (Dia 10 cm x 1 cm)</td></tr>
+            <tr><td>Wood</td><td>Solid Indian Rosewood (Sheesham)</td></tr>
+            <tr><td>Finish</td><td>Water-repellent heat-resistant satin coat</td></tr>
+            <tr><td>Pack</td><td>4 pcs tied with jute cord or metal sleeve</td></tr>
+            <tr><td>MOQ</td><td>200 Sets</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 3: Square Coasters -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-CST-202</span>
+          <span class="source-badge">In Production</span>
+          <img src="../assets/00000042-PHOTO-2026-11-18-12-02-01.jpg" alt="Square Coaster Set">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Square Hardwood Coaster Set (4-Piece)</h3>
+          <p class="product-desc">Modern square coaster set with softened chamfered corners and prominent end-grain patterns. Fitted with anti-scratch velvet base pads.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>3.9" x 3.9" x 0.4" (10 x 10 x 1 cm)</td></tr>
+            <tr><td>Wood</td><td>Seasoned Sheesham / Mango Wood</td></tr>
+            <tr><td>Finish</td><td>Deep walnut luster / matte lacquer</td></tr>
+            <tr><td>Pack</td><td>Set of 4 in kraft sleeve or window box</td></tr>
+            <tr><td>MOQ</td><td>200 Sets</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 4: Pebble Paperweight -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-PBL-301</span>
+          <span class="source-badge">In Production</span>
+          <img src="../assets/00000039-PHOTO-2026-11-18-12-02-00.jpg" alt="Pebble Paperweight">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Sculptural Pebble Paperweight</h3>
+          <p class="product-desc">Turned single-block solid timber organic paperweight. Smooth ergonomic contours popular in Scandinavian and Japandi interior stylings.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>4.5" x 3.2" x 1.4" (11.5 x 8 x 3.5 cm)</td></tr>
+            <tr><td>Wood</td><td>Solid dense Indian Rosewood / Acacia</td></tr>
+            <tr><td>Finish</td><td>Hand-buffed natural beeswax</td></tr>
+            <tr><td>Pack</td><td>Cotton drawstring pouch + white box</td></tr>
+            <tr><td>MOQ</td><td>150 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 5: Multi-Compartment Dry Fruit Chest -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-SPX-401</span>
+          <span class="source-badge">In Production</span>
+          <img src="../assets/00000040-PHOTO-2026-11-18-12-02-00.jpg" alt="Heritage 4-Compartment Storage Chest">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Heritage 4-Compartment Storage Chest</h3>
+          <p class="product-desc">Four-partition solid wood organizer box with antique brass finish quadrant hinges and top finial knob. Multipurpose tea sachet, spice, or jewelry organizer.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>8.5" x 8.5" x 3.0" (21.5 x 21.5 x 7.5 cm)</td></tr>
+            <tr><td>Wood</td><td>Solid Sheesham with solid wood dividers</td></tr>
+            <tr><td>Hardware</td><td>Corrosion-resistant antique brass stop hinges</td></tr>
+            <tr><td>Pack</td><td>EPE wrapped, individual corrugated box</td></tr>
+            <tr><td>MOQ</td><td>100 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 6: Wooden Bookmark -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-BMK-501</span>
+          <span class="source-badge">In Production</span>
+          <img src="../assets/00000041-PHOTO-2026-11-18-12-02-01.jpg" alt="Artisan Wooden Bookmark">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Artisan Wooden Bookmark with Jute Cord</h3>
+          <p class="product-desc">Ultra-thin, flexible hand-planed hardwood bookmark featuring laser-etched motifs and a rustic braided natural jute tassel. High-velocity impulse gift item.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>5.5" x 1.2" x 0.08" (14 x 3 x 0.2 cm)</td></tr>
+            <tr><td>Wood</td><td>Natural Sheesham / Teak veneer core</td></tr>
+            <tr><td>Finish</td><td>Natural matte vegetable oil</td></tr>
+            <tr><td>Pack</td><td>Individual backing card with hanging hole</td></tr>
+            <tr><td>MOQ</td><td>500 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- CATEGORY 2: ARCHITECTURAL WALL DECOR & IRON -->
+    <div id="cat-wall" class="category-header">
+      <h2 class="section-title">2. Architectural Wall Decor & Wrought Iron Fusion</h2>
+      <span class="category-tag">Jodhpur Metal-Wood Heritage</span>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Item 7: Jaali Sconce -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-WSC-601</span>
+          <span class="source-badge">Signature SKU</span>
+          <img src="../assets/00000048-PHOTO-2026-11-18-12-02-03.jpg" alt="Heritage Iron Jaali Wall Sconce">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Jodhpur Iron Jaali Wall Sconce</h3>
+          <p class="product-desc">Antiqued distressed solid wood frame encasing a hand-forged black wrought iron lattice grill with a cantilevered tea-light or pillar candle platform.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>18.0" H x 7.5" W x 4.5" D (45.7 x 19 x 11.4 cm)</td></tr>
+            <tr><td>Materials</td><td>Solid Sheesham & Hand-Forged Wrought Iron</td></tr>
+            <tr><td>Metal Coating</td><td>Matte Black Electrostatic Anti-Rust Powder Coat</td></tr>
+            <tr><td>Packaging</td><td>Drop-tested corner foam, 7-ply master carton</td></tr>
+            <tr><td>MOQ</td><td>100 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 8: Arch Window Mirror -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-WMR-602</span>
+          <img src="../assets/hero_jharokha_mirror.jpg" alt="Jharokha Arch Wall Mirror">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Rajasthani Jharokha Iron-Wood Wall Mirror</h3>
+          <p class="product-desc">Benchmark line competing with Bothra & Prince Art. Cathedral arch solid mango wood frame with intricate hand-forged iron lattice grille overlaying premium float mirror glass.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>36.0" H x 24.0" W x 2.0" D (91 x 61 x 5 cm)</td></tr>
+            <tr><td>Materials</td><td>Kiln-dried Mango Wood + Forged Iron + 4mm Mirror</td></tr>
+            <tr><td>Finish</td><td>Distressed whitewash or antique honey walnut</td></tr>
+            <tr><td>Packaging</td><td>Honeycomb carton + corner polystyrene buffers</td></tr>
+            <tr><td>MOQ</td><td>50 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 9: Industrial Hanging Lantern -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-LTN-603</span>
+          <img src="../assets/iron_jaali_wall_sconce.jpg" alt="Pierced Metal Hanging Lantern">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Jodhpur Pierced Metal Hanging Lantern</h3>
+          <p class="product-desc">Benchmark line competing with Lohiya Exports. Perforated sheet metal lantern with traditional Mughal lattice cutouts, solid wood top finial, and heat-resistant glass.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>14.0" H x 6.5" W x 6.5" D (35 x 16.5 x 16.5 cm)</td></tr>
+            <tr><td>Materials</td><td>Mild Steel sheet + Solid Hardwood cap</td></tr>
+            <tr><td>Finish</td><td>Antique Brass Patina / Weathered Bronze</td></tr>
+            <tr><td>Packaging</td><td>Drop-tested gift packaging</td></tr>
+            <tr><td>MOQ</td><td>100 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- CATEGORY 3: ACCENT & LIVING ROOM TABLES -->
+    <div id="cat-tables" class="category-header">
+      <h2 class="section-title">3. Living Room & Accent Tables (Industrial Fusion)</h2>
+      <span class="category-tag">Export Furniture Line</span>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Item 10: Live Edge Coffee Table -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-CT-701</span>
+          <img src="../assets/hero_live_edge_table.jpg" alt="Live-Edge Sheesham Coffee Table">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Live-Edge Sheesham Coffee Table</h3>
+          <p class="product-desc">Natural organic edge solid Sheesham hardwood slab mounted on heavy-gauge matte black iron hairpin or trapezoid legs. Competing with Latiyal & Aztec Shiva.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>48.0" L x 24.0" W x 18.0" H (122 x 61 x 45 cm)</td></tr>
+            <tr><td>Wood</td><td>1.75" Thick Solid Seasoned Indian Rosewood</td></tr>
+            <tr><td>Base</td><td>Powder-coated 50x25mm steel box section</td></tr>
+            <tr><td>Assembly</td><td>KD (Knock-Down) easy bolt-on for CBM efficiency</td></tr>
+            <tr><td>MOQ</td><td>30 Units (Mixed Container Eligible)</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 11: Iron-Wood Hallway Console -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-CN-702</span>
+          <img src="../assets/console_table_iron.jpg" alt="Minimalist Iron-Framed Hallway Console">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Minimalist Iron-Framed Hallway Console</h3>
+          <p class="product-desc">Slim-profile entry console table featuring solid Acacia plank top, middle mesh storage shelf, and structural wrought-iron uprights. Engineered for urban apartments.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>42.0" L x 12.0" W x 32.0" H (106 x 30 x 81 cm)</td></tr>
+            <tr><td>Materials</td><td>Kiln-dried Acacia + Matte Black Iron Frame</td></tr>
+            <tr><td>Finish</td><td>Wire-brushed smoked oak / natural honey</td></tr>
+            <tr><td>CBM / Carton</td><td>0.08 CBM (Flat packed)</td></tr>
+            <tr><td>MOQ</td><td>40 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 12: Nesting Accent Tables -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-NST-703</span>
+          <img src="../assets/nesting_side_tables_round.jpg" alt="Round Nesting Accent Tables">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Round Nesting Side Tables (2-Piece Set)</h3>
+          <p class="product-desc">Circular solid wood tops nestled on semi-open cylindrical iron ring bases. Competing directly with Sohan Handicrafts and Bothra lines.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>Large: Dia 20" x 22" H | Small: Dia 16" x 19" H</td></tr>
+            <tr><td>Wood</td><td>Solid Mango wood with natural saw marks</td></tr>
+            <tr><td>Base</td><td>Solid iron rod frame in antique gold / black</td></tr>
+            <tr><td>Packaging</td><td>Nested in 1 carton (0.09 CBM total)</td></tr>
+            <tr><td>MOQ</td><td>50 Sets</td></tr>
+          </table>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- CATEGORY 4: CASE GOODS & STORAGE -->
+    <div id="cat-storage" class="category-header">
+      <h2 class="section-title">4. Case Goods, Buffets & Credenzas</h2>
+      <span class="category-tag">High CBM Wholesale</span>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Item 13: Jaali Sideboard -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-SB-801</span>
+          <img src="../assets/hero_jaali_sideboard.jpg" alt="Jodhpur Jaali Metal & Wood Credenza">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Jodhpur Jaali Perforated Metal Sideboard</h3>
+          <p class="product-desc">Statement dining credenza featuring solid Mango wood body with 3 doors fitted with hand-forged black iron jaali inserts, internal fixed shelves, and magnetic latches.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>58.0" L x 18.0" D x 34.0" H (147 x 45 x 86 cm)</td></tr>
+            <tr><td>Materials</td><td>Solid Mango Wood + Wrought Iron Mesh</td></tr>
+            <tr><td>Finish</td><td>Charred Yakisugi Black / Natural Honey</td></tr>
+            <tr><td>Hardware</td><td>Soft-close concealed hinges + iron pulls</td></tr>
+            <tr><td>MOQ</td><td>20 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 14: Industrial Media Unit -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-TV-802</span>
+          <img src="../assets/media_console_slatted.jpg" alt="Solid Timber Slatted Media Console">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Solid Timber Slatted Media Console</h3>
+          <p class="product-desc">Benchmark line competing with Aztec Shiva & Woodpecker. Solid Sheesham cabinet with tambour/slatted acoustic bypass sliding doors, central open media shelf, and rear wire grommets.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>64.0" L x 16.0" D x 20.0" H (162 x 40 x 50 cm)</td></tr>
+            <tr><td>Wood</td><td>100% Kiln-seasoned Sheesham</td></tr>
+            <tr><td>Finish</td><td>Matte polyurethane satin, zero VOC</td></tr>
+            <tr><td>Packaging</td><td>Full perimeter EPS foam, 7-ply double wall carton</td></tr>
+            <tr><td>MOQ</td><td>25 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 15: Vintage Apothecary Cabinet -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-AP-803</span>
+          <img src="../assets/apothecary_chest_industrial.jpg" alt="Industrial Multi-Drawer Apothecary Chest">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Industrial Multi-Drawer Apothecary Chest</h3>
+          <p class="product-desc">Benchmark line competing with Latiyal & Lohiya. Solid wood 12-drawer facade (housing 6 deep drawers) with vintage iron label pulls and cast iron caster wheels.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>36.0" L x 16.0" D x 38.0" H (91 x 40 x 96 cm)</td></tr>
+            <tr><td>Wood</td><td>Reclaimed Teak / Mango Wood blend</td></tr>
+            <tr><td>Hardware</td><td>Stamped iron cup pulls with label inserts</td></tr>
+            <tr><td>Packaging</td><td>Assembled in wooden skeleton crate</td></tr>
+            <tr><td>MOQ</td><td>20 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- CATEGORY 5: DINING & HOSPITALITY -->
+    <div id="cat-dining" class="category-header">
+      <h2 class="section-title">5. Dining Tables, Benches & Bar Stools</h2>
+      <span class="category-tag">Contract & Residential</span>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Item 16: Trestle Dining Table -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-DT-901</span>
+          <img src="../assets/dining_table_trestle.jpg" alt="Heritage Trestle Dining Table">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Heritage Trestle Dining Table (78-Inch)</h3>
+          <p class="product-desc">Heavyweight solid Sheesham plank dining table with hand-hewn trestle base and exposed mortise-and-tenon breadboard joinery. Seats 8 comfortably.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>78.0" L x 38.0" W x 30.0" H (198 x 96 x 76 cm)</td></tr>
+            <tr><td>Wood</td><td>Solid Seasoned Sheesham (Dalbergia sissoo)</td></tr>
+            <tr><td>Finish</td><td>Warm Amber Walnut / Distressed Raw Wax</td></tr>
+            <tr><td>Packaging</td><td>Flat-packed top & base (0.35 CBM total)</td></tr>
+            <tr><td>MOQ</td><td>15 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 17: Industrial Swivel Bar Stool -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-ET-704</span>
+          <img src="../assets/charcuterie_board_deluxe.jpg" alt="Deluxe End-Grain Dining Board">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Industrial Cast-Iron Crank Bar Stool</h3>
+          <p class="product-desc">Benchmark line competing with Thar Export & Latiyal. Threaded screw height-adjustable round solid wood seat supported by a four-legged architectural iron base with footring.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>Dia 14.0" Seat x 26.0" - 32.0" Adjustable Height</td></tr>
+            <tr><td>Materials</td><td>Solid Mango wood seat + Cast Iron Base</td></tr>
+            <tr><td>Capacity</td><td>Commercial 350 lbs test approved</td></tr>
+            <tr><td>Packaging</td><td>2 Stools per master carton</td></tr>
+            <tr><td>MOQ</td><td>50 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- Item 18: Dining Bench -->
+      <article class="product-card">
+        <div class="product-img-wrapper">
+          <span class="sku-badge">SKU: AA-BN-903</span>
+          <img src="../assets/dining_bench_live_edge.jpg" alt="Rustic Solid Hardwood Dining Bench">
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Rustic Solid Hardwood Dining Bench</h3>
+          <p class="product-desc">Engineered to slide seamlessly beneath the Heritage Trestle Dining Table. Solid Acacia top with chamfered edges and heavy black iron sled legs.</p>
+          <table class="spec-table">
+            <tr><td>Dimensions</td><td>66.0" L x 14.0" W x 18.0" H (167 x 35 x 45 cm)</td></tr>
+            <tr><td>Wood</td><td>Kiln-dried solid Acacia / Sheesham</td></tr>
+            <tr><td>Finish</td><td>Anti-scratch matte protective lacquer</td></tr>
+            <tr><td>Packaging</td><td>0.12 CBM carton with edge guards</td></tr>
+            <tr><td>MOQ</td><td>25 Units</td></tr>
+          </table>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- EXPORT TERMS & SHIPPING SPECIFICATIONS -->
+    <section class="export-terms">
+      <h2 class="section-title">International Wholesale & Container Terms</h2>
+      <table class="terms-table">
+        <thead>
+          <tr>
+            <th>Commercial Parameter</th>
+            <th>Standard Export Specification</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Incoterms Available</strong></td>
+            <td>FOB Mundra / Kandla Port (India), CIF Major Global Ports (New York, Los Angeles, Hamburg, Rotterdam, Felixstowe, Dubai), or Ex-Works Jodhpur.</td>
+          </tr>
+          <tr>
+            <td><strong>Container Consolidation</strong></td>
+            <td>Full mix allowed across Tabletop Decor, Wall Art, and Solid Furniture inside 20ft FCL (~28-30 CBM) and 40ft HQ FCL (~68-70 CBM).</td>
+          </tr>
+          <tr>
+            <td><strong>Lead Times</strong></td>
+            <td>Tabletop & Small decor: 25–30 days. Full container mixed furniture: 35–45 days. Rapid sample turnaround: 7–10 days.</td>
+          </tr>
+          <tr>
+            <td><strong>Trade Compliance</strong></td>
+            <td>Full VRIKSH certification (Lacey Act & CITES compliance), EUDR harvest traceability, ISPM-15 fumigation stamps, and non-toxic REACH-compliant finishes.</td>
+          </tr>
+          <tr>
+            <td><strong>OEM & Custom Branding</strong></td>
+            <td>Full CAD drawing development, custom laser engraving, bespoke timber stains, buyer-specified barcodes/FNSKU stickers, and private label gift packaging.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- FOOTER / RFQ CTA -->
+    <footer class="catalog-footer">
+      <h3>Partner With Arawali Arts</h3>
+      <p>Direct export from Jodhpur, Rajasthan to your distribution centers and retail stores worldwide.</p>
+      <a href="mailto:export@arawaliarts.com" class="rfq-btn">Request 2026/27 Wholesale Price List & RFQ</a>
+      <p style="margin-top: 24px; font-size: 0.85rem; color: #8C827A;">
+        Head Office & Workshop: Industrial Area, Jodhpur, Rajasthan 342001, India | Email: export@arawaliarts.com
+      </p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

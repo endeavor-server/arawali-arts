@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arawali Arts — Official Corporate Export Brochure & Lookbook (2026/2027 Edition)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1F1916;
+      --secondary: #3B2E27;
+      --accent-gold: #B8860B;
+      --accent-light: #E8D8B0;
+      --text: #2C2522;
+      --text-muted: #665D57;
+      --bg-cream: #FAF7F2;
+      --border: #E5DDD3;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #EFEBE5; color: var(--text); line-height: 1.5; }
+
+    /* Page Canvas */
+    .brochure-page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 20px auto;
+      background: #FFFFFF;
+      padding: 18mm 18mm 20mm;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @page { size: A4 portrait; margin: 12mm; }
+
+    @media print {
+      body { background: white; }
+      .brochure-page {
+        width: 100%;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        page-break-after: always;
+      }
+      .no-print { display: none !important; }
+    }
+
+    .action-bar {
+      max-width: 210mm;
+      margin: 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--primary);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+    }
+
+    .print-btn {
+      background: var(--accent-gold);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .print-btn:hover { background: #996e08; }
+
+    /* Cover Page */
+    .cover-page {
+      background: linear-gradient(145deg, #18120F 0%, #2D221C 50%, #15100D 100%);
+      color: #FAF6F0;
+      padding: 30mm 20mm;
+      text-align: center;
+      border: 1px solid rgba(184, 134, 11, 0.4);
+    }
+
+    .cover-badge {
+      display: inline-block;
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-light);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    .cover-title {
+      font-family: 'Cinzel', serif;
+      font-size: 3.2rem;
+      letter-spacing: 4px;
+      color: #FFF;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .cover-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      color: var(--accent-gold);
+      margin-bottom: 60px;
+    }
+
+    .cover-divider {
+      width: 80px;
+      height: 2px;
+      background: var(--accent-gold);
+      margin: 0 auto 60px;
+    }
+
+    .cover-desc {
+      font-size: 1rem;
+      color: #D6CBC1;
+      line-height: 1.8;
+      max-width: 500px;
+      margin: 0 auto 80px;
+      font-weight: 300;
+    }
+
+    .cover-footer {
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 24px;
+      font-size: 0.82rem;
+      color: #BDB2A7;
+      display: flex;
+      justify-content: space-between;
+      letter-spacing: 1px;
+    }
+
+    /* Page Header & Footer */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .page-header strong {
+      color: var(--primary);
+      font-family: 'Cinzel', serif;
+    }
+
+    .page-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 8px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .brochure-heading {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .brochure-sub {
+      color: var(--accent-gold);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .content-box {
+      background: var(--bg-cream);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .content-box h4 {
+      font-family: 'Cinzel', serif;
+      color: var(--primary);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .content-box p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .product-row-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .mini-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mini-img {
+      height: 130px;
+      background: #F0EAE1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .mini-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .mini-body {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .mini-sku {
+      font-size: 0.65rem;
+      background: var(--primary);
+      color: white;
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      align-self: flex-start;
+    }
+
+    .mini-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      color: var(--primary);
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+
+    .mini-specs {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-top: auto;
+      border-top: 1px dashed var(--border);
+      padding-top: 6px;
+    }
+
+    .comp-pill-box {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .comp-pill {
+      border: 1px solid #D6CBC1;
+      padding: 10px;
+      border-radius: 6px;
+      background: white;
+    }
+
+    .comp-pill strong {
+      display: block;
+      color: var(--primary);
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
+    .comp-pill span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 12px;
+    }
+
+    .specs-table th, .specs-table td {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .specs-table th {
+      background: #F4EFE6;
+      color: var(--primary);
+      font-weight: 700;
+      font-family: 'Cinzel', serif;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BROWSER ACTION BAR -->
+  <div class="action-bar no-print">
+    <div>
+      <strong>Arawali Arts Official Corporate Export Brochure</strong> (2026/2027 Edition)
+    </div>
+    <div>
+      <button class="print-btn" onclick="window.print()">Print / Save as PDF 📄</button>
+    </div>
+  </div>
+
+  <!-- PAGE 1: COVER -->
+  <div class="brochure-page cover-page">
+    <div>
+      <span class="cover-badge">Official Export Catalogue 2026 / 2027</span>
+      <h1 class="cover-title">ARAWALI ARTS</h1>
+      <div class="cover-subtitle">JODHPUR • RAJASTHAN • INDIA</div>
+      <div class="cover-divider"></div>
+      <p class="cover-desc">
+        Master Artisans in Solid Seasoned Hardwood, Hand-Forged Wrought Iron Jaali Architectural Decor, and Contemporary Living Furniture.
+      </p>
+    </div>
+
+    <div class="cover-footer">
+      <span>15+ YEARS MANUFACTURING EXCELLENCE</span>
+      <span>EXPORT HUBS: USA • UK • EUROPEAN UNION</span>
+      <span>PORTS: MUNDRA / KANDLA</span>
+    </div>
+  </div>
+
+  <!-- PAGE 2: HERITAGE & MANUFACTURING CREDENTIALS -->
+  <div class="brochure-page">
+    <div class="page-header">
+      <strong>Arawali Arts — Export Division</strong>
+      <span>Corporate Overview • Page 02</span>
+    </div>
+
+    <div>
+      <h2 class="brochure-heading">Rooted in Rajasthan, Trusted Globally</h2>
+      <div class="brochure-sub">The Jodhpur Handicraft & Furniture Heritage</div>
+      
+      <!-- Workshop Image -->
+      <div style="width: 100%; height: 160px; border-radius: 8px; overflow: hidden; margin-bottom: 16px;">
+        <img src="../assets/hero_jodhpur_workshop.jpg" alt="Arawali Arts Workshop" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+
+      <div class="two-col" style="margin-bottom: 16px;">
+        <div class="content-box">
+          <h4>Industrial Kiln Drying</h4>
+          <p>Every log of Sheesham, Mango, and Acacia is chemically seasoned to an equilibrium moisture content of 8%–12%, eliminating cracking or warping in cold western climates.</p>
+        </div>
+        <div class="content-box">
+          <h4>Architectural Wrought Iron</h4>
+          <p>In-house metal fabrication specializing in hand-forged <em>jaali</em> (fretwork lattice) finished with multi-stage electrostatic anti-rust powder coatings.</p>
+        </div>
+      </div>
+
+      <h3 style="font-family: 'Cinzel', serif; font-size: 1rem; color: var(--primary); margin-bottom: 8px;">International Trade & Legal Timber Compliance</h3>
+
+      <div class="comp-pill-box">
+        <div class="comp-pill">
+          <strong>✓ VRIKSH Timber Legality Scheme</strong>
+          <span>Compliant with US Lacey Act declaration standards and CITES Appendix II exemptions.</span>
+        </div>
+        <div class="comp-pill">
+          <strong>✓ EUDR Deforestation Due Diligence</strong>
+          <span>Traceable supply chains and geographic origin verifications for EU regulations.</span>
+        </div>
+        <div class="comp-pill">
+          <strong>✓ ISPM-15 Phytosanitary Treatment</strong>
+          <span>Certified heat treatment (HT) and fumigation for all solid wood and pallets.</span>
+        </div>
+        <div class="comp-pill">
+          <strong>✓ ISTA-3A Drop-Tested Packaging</strong>
+          <span>5-ply / 7-ply heavy corrugated cartons with reinforced corner buffers.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>Arawali Arts, Industrial Area, Jodhpur, Rajasthan 342001, India</span>
+      <span>export@arawaliarts.com</span>
+    </div>
+  </div>
+
+  <!-- PAGE 3: TABLETOP & ACCENTS -->
+  <div class="brochure-page">
+    <div class="page-header">
+      <strong>Arawali Arts — Product Lines</strong>
+      <span>Tabletop & Desk Accents • Page 03</span>
+    </div>
+
+    <div>
+      <h2 class="brochure-heading">Tabletop, Bar & Desk Accents</h2>
+      <div class="brochure-sub">The Naturehood Retail-Proven Collection</div>
+
+      <div class="product-row-grid">
+
+        <!-- 1 -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/00000036-PHOTO-2026-11-18-12-01-58.jpg" alt="Book Box"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-WB-101</span>
+            <div class="mini-title">Artisanal Book Keepsake Box</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 7.5" x 5.0" x 2.2"<br>
+              <strong>Wood:</strong> Solid Sheesham / Acacia<br>
+              <strong>CBM:</strong> 0.003 | <strong>MOQ:</strong> 100 pcs
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/00000037-PHOTO-2026-11-18-12-01-59.jpg" alt="Round Coaster"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-CST-201</span>
+            <div class="mini-title">Round Hardwood Coasters (Set 4)</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> Dia 4.0" x 0.4"<br>
+              <strong>Wood:</strong> Sheesham Hardwood<br>
+              <strong>CBM:</strong> 0.001 | <strong>MOQ:</strong> 200 sets
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/00000042-PHOTO-2026-11-18-12-02-01.jpg" alt="Square Coaster"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-CST-202</span>
+            <div class="mini-title">Square Hardwood Coasters (Set 4)</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 3.9" x 3.9" x 0.4"<br>
+              <strong>Wood:</strong> Sheesham / Mango<br>
+              <strong>CBM:</strong> 0.001 | <strong>MOQ:</strong> 200 sets
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/00000039-PHOTO-2026-11-18-12-02-00.jpg" alt="Pebble Paperweight"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-PBL-301</span>
+            <div class="mini-title">Sculptural Pebble Weight</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 4.5" x 3.2" x 1.4"<br>
+              <strong>Wood:</strong> Dense Sheesham Heartwood<br>
+              <strong>CBM:</strong> 0.001 | <strong>MOQ:</strong> 150 pcs
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/00000040-PHOTO-2026-11-18-12-02-00.jpg" alt="Spice Chest"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-SPX-401</span>
+            <div class="mini-title">Heritage 4-Compartment Box</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 8.5" x 8.5" x 3.0"<br>
+              <strong>Wood:</strong> Sheesham + Brass Hinges<br>
+              <strong>CBM:</strong> 0.006 | <strong>MOQ:</strong> 100 pcs
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/00000041-PHOTO-2026-11-18-12-02-01.jpg" alt="Wooden Bookmark"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-BMK-501</span>
+            <div class="mini-title">Hand-Planed Wooden Bookmark</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 5.5" x 1.2" x 0.08"<br>
+              <strong>Wood:</strong> Rosewood with Jute Tassel<br>
+              <strong>CBM:</strong> 0.0001 | <strong>MOQ:</strong> 500 pcs
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="content-box" style="margin-top: 10px;">
+        <h4>Retail Packaging & Private Label (OEM)</h4>
+        <p>All tabletop items come packed in eco-friendly kraft paper gift boxes with biodegradable corner buffers. Full OEM support: laser engraving of buyer logos, barcode/FNSKU stickers, and custom branding bands.</p>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>Arawali Arts — Tabletop & Giftware Collection</span>
+      <span>export@arawaliarts.com</span>
+    </div>
+  </div>
+
+  <!-- PAGE 4: WALL DECOR & LIVING ACCENT TABLES -->
+  <div class="brochure-page">
+    <div class="page-header">
+      <strong>Arawali Arts — Product Lines</strong>
+      <span>Wall Decor & Living Tables • Page 04</span>
+    </div>
+
+    <div>
+      <h2 class="brochure-heading">Architectural Decor & Living Tables</h2>
+      <div class="brochure-sub">Jodhpur Wrought Iron & Solid Timber Fusion</div>
+
+      <div class="product-row-grid">
+
+        <!-- 7 -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/00000048-PHOTO-2026-11-18-12-02-03.jpg" alt="Jaali Sconce"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-WSC-601</span>
+            <div class="mini-title">Iron Jaali Wall Sconce</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 18.0" H x 7.5" W x 4.5" D<br>
+              <strong>Mat:</strong> Distressed Wood + Forged Iron<br>
+              <strong>CBM:</strong> 0.015 | <strong>MOQ:</strong> 100 pcs
+            </div>
+          </div>
+        </div>
+
+        <!-- 8 (GEMINI IMAGE EMBEDDED) -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/hero_jharokha_mirror.jpg" alt="Jharokha Arch Wall Mirror"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-WMR-602</span>
+            <div class="mini-title">Jharokha Arch Wall Mirror</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 36.0" H x 24.0" W x 2.0" D<br>
+              <strong>Mat:</strong> Mango Wood + Lattice Iron<br>
+              <strong>CBM:</strong> 0.045 | <strong>MOQ:</strong> 50 pcs
+            </div>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/iron_jaali_wall_sconce.jpg" alt="Pierced Metal Hanging Lantern"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-LTN-603</span>
+            <div class="mini-title">Pierced Metal Hanging Lantern</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 14.0" H x 6.5" W x 6.5" D<br>
+              <strong>Mat:</strong> Mild Steel + Hardwood Cap<br>
+              <strong>CBM:</strong> 0.018 | <strong>MOQ:</strong> 100 pcs
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 (GEMINI IMAGE EMBEDDED) -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/hero_live_edge_table.jpg" alt="Live-Edge Sheesham Coffee Table"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-CT-701</span>
+            <div class="mini-title">Live-Edge Sheesham Coffee Table</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 48.0" L x 24.0" W x 18.0" H<br>
+              <strong>Mat:</strong> 1.75" Slab + Iron Frame (KD)<br>
+              <strong>CBM:</strong> 0.150 | <strong>MOQ:</strong> 30 pcs
+            </div>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/console_table_iron.jpg" alt="Minimalist Iron Hallway Console"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-CN-702</span>
+            <div class="mini-title">Minimalist Iron Hallway Console</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 42.0" L x 12.0" W x 32.0" H<br>
+              <strong>Mat:</strong> Solid Acacia + Iron Mesh<br>
+              <strong>CBM:</strong> 0.080 | <strong>MOQ:</strong> 40 pcs
+            </div>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/nesting_side_tables_round.jpg" alt="Round Nesting Side Tables"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-NST-703</span>
+            <div class="mini-title">Round Nesting Side Tables (2-Pc)</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> Dia 20" x 22"H / Dia 16" x 19"H<br>
+              <strong>Mat:</strong> Mango Wood + Iron Rings<br>
+              <strong>CBM:</strong> 0.090 | <strong>MOQ:</strong> 50 sets
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="content-box" style="margin-top: 10px;">
+        <h4>Finishing Options for Western Retailers</h4>
+        <p>All furniture is hand-finished in 4 curated export tones: <em>Natural Honey Amber</em> (accentuating wood grain), <em>Smoked Walnut</em>, <em>Bleached Whitewash</em>, and <em>Charred Yakisugi Black</em>. Zero-VOC polyurethane top-coats protect against spills and heat.</p>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>Arawali Arts — Architectural Decor & Tables</span>
+      <span>export@arawaliarts.com</span>
+    </div>
+  </div>
+
+  <!-- PAGE 5: CASE GOODS, DINING & COMMERCIAL TERMS -->
+  <div class="brochure-page">
+    <div class="page-header">
+      <strong>Arawali Arts — Case Goods & Logistics</strong>
+      <span>Storage & Container Terms • Page 05</span>
+    </div>
+
+    <div>
+      <h2 class="brochure-heading">Case Goods, Dining & Export Terms</h2>
+      <div class="brochure-sub">Large Furniture & Container Logistics</div>
+
+      <div class="product-row-grid">
+
+        <!-- 13 (GEMINI IMAGE EMBEDDED) -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/hero_jaali_sideboard.jpg" alt="Jaali Perforated Sideboard"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-SB-801</span>
+            <div class="mini-title">Jaali Perforated Sideboard</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 58" L x 18" D x 34" H<br>
+              <strong>Mat:</strong> Solid Mango + Iron Mesh<br>
+              <strong>CBM:</strong> 0.650 | <strong>MOQ:</strong> 20 pcs
+            </div>
+          </div>
+        </div>
+
+        <!-- 14 -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/media_console_slatted.jpg" alt="Slatted Hardwood Media Unit"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-TV-802</span>
+            <div class="mini-title">Slatted Hardwood Media Unit</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 64" L x 16" D x 20" H<br>
+              <strong>Mat:</strong> Seasoned Sheesham Timber<br>
+              <strong>CBM:</strong> 0.450 | <strong>MOQ:</strong> 25 pcs
+            </div>
+          </div>
+        </div>
+
+        <!-- 15 -->
+        <div class="mini-card">
+          <div class="mini-img"><img src="../assets/dining_table_trestle.jpg" alt="Heritage Trestle Dining Table"></div>
+          <div class="mini-body">
+            <span class="mini-sku">SKU: AA-DT-901</span>
+            <div class="mini-title">Heritage Trestle Dining Table</div>
+            <div class="mini-specs">
+              <strong>Dim:</strong> 78" L x 38" W x 30" H (Seats 8)<br>
+              <strong>Mat:</strong> Solid Sheesham Plank Top<br>
+              <strong>CBM:</strong> 0.350 | <strong>MOQ:</strong> 15 pcs
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <h3 style="font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--primary); margin: 16px 0 6px;">Container Consolidation & Commercial Specifications</h3>
+
+      <table class="specs-table">
+        <thead>
+          <tr>
+            <th>Commercial Parameter</th>
+            <th>Standard Wholesale Specification</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Container Mix Policy</strong></td>
+            <td>Full mixing allowed: Combine small tabletop decor, wall art, and large furniture into a single 20ft FCL (~28 CBM) or 40ft HQ (~68 CBM).</td>
+          </tr>
+          <tr>
+            <td><strong>Incoterms</strong></td>
+            <td>FOB Mundra Port / Kandla Port (India), CIF Major US & EU Ports, or Ex-Works Jodhpur.</td>
+          </tr>
+          <tr>
+            <td><strong>Production Lead Time</strong></td>
+            <td>Tabletop decor: 25–30 days. Full container mixed furniture: 35–45 days. Sample development: 7–10 days.</td>
+          </tr>
+          <tr>
+            <td><strong>Payment Terms</strong></td>
+            <td>30% T/T Advance deposit upon Purchase Order, 70% balance upon Bill of Lading (B/L) copy; or Irrevocable L/C at sight.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="content-box" style="margin-top: 14px; text-align: center; background: #1F1916; color: white;">
+        <h4 style="color: var(--accent-light); margin-bottom: 4px;">Direct Factory Contact & RFQ Submission</h4>
+        <p style="color: #DDD4CB; font-size: 0.8rem;">
+          Factory & Head Office: Industrial Area, Jodhpur, Rajasthan 342001, India<br>
+          Export Desk: <strong>export@arawaliarts.com</strong> | Domestic Profile: <strong>indiamart.com/arawali-arts</strong>
+        </p>
+      </div>
+
+    </div>
+
+    <div class="page-footer">
+      <span>Arawali Arts — Master Export Catalogue 2026/2027</span>
+      <span>Confidential Wholesale Document</span>
+    </div>
+  </div>
+
+</body>
+</html>

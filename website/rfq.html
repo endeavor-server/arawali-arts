@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B2B Wholesale RFQ & Container Loading Calculator — Arawali Arts Jodhpur</title>
+  <meta name="description" content="Calculate container cubic meters (CBM) for 20ft FCL and 40ft HQ loads and submit direct wholesale quotation requests to Arawali Arts Jodhpur.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-bar-content">
+      <span>✦ Fast Quotations: FOB Mundra / Kandla Port • CIF Global Ports • 24-Hour Desk Turnaround ✦</span>
+      <a href="mailto:export@arawaliarts.com" class="top-bar-link">export@arawaliarts.com</a>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <span class="brand-sub">ESTD. 2011 • JODHPUR</span>
+        <span class="brand-main">ARAWALI ARTS</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="catalog.html">Full Catalog (500 SKUs)</a>
+                <div class="dropdown">
+          <a href="collections.html" class="dropbtn">Collections ▾</a>
+          <div class="dropdown-content">
+            <!-- Col 1: Solid Wood Furniture -->
+            <div class="mega-col">
+              <div class="mega-col-title">🪑 Furniture & Storage</div>
+              <div class="mega-col-links">
+                <a href="living-dining.html">Living Tables & Accents <span class="cat-count">10 SKUs</span></a>
+                <a href="living-dining.html">Dining Tables & Trestles <span class="cat-count">10 SKUs</span></a>
+                <a href="case-goods.html">Credenzas & Sideboards <span class="cat-count">10 SKUs</span></a>
+                <a href="case-goods.html">Bookcases & Étagères <span class="cat-count">10 SKUs</span></a>
+                <a href="living-dining.html">Bar Stools & Seating <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-patio">Patio & Balcony Living <span class="cat-count">10 SKUs</span></a>
+              </div>
+            </div>
+
+            <!-- Col 2: Kitchen, Bar & Entertaining -->
+            <div class="mega-col">
+              <div class="mega-col-title">🍷 Kitchen & Entertaining</div>
+              <div class="mega-col-links">
+                <a href="tabletop.html">Tabletop & Serveware <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-barware">Barware & Whiskey Gear <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-coffee">Home Barista & Coffee <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-bbq">BBQ & Carving Boards <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-wine">Wine Cellar & Vineyard <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-butcher">Kitchen Prep & Islands <span class="cat-count">10 SKUs</span></a>
+              </div>
+            </div>
+
+            <!-- Col 3: Architectural Decor & Lighting -->
+            <div class="mega-col">
+              <div class="mega-col-title">🏮 Architectural Decor</div>
+              <div class="mega-col-links">
+                <a href="wall-decor.html">Architectural Wall Decor <span class="cat-count">10 SKUs</span></a>
+                <a href="wall-decor.html">Mirrors & Jharokhas <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-lighting">Chandeliers & Pendants <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-candles">Candles & Candelabras <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-hardware">Hardware & Ironmongery <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-fireplace">Fireplace & Mantels <span class="cat-count">10 SKUs</span></a>
+              </div>
+            </div>
+
+            <!-- Col 4: Lifestyle, Giftware & Specialty -->
+            <div class="mega-col">
+              <div class="mega-col-title">🌿 Lifestyle & Giftware</div>
+              <div class="mega-col-links">
+                <a href="collections.html#cat-desk">Desk & Home Office <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-boxes">Keepsake & Jewelry Boxes <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-games">Games & Pastimes <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-bath">Bathroom & Spa Accents <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-pet">Luxury Pet Furniture <span class="cat-count">10 SKUs</span></a>
+                <a href="collections.html#cat-spiritual">Spiritual & Zen Crafts <span class="cat-count">10 SKUs</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="compliance.html">Export Compliance</a>
+        <a href="rfq.html" class="active">Container Calculator</a>
+        <a href="../catalogue/arawali_arts_corporate_brochure.html" target="_blank" class="nav-btn-secondary">Print Lookbook ↗</a>
+        <a href="#rfq-form-anchor" class="nav-btn-primary">Submit RFQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CATEGORY HERO -->
+  <section class="category-banner">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / <span>Wholesale RFQ & Logistics</span></div>
+      <span class="section-tag">Direct Wholesale Desk</span>
+      <h1 class="category-heading">B2B Request For Quote & Container Calculator</h1>
+      <p class="category-intro">Calculate container capacity in real time, build your mixed container order, and submit an RFQ directly to our Jodhpur export directors.</p>
+    </div>
+  </section>
+
+  <!-- CONTAINER CALCULATOR & RFQ SECTION -->
+  <section class="section">
+    <div class="container">
+      
+      <!-- Calculator Box -->
+      <div class="calculator-card" style="background: white; border: 1px solid var(--border-light); border-radius: 14px; padding: 36px; box-shadow: var(--shadow-md); margin-bottom: 60px;">
+        <h3 style="font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--primary-color); margin-bottom: 8px;">Interactive Container Load (CBM) Estimator</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px;">Adjust unit quantities to simulate your 20ft FCL (28 CBM) or 40ft HQ (68 CBM) mixed container consolidation.</p>
+
+        <div class="calc-layout-grid">
+          
+          <div>
+            <h4 style="font-family: 'Cinzel', serif; font-size: 1.05rem; margin-bottom: 14px; color: var(--primary-color);">Select Target Products & Quantities:</h4>
+            
+            <div id="calculator-items-list" style="display: flex; flex-direction: column; gap: 12px; max-height: 320px; overflow-y: auto; padding-right: 10px;">
+              
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;">
+                <div>
+                  <strong style="font-size: 0.88rem; display: block;">Book Keepsake Box (AA-WB-101)</strong>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">0.003 CBM / unit | MOQ 100</span>
+                </div>
+                <input type="number" class="cbm-qty-input" data-sku="AA-WB-101" data-cbm="0.003" value="200" min="0" step="50" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;">
+                <div>
+                  <strong style="font-size: 0.88rem; display: block;">Round Coaster Sets (AA-CST-201)</strong>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">0.001 CBM / set | MOQ 200</span>
+                </div>
+                <input type="number" class="cbm-qty-input" data-sku="AA-CST-201" data-cbm="0.001" value="400" min="0" step="50" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;">
+                <div>
+                  <strong style="font-size: 0.88rem; display: block;">Iron Jaali Wall Sconce (AA-WSC-601)</strong>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">0.015 CBM / unit | MOQ 100</span>
+                </div>
+                <input type="number" class="cbm-qty-input" data-sku="AA-WSC-601" data-cbm="0.015" value="150" min="0" step="10" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;">
+                <div>
+                  <strong style="font-size: 0.88rem; display: block;">Live-Edge Coffee Table (AA-CT-701)</strong>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">0.150 CBM / unit | MOQ 30</span>
+                </div>
+                <input type="number" class="cbm-qty-input" data-sku="AA-CT-701" data-cbm="0.150" value="40" min="0" step="5" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;">
+                <div>
+                  <strong style="font-size: 0.88rem; display: block;">Jaali Metal Sideboard (AA-SB-801)</strong>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">0.650 CBM / unit | MOQ 20</span>
+                </div>
+                <input type="number" class="cbm-qty-input" data-sku="AA-SB-801" data-cbm="0.650" value="20" min="0" step="5" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F0ECE6; padding-bottom: 8px;">
+                <div>
+                  <strong style="font-size: 0.88rem; display: block;">Trestle Dining Table (AA-DT-901)</strong>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">0.350 CBM / unit | MOQ 15</span>
+                </div>
+                <input type="number" class="cbm-qty-input" data-sku="AA-DT-901" data-cbm="0.350" value="15" min="0" step="5" style="width: 80px; padding: 6px 8px; border: 1px solid #DDD; border-radius: 4px;">
+              </div>
+
+            </div>
+
+            <!-- Quick Add SKU from 500-SKU Master Catalog -->
+            <div style="margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--border-light);">
+              <label for="catalog-sku-select" style="font-size: 0.8rem; font-weight: 600; color: var(--primary-color); display: block; margin-bottom: 6px;">+ Add Any Item From 500-SKU Catalog:</label>
+              <div style="display: flex; gap: 8px;">
+                <select id="catalog-sku-select" style="flex: 1; padding: 8px 10px; font-size: 0.82rem; border: 1px solid var(--border-light); border-radius: 6px; background: #FAF8F5;">
+                  <option value="">Select SKU to add to container...</option>
+                </select>
+                <button type="button" id="btn-add-sku-to-cbm" class="btn btn-sm btn-gold" style="padding: 8px 14px; font-size: 0.82rem; white-space: nowrap;">+ Add SKU</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="font-family: 'Cinzel', serif; font-size: 1.05rem; margin-bottom: 14px; color: var(--primary-color);">Container Fill Status:</h4>
+            
+            <div style="background: #FDFBF7; border: 1px solid var(--border-light); border-radius: 10px; padding: 24px; text-align: center; margin-bottom: 24px;">
+              <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Calculated Batch Volume</span>
+              <div id="used-cbm" style="font-family: 'Cinzel', serif; font-size: 2.6rem; color: var(--accent-gold); font-weight: 700;">27.50 CBM</div>
+            </div>
+
+            <!-- 20ft Container Progress -->
+            <div style="margin-bottom: 20px;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+                <strong>20ft FCL (28 CBM Baseline)</strong>
+                <span id="fcl-20-text" style="color: var(--accent-gold); font-weight: 700;">98% of 20ft FCL</span>
+              </div>
+              <div style="width: 100%; height: 12px; background: #ECE6DE; border-radius: 10px; overflow: hidden;">
+                <div id="fcl-20-progress" style="width: 98%; height: 100%; background: var(--accent-gold); border-radius: 10px; transition: width 0.3s ease;"></div>
+              </div>
+            </div>
+
+            <!-- 40ft HQ Container Progress -->
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+                <strong>40ft High Cube (68 CBM Baseline)</strong>
+                <span id="fcl-40-text" style="color: #6B625B; font-weight: 700;">40% of 40ft HQ</span>
+              </div>
+              <div style="width: 100%; height: 12px; background: #ECE6DE; border-radius: 10px; overflow: hidden;">
+                <div id="fcl-40-progress" style="width: 40%; height: 100%; background: #2C221E; border-radius: 10px; transition: width 0.3s ease;"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RFQ Submission Form -->
+      <div id="rfq-form-anchor" class="rfq-wrapper">
+        <div class="rfq-intro">
+          <span class="section-tag" style="color: #E8D8B0;">Direct Wholesale Desk</span>
+          <h2>Submit Official Export Request</h2>
+          <p>Please enter your commercial details. Our export management desk will provide an itemized FOB Mundra / Kandla price sheet within 24 hours.</p>
+          
+          <div class="rfq-contact-info">
+            <p><strong>Factory Location:</strong> Jodhpur, Rajasthan 342001, India</p>
+            <p><strong>Export Desk:</strong> export@arawaliarts.com</p>
+            <p><strong>Production Turnaround:</strong> 30–45 Days for FCL</p>
+            <p><strong>Incoterms Available:</strong> FOB, CIF, Ex-Works</p>
+          </div>
+        </div>
+
+        <form class="rfq-form" onsubmit="event.preventDefault(); alert('Thank you for submitting your RFQ. Our export desk will review your container selection and contact you with the official price list shortly.');">
+          <div class="form-group">
+            <label for="name">Contact Name *</label>
+            <input type="text" id="name" required placeholder="e.g. John Miller">
+          </div>
+          <div class="form-group">
+            <label for="company">Company / Importer Name *</label>
+            <input type="text" id="company" required placeholder="e.g. Pacific Living Importers LLC">
+          </div>
+          <div class="form-group">
+            <label for="email">Business Email *</label>
+            <input type="email" id="email" required placeholder="john@pacificliving.com">
+          </div>
+          <div class="form-group">
+            <label for="country">Destination Port & Country *</label>
+            <input type="text" id="country" required placeholder="e.g. Port of Long Beach, USA or Port of Hamburg, Germany">
+          </div>
+          <div class="form-group">
+            <label for="volume">Target Container Size</label>
+            <select id="volume">
+              <option value="samples">Sample Box / Trial Order (7-10 Days)</option>
+              <option value="lcl">LCL Palletized Shipment (~5-10 CBM)</option>
+              <option value="20ft" selected>20ft Full Container Load (FCL)</option>
+              <option value="40ft">40ft High Cube Container (HQ)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Product Specifications / SKU Details</label>
+            <textarea id="message" rows="5" placeholder="Specify targeted SKUs (e.g., AA-WB-101, AA-WSC-601, AA-CT-701), finish preferences (Natural Honey, Smoked Walnut, Yakisugi Black), and private labeling requirements..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold btn-block">Send Official B2B RFQ</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-col">
+        <h3 class="footer-brand">ARAWALI ARTS</h3>
+        <p>Manufacturer and global exporter of authentic Jodhpur handcrafted wooden furniture, architectural iron jaali decor, and tabletop giftware.</p>
+        <p class="copyright">© 2026 Arawali Arts. All Rights Reserved. Private B2B Export Division.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product Divisions</h4>
+        <ul class="footer-links">
+          <li><a href="tabletop.html">Tabletop & Gifts (Naturehood)</a></li>
+          <li><a href="wall-decor.html">Architectural Wall Decor</a></li>
+          <li><a href="living-dining.html">Living & Dining Furniture</a></li>
+          <li><a href="case-goods.html">Case Goods & Storage</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Direct Contact</h4>
+        <p>Industrial Area, Jodhpur, Rajasthan 342001, India</p>
+        <p>Email: export@arawaliarts.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="products-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
