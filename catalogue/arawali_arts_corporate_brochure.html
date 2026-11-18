@@ -1596,11 +1596,6 @@
     <a href="../website/rfq.html" class="dock-rfq-btn">Review RFQ →</a>
   </div>
 
-  <!-- Audio for Realistic Page Turn -->
-  <audio id="audioPageFlip" preload="none">
-    <source src="https://cdn.freesound.org/previews/459/459992_9159316-lq.mp3" type="audio/mp3">
-  </audio>
-
   <!-- DEPENDENCY: StPageFlip Browser Bundle -->
   <script src="page-flip.browser.js"></script>
   <!-- DATA: Live 500 Products -->
@@ -1665,14 +1660,51 @@
           const lblCurrent = document.getElementById("lblCurrentPage");
           lblCurrent.textContent = currentSpreadIndex + 1;
 
-          // Sound effect
-          const sound = document.getElementById("audioPageFlip");
-          if (sound) {
-            try { sound.currentTime = 0; sound.play().catch(() => {}); } catch(err) {}
-          }
+          // Synthetic Paper Turn Sound (Web Audio API - Zero External Network Calls)
+          playPaperFlutter();
         });
 
         document.getElementById("lblTotalPages").textContent = pages.length;
+      }
+
+      // Web Audio API Acoustic Synthesizer
+      let audioCtx = null;
+      function playPaperFlutter() {
+        try {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          if (!audioCtx) audioCtx = new AudioCtx();
+          if (audioCtx.state === "suspended") audioCtx.resume();
+
+          const duration = 0.14;
+          const bufferSize = Math.floor(audioCtx.sampleRate * duration);
+          const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+          const output = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            output[i] = (Math.random() * 2 - 1) * 0.25;
+          }
+
+          const whiteNoise = audioCtx.createBufferSource();
+          whiteNoise.buffer = buffer;
+
+          const filter = audioCtx.createBiquadFilter();
+          filter.type = "bandpass";
+          filter.frequency.setValueAtTime(850, audioCtx.currentTime);
+          filter.frequency.exponentialRampToValueAtTime(260, audioCtx.currentTime + duration);
+          filter.Q.setValueAtTime(1.5, audioCtx.currentTime);
+
+          const gain = audioCtx.createGain();
+          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+          whiteNoise.connect(filter);
+          filter.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          whiteNoise.start();
+        } catch (e) {
+          // Graceful no-op
+        }
       }
 
       window.addEventListener("DOMContentLoaded", initMagazine);
