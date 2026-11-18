@@ -634,14 +634,20 @@ function initUIComponents() {
 
   // Drawer Open/Close Controllers
   function openLkhDrawer() {
-    drawer.classList.add('is-open');
-    drawer.setAttribute('aria-hidden', 'false');
+    const d = drawer || document.getElementById('lkhMobileDrawer');
+    if (d) {
+      d.classList.add('is-open');
+      d.setAttribute('aria-hidden', 'false');
+    }
     document.body.style.overflow = 'hidden';
   }
 
   function closeLkhDrawer() {
-    drawer.classList.remove('is-open');
-    drawer.setAttribute('aria-hidden', 'true');
+    const d = drawer || document.getElementById('lkhMobileDrawer');
+    if (d) {
+      d.classList.remove('is-open');
+      d.setAttribute('aria-hidden', 'true');
+    }
     document.body.style.overflow = '';
   }
 

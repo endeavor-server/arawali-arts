@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Master Export Collections (24 Product Lines • 500 SKUs) — Arawali Arts Jodhpur</title>
-  <link rel="stylesheet" href="style.css?v=2026.30">
+  <link rel="stylesheet" href="style.css?v=2026.31">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* Luxury Collections Redesign Styles (Endeavor Parity) */
@@ -777,7 +777,8 @@
   <!-- NAVIGATION BAR -->
   <header class="navbar">
     <div class="nav-container">
-      <a href="index.html" class="brand-logo">
+            <button type="button" class="nav-mobile-toggle" id="nav-mobile-btn" aria-label="Open Navigation Menu" onclick="if(window.openLkhDrawer){window.openLkhDrawer();}">☰</button>
+<a href="index.html" class="brand-logo">
         <span class="brand-sub">ESTD. 2011 • JODHPUR, RAJASTHAN</span>
         <span class="brand-main">ARAWALI ARTS</span>
       </a>
@@ -862,7 +863,14 @@
           <a href="rfq.html" class="nav-cta-btn ">Request an RFQ</a>
         </div>
       </nav>
-    </div>
+          <div class="nav-mobile-actions">
+        <button type="button" class="nav-mobile-action-btn" id="mobileSearchTrigger" aria-label="Search Catalog">🔍</button>
+        <a href="rfq.html" class="nav-mobile-action-btn" id="mobileCartTrigger" aria-label="RFQ Cart">
+          <span>📦</span>
+          <span class="lkh-cart-badge nav-rfq-count">0</span>
+        </a>
+      </div>
+</div>
   </header>
 
   <!-- LUXURY EDITORIAL HERO BANNER (ENDEAVOR PARITY) -->
@@ -1947,7 +1955,7 @@
 
   <script src="products-data.js?v=2026.24"></script>
   <script src="lenis.min.js?v=2026.24"></script>
-  <script src="app.js?v=2026.30"></script>
+  <script src="app.js?v=2026.31"></script>
   <script>
     function initCollectionsPage() {
       const prods = window.ALL_PRODUCTS_500 || window.MASTER_PRODUCTS_500 || [];

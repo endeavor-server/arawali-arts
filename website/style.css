@@ -2603,6 +2603,9 @@ a {
 .nav-mobile-actions {
   display: none;
 }
+.lkh-mobile-drawer {
+  display: none;
+}
 
 /* Responsive Media Queries */
 @media (max-width: 1024px) {
@@ -2726,7 +2729,7 @@ a {
     height: 100dvh;
     background: #FFFFFF !important;
     z-index: 999999;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     transform: translateX(-100%);
     transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2736,7 +2739,7 @@ a {
     box-sizing: border-box;
   }
   .lkh-mobile-drawer.is-open {
-    transform: translateX(0);
+    transform: translateX(0) !important;
   }
 
   /* 1. Clean Lakkadhaara Header Bar */
