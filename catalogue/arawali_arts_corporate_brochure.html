@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>Arawali Arts — Official Corporate Export Lookbook & Magazine (2026/2027 Edition)</title>
   <meta name="description" content="Official B2B Digital Export Magazine & Lookbook for Arawali Arts Jodhpur. Interactive 3D page-flip brochure featuring solid hardwood furniture, architectural iron jaali decor, and global export specifications.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../website/style.css?v=2026.11">
   <style>
     :root {
       --primary: #12100E;
@@ -20,20 +19,14 @@
       --text: #241D18;
       --text-muted: #6B6156;
       --text-light: #94887B;
-      --bg-page: #0E0C0A;
-      --bg-cream: #FAF7F2;
-      --bg-surface: #FFFFFF;
-      --border: #E8E2DA;
-      --border-dark: #3A2F27;
-      --shadow-sm: 0 4px 14px rgba(18, 16, 14, 0.04);
-      --shadow-md: 0 12px 32px rgba(18, 16, 14, 0.12);
-      --shadow-lg: 0 20px 50px rgba(18, 16, 14, 0.25);
+      --bg-desk: radial-gradient(circle at 50% 45%, #241E19 0%, #15110E 65%, #0A0807 100%);
+      --page-cream: #FAF7F2;
       --font-serif: 'Playfair Display', Georgia, serif;
       --font-cinzel: 'Cinzel', serif;
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
-    /* Global View-Only Reset */
+    /* Reset & View-Only Protection */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -41,227 +34,201 @@
     }
 
     html, body {
-      background-color: var(--bg-page);
+      width: 100vw;
+      height: 100dvh;
+      overflow: hidden;
+      position: fixed;
+      inset: 0;
+      background: var(--bg-desk);
       color: #FAF7F2;
       font-family: var(--font-sans);
-      overflow-x: hidden;
-      width: 100%;
-      max-width: 100vw;
       -webkit-font-smoothing: antialiased;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: pan-y pinch-zoom;
     }
 
     @media print {
       body { display: none !important; }
     }
 
-    /* Magazine Header Bar */
-    .mag-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(18, 16, 14, 0.96);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(184, 149, 82, 0.35);
-      padding: 12px 20px;
+    /* Ambient Desk & Viewport Container */
+    #magazine-viewport {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
     }
 
-    .mag-header-inner {
-      max-width: 1400px;
-      margin: 0 auto;
+    /* FLOATING TOP NAV (Ghost Bar) */
+    .mag-top-nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 52px;
+      z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
+      padding: 8px 16px;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(10, 8, 7, 0.75) 0%, rgba(10, 8, 7, 0) 100%);
     }
 
-    .mag-brand {
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      color: #FFFFFF;
-    }
-
-    .mag-brand-sub {
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      color: var(--accent-gold);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .mag-brand-main {
-      font-family: var(--font-cinzel);
-      font-size: 1.25rem;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      color: #FFFFFF;
-      line-height: 1.1;
-    }
-
-    .mag-controls-bar {
+    .mag-nav-group {
+      pointer-events: auto;
       display: flex;
       align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    /* Mode Toggles */
-    .view-switcher-toggles {
-      display: inline-flex;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(184, 149, 82, 0.3);
-      padding: 3px;
-      border-radius: 30px;
-    }
-
-    .view-switch-btn {
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      border: none;
-      background: transparent;
-      color: #D3C7BC;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .view-switch-btn.active {
-      background: var(--accent-gold);
-      color: #12100E;
-      box-shadow: 0 2px 8px rgba(184, 149, 82, 0.4);
-    }
-
-    .badge-view-status {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent-light);
-      background: rgba(184, 149, 82, 0.15);
-      border: 1px solid rgba(184, 149, 82, 0.35);
-      padding: 5px 12px;
-      border-radius: 20px;
-      white-space: nowrap;
-    }
-
-    .btn-mag-rfq {
+    .mag-ghost-btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 7px 16px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(184, 149, 82, 0.3);
+      color: #FAF7F2;
       text-decoration: none;
-      background: var(--accent-gold);
-      color: #12100E;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .mag-ghost-btn:hover {
+      background: rgba(184, 149, 82, 0.2);
+      border-color: var(--accent-gold);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .mag-ghost-title {
+      font-family: var(--font-cinzel);
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      color: var(--accent-light);
+      font-weight: 600;
+      text-transform: uppercase;
+      opacity: 0.85;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .mag-ghost-title { display: block; }
+    }
+
+    .mag-ghost-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(184, 149, 82, 0.3);
+      color: #FAF7F2;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.88rem;
       transition: all 0.2s ease;
     }
 
-    .btn-mag-rfq:hover {
+    .mag-ghost-icon:hover {
+      background: rgba(184, 149, 82, 0.2);
+      border-color: var(--accent-gold);
+      transform: scale(1.05);
+    }
+
+    .mag-ghost-rfq {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, rgba(184, 149, 82, 0.9) 0%, rgba(142, 114, 58, 0.9) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #12100E;
+      text-decoration: none;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .mag-ghost-rfq:hover {
       background: var(--accent-gold-hover);
       transform: translateY(-1px);
     }
 
-    /* Magazine Flipbook Workspace */
-    #flipbook-workspace {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 24px 16px 80px;
-      min-height: calc(100vh - 120px);
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    /* Interactive Flip Toolbar */
-    .flip-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      background: rgba(24, 20, 16, 0.95);
-      border: 1px solid rgba(184, 149, 82, 0.35);
-      border-radius: 40px;
-      padding: 8px 18px;
-      margin-bottom: 24px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-      max-width: 100%;
-      box-sizing: border-box;
-      flex-wrap: wrap;
-    }
-
-    .flip-tool-btn {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #FAF7F2;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: all 0.2s ease;
-    }
-
-    .flip-tool-btn:hover {
-      background: var(--accent-gold);
-      color: #12100E;
-      border-color: var(--accent-gold);
-    }
-
-    .page-indicator-badge {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--accent-gold);
-      padding: 0 8px;
-      white-space: nowrap;
-    }
-
-    /* Quick Jump Dropdown */
-    .mag-jump-select {
-      background: #1C1713;
-      border: 1px solid rgba(184, 149, 82, 0.3);
-      color: #E8D8B0;
-      font-size: 0.76rem;
-      font-weight: 600;
-      padding: 6px 12px;
-      border-radius: 20px;
-      outline: none;
-      cursor: pointer;
-      max-width: 220px;
-    }
-
-    /* Flipbook Canvas / Container */
-    .magazine-stage {
+    /* MAGAZINE STAGE */
+    #magazine-stage {
       position: relative;
+      z-index: 10;
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
-      max-width: 1240px;
-      margin: 0 auto;
+      height: calc(100% - 100px);
+      margin: auto 0;
       perspective: 2500px;
     }
 
     #flipbook-book {
       margin: 0 auto;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+      position: relative;
     }
 
-    /* Base Magazine Page Styling */
+    /* StPageFlip Wrapper Styling */
+    .stf__wrapper {
+      box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.85), 0 0 1px rgba(255, 255, 255, 0.15) !important;
+      border-radius: 4px;
+    }
+
+    /* SPINE CREASE LIGHTING (Physical Book Realism) */
+    .stf__item.--left .mag-page::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 32px;
+      background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.08) 60%, rgba(0, 0, 0, 0.25) 100%);
+      pointer-events: none;
+      z-index: 25;
+    }
+
+    .stf__item.--right .mag-page::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 32px;
+      background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.08) 60%, rgba(0, 0, 0, 0.25) 100%);
+      pointer-events: none;
+      z-index: 25;
+    }
+
+    /* BASE PAGE STYLING */
     .mag-page {
-      background-color: #FAF7F2;
+      background-color: var(--page-cream);
       color: #241D18;
       overflow: hidden;
       display: flex;
@@ -270,35 +237,38 @@
       box-sizing: border-box;
       border: 1px solid #E8E2DA;
       user-select: none;
+      height: 100%;
+      width: 100%;
     }
 
     .mag-page.--hard {
-      background: linear-gradient(135deg, #120F0D 0%, #201813 50%, #100C0A 100%);
+      background: linear-gradient(135deg, #14100E 0%, #221A15 50%, #100C0A 100%);
       color: #FAF7F2;
       border: 2px solid var(--accent-gold);
     }
 
     .page-inner {
-      padding: 32px 30px;
+      padding: clamp(16px, 3.2vw, 28px);
       height: 100%;
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
       position: relative;
+      justify-content: space-between;
     }
 
-    /* Running Header & Footer for Magazine Spreads */
+    /* Running Header & Footer */
     .spread-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #8C7E72;
-      padding-bottom: 12px;
+      padding-bottom: 8px;
       border-bottom: 1px solid rgba(184, 149, 82, 0.25);
-      margin-bottom: 20px;
+      margin-bottom: 12px;
       font-weight: 700;
     }
 
@@ -310,9 +280,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       color: #8C7E72;
-      padding-top: 12px;
+      padding-top: 8px;
       border-top: 1px solid rgba(184, 149, 82, 0.2);
       margin-top: auto;
     }
@@ -331,42 +301,42 @@
       justify-content: space-between;
       align-items: center;
       text-align: center;
-      padding: 44px 30px;
+      padding: clamp(20px, 4vw, 40px) clamp(16px, 3vw, 28px);
       box-sizing: border-box;
       background: radial-gradient(circle at center, rgba(184, 149, 82, 0.15) 0%, transparent 70%),
                   linear-gradient(180deg, #17120F 0%, #0E0B09 100%);
-      border: 3px double rgba(184, 149, 82, 0.45);
-      margin: 12px;
+      border: 2px double rgba(184, 149, 82, 0.45);
+      margin: 8px;
       border-radius: 4px;
     }
 
     .cover-badge {
-      font-size: 0.72rem;
-      letter-spacing: 0.22em;
+      font-size: clamp(0.58rem, 1.4vw, 0.72rem);
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent-gold);
       border: 1px solid rgba(184, 149, 82, 0.4);
-      padding: 6px 18px;
+      padding: 4px 14px;
       border-radius: 30px;
       background: rgba(184, 149, 82, 0.08);
       font-weight: 700;
     }
 
     .cover-brand {
-      margin: 20px 0;
+      margin: 12px 0;
     }
 
     .cover-estd {
-      font-size: 0.68rem;
-      letter-spacing: 0.25em;
+      font-size: clamp(0.55rem, 1.2vw, 0.68rem);
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: #A99B8E;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
     }
 
     .cover-title {
       font-family: var(--font-cinzel);
-      font-size: 2.6rem;
+      font-size: clamp(1.8rem, 4.5vw, 2.6rem);
       letter-spacing: 0.08em;
       color: #FFFFFF;
       font-weight: 800;
@@ -375,42 +345,42 @@
     }
 
     .cover-gold-rule {
-      width: 80px;
+      width: 60px;
       height: 2px;
       background: var(--accent-gold);
-      margin: 18px auto;
+      margin: 12px auto;
     }
 
     .cover-subtitle {
       font-family: var(--font-serif);
       font-style: italic;
-      font-size: 1.18rem;
+      font-size: clamp(0.92rem, 2vw, 1.15rem);
       color: var(--accent-light);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .cover-desc {
-      font-size: 0.82rem;
+      font-size: clamp(0.7rem, 1.5vw, 0.82rem);
       color: #BFB3A6;
-      max-width: 380px;
-      line-height: 1.6;
+      max-width: 360px;
+      line-height: 1.5;
     }
 
     .cover-photo-inset {
       width: 100%;
-      height: 220px;
-      border-radius: 8px;
+      height: clamp(140px, 30vh, 220px);
+      border-radius: 6px;
       overflow: hidden;
       border: 1px solid rgba(184, 149, 82, 0.3);
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
-      margin: 18px 0;
+      margin: 12px 0;
       background-size: cover;
       background-position: center;
     }
 
     .cover-footer {
-      font-size: 0.68rem;
-      letter-spacing: 0.15em;
+      font-size: clamp(0.55rem, 1.2vw, 0.68rem);
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--accent-gold);
       font-weight: 700;
@@ -419,150 +389,58 @@
     /* EDITORIAL SPREADS */
     .mag-headline {
       font-family: var(--font-serif);
-      font-size: 1.65rem;
+      font-size: clamp(1.2rem, 2.6vw, 1.6rem);
       color: var(--primary);
       font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 10px;
+      line-height: 1.2;
+      margin-bottom: 8px;
     }
 
     .mag-subhead {
-      font-size: 0.78rem;
+      font-size: clamp(0.65rem, 1.3vw, 0.76rem);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent-gold);
       font-weight: 700;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
+      display: block;
     }
 
     .mag-lead-para {
-      font-size: 0.88rem;
-      line-height: 1.7;
+      font-size: clamp(0.76rem, 1.5vw, 0.86rem);
+      line-height: 1.6;
       color: #4A3E35;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     .mag-dropcap::first-letter {
       font-family: var(--font-cinzel);
-      font-size: 2.8rem;
+      font-size: 2.6rem;
       float: left;
       line-height: 0.8;
       margin-right: 8px;
       color: var(--accent-gold);
-      font-weight: 700;
     }
 
-    /* Product Spread Cards Grid */
-    .mag-product-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-top: 10px;
-      flex-grow: 1;
-    }
-
-    .mag-product-card {
-      background: #FFFFFF;
-      border: 1px solid #EBE4DA;
-      border-radius: 8px;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    }
-
-    .mag-product-img {
-      height: 120px;
-      border-radius: 6px;
-      background-size: cover;
-      background-position: center;
-      background-color: #F0ECE4;
-      margin-bottom: 8px;
-      position: relative;
-    }
-
-    .mag-sku-badge {
-      position: absolute;
-      top: 6px;
-      left: 6px;
-      background: rgba(18, 16, 14, 0.85);
-      color: var(--accent-gold);
-      font-size: 0.62rem;
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
-      letter-spacing: 0.04em;
-    }
-
-    .mag-product-title {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 4px;
-      line-height: 1.3;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .mag-product-meta {
-      font-size: 0.7rem;
-      color: #7A6F64;
-      margin-bottom: 6px;
-    }
-
-    .mag-product-pricing {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.76rem;
-      margin-top: auto;
-      padding-top: 6px;
-      border-top: 1px solid #F0ECE4;
-    }
-
-    .mag-fob-price {
-      font-weight: 700;
-      color: var(--accent-gold);
-    }
-
-    .mag-btn-add {
-      background: var(--primary);
-      color: #FFFFFF;
-      border: none;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 0.68rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.15s ease;
-    }
-
-    .mag-btn-add:hover {
-      background: var(--accent-gold);
-      color: #12100E;
-    }
-
-    /* Full-Bleed Chapter Divider Spread */
+    /* CHAPTER SPLASH PAGES */
     .mag-chapter-splash {
       height: 100%;
-      background-size: cover;
-      background-position: center;
-      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 36px 30px;
+      padding: clamp(20px, 4vw, 36px);
+      position: relative;
+      background-size: cover;
+      background-position: center;
       box-sizing: border-box;
       color: #FFFFFF;
     }
 
-    .mag-chapter-splash:after {
+    .mag-chapter-splash::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(18, 16, 14, 0.88) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(18,16,14,0.85) 60%, rgba(18,16,14,0.98) 100%);
     }
 
     .chapter-splash-content {
@@ -571,214 +449,392 @@
     }
 
     .chapter-tag {
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--accent-gold);
       font-weight: 700;
       margin-bottom: 8px;
+      display: inline-block;
     }
 
     .chapter-title {
       font-family: var(--font-cinzel);
-      font-size: 1.85rem;
-      color: #FFFFFF;
-      line-height: 1.2;
+      font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+      line-height: 1.15;
       margin-bottom: 10px;
+      color: #FFFFFF;
+      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
     }
 
     .chapter-desc {
-      font-size: 0.84rem;
-      color: #D3C7BC;
-      line-height: 1.6;
-      max-width: 400px;
+      font-size: clamp(0.72rem, 1.4vw, 0.82rem);
+      color: #DDD4C8;
+      line-height: 1.5;
+      margin-bottom: 16px;
+      max-width: 440px;
     }
 
-    /* Compliance Matrix Card inside Magazine */
+    /* PRODUCT GRID IN SPREAD */
+    .mag-product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(8px, 1.5vw, 14px);
+      margin: 8px 0;
+      flex-grow: 1;
+    }
+
+    .mag-product-card {
+      background: #FFFFFF;
+      border: 1px solid #ECE6DE;
+      border-radius: 6px;
+      padding: clamp(6px, 1.2vw, 10px);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 12px rgba(18, 16, 14, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .mag-product-card:hover {
+      box-shadow: 0 8px 20px rgba(184, 149, 82, 0.15);
+      border-color: rgba(184, 149, 82, 0.4);
+    }
+
+    .mag-product-img {
+      width: 100%;
+      height: clamp(80px, 15vh, 120px);
+      border-radius: 4px;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .mag-sku-badge {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      background: rgba(18, 16, 14, 0.85);
+      color: var(--accent-light);
+      font-size: 0.58rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      letter-spacing: 0.05em;
+    }
+
+    .mag-product-title {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: clamp(0.72rem, 1.4vw, 0.82rem);
+      color: var(--primary);
+      line-height: 1.25;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      height: 2.5em;
+    }
+
+    .mag-product-meta {
+      font-size: clamp(0.58rem, 1.1vw, 0.66rem);
+      color: #7E7266;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mag-product-pricing {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 4px;
+      border-top: 1px solid #F0EAE1;
+    }
+
+    .mag-fob-price {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: clamp(0.68rem, 1.3vw, 0.8rem);
+      color: var(--primary);
+    }
+
+    .mag-btn-add {
+      background: rgba(184, 149, 82, 0.12);
+      border: 1px solid rgba(184, 149, 82, 0.4);
+      color: #7D5E23;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .mag-btn-add:hover {
+      background: var(--accent-gold);
+      color: #12100E;
+    }
+
+    /* COMPLIANCE GRID */
     .mag-compliance-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-      margin-top: 14px;
+      margin-top: 10px;
+      flex-grow: 1;
     }
 
     .mag-comp-card {
       background: #FFFFFF;
-      border: 1px solid #EBE4DA;
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 0.76rem;
+      border: 1px solid #E8E2DA;
+      border-radius: 6px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
     }
 
-    .mag-comp-card strong {
-      display: block;
-      color: var(--primary);
-      font-size: 0.82rem;
+    .mag-comp-icon {
+      font-size: 1.2rem;
       margin-bottom: 4px;
     }
 
-    .mag-comp-card span {
-      color: #6B6156;
+    .mag-comp-title {
+      font-family: var(--font-cinzel);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .mag-comp-desc {
+      font-size: 0.68rem;
+      color: #5D5146;
       line-height: 1.45;
-      display: block;
     }
 
-    /* Continuous Feed Mode (Alternative Full 500-SKU Grid View) */
-    #continuous-feed-view {
-      display: none;
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 30px 20px 100px;
-      box-sizing: border-box;
-    }
-
-    #continuous-feed-view.active {
-      display: block;
-    }
-
-    /* Floating Container Progress Cockpit */
-    .mag-container-dock {
-      position: fixed;
-      bottom: max(18px, env(safe-area-inset-bottom));
+    /* FLOATING BOTTOM PILL NAV */
+    .mag-bottom-nav {
+      position: absolute;
+      bottom: 14px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(18, 16, 14, 0.95);
-      border: 1px solid rgba(184, 149, 82, 0.45);
-      border-radius: 999px;
-      padding: 8px 18px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+    }
+
+    .mag-nav-pill {
+      pointer-events: auto;
       display: flex;
       align-items: center;
       gap: 14px;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
-      z-index: 9999;
+      background: rgba(20, 16, 13, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(184, 149, 82, 0.35);
+      border-radius: 999px;
+      padding: 6px 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .mag-pill-btn {
+      background: none;
+      border: none;
+      color: var(--accent-light);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0 4px;
+      line-height: 1;
+      transition: all 0.2s ease;
+    }
+
+    .mag-pill-btn:hover {
+      color: #FFFFFF;
+      transform: scale(1.15);
+    }
+
+    .mag-pill-counter {
+      font-family: var(--font-cinzel);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
       color: #FAF7F2;
-      font-size: 0.84rem;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      font-weight: 700;
     }
 
-    .dock-vol {
+    .mag-pill-counter strong {
       color: var(--accent-gold);
+    }
+
+    .mag-hint {
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(232, 216, 176, 0.55);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    }
+
+    /* TOAST NOTIFICATION */
+    #mag-toast {
+      position: fixed;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: rgba(24, 20, 17, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--accent-gold);
+      color: #FAF7F2;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 999px;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+
+    #mag-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* TABLE OF CONTENTS DRAWER */
+    #toc-drawer {
+      position: fixed;
+      top: 0;
+      right: -360px;
+      width: 340px;
+      max-width: 85vw;
+      height: 100%;
+      background: rgba(18, 14, 12, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(184, 149, 82, 0.3);
+      z-index: 1100;
+      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -15px 0 40px rgba(0,0,0,0.8);
+    }
+
+    #toc-drawer.open {
+      right: 0;
+    }
+
+    .toc-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(184, 149, 82, 0.25);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .toc-title {
+      font-family: var(--font-cinzel);
+      font-size: 0.88rem;
+      color: var(--accent-gold);
+      letter-spacing: 0.12em;
       font-weight: 700;
     }
 
-    .dock-rfq-btn {
-      background: var(--accent-gold);
-      color: #12100E;
-      text-decoration: none;
-      font-size: 0.76rem;
+    .toc-close {
+      background: none;
+      border: none;
+      color: #FAF7F2;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .toc-list {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #D6CCC2;
+      font-size: 0.78rem;
+      transition: all 0.15s ease;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid transparent;
+    }
+
+    .toc-item:hover, .toc-item.active {
+      background: rgba(184, 149, 82, 0.15);
+      border-color: rgba(184, 149, 82, 0.3);
+      color: #FFFFFF;
+    }
+
+    .toc-page-badge {
+      font-family: var(--font-cinzel);
       font-weight: 700;
-      padding: 5px 12px;
-      border-radius: 20px;
-      transition: background 0.15s ease;
+      color: var(--accent-gold);
+      font-size: 0.72rem;
+      min-width: 28px;
     }
 
-    .dock-rfq-btn:hover {
-      background: var(--accent-gold-hover);
+    .toc-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1050;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
     }
 
-    @media (max-width: 768px) {
-      .mag-header-inner {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .flip-toolbar {
-        border-radius: 20px;
-        padding: 6px 12px;
-        gap: 8px;
-      }
-      .flip-tool-btn {
-        padding: 5px 10px;
-        font-size: 0.72rem;
-      }
-      .mag-page {
-        border: none;
-      }
-      .page-inner {
-        padding: 20px 18px;
-      }
-      .cover-container {
-        padding: 28px 18px;
-      }
-      .cover-title {
-        font-size: 1.95rem;
-      }
-      .mag-product-grid {
-        grid-template-columns: 1fr;
-      }
+    .toc-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
     }
   </style>
 </head>
 <body>
 
-  <!-- STICKY MAGAZINE HEADER -->
-  <header class="mag-header">
-    <div class="mag-header-inner">
-      <a href="../website/index.html" class="mag-brand">
-        <span class="mag-brand-sub">ESTD. 2011 • JODHPUR, RAJASTHAN</span>
-        <span class="mag-brand-main">ARAWALI ARTS</span>
-      </a>
+  <!-- VIEWPORT DESK -->
+  <div id="magazine-viewport">
 
-      <div class="mag-controls-bar">
-        <!-- View Mode Switcher -->
-        <div class="view-switcher-toggles">
-          <button type="button" class="view-switch-btn active" id="btnModeMagazine">📖 3D Flipbook Magazine</button>
-          <button type="button" class="view-switch-btn" id="btnModeContinuous">📋 500-SKU Grid Feed</button>
-        </div>
-
-        <span class="badge-view-status">✦ View Only • Digital Edition</span>
-        <a href="../website/rfq.html" class="btn-mag-rfq">Review Container RFQ →</a>
+    <!-- FLOATING TOP NAV -->
+    <header class="mag-top-nav">
+      <div class="mag-nav-group">
+        <a href="../website/index.html" class="mag-ghost-btn">‹ Portal</a>
       </div>
-    </div>
-  </header>
 
-  <!-- WORKSPACE 1: 3D INTERACTIVE FLIPBOOK MAGAZINE -->
-  <main id="flipbook-workspace">
+      <div class="mag-ghost-title">
+        Arawali Arts • Volume XV Lookbook
+      </div>
 
-    <!-- Interactive Navigation Toolbar -->
-    <div class="flip-toolbar">
-      <button type="button" class="flip-tool-btn" id="btnFirstPage" title="First Page">⏮ First</button>
-      <button type="button" class="flip-tool-btn" id="btnPrevPage" title="Previous Page">◀ Prev Spread</button>
-      
-      <span class="page-indicator-badge">
-        Page <span id="lblCurrentPage">1</span> / <span id="lblTotalPages">18</span>
-      </span>
+      <div class="mag-nav-group">
+        <button type="button" class="mag-ghost-icon" id="btnSoundToggle" title="Toggle Sound">🔊</button>
+        <button type="button" class="mag-ghost-btn" id="btnTocToggle">📑 Chapters</button>
+        <a href="../website/rfq.html" class="mag-ghost-rfq" id="navRfqPill">📦 RFQ (<span id="cart-count">0</span>)</a>
+        <button type="button" class="mag-ghost-icon" id="btnFullscreen" title="Toggle Fullscreen">⛶</button>
+      </div>
+    </header>
 
-      <button type="button" class="flip-tool-btn" id="btnNextPage" title="Next Page">Next Spread ▶</button>
-      <button type="button" class="flip-tool-btn" id="btnLastPage" title="Last Page">Last ⏭</button>
-
-      <!-- Category Quick Jump -->
-      <select class="mag-jump-select" id="jumpChapterSelect" aria-label="Jump to Magazine Chapter">
-        <option value="0">Jump to Chapter...</option>
-        <option value="0">1. Cover Page</option>
-        <option value="1">2. Letter from Export Director</option>
-        <option value="2">3. Table of Contents</option>
-        <option value="3">4. Division I: Solid Wood Furniture</option>
-        <option value="4">5. Furniture Showcase (Tables & Accents)</option>
-        <option value="5">6. Storage & Case Goods</option>
-        <option value="6">7. Joinery & Wood Finishes</option>
-        <option value="7">8. Division II: Kitchen & Entertaining</option>
-        <option value="8">9. Tabletop & Barware Showcase</option>
-        <option value="9">10. Division III: Architectural Decor</option>
-        <option value="10">11. Jaali Lighting & Mirrors</option>
-        <option value="11">12. Division IV: Lifestyle & Giftware</option>
-        <option value="12">13. Keepsakes & Heirloom Games</option>
-        <option value="13">14. Compliance Dossier (Lacey & EUDR)</option>
-        <option value="14">15. Container Logistics & CBM Guide</option>
-        <option value="15">16. Commercial Incoterms (FOB/CIF)</option>
-        <option value="16">17. Jodhpur Factory Operations</option>
-        <option value="17">18. Back Cover & Export Desk</option>
-      </select>
-
-      <button type="button" class="flip-tool-btn" id="btnToggleFullscreen">⛶ Fullscreen</button>
-    </div>
-
-    <!-- Magazine Flipbook Stage -->
-    <div class="magazine-stage">
+    <!-- MAGAZINE STAGE -->
+    <main id="magazine-stage">
       <div id="flipbook-book">
-
-        <!-- ================= PAGE 1: FRONT HARDCOVER ================= -->
+<!-- ================= PAGE 1: FRONT HARDCOVER ================= -->
         <div class="mag-page --hard" data-density="hard">
           <div class="cover-container">
             <span class="cover-badge">✦ OFFICIAL B2B EXPORT VOLUME • 2026/2027 ✦</span>
@@ -1556,81 +1612,150 @@
             </div>
           </div>
         </div>
-
       </div>
-    </div>
-  </main>
+    </main>
 
-  <!-- WORKSPACE 2: CONTINUOUS 500-SKU GRID VIEW (ALTERNATIVE VIEW) -->
-  <section id="continuous-feed-view">
-    <div style="background: #FFFFFF; border-radius: 16px; padding: 28px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); color: var(--text);">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px;">
-        <div>
-          <h2 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--primary);">Full 500-SKU Master Catalog Feed</h2>
-          <p style="font-size: 0.88rem; color: var(--text-muted);">Real-time synchronized inventory with instant CBM calculation and volume FOB Mundra pricing.</p>
-        </div>
-        <div style="min-width: 260px;">
-          <input type="text" id="feed-search" placeholder="Search products, timber or SKU..." style="width: 100%; padding: 10px 16px; border-radius: 30px; border: 1px solid var(--border-medium); outline: none;">
-        </div>
+    <!-- FLOATING BOTTOM NAV -->
+    <footer class="mag-bottom-nav">
+      <div class="mag-nav-pill">
+        <button type="button" class="mag-pill-btn" id="btnPrevPage" title="Previous Page">‹</button>
+        <span class="mag-pill-counter">
+          Page <strong id="lblCurrentPage">1</strong> / <span id="lblTotalPages">18</span>
+        </span>
+        <button type="button" class="mag-pill-btn" id="btnNextPage" title="Next Page">›</button>
       </div>
-
-      <!-- Feed Category Filter Pills -->
-      <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; -webkit-overflow-scrolling: touch;" id="feed-category-pills">
-        <button type="button" class="btn-action-rfq" data-filter="all" style="padding: 6px 14px; font-size: 0.74rem;">All 500 SKUs</button>
-        <button type="button" class="btn-action-rfq" data-filter="furniture" style="padding: 6px 14px; font-size: 0.74rem; background: #FFF; color: var(--primary); border: 1px solid var(--border-medium);">🪑 Furniture & Storage</button>
-        <button type="button" class="btn-action-rfq" data-filter="kitchen" style="padding: 6px 14px; font-size: 0.74rem; background: #FFF; color: var(--primary); border: 1px solid var(--border-medium);">🍷 Kitchen & Entertaining</button>
-        <button type="button" class="btn-action-rfq" data-filter="decor" style="padding: 6px 14px; font-size: 0.74rem; background: #FFF; color: var(--primary); border: 1px solid var(--border-medium);">🏮 Architectural Decor</button>
-        <button type="button" class="btn-action-rfq" data-filter="lifestyle" style="padding: 6px 14px; font-size: 0.74rem; background: #FFF; color: var(--primary); border: 1px solid var(--border-medium);">🌿 Lifestyle & Giftware</button>
+      <div class="mag-hint">
+        Tap edges, click arrows, or swipe to turn
       </div>
+    </footer>
 
-      <!-- Dynamic Grid Injected via JS -->
-      <div id="feed-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px;">
-        <!-- Filled from products-data.js -->
+    <!-- TOAST -->
+    <div id="mag-toast">✓ Added to Container RFQ</div>
+
+    <!-- TABLE OF CONTENTS DRAWER -->
+    <div class="toc-backdrop" id="tocBackdrop"></div>
+    <aside id="toc-drawer">
+      <div class="toc-header">
+        <span class="toc-title">Catalogue Index</span>
+        <button type="button" class="toc-close" id="btnTocClose">✕</button>
       </div>
-    </div>
-  </section>
+      <div class="toc-list" id="tocList">
+        <!-- Injected via JavaScript -->
+      </div>
+    </aside>
 
-  <!-- FLOATING CONTAINER RFQ DOCK -->
-  <div class="mag-container-dock" id="mag-container-dock">
-    <span>📦 Container Load: <strong class="dock-vol" id="dock-volume">0.00 CBM</strong> (<span id="dock-count">0</span> SKUs)</span>
-    <a href="../website/rfq.html" class="dock-rfq-btn">Review RFQ →</a>
   </div>
 
   <!-- DEPENDENCY: StPageFlip Browser Bundle -->
   <script src="page-flip.browser.js"></script>
-  <!-- DATA: Live 500 Products -->
-  <script src="../website/products-data.js?v=2026.11"></script>
 
   <script>
     (function() {
-      // 1. Initialize Flipbook Engine
+      // 1. Chapter Definitions
+      const chapters = [
+        { page: 1, title: "Cover / Master Dossier" },
+        { page: 2, title: "Director's Welcome & Letter" },
+        { page: 3, title: "Table of Contents" },
+        { page: 4, title: "Chapter I: Living Room Hardwoods" },
+        { page: 5, title: "Showcase: Solid Wood Dining Tables" },
+        { page: 6, title: "Showcase: Sheesham Storage & Consoles" },
+        { page: 7, title: "Technical: Wood Seasoning & Kiln Drying" },
+        { page: 8, title: "Chapter II: Naturehood Culinary" },
+        { page: 9, title: "Showcase: Serveware & Tabletop" },
+        { page: 10, title: "Chapter III: Architectural Wrought Iron" },
+        { page: 11, title: "Showcase: Jaali Screens & Metal Fusion" },
+        { page: 12, title: "Chapter IV: Global Lifestyle Accent" },
+        { page: 13, title: "Showcase: Pet Luxury & Occasional" },
+        { page: 14, title: "Regulatory: Lacey Act, EUDR & VRIKSH" },
+        { page: 15, title: "Logistics: Container Loading & CBM" },
+        { page: 16, title: "Commercial: Wholesale Terms & Tiers" },
+        { page: 17, title: "Manufactory: Jodhpur Factory & CNC" },
+        { page: 18, title: "Back Cover: Trade Inquiries Desk" }
+      ];
+
+      // Populate TOC Drawer
+      const tocList = document.getElementById("tocList");
+      chapters.forEach((ch, idx) => {
+        const item = document.createElement("div");
+        item.className = "toc-item" + (idx === 0 ? " active" : "");
+        item.innerHTML = `
+          <span class="toc-page-badge">${String(ch.page).padStart(2, '0')}</span>
+          <span class="toc-name">${ch.title}</span>
+        `;
+        item.onclick = () => {
+          if (pageFlipInstance) {
+            pageFlipInstance.turnToPage(ch.page - 1);
+          }
+          closeToc();
+        };
+        tocList.appendChild(item);
+      });
+
+      // Drawer Open/Close
+      const tocDrawer = document.getElementById("toc-drawer");
+      const tocBackdrop = document.getElementById("tocBackdrop");
+      function openToc() {
+        tocDrawer.classList.add("open");
+        tocBackdrop.classList.add("open");
+      }
+      function closeToc() {
+        tocDrawer.classList.remove("open");
+        tocBackdrop.classList.remove("open");
+      }
+      document.getElementById("btnTocToggle").onclick = openToc;
+      document.getElementById("btnTocClose").onclick = closeToc;
+      tocBackdrop.onclick = closeToc;
+
+      // 2. Flipbook Dimensions Calculation
       const flipContainer = document.getElementById("flipbook-book");
       let pageFlipInstance = null;
 
       function calcBookDimensions() {
         const winWidth = window.innerWidth;
         const winHeight = window.innerHeight;
+        const isMobile = winWidth <= 800;
 
-        if (winWidth <= 768) {
-          // Mobile single page portrait mode
+        if (isMobile) {
+          // Portrait single-page mode
+          const availW = winWidth - 24;
+          const availH = winHeight - 96;
+          // Standard ratio ~1 : 1.414
+          let w = availW;
+          let h = w * 1.414;
+          if (h > availH) {
+            h = availH;
+            w = h / 1.414;
+          }
           return {
-            width: Math.min(winWidth - 28, 480),
-            height: Math.min(winHeight - 160, 680)
+            width: Math.floor(Math.max(w, 300)),
+            height: Math.floor(Math.max(h, 440)),
+            isPortrait: true
           };
         } else {
-          // Desktop two-page dual spread mode
-          const singleWidth = Math.min((winWidth - 80) / 2, 540);
-          const singleHeight = Math.min(winHeight - 180, 750);
+          // Desktop 2-page spread mode
+          // 2 pages side-by-side: aspect ratio is 2 * (1 / 1.414) = 1.414 : 1
+          const availW = winWidth - 48;
+          const availH = winHeight - 100;
+          let spreadH = availH;
+          let spreadW = spreadH * 1.414;
+          if (spreadW > availW) {
+            spreadW = availW;
+            spreadH = spreadW / 1.414;
+          }
+          // Cap single page height between 520px and 780px
+          spreadH = Math.min(Math.max(spreadH, 500), 780);
+          const singleW = (spreadH * 1.414) / 2;
+
           return {
-            width: Math.max(singleWidth, 380),
-            height: Math.max(singleHeight, 560)
+            width: Math.floor(singleW),
+            height: Math.floor(spreadH),
+            isPortrait: false
           };
         }
       }
 
       function initMagazine() {
         const dims = calcBookDimensions();
-
         if (typeof St === "undefined" || !St.PageFlip) {
           console.error("StPageFlip engine not loaded!");
           return;
@@ -1639,15 +1764,11 @@
         pageFlipInstance = new St.PageFlip(flipContainer, {
           width: dims.width,
           height: dims.height,
-          size: "stretch",
-          minWidth: 320,
-          maxWidth: 620,
-          minHeight: 460,
-          maxHeight: 850,
-          maxShadowOpacity: 0.5,
+          size: "fixed",
+          maxShadowOpacity: 0.6,
           showCover: true,
           mobileScrollSupport: false,
-          usePortrait: window.innerWidth <= 768,
+          usePortrait: dims.isPortrait,
           startPage: 0
         });
 
@@ -1656,19 +1777,26 @@
 
         // Update page counters on flip
         pageFlipInstance.on("flip", (e) => {
-          const currentSpreadIndex = e.data;
-          const lblCurrent = document.getElementById("lblCurrentPage");
-          lblCurrent.textContent = currentSpreadIndex + 1;
+          const pageIndex = e.data;
+          document.getElementById("lblCurrentPage").textContent = pageIndex + 1;
+          
+          // Update active TOC item
+          document.querySelectorAll(".toc-item").forEach((item, idx) => {
+            item.classList.toggle("active", idx === pageIndex);
+          });
 
-          // Synthetic Paper Turn Sound (Web Audio API - Zero External Network Calls)
-          playPaperFlutter();
+          if (soundEnabled) {
+            playPaperFlutter();
+          }
         });
 
         document.getElementById("lblTotalPages").textContent = pages.length;
       }
 
-      // Web Audio API Acoustic Synthesizer
+      // 3. Web Audio Acoustic Synthesizer (Realistic Page Flutter Sound)
       let audioCtx = null;
+      let soundEnabled = true;
+
       function playPaperFlutter() {
         try {
           const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -1676,12 +1804,12 @@
           if (!audioCtx) audioCtx = new AudioCtx();
           if (audioCtx.state === "suspended") audioCtx.resume();
 
-          const duration = 0.14;
+          const duration = 0.16;
           const bufferSize = Math.floor(audioCtx.sampleRate * duration);
           const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
           const output = buffer.getChannelData(0);
           for (let i = 0; i < bufferSize; i++) {
-            output[i] = (Math.random() * 2 - 1) * 0.25;
+            output[i] = (Math.random() * 2 - 1) * 0.22;
           }
 
           const whiteNoise = audioCtx.createBufferSource();
@@ -1689,202 +1817,148 @@
 
           const filter = audioCtx.createBiquadFilter();
           filter.type = "bandpass";
-          filter.frequency.setValueAtTime(850, audioCtx.currentTime);
-          filter.frequency.exponentialRampToValueAtTime(260, audioCtx.currentTime + duration);
-          filter.Q.setValueAtTime(1.5, audioCtx.currentTime);
+          filter.frequency.setValueAtTime(800, audioCtx.currentTime);
+          filter.frequency.exponentialRampToValueAtTime(240, audioCtx.currentTime + duration);
+          filter.Q.setValueAtTime(1.8, audioCtx.currentTime);
 
-          const gain = audioCtx.createGain();
-          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+          const gainNode = audioCtx.createGain();
+          gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+          gainNode.gain.linearRampToValueAtTime(0.18, audioCtx.currentTime + 0.02);
+          gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
 
           whiteNoise.connect(filter);
-          filter.connect(gain);
-          gain.connect(audioCtx.destination);
+          filter.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
 
           whiteNoise.start();
+          whiteNoise.stop(audioCtx.currentTime + duration);
         } catch (e) {
-          // Graceful no-op
+          // Silent fallback
         }
       }
 
-      window.addEventListener("DOMContentLoaded", initMagazine);
+      function playChime() {
+        try {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          if (!audioCtx) audioCtx = new AudioCtx();
+          if (audioCtx.state === "suspended") audioCtx.resume();
 
-      // Handle window resize
-      let resizeTimer;
-      window.addEventListener("resize", () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          if (pageFlipInstance) {
-            const dims = calcBookDimensions();
-            pageFlipInstance.update();
-          }
-        }, 200);
-      });
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(659.25, audioCtx.currentTime); // E5
+          osc.frequency.exponentialRampToValueAtTime(880.0, audioCtx.currentTime + 0.1); // A5
+          gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.35);
+        } catch (e) {}
+      }
 
-      // 2. Toolbar Navigation Event Handlers
-      document.getElementById("btnFirstPage").addEventListener("click", () => {
-        if (pageFlipInstance) pageFlipInstance.turnToPage(0);
-      });
-      document.getElementById("btnPrevPage").addEventListener("click", () => {
+      // Sound Toggle Button
+      const btnSound = document.getElementById("btnSoundToggle");
+      btnSound.onclick = () => {
+        soundEnabled = !soundEnabled;
+        btnSound.textContent = soundEnabled ? "🔊" : "🔇";
+      };
+
+      // 4. Navigation Button Controls
+      document.getElementById("btnPrevPage").onclick = () => {
         if (pageFlipInstance) pageFlipInstance.flipPrev();
-      });
-      document.getElementById("btnNextPage").addEventListener("click", () => {
+      };
+      document.getElementById("btnNextPage").onclick = () => {
         if (pageFlipInstance) pageFlipInstance.flipNext();
-      });
-      document.getElementById("btnLastPage").addEventListener("click", () => {
-        if (pageFlipInstance) {
-          const total = pageFlipInstance.getPageCount();
-          pageFlipInstance.turnToPage(total - 1);
-        }
-      });
+      };
 
-      // Jump select
-      const jumpSelect = document.getElementById("jumpChapterSelect");
-      jumpSelect.addEventListener("change", (e) => {
-        const targetPage = parseInt(e.target.value, 10);
-        if (pageFlipInstance && !isNaN(targetPage)) {
-          pageFlipInstance.turnToPage(targetPage);
+      // Keyboard Arrow Navigation
+      window.addEventListener("keydown", (e) => {
+        if (!pageFlipInstance) return;
+        if (e.key === "ArrowRight" || e.key === "PageDown") {
+          pageFlipInstance.flipNext();
+        } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+          pageFlipInstance.flipPrev();
         }
       });
 
       // Fullscreen Toggle
-      document.getElementById("btnToggleFullscreen").addEventListener("click", () => {
+      document.getElementById("btnFullscreen").onclick = () => {
         if (!document.fullscreenElement) {
           document.documentElement.requestFullscreen().catch(() => {});
         } else {
           document.exitFullscreen().catch(() => {});
         }
+      };
+
+      // Window Resize Handler (Debounced)
+      let resizeTimer = null;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (pageFlipInstance) {
+            const dims = calcBookDimensions();
+            // Re-render flipbook on significant size/orientation change
+            pageFlipInstance.destroy();
+            initMagazine();
+          }
+        }, 300);
       });
 
-      // 3. View Switcher Mode (3D Magazine vs Continuous 500-SKU Grid)
-      const btnModeMag = document.getElementById("btnModeMagazine");
-      const btnModeFeed = document.getElementById("btnModeContinuous");
-      const workspaceMag = document.getElementById("flipbook-workspace");
-      const workspaceFeed = document.getElementById("continuous-feed-view");
-
-      btnModeMag.addEventListener("click", () => {
-        btnModeMag.classList.add("active");
-        btnModeFeed.classList.remove("active");
-        workspaceMag.style.display = "flex";
-        workspaceFeed.classList.remove("active");
-      });
-
-      btnModeFeed.addEventListener("click", () => {
-        btnModeFeed.classList.add("active");
-        btnModeMag.classList.remove("active");
-        workspaceMag.style.display = "none";
-        workspaceFeed.classList.add("active");
-        renderContinuousFeed();
-      });
-
-      // 4. Continuous Feed Live Rendering
-      let feedRendered = false;
-      function renderContinuousFeed() {
-        if (feedRendered) return;
-        feedRendered = true;
-
-        const allItems = window.ALL_PRODUCTS_500 || [];
-        const grid = document.getElementById("feed-grid");
-        const searchInput = document.getElementById("feed-search");
-        const pills = document.querySelectorAll("#feed-category-pills button");
-
-        let activeFilter = "all";
-        let activeQuery = "";
-
-        function renderItems() {
-          grid.innerHTML = "";
-          const filtered = allItems.filter(item => {
-            if (activeFilter !== "all") {
-              const cat = (item.Category || "").toLowerCase();
-              if (activeFilter === "furniture" && !cat.includes("table") && !cat.includes("chair") && !cat.includes("credenza") && !cat.includes("shelf") && !cat.includes("seating")) return false;
-              if (activeFilter === "kitchen" && !cat.includes("tabletop") && !cat.includes("serveware") && !cat.includes("bar") && !cat.includes("cutting") && !cat.includes("coffee")) return false;
-              if (activeFilter === "decor" && !cat.includes("wall") && !cat.includes("mirror") && !cat.includes("sconce") && !cat.includes("lighting") && !cat.includes("lantern")) return false;
-              if (activeFilter === "lifestyle" && !cat.includes("box") && !cat.includes("game") && !cat.includes("pet") && !cat.includes("bath") && !cat.includes("clock")) return false;
-            }
-            if (activeQuery) {
-              const q = activeQuery.toLowerCase();
-              const name = (item.Product_Name || "").toLowerCase();
-              const sku = (item.SKU || "").toLowerCase();
-              const mat = (item.Material_Construction || "").toLowerCase();
-              if (!name.includes(q) && !sku.includes(q) && !mat.includes(q)) return false;
-            }
-            return true;
-          });
-
-          filtered.slice(0, 60).forEach(item => {
-            const card = document.createElement("div");
-            card.className = "mag-product-card";
-            card.innerHTML = `
-              <div class="mag-product-img" style="background-image: url('${item.Image}');">
-                <span class="mag-sku-badge">${item.SKU}</span>
-              </div>
-              <div class="mag-product-title">${item.Product_Name}</div>
-              <div class="mag-product-meta">${item.Dimensions} • ${item.CBM} CBM</div>
-              <div class="mag-product-pricing">
-                <span class="mag-fob-price">${item.FOB_Mundra_USD} FOB</span>
-                <button type="button" class="mag-btn-add" data-sku="${item.SKU}" data-name="${item.Product_Name}" data-cbm="${item.CBM}">+ Add RFQ</button>
-              </div>
-            `;
-            grid.appendChild(card);
-          });
-          attachAddEvents();
-        }
-
-        pills.forEach(pill => {
-          pill.addEventListener("click", () => {
-            pills.forEach(p => {
-              p.style.background = "#FFF";
-              p.style.color = "var(--primary)";
-            });
-            pill.style.background = "var(--accent-gold)";
-            pill.style.color = "#12100E";
-            activeFilter = pill.dataset.filter;
-            renderItems();
-          });
-        });
-
-        searchInput.addEventListener("input", (e) => {
-          activeQuery = e.target.value.trim();
-          renderItems();
-        });
-
-        renderItems();
+      // 5. Toast Notification System
+      const toast = document.getElementById("mag-toast");
+      let toastTimer = null;
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove("show");
+        }, 2400);
       }
 
-      // 5. Container RFQ Cart & Dock Integration
-      function attachAddEvents() {
+      // 6. Live Sync with Website RFQ Cart
+      function updateRfqCount() {
+        try {
+          const cart = JSON.parse(localStorage.getItem("arawali_rfq_cart") || "[]");
+          const totalUnits = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+          document.getElementById("cart-count").textContent = cart.length;
+        } catch (e) {}
+      }
+
+      function attachAddButtons() {
         document.querySelectorAll(".mag-btn-add").forEach(btn => {
           btn.onclick = (e) => {
             e.preventDefault();
+            e.stopPropagation();
             const sku = btn.dataset.sku;
             const name = btn.dataset.name;
             const cbm = parseFloat(btn.dataset.cbm) || 0.05;
 
-            let cart = JSON.parse(localStorage.getItem("arawali_rfq_cart") || "[]");
-            const existing = cart.find(x => x.sku === sku);
-            if (existing) {
-              existing.qty += 10;
-            } else {
-              cart.push({ sku, name, cbm, qty: 25 });
-            }
-            localStorage.setItem("arawali_rfq_cart", JSON.stringify(cart));
-            updateDock();
-
-            btn.textContent = "✓ Added!";
-            setTimeout(() => { btn.textContent = "+ Add RFQ"; }, 1200);
+            try {
+              let cart = JSON.parse(localStorage.getItem("arawali_rfq_cart") || "[]");
+              const existing = cart.find(x => x.sku === sku);
+              if (existing) {
+                existing.qty += 10;
+              } else {
+                cart.push({ sku, name, cbm, qty: 25 });
+              }
+              localStorage.setItem("arawali_rfq_cart", JSON.stringify(cart));
+              updateRfqCount();
+              if (soundEnabled) playChime();
+              showToast(`✓ Added to RFQ: ${sku} (+25 units)`);
+              btn.textContent = "✓ Added";
+              setTimeout(() => { btn.textContent = "+ Add RFQ"; }, 1500);
+            } catch (err) {}
           };
         });
       }
 
-      function updateDock() {
-        const cart = JSON.parse(localStorage.getItem("arawali_rfq_cart") || "[]");
-        const totalCbm = cart.reduce((sum, item) => sum + ((item.cbm || 0) * (item.qty || 1)), 0);
-        document.getElementById("dock-volume").textContent = totalCbm.toFixed(2) + " CBM";
-        document.getElementById("dock-count").textContent = cart.length;
-      }
-
-      attachAddEvents();
-      updateDock();
+      // 7. Initialize
+      initMagazine();
+      attachAddButtons();
+      updateRfqCount();
 
     })();
   </script>

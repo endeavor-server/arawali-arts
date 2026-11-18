@@ -361,7 +361,7 @@ const RFQCart = {
     };
 
     this.save(cart);
-    showToast(`✓ Added ${sku}: ${item.title} (${cart[sku].qty} pcs)`);
+    showToast(`&#10003; Added ${sku}: ${item.title} (${cart[sku].qty} pcs)`);
   },
 
   setQty(sku, qty) {
@@ -584,7 +584,7 @@ function initUIComponents() {
       if (sku) {
         RFQCart.add(sku);
         btn.classList.add('added');
-        btn.innerHTML = '✓ Added to Container';
+        btn.innerHTML = '&#10003; Added to Container';
         setTimeout(() => {
           btn.classList.remove('added');
           btn.innerHTML = '+ Add to RFQ';
@@ -627,7 +627,7 @@ function initContainerDock() {
       <div class="dock-inner">
         <div class="dock-info">
           <div class="dock-title-row">
-            <span class="dock-icon">📦</span>
+            <span class="dock-icon">&#128230;</span>
             <strong class="dock-heading">Container Load:</strong>
             <span id="dock-cbm-val" class="dock-cbm-val">0.00 CBM</span>
             <span id="dock-sku-count" class="dock-sku-count">(0 SKUs)</span>
@@ -693,27 +693,108 @@ function initQuickSpecModal() {
     modal.innerHTML = `
       <div class="modal-dialog">
         <button class="modal-close-btn" aria-label="Close dialog">✕</button>
+        
+        <!-- LEFT: STUDIO VISUAL & COMPLIANCE DOSSIER -->
         <div class="modal-image-col">
-          <img id="modal-img" src="" alt="Product Specification Preview">
+          <div class="modal-img-wrapper">
+            <img id="modal-img" src="" alt="Product Specification Preview">
+            <div class="modal-zoom-hint">&#10022; 100% Commercial Studio Master</div>
+          </div>
+          <div class="modal-compliance-strip">
+            <div class="modal-comp-badge">
+              <span class="comp-icon">&#127807;</span>
+              <span>VRIKSH Legal Timber Certified</span>
+            </div>
+            <div class="modal-comp-badge">
+              <span class="comp-icon">&#129717;</span>
+              <span id="modal-moisture-badge">8%–10% Kiln Moisture (Anti-Warp)</span>
+            </div>
+            <div class="modal-comp-badge">
+              <span class="comp-icon">&#128230;</span>
+              <span>ISTA-1A Drop-Tested 5-Ply Carton</span>
+            </div>
+          </div>
         </div>
+
+        <!-- RIGHT: COMMERCIAL EXPORT SPECIFICATIONS -->
         <div class="modal-info-col">
-          <span id="modal-sku" class="modal-sku-tag">SKU</span>
+          <!-- Metadata Bar -->
+          <div class="modal-header-meta">
+            <div class="modal-badge-group">
+              <span id="modal-sku" class="modal-sku-tag">SKU</span>
+              <span id="modal-cat-tag" class="modal-cat-tag">Category</span>
+            </div>
+            <span class="modal-verified-pill">&#10003; Export Verified</span>
+          </div>
+
+          <!-- Title & Executive Summary -->
           <h2 id="modal-title" class="modal-title">Product Name</h2>
           <p id="modal-desc" class="modal-desc"></p>
-          <table class="modal-specs-table">
-            <tr><td>Botanical Species:</td><td id="modal-species"></td></tr>
-            <tr><td>Moisture Level:</td><td id="modal-moisture"></td></tr>
-            <tr><td>Dimensions (Inches):</td><td id="modal-dim-in"></td></tr>
-            <tr><td>Dimensions (Metric):</td><td id="modal-dim-cm"></td></tr>
-            <tr><td>Unit Volume (CBM):</td><td id="modal-cbm"></td></tr>
-            <tr><td>Minimum Order (MOQ):</td><td id="modal-moq"></td></tr>
-            <tr><td>FOB Mundra Tier:</td><td id="modal-fob"></td></tr>
-            <tr><td>Master Export Pack:</td><td id="modal-pack"></td></tr>
-          </table>
-          <div class="modal-footer">
-            <label for="modal-qty-input" style="font-size: 0.85rem; font-weight: 600;">Qty:</label>
-            <input type="number" id="modal-qty-input" class="modal-qty-input" value="50" min="10" step="10">
-            <button id="modal-add-btn" class="card-btn-add" style="padding: 10px 24px; font-size: 0.9rem;">+ Add to Container RFQ</button>
+
+          <!-- Commercial 3-Up Metric Cards (Endeavor Parity) -->
+          <div class="modal-metrics-card">
+            <div class="modal-metric-cell">
+              <span class="metric-label">FOB Mundra Tier</span>
+              <span class="metric-val" id="modal-fob">--</span>
+              <span class="metric-sub">Port of Lading</span>
+            </div>
+            <div class="modal-metric-cell">
+              <span class="metric-label">Unit Volume</span>
+              <span class="metric-val" id="modal-cbm">--</span>
+              <span class="metric-sub">Shipping Density</span>
+            </div>
+            <div class="modal-metric-cell">
+              <span class="metric-label">Minimum Order</span>
+              <span class="metric-val" id="modal-moq">--</span>
+              <span class="metric-sub">Master Pack MOQ</span>
+            </div>
+          </div>
+
+          <!-- Technical Specs Grid -->
+          <div class="modal-spec-section-title">Technical Specifications & Yield</div>
+          <div class="modal-specs-grid">
+            <div class="spec-row">
+              <span class="spec-label">Timber & Construction:</span>
+              <span class="spec-val" id="modal-species"></span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Dimensions (Imperial):</span>
+              <span class="spec-val" id="modal-dim-in"></span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Dimensions (Metric):</span>
+              <span class="spec-val" id="modal-dim-cm"></span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Export Packaging:</span>
+              <span class="spec-val" id="modal-pack"></span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Container Yield (Est.):</span>
+              <span class="spec-val" id="modal-yield">~1,860 pcs (20ft FCL) • ~4,530 pcs (40ft HQ)</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Trade Regulatory:</span>
+              <span class="spec-val">US Lacey Act • EUDR Due Diligence • ISPM-15 Heat Treated</span>
+            </div>
+          </div>
+
+          <!-- Interactive Container Order Dock -->
+          <div class="modal-action-dock">
+            <div class="modal-qty-controls">
+              <span class="modal-qty-label">Order Units:</span>
+              <div class="modal-stepper">
+                <button type="button" class="stepper-btn" id="modal-qty-minus">−</button>
+                <input type="number" id="modal-qty-input" class="modal-qty-input" value="50" min="10" step="10">
+                <button type="button" class="stepper-btn" id="modal-qty-plus">+</button>
+              </div>
+              <span class="modal-live-cbm" id="modal-live-cbm">0.75 CBM • 180 kg</span>
+            </div>
+
+            <div class="modal-btn-group">
+              <button id="modal-add-btn" class="modal-btn-primary">+ Add to Container RFQ</button>
+              <a href="rfq.html" class="modal-btn-secondary" id="modal-direct-rfq">Review Container →</a>
+            </div>
           </div>
         </div>
       </div>
@@ -733,6 +814,37 @@ function initQuickSpecModal() {
         modal.classList.remove('open');
       }
     });
+
+    // Stepper buttons
+    const qtyInput = document.getElementById('modal-qty-input');
+    const minusBtn = document.getElementById('modal-qty-minus');
+    const plusBtn = document.getElementById('modal-qty-plus');
+    const liveCbmEl = document.getElementById('modal-live-cbm');
+
+    function updateLiveMath(item) {
+      if (!item) return;
+      const q = Math.max(parseInt(qtyInput.value, 10) || item.moq, 10);
+      const cbmVal = parseFloat(item.cbm) || 0.015;
+      const totalCbm = (q * cbmVal).toFixed(3);
+      const totalKg = Math.round(totalCbm * 240);
+      liveCbmEl.textContent = `${totalCbm} CBM • ${totalKg} kg payload`;
+    }
+
+    minusBtn.onclick = () => {
+      let v = parseInt(qtyInput.value, 10) || 50;
+      if (v > 10) {
+        qtyInput.value = v - 10;
+        if (window.currentModalItem) updateLiveMath(window.currentModalItem);
+      }
+    };
+    plusBtn.onclick = () => {
+      let v = parseInt(qtyInput.value, 10) || 50;
+      qtyInput.value = v + 10;
+      if (window.currentModalItem) updateLiveMath(window.currentModalItem);
+    };
+    qtyInput.oninput = () => {
+      if (window.currentModalItem) updateLiveMath(window.currentModalItem);
+    };
   }
 
   function bindSpecTriggers() {
@@ -752,28 +864,48 @@ function initQuickSpecModal() {
     syncAllProductsToCatalog();
     const item = PRODUCT_CATALOG[sku];
     if (!item) return;
+    window.currentModalItem = item;
 
     document.getElementById('modal-img').src = item.image;
-    document.getElementById('modal-sku').textContent = `SKU: ${item.sku}`;
+    document.getElementById('modal-sku').textContent = item.sku;
+    document.getElementById('modal-cat-tag').textContent = item.category?.split(':')[1]?.trim() || item.category || 'Export Collection';
     document.getElementById('modal-title').textContent = item.title;
     document.getElementById('modal-desc').textContent = item.desc;
     document.getElementById('modal-species').textContent = item.species;
-    document.getElementById('modal-moisture').textContent = item.moisture;
+    document.getElementById('modal-moisture-badge').textContent = item.moisture || '8%–10% Kiln Moisture (Anti-Warp)';
     document.getElementById('modal-dim-in').textContent = item.dimInches;
-    document.getElementById('modal-dim-cm').textContent = item.dimCm;
+    document.getElementById('modal-dim-cm').textContent = item.dimCm || 'Standard Export Metric';
     document.getElementById('modal-cbm').textContent = `${item.cbm} CBM`;
     document.getElementById('modal-moq').textContent = `${item.moq} Pcs`;
     document.getElementById('modal-fob').textContent = item.fobTier;
     document.getElementById('modal-pack').textContent = item.masterPack;
 
+    // Calculate approximate container yields
+    const cbmVal = parseFloat(item.cbm) || 0.015;
+    const yield20 = Math.floor(28 / cbmVal);
+    const yield40 = Math.floor(68 / cbmVal);
+    document.getElementById('modal-yield').textContent = `~${yield20.toLocaleString()} pcs (20ft FCL) • ~${yield40.toLocaleString()} pcs (40ft HQ)`;
+
     const qtyInput = document.getElementById('modal-qty-input');
-    qtyInput.value = item.moq;
+    qtyInput.value = item.moq || 50;
+
+    // Update live math
+    const totalCbm = ((item.moq || 50) * cbmVal).toFixed(3);
+    const totalKg = Math.round(totalCbm * 240);
+    document.getElementById('modal-live-cbm').textContent = `${totalCbm} CBM • ${totalKg} kg payload`;
 
     const addBtn = document.getElementById('modal-add-btn');
+    addBtn.textContent = '+ Add to Container RFQ';
+    addBtn.style.background = '';
     addBtn.onclick = () => {
       const q = parseInt(qtyInput.value, 10) || item.moq;
       RFQCart.add(sku, q);
-      modal.classList.remove('open');
+      if (window.soundFX) window.soundFX.playTick(1200);
+      addBtn.textContent = `&#10003; Added ${q} Units to RFQ!`;
+      addBtn.style.background = 'linear-gradient(135deg, #2E7D32 0%, #388E3C 100%)';
+      setTimeout(() => {
+        modal.classList.remove('open');
+      }, 700);
     };
 
     modal.classList.add('open');
@@ -1101,7 +1233,7 @@ function initDepartmentPage(config) {
         const prod = PRODUCT_CATALOG[sku];
         if (prod && window.RFQCart) {
           RFQCart.add(sku, prod.moq || 50, prod.cbm || 0.01);
-          btn.textContent = '✓ Added to Load';
+          btn.textContent = '&#10003; Added to Load';
           btn.style.background = '#2E7D32';
           setTimeout(() => {
             btn.textContent = '+ Add to RFQ';
@@ -1288,7 +1420,7 @@ function initCommandPalette() {
           if (window.RFQCart) {
             RFQCart.add(sku, moq, cbm);
             soundFX.playChime();
-            e.target.textContent = '✓ Added!';
+            e.target.textContent = '&#10003; Added!';
             e.target.style.background = '#2E7D32';
             e.target.style.color = '#FFF';
             setTimeout(() => {
