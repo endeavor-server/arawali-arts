@@ -5,11 +5,14 @@
 
 :root {
   /* 2026 Palette: Warm Minimalist Luxury & Architectural Noir */
-  --primary: #15110E;
-  --primary-light: #261F1A;
-  --accent-gold: #C5A059;
-  --accent-gold-hover: #D8B26A;
-  --accent-gold-muted: rgba(197, 160, 89, 0.15);
+  --primary: #12100E;
+  --primary-light: #221D19;
+  --accent-gold: #B89552;
+  --accent-gold-hover: #CAAA6A;
+  --accent-gold-muted: rgba(184, 149, 82, 0.12);
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
   --accent-bronze: #84684E;
   --accent-terracotta: #A85A3C;
   --bg-page: #FBF9F6;
@@ -47,6 +50,37 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/* ==========================================================================
+   LENIS SMOOTH INERTIAL SCROLL & 2026 MOTION PHYSICS
+   ========================================================================== */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Scroll Reveal Engine (Awwwards Staggered Micro-interactions) */
+.reveal-fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -148,7 +182,7 @@ a {
 }
 
 .brand-main {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-serif);
   font-size: 1.45rem;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -220,8 +254,8 @@ a {
 }
 
 .mega-col-title {
-  font-family: 'Cinzel', serif;
-  font-size: 0.94rem;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--primary);
   margin-bottom: 14px;
@@ -323,7 +357,7 @@ a {
 }
 
 .hero-title {
-  font-family: 'Playfair Display', 'Cinzel', serif;
+  font-family: var(--font-serif);
   font-size: clamp(2.3rem, 5vw, 4.2rem);
   font-weight: 700;
   line-height: 1.16;
@@ -362,12 +396,29 @@ a {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 30px;
-  border-radius: 8px;
-  font-size: 0.94rem;
+  padding: 14px 32px;
+  border-radius: 9999px;
+  font-size: 0.92rem;
   font-weight: 700;
+  letter-spacing: 0.02em;
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-ghost-link {
+  color: #E2DBD2;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 12px 18px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+}
+.btn-ghost-link:hover {
+  color: var(--accent-gold);
 }
 
 .btn-gold {
@@ -421,7 +472,7 @@ a {
 }
 
 .stat-number {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-serif);
   font-size: 1.85rem;
   font-weight: 800;
   color: var(--accent-gold);
@@ -474,7 +525,7 @@ a {
 }
 
 .category-heading {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-serif);
   font-size: clamp(2rem, 4vw, 2.8rem);
   font-weight: 800;
   margin-bottom: 14px;
@@ -501,7 +552,7 @@ a {
 }
 
 .section-heading {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-serif);
   font-size: clamp(1.8rem, 3.2vw, 2.5rem);
   color: var(--primary);
   margin: 6px 0 12px;
@@ -569,7 +620,7 @@ a {
 }
 
 .tile-title {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-serif);
   font-size: 1.45rem;
   font-weight: 700;
   margin-bottom: 8px;
@@ -680,7 +731,7 @@ a {
 }
 
 .collection-card-title {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-serif);
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--primary);
@@ -789,7 +840,7 @@ a {
 }
 
 .card-title {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-serif);
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--primary);
@@ -897,23 +948,28 @@ a {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background: rgba(20, 16, 14, 0.94);
+  background: rgba(18, 16, 14, 0.94);
   color: #FFFFFF;
-  border: 1px solid rgba(197, 160, 89, 0.45);
-  border-radius: 14px;
-  padding: 12px 18px;
+  border: 1px solid rgba(184, 149, 82, 0.45);
+  border-radius: 9999px;
+  padding: 10px 20px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
-  z-index: 999;
-  display: none; /* Never show when empty! */
+  z-index: 9999;
+  display: none !important; /* CRITICAL: Never show when empty! */
+  opacity: 0;
+  pointer-events: none;
   align-items: center;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  transition: all 0.3s var(--ease);
-  animation: slideUp 0.3s var(--ease);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(20px);
 }
 
 .container-dock.active {
-  display: flex;
+  display: flex !important;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 @keyframes slideUp {
@@ -1146,7 +1202,7 @@ a {
 }
 
 .modal-info-col .modal-title {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-serif);
   font-size: 1.4rem;
   color: var(--primary);
   margin-bottom: 12px;
@@ -1226,7 +1282,7 @@ a {
 }
 
 .footer-brand {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-serif);
   font-size: 1.5rem;
   color: #FFF;
   margin-bottom: 14px;
@@ -1234,8 +1290,8 @@ a {
 }
 
 .footer-col h4 {
-  font-family: 'Cinzel', serif;
-  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
   color: var(--accent-gold);
   margin-bottom: 18px;
   text-transform: uppercase;
@@ -1300,7 +1356,7 @@ a {
 }
 
 .rfq-intro h2 {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-serif);
   font-size: 1.85rem;
   font-weight: 700;
   color: #FFFFFF;
@@ -1473,99 +1529,151 @@ a {
     text-align: center;
     width: 100%;
   }
-  /* Mobile Container Dock: Sleek bottom pill, never blocking view */
+  /* Mobile Container Dock: Sleek bottom pill, strictly hidden when empty */
   .container-dock {
-    bottom: 14px;
+    display: none !important;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    left: 14px;
     right: 14px;
-    left: auto;
+    margin: 0 auto;
     padding: 8px 14px;
-    border-radius: 30px;
-    max-width: calc(100vw - 28px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border-radius: 9999px;
+    max-width: 360px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
+    background: rgba(18, 16, 14, 0.95);
+    border: 1px solid rgba(184, 149, 82, 0.45);
+    z-index: 9999;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .container-dock.active {
+    display: flex !important;
+    opacity: 1;
+    pointer-events: auto;
   }
   .container-dock .dock-meter-wrap,
-  .container-dock .dock-fcl-pct {
-    display: none;
+  .container-dock .dock-fcl-pct,
+  .container-dock .dock-heading {
+    display: none !important;
   }
   .dock-inner {
+    display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
   }
-  .dock-heading {
-    display: none;
+  .dock-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dock-cbm-val {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+  }
+  .dock-sku-count {
+    font-size: 0.75rem;
+    color: #D3C7BC;
   }
   .dock-btn {
-    padding: 6px 12px;
-    font-size: 0.74rem;
+    padding: 7px 14px;
+    font-size: 0.75rem;
+    border-radius: 9999px;
+    background: var(--accent-gold);
+    color: #FFF !important;
+    font-weight: 700;
+    white-space: nowrap;
   }
 
-  /* Mobile Top Bar */
+  /* Mobile Top Bar: Pure single-line without awkward text wrapping */
   .top-bar {
     padding: 6px 14px;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .top-bar-content {
     justify-content: center;
     text-align: center;
+    flex-wrap: nowrap;
   }
   .top-bar-link {
-    display: none;
+    display: none !important;
   }
 
   /* Mobile Hero */
   .hero-home {
-    padding: 50px 0 42px;
+    padding: 48px 16px 40px;
     min-height: auto;
   }
   .hero-eyebrow {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     padding: 5px 12px;
     margin-bottom: 14px;
     letter-spacing: 0.1em;
   }
   .hero-title {
-    font-size: 2.1rem;
-    line-height: 1.2;
+    font-family: var(--font-serif);
+    font-size: 2.15rem;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
     margin-bottom: 14px;
   }
+  .hero-title em {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+  }
   .hero-subtitle {
-    font-size: 0.92rem;
-    line-height: 1.6;
+    font-size: 0.88rem;
+    line-height: 1.55;
     margin-bottom: 24px;
-    padding: 0 10px;
+    padding: 0 4px;
+    color: #E2DBD2;
   }
   .hero-actions {
     flex-direction: column;
     align-items: stretch;
     width: 100%;
-    max-width: 320px;
-    margin: 0 auto 32px;
+    max-width: 310px;
+    margin: 0 auto 30px;
     gap: 10px;
   }
   .hero-actions .btn {
     width: 100%;
-    padding: 13px 20px;
-    font-size: 0.88rem;
+    height: 48px;
+    padding: 0 20px;
+    font-size: 0.86rem;
+    border-radius: 9999px;
   }
   .hero-stats {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    padding: 14px;
-    background: rgba(18, 14, 12, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 8px;
+    padding: 12px 10px;
+    background: rgba(18, 16, 14, 0.75);
+    border: 1px solid rgba(184, 149, 82, 0.25);
     border-radius: 12px;
   }
   .stat-item {
     padding: 6px 4px;
+    border-right: none;
   }
   .stat-number {
+    font-family: var(--font-serif);
     font-size: 1.45rem;
     margin-bottom: 2px;
   }
   .stat-label {
-    font-size: 0.68rem;
-    line-height: 1.2;
+    font-size: 0.66rem;
+    line-height: 1.25;
   }
 
   /* Mobile Category Cards & Grids */

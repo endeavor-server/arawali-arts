@@ -411,12 +411,70 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof syncAllProductsToCatalog === 'function') {
     syncAllProductsToCatalog();
   }
+  initLenisSmoothScroll();
+  initScrollReveals();
   initUIComponents();
   initContainerDock();
   initQuickSpecModal();
   initContainerCalculator();
   initRFQPageIntegration();
 });
+
+// 2026 Luxury Inertial Smooth Scroll (Lenis)
+function initLenisSmoothScroll() {
+  if (typeof Lenis !== 'undefined') {
+    try {
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 0.95,
+        touchMultiplier: 1.5,
+        infinite: false,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+      window.lenisInstance = lenis;
+    } catch (e) {
+      console.warn('Lenis smooth scroll failed to initialize:', e);
+    }
+  }
+}
+
+// 2026 Scroll-Triggered Reveal Animations
+function initScrollReveals() {
+  const targets = document.querySelectorAll(
+    '.cat-tile, .card, .collection-card, .stat-item, .feature-item, .section-header, .highlight-image-box'
+  );
+  
+  targets.forEach((el, index) => {
+    el.classList.add('reveal-fade-up');
+    el.style.transitionDelay = `${(index % 4) * 0.08}s`;
+  });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -30px 0px'
+    });
+
+    targets.forEach(el => observer.observe(el));
+  } else {
+    targets.forEach(el => el.classList.add('is-visible'));
+  }
+}
 
 // Setup General UI Interactions
 function initUIComponents() {
