@@ -25,97 +25,25 @@
   <link rel="stylesheet" href="style.css?v=2026.67">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* Catalog Specific 2026 Controls */
-    .catalog-controls {
-      background: #FFFFFF;
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 24px;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow-sm);
+    html, body {
+      overflow-x: clip;
     }
-    .catalog-search-row {
-      display: grid;
-      grid-template-columns: 2fr 1.5fr 1fr;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-    .catalog-input, .catalog-select {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid var(--border-subtle);
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-family: inherit;
-      color: var(--text-main);
-      background: #FAFAFA;
-      transition: all 0.2s ease;
-    }
-    .catalog-input:focus, .catalog-select:focus {
-      outline: none;
-      border-color: var(--accent-gold);
-      background: #FFF;
-      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2);
-    }
-    .catalog-filter-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-    .filter-tag-btn {
-      background: var(--bg-subtle);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-main);
-      padding: 7px 16px;
-      border-radius: 20px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .filter-tag-btn .badge-pill {
-      background: rgba(0, 0, 0, 0.08);
-      padding: 2px 7px;
-      border-radius: 10px;
-      font-size: 0.72rem;
-    }
-    .filter-tag-btn:hover, .filter-tag-btn.active {
-      background: var(--primary);
-      color: #FFF;
-      border-color: var(--primary);
-    }
-    .filter-tag-btn.active .badge-pill {
-      background: var(--accent-gold);
-      color: #110E0C;
-      font-weight: 700;
-    }
-    .catalog-summary-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .catalog-counter {
-      font-weight: 700;
-      color: var(--primary);
+    .myntra-layout-section {
+      padding: 32px 0 80px;
+      background: var(--bg-main, #FAF8F5);
     }
     .view-switcher-group {
-      display: flex;
-      gap: 8px;
+      display: inline-flex;
+      gap: 4px;
       align-items: center;
+      background: #F3EFEA;
+      padding: 3px;
+      border-radius: 8px;
     }
     .view-switcher-btn {
-      background: #FFFFFF;
-      border: 1px solid var(--border-medium);
-      color: var(--text-main);
+      background: transparent;
+      border: none;
+      color: #6B5E52;
       padding: 6px 14px;
       border-radius: 6px;
       font-size: 0.82rem;
@@ -124,16 +52,17 @@
       transition: all 0.2s ease;
     }
     .view-switcher-btn.active {
-      background: var(--primary);
-      color: #FFF;
-      border-color: var(--primary);
+      background: #FFFFFF;
+      color: var(--primary, #1A1410);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      font-weight: 700;
     }
     .catalog-table-wrap {
       overflow-x: auto;
       background: #FFFFFF;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-subtle, #E5DCD0);
       border-radius: 12px;
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 4px 18px rgba(24, 19, 14, 0.04);
       margin-bottom: 30px;
     }
     .catalog-table {
@@ -143,30 +72,30 @@
       min-width: 900px;
     }
     .catalog-table th {
-      background: var(--bg-subtle);
-      color: var(--text-main);
+      background: #FAF8F5;
+      color: #4A3E33;
       padding: 12px 14px;
       text-align: left;
       font-weight: 700;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      border-bottom: 2px solid var(--border-medium);
+      letter-spacing: 0.06em;
+      border-bottom: 2px solid #E5DCD0;
     }
     .catalog-table td {
       padding: 12px 14px;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid #EFEAE3;
       vertical-align: middle;
     }
     .catalog-table tr:hover {
-      background: rgba(197, 160, 89, 0.04);
+      background: rgba(184, 149, 82, 0.04);
     }
     .table-thumb {
       width: 52px;
       height: 52px;
       object-fit: cover;
       border-radius: 6px;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid #E5DCD0;
       cursor: pointer;
     }
     .catalog-load-actions {
@@ -178,36 +107,36 @@
       flex-wrap: wrap;
     }
     .btn-load-more {
-      background: var(--primary);
+      background: var(--primary, #16120E);
       color: #FFF;
       padding: 14px 36px;
       border-radius: 8px;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 700;
       border: none;
       cursor: pointer;
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 4px 14px rgba(22, 18, 14, 0.16);
       transition: all 0.2s ease;
     }
     .btn-load-more:hover {
-      background: var(--accent-gold);
+      background: #B89352;
       color: #110E0C;
       transform: translateY(-2px);
     }
     .btn-show-all {
       background: transparent;
-      color: var(--primary);
-      border: 1.5px solid var(--border-medium);
+      color: var(--primary, #16120E);
+      border: 1.5px solid #D9CFC4;
       padding: 13px 28px;
       border-radius: 8px;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
     }
     .btn-show-all:hover {
-      border-color: var(--primary);
-      background: var(--bg-subtle);
+      border-color: #B89352;
+      background: #FAF8F5;
     }
     .target-buyer-tag {
       font-size: 0.72rem;
@@ -217,9 +146,6 @@
       border-radius: 4px;
       display: inline-block;
       margin-top: 6px;
-    }
-    @media (max-width: 768px) {
-      .catalog-search-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -431,83 +357,152 @@
     </div>
   </section>
 
-  <!-- MAIN CATALOG INTERACTIVE SECTION -->
-  <section class="section">
-    <div class="container">
-      
-      <!-- Interactive Controls -->
-      <div class="catalog-controls">
-        <div class="catalog-search-row">
-          <input type="text" id="catalogSearch" class="catalog-input" placeholder="🔍 Search 500 SKUs by title, material, timber, style, buyer, or SKU..." autofocus>
-          <select id="categorySelect" class="catalog-select">
-            <option value="ALL">All 50 Export Categories (500 SKUs)</option>
-          </select>
-          <select id="sortSelect" class="catalog-select">
-            <option value="default">Sort by: Default (SKU)</option>
-            <option value="price-asc">FOB Price: Low to High</option>
-            <option value="price-desc">FOB Price: High to Low</option>
-            <option value="cbm-asc">CBM: Low to High (High Density)</option>
+    <!-- MAIN MYNTRA-GRADE 2-COLUMN CATALOG SECTION -->
+  <section class="myntra-layout-section" id="catalogTop">
+    <div class="container myntra-container">
+
+      <!-- Mobile Trigger Bar -->
+      <div class="myntra-mobile-filter-bar">
+        <button type="button" class="myntra-mobile-btn" id="openMobileFiltersBtn">
+          <span>⚙️ FILTERS</span>
+        </button>
+        <div class="myntra-mobile-sort-wrap">
+          <select class="myntra-mobile-sort-select" id="sortSelectMobile">
+            <option value="default">Sort: Default (SKU)</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="cbm-asc">CBM: Compact First</option>
             <option value="name-asc">Product Name (A-Z)</option>
           </select>
         </div>
+      </div>
 
-        <div class="catalog-filter-tags">
-          <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); margin-right: 4px;">Master Departments:</span>
-          <button class="filter-tag-btn active" data-dept="ALL">All Collections <span class="badge-pill">500</span></button>
-          <button class="filter-tag-btn" data-dept="furniture">Furniture & Storage <span class="badge-pill">140</span></button>
-          <button class="filter-tag-btn" data-dept="decor">Architectural Decor & Lighting <span class="badge-pill">130</span></button>
-          <button class="filter-tag-btn" data-dept="kitchen">Kitchen & Entertaining <span class="badge-pill">70</span></button>
-          <button class="filter-tag-btn" data-dept="lifestyle">Lifestyle & Organization <span class="badge-pill">160</span></button>
-          <button class="filter-tag-btn" data-dept="amazon" id="amazonFilterBtn">Amazon-Ready · CBM ≤ 0.015 <span class="badge-pill" id="amazonFilterCount">—</span></button>
+      <!-- Backdrop for Mobile Sidebar -->
+      <div class="rfq-drawer-backdrop" id="myntraDrawerBackdrop"></div>
+
+      <!-- LEFT VERTICAL SIDEBAR (Myntra Standard) -->
+      <aside class="myntra-sidebar" id="myntraSidebar">
+        <div class="myntra-sidebar-header">
+          <span class="myntra-sidebar-title">FILTERS</span>
+          <button type="button" class="myntra-clear-all-btn" id="clearAllFiltersBtn">CLEAR ALL</button>
+          <button type="button" class="myntra-sidebar-close" id="closeMobileFiltersBtn" aria-label="Close filters">✕</button>
         </div>
-      </div>
 
-      <!-- Results Summary Bar & View Mode Toggle -->
-      <div class="catalog-summary-bar">
-        <div>
-          Showing <span id="visibleCount" class="catalog-counter">0</span> of <span id="totalCount" class="catalog-counter">500</span> Verified Export SKUs
-          <span style="margin-left: 8px; font-size: 0.8rem; color: var(--text-muted);">• 0% Placeholders • 100% Commercial Studio Photography</span>
+        <!-- Facet Search -->
+        <div class="myntra-facet-search">
+          <span class="facet-search-icon">🔍</span>
+          <input type="text" id="catalogSearch" placeholder="Search 500 SKUs by title, SKU..." autocomplete="off">
         </div>
-        <div class="view-switcher-group">
-          <span style="font-size: 0.8rem; font-weight: 600;">View:</span>
-          <button id="viewGridBtn" class="view-switcher-btn active" title="Editorial Visual Grid">⊞ Grid</button>
-          <button id="viewTableBtn" class="view-switcher-btn" title="Dense Spec Line Sheet Table">☰ Table</button>
+
+        <!-- Facet 1: 8 Manufacturing Divisions -->
+        <div class="myntra-facet-group">
+          <div class="myntra-facet-title">MANUFACTURING DIVISIONS</div>
+          <div class="myntra-facet-list" id="facetDivisionsList"></div>
         </div>
-      </div>
 
-      <!-- Dynamic Product Cards Grid -->
-      <div id="catalogGrid" class="collection-grid">
-        <!-- Injected via JavaScript -->
-      </div>
+        <!-- Facet 2: 50 Export Categories -->
+        <div class="myntra-facet-group">
+          <div class="myntra-facet-title">CATEGORIES (50)</div>
+          <div class="myntra-facet-list" id="facetCategoriesList"></div>
+        </div>
 
-      <!-- Dynamic Table Wrap (Hidden by default) -->
-      <div id="catalogTableWrap" class="catalog-table-wrap" style="display: none;">
-        <table class="catalog-table">
-          <thead>
-            <tr>
-              <th style="width: 60px;">Photo</th>
-              <th>SKU</th>
-              <th>Product Name</th>
-              <th>Category</th>
-              <th>Material & Construction</th>
-              <th>Dimensions</th>
-              <th>CBM</th>
-              <th>FOB Mundra</th>
-              <th>MOQ</th>
-              <th style="text-align: right;">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="catalogTableBody">
-            <!-- Injected via JavaScript -->
-          </tbody>
-        </table>
-      </div>
+        <!-- Facet 3: Primary Timber & Material -->
+        <div class="myntra-facet-group">
+          <div class="myntra-facet-title">PRIMARY TIMBER &amp; MATERIAL</div>
+          <div class="myntra-facet-list" id="facetMaterialsList"></div>
+        </div>
 
-      <!-- Load More / Pagination -->
-      <div class="catalog-load-actions">
-        <button id="btnLoadMore" class="btn-load-more">Load Next 48 SKUs</button>
-        <button id="btnShowAll" class="btn-show-all">Display All 500 SKUs At Once</button>
-      </div>
+        <!-- Facet 4: FOB Mundra Price Tier -->
+        <div class="myntra-facet-group">
+          <div class="myntra-facet-title">FOB MUNDRA PRICE TIER</div>
+          <div class="myntra-facet-list" id="facetPriceList"></div>
+        </div>
+
+        <!-- Facet 5: Amazon FBA / Compact Cargo -->
+        <div class="myntra-facet-group">
+          <div class="myntra-facet-title">AMAZON FBA / COMPACT CARGO</div>
+          <div class="myntra-facet-list">
+            <label class="myntra-facet-item">
+              <input type="checkbox" id="amazonFbaCheckbox">
+              <span class="facet-name">Amazon-Ready (CBM &le; 0.015)</span>
+              <span class="facet-count" id="amazonFilterCount">(259)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Facet 6: Export Compliance -->
+        <div class="myntra-facet-group">
+          <div class="myntra-facet-title">EXPORT COMPLIANCE</div>
+          <div class="myntra-compliance-tags">
+            <span class="m-tag">🌿 VRIKSH Legal Timber (Standard V-01)</span>
+            <span class="m-tag">📋 US Lacey Act Pre-Cleared (PPQ 505)</span>
+            <span class="m-tag">🛰️ EUDR Deforestation Due Diligence</span>
+            <span class="m-tag">🔥 8%–10% Kiln Moisture SLA</span>
+            <span class="m-tag">📦 ISTA-1A Drop Tested Packaging</span>
+            <span class="m-tag">🍽️ FDA / LFGB Food-Safe Lacquer</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT MAIN CONTENT -->
+      <main class="myntra-main-content">
+        <!-- Top Bar with Results Count, View Switcher, and Sort Dropdown -->
+        <div class="myntra-top-bar">
+          <div class="myntra-results-meta">
+            Showing <span id="visibleCount" class="catalog-counter" style="font-weight: 700; color: #B89552;">0</span> of <span id="totalCount" class="catalog-counter" style="font-weight: 700; color: #1A1410;">500</span> Verified Export SKUs
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+            <div class="view-switcher-group">
+              <button type="button" id="viewGridBtn" class="view-switcher-btn active" title="Editorial Visual Grid">⊞ Grid</button>
+              <button type="button" id="viewTableBtn" class="view-switcher-btn" title="Dense Spec Line Sheet Table">☰ Table</button>
+            </div>
+            <div class="myntra-sort-container" style="display: flex; align-items: center; gap: 8px;">
+              <label for="sortSelect" class="myntra-sort-label" style="font-size: 0.8rem; font-weight: 600; color: #7A6C5F;">Sort :</label>
+              <select id="sortSelect" class="myntra-sort-dropdown" style="padding: 6px 12px; border: 1px solid #E5DCD0; border-radius: 8px; font-size: 0.82rem; background: #FFF; color: #1A1410; font-family: inherit;">
+                <option value="default">Default (SKU)</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="cbm-asc">CBM: Compact First</option>
+                <option value="name-asc">Product Name (A-Z)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Product Cards Grid -->
+        <div id="catalogGrid" class="collection-grid">
+          <!-- Injected via JavaScript -->
+        </div>
+
+        <!-- Dynamic Table Wrap (Hidden by default) -->
+        <div id="catalogTableWrap" class="catalog-table-wrap" style="display: none;">
+          <table class="catalog-table">
+            <thead>
+              <tr>
+                <th style="width: 60px;">Photo</th>
+                <th>SKU</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Material &amp; Construction</th>
+                <th>Dimensions</th>
+                <th>CBM</th>
+                <th>FOB Mundra</th>
+                <th>MOQ</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="catalogTableBody">
+              <!-- Injected via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Load More / Pagination -->
+        <div class="catalog-load-actions">
+          <button type="button" id="btnLoadMore" class="btn-load-more">Load Next 48 SKUs</button>
+          <button type="button" id="btnShowAll" class="btn-show-all">Display All 500 SKUs At Once</button>
+        </div>
+      </main>
 
     </div>
   </section>
@@ -599,100 +594,281 @@
   <script src="products-data.js?v=2026.28"></script>
   <script src="lenis.min.js?v=2026.24"></script>
   <script src="app.js?v=2026.64"></script>
-  <script>
+    <script>
     (function() {
       const allItems = window.ALL_PRODUCTS_500 || [];
-      const amazonCountEl = document.getElementById("amazonFilterCount");
-      if (amazonCountEl) {
-        amazonCountEl.textContent = allItems.filter(i => parseFloat(i.CBM) <= 0.015).length;
-      }
-      let filteredItems = [...allItems];
-      let displayLimit = 48;
+      if (!allItems.length) return;
+
+      // 8 Manufacturing Divisions Definition
+      const divisions = [
+        { id: 'living-dining', name: 'Living & Dining Furniture', prefixes: ['Cat 03', 'Cat 05', 'Cat 14', 'Cat 33', 'Cat 47'] },
+        { id: 'case-goods', name: 'Case Goods & Storage Buffets', prefixes: ['Cat 04', 'Cat 07', 'Cat 13', 'Cat 25', 'Cat 28', 'Cat 32', 'Cat 44'] },
+        { id: 'tabletop', name: 'Kitchen, Tabletop & Entertaining', prefixes: ['Cat 01', 'Cat 09', 'Cat 15', 'Cat 22', 'Cat 31', 'Cat 37', 'Cat 40'] },
+        { id: 'wall-decor', name: 'Architectural Wall Decor & Mirrors', prefixes: ['Cat 02', 'Cat 16', 'Cat 38', 'Cat 39', 'Cat 45', 'Cat 48'] },
+        { id: 'lighting-hearth', name: 'Decorative Lighting & Hearthcraft', prefixes: ['Cat 06', 'Cat 12', 'Cat 26', 'Cat 35', 'Cat 41'] },
+        { id: 'garden-outdoor', name: 'Garden, Patio & Outdoor Living', prefixes: ['Cat 10', 'Cat 24', 'Cat 30', 'Cat 34', 'Cat 43', 'Cat 50'] },
+        { id: 'office-vanity', name: 'Home Office, Keepsakes & Vanity', prefixes: ['Cat 08', 'Cat 23', 'Cat 27', 'Cat 29', 'Cat 36', 'Cat 42'] },
+        { id: 'kids-leisure', name: 'Kids, Pets, Leisure & Heritage', prefixes: ['Cat 11', 'Cat 17', 'Cat 18', 'Cat 19', 'Cat 20', 'Cat 21', 'Cat 46', 'Cat 49'] }
+      ];
+
+      // Material Matchers
+      const materialMatchers = [
+        { id: 'sheesham', label: 'Solid Sheesham (Rosewood)', match: p => /sheesham|rosewood/i.test(p.Material_Construction || '') },
+        { id: 'mango', label: 'Seasoned Mango Wood', match: p => /mango/i.test(p.Material_Construction || '') },
+        { id: 'acacia', label: 'Kiln-Dried Acacia', match: p => /acacia/i.test(p.Material_Construction || '') },
+        { id: 'iron', label: 'Hand-Forged Wrought Iron', match: p => /iron|wrought/i.test(p.Material_Construction || '') },
+        { id: 'brass', label: 'Brass & Cast Hardware', match: p => /brass|cast/i.test(p.Material_Construction || '') }
+      ];
+
+      // Price Tiers
+      const priceTiers = [
+        { id: 'under25', label: 'Under $25.00 FOB', min: 0, max: 25 },
+        { id: '25to50', label: '$25.00 – $50.00 FOB', min: 25, max: 50 },
+        { id: '50to100', label: '$50.00 – $100.00 FOB', min: 50, max: 100 },
+        { id: 'above100', label: '$100.00+ FOB', min: 100, max: Infinity }
+      ];
+
+      // State
+      let selectedDivisions = new Set();
+      let selectedCategories = new Set();
+      let selectedMaterials = new Set();
+      let selectedPriceTiers = new Set();
+      let amazonOnly = false;
+      let searchQuery = '';
+      let currentSort = 'default';
       let currentViewMode = 'grid'; // 'grid' | 'table'
+      let displayLimit = 48;
 
-      // Populate Category Dropdown
-      const catSelect = document.getElementById("categorySelect");
-      const uniqueCats = [...new Set(allItems.map(i => i.Category))].filter(Boolean);
-      uniqueCats.sort().forEach(cat => {
-        const opt = document.createElement("option");
-        opt.value = cat;
-        opt.textContent = cat;
-        catSelect.appendChild(opt);
-      });
-
-      // View Switcher Handlers
-      const gridBtn = document.getElementById("viewGridBtn");
-      const tableBtn = document.getElementById("viewTableBtn");
+      // Elements
       const gridContainer = document.getElementById("catalogGrid");
       const tableWrap = document.getElementById("catalogTableWrap");
+      const tbody = document.getElementById("catalogTableBody");
+      const searchInput = document.getElementById("catalogSearch");
+      const sortSelect = document.getElementById("sortSelect");
+      const sortSelectMobile = document.getElementById("sortSelectMobile");
+      const viewGridBtn = document.getElementById("viewGridBtn");
+      const viewTableBtn = document.getElementById("viewTableBtn");
+      const btnMore = document.getElementById("btnLoadMore");
+      const btnAll = document.getElementById("btnShowAll");
+      const visibleCountEl = document.getElementById("visibleCount");
+      const totalCountEl = document.getElementById("totalCount");
+      const clearAllBtn = document.getElementById("clearAllFiltersBtn");
+      const amazonCb = document.getElementById("amazonFbaCheckbox");
+      const amazonCountEl = document.getElementById("amazonFilterCount");
+      const sidebarEl = document.getElementById("myntraSidebar");
+      const backdropEl = document.getElementById("myntraDrawerBackdrop");
+      const openMobileBtn = document.getElementById("openMobileFiltersBtn");
+      const closeMobileBtn = document.getElementById("closeMobileFiltersBtn");
 
-      gridBtn.addEventListener("click", () => {
-        currentViewMode = 'grid';
-        gridBtn.classList.add("active");
-        tableBtn.classList.remove("active");
-        gridContainer.style.display = "grid";
-        tableWrap.style.display = "none";
-        renderView();
-      });
+      // Mobile Drawer
+      function openMobileDrawer() {
+        if (sidebarEl) sidebarEl.classList.add("open");
+        if (backdropEl) backdropEl.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeMobileDrawer() {
+        if (sidebarEl) sidebarEl.classList.remove("open");
+        if (backdropEl) backdropEl.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      if (openMobileBtn) openMobileBtn.onclick = openMobileDrawer;
+      if (closeMobileBtn) closeMobileBtn.onclick = closeMobileDrawer;
+      if (backdropEl) backdropEl.onclick = closeMobileDrawer;
 
-      tableBtn.addEventListener("click", () => {
-        currentViewMode = 'table';
-        tableBtn.classList.add("active");
-        gridBtn.classList.remove("active");
-        gridContainer.style.display = "none";
-        tableWrap.style.display = "block";
-        renderView();
-      });
-
-      // Filter & Render Pipeline
-      function applyFilters() {
-        const query = document.getElementById("catalogSearch").value.toLowerCase().trim();
-        const selectedCat = catSelect.value;
-        const sortVal = document.getElementById("sortSelect").value;
-        const activeDept = document.querySelector(".filter-tag-btn.active")?.getAttribute("data-dept") || "ALL";
-
-        filteredItems = allItems.filter(item => {
-          // Category match
-          if (selectedCat !== "ALL" && item.Category !== selectedCat) return false;
-
-          // Department match
-          if (activeDept !== "ALL") {
-            if (activeDept === "amazon") {
-              if (parseFloat(item.CBM) > 0.015) return false;
-            } else if (item.Department !== activeDept) {
-              return false;
-            }
-          }
-
-          // Text query match
-          if (query) {
-            const haystack = `${item.SKU} ${item.Product_Name} ${item.Category} ${item.Material_Construction} ${item.Style_Trend} ${item.Target_Buyers} ${item.Description || ''}`.toLowerCase();
-            return haystack.includes(query);
-          }
-          return true;
-        });
-
-        // Sorting
-        if (sortVal === "price-asc") {
-          filteredItems.sort((a, b) => (parseFloat(a.FOB_Mundra_USD.replace(/[^0-9.]/g, "")) || 0) - (parseFloat(b.FOB_Mundra_USD.replace(/[^0-9.]/g, "")) || 0));
-        } else if (sortVal === "price-desc") {
-          filteredItems.sort((a, b) => (parseFloat(b.FOB_Mundra_USD.replace(/[^0-9.]/g, "")) || 0) - (parseFloat(a.FOB_Mundra_USD.replace(/[^0-9.]/g, "")) || 0));
-        } else if (sortVal === "cbm-asc") {
-          filteredItems.sort((a, b) => (parseFloat(a.CBM) || 0) - (parseFloat(b.CBM) || 0));
-        } else if (sortVal === "name-asc") {
-          filteredItems.sort((a, b) => a.Product_Name.localeCompare(b.Product_Name));
+      // Price helper
+      function getFobValue(item) {
+        if (item.FOB_Mundra_USD) {
+          const match = String(item.FOB_Mundra_USD).match(/\$?([0-9.]+)/);
+          if (match) return parseFloat(match[1]);
         }
-
-        renderView();
+        return 35;
       }
 
-      function renderView() {
-        const countSpan = document.getElementById("visibleCount");
-        const totalSpan = document.getElementById("totalCount");
+      // Render Sidebar Facets
+      function renderSidebarFacets() {
+        // 1. Divisions
+        const divList = document.getElementById("facetDivisionsList");
+        if (divList) {
+          divList.innerHTML = "";
+          divisions.forEach(d => {
+            const count = allItems.filter(item => d.prefixes.some(pre => (item.Category || '').startsWith(pre))).length;
+            const label = document.createElement("label");
+            label.className = "myntra-facet-item";
+            label.innerHTML = `
+              <input type="checkbox" value="${d.id}" ${selectedDivisions.has(d.id) ? "checked" : ""}>
+              <span class="facet-name">${d.name}</span>
+              <span class="facet-count">(${count})</span>
+            `;
+            const cb = label.querySelector("input");
+            cb.onchange = () => {
+              if (cb.checked) selectedDivisions.add(d.id);
+              else selectedDivisions.delete(d.id);
+              displayLimit = 48;
+              applyFiltersAndRender();
+            };
+            divList.appendChild(label);
+          });
+        }
+
+        // 2. Categories
+        const catList = document.getElementById("facetCategoriesList");
+        if (catList) {
+          catList.innerHTML = "";
+          const uniqueCats = [...new Set(allItems.map(i => i.Category))].filter(Boolean).sort();
+          uniqueCats.forEach(c => {
+            const count = allItems.filter(i => i.Category === c).length;
+            const cName = c.split(":")[1]?.trim() || c;
+            const label = document.createElement("label");
+            label.className = "myntra-facet-item";
+            label.innerHTML = `
+              <input type="checkbox" value="${c}" ${selectedCategories.has(c) ? "checked" : ""}>
+              <span class="facet-name">${cName}</span>
+              <span class="facet-count">(${count})</span>
+            `;
+            const cb = label.querySelector("input");
+            cb.onchange = () => {
+              if (cb.checked) selectedCategories.add(c);
+              else selectedCategories.delete(c);
+              displayLimit = 48;
+              applyFiltersAndRender();
+            };
+            catList.appendChild(label);
+          });
+        }
+
+        // 3. Materials
+        const matList = document.getElementById("facetMaterialsList");
+        if (matList) {
+          matList.innerHTML = "";
+          materialMatchers.forEach(m => {
+            const count = allItems.filter(m.match).length;
+            const label = document.createElement("label");
+            label.className = "myntra-facet-item";
+            label.innerHTML = `
+              <input type="checkbox" value="${m.id}" ${selectedMaterials.has(m.id) ? "checked" : ""}>
+              <span class="facet-name">${m.label}</span>
+              <span class="facet-count">(${count})</span>
+            `;
+            const cb = label.querySelector("input");
+            cb.onchange = () => {
+              if (cb.checked) selectedMaterials.add(m.id);
+              else selectedMaterials.delete(m.id);
+              displayLimit = 48;
+              applyFiltersAndRender();
+            };
+            matList.appendChild(label);
+          });
+        }
+
+        // 4. Price Tiers
+        const priceList = document.getElementById("facetPriceList");
+        if (priceList) {
+          priceList.innerHTML = "";
+          priceTiers.forEach(t => {
+            const count = allItems.filter(i => {
+              const v = getFobValue(i);
+              return v >= t.min && v < t.max;
+            }).length;
+            const label = document.createElement("label");
+            label.className = "myntra-facet-item";
+            label.innerHTML = `
+              <input type="checkbox" value="${t.id}" ${selectedPriceTiers.has(t.id) ? "checked" : ""}>
+              <span class="facet-name">${t.label}</span>
+              <span class="facet-count">(${count})</span>
+            `;
+            const cb = label.querySelector("input");
+            cb.onchange = () => {
+              if (cb.checked) selectedPriceTiers.add(t.id);
+              else selectedPriceTiers.delete(t.id);
+              displayLimit = 48;
+              applyFiltersAndRender();
+            };
+            priceList.appendChild(label);
+          });
+        }
+
+        // 5. Amazon Count
+        if (amazonCountEl) {
+          const azCount = allItems.filter(i => parseFloat(i.CBM) <= 0.015).length;
+          amazonCountEl.textContent = `(${azCount})`;
+        }
+      }
+
+      // Filter & Sort Core
+      let filteredItems = [...allItems];
+
+      function filterItems() {
+        return allItems.filter(item => {
+          // Division filter
+          if (selectedDivisions.size > 0) {
+            const matchDiv = [...selectedDivisions].some(divId => {
+              const d = divisions.find(x => x.id === divId);
+              return d && d.prefixes.some(pre => (item.Category || '').startsWith(pre));
+            });
+            if (!matchDiv) return false;
+          }
+
+          // Category filter
+          if (selectedCategories.size > 0) {
+            if (!selectedCategories.has(item.Category)) return false;
+          }
+
+          // Material filter
+          if (selectedMaterials.size > 0) {
+            const hasMat = [...selectedMaterials].some(matId => {
+              const matcher = materialMatchers.find(m => m.id === matId);
+              return matcher ? matcher.match(item) : false;
+            });
+            if (!hasMat) return false;
+          }
+
+          // Price filter
+          if (selectedPriceTiers.size > 0) {
+            const val = getFobValue(item);
+            const hasPrice = [...selectedPriceTiers].some(tierId => {
+              const t = priceTiers.find(p => p.id === tierId);
+              return t ? (val >= t.min && val < t.max) : false;
+            });
+            if (!hasPrice) return false;
+          }
+
+          // Amazon Ready (CBM <= 0.015)
+          if (amazonOnly) {
+            if (parseFloat(item.CBM) > 0.015) return false;
+          }
+
+          // Search query
+          if (searchQuery) {
+            const haystack = `${item.SKU} ${item.Product_Name} ${item.Category} ${item.Material_Construction} ${item.Style_Trend} ${item.Target_Buyers} ${item.Description || ''}`.toLowerCase();
+            if (!haystack.includes(searchQuery)) return false;
+          }
+
+          return true;
+        });
+      }
+
+      function sortItems(items) {
+        if (currentSort === "price-asc") {
+          items.sort((a, b) => getFobValue(a) - getFobValue(b));
+        } else if (currentSort === "price-desc") {
+          items.sort((a, b) => getFobValue(b) - getFobValue(a));
+        } else if (currentSort === "cbm-asc") {
+          items.sort((a, b) => (parseFloat(a.CBM) || 0) - (parseFloat(b.CBM) || 0));
+        } else if (currentSort === "name-asc") {
+          items.sort((a, b) => a.Product_Name.localeCompare(b.Product_Name));
+        } else {
+          items.sort((a, b) => (a.SKU || '').localeCompare(b.SKU || ''));
+        }
+      }
+
+      function applyFiltersAndRender() {
+        filteredItems = filterItems();
+        sortItems(filteredItems);
+
         const itemsToDisplay = filteredItems.slice(0, displayLimit);
 
-        countSpan.textContent = itemsToDisplay.length;
-        totalSpan.textContent = filteredItems.length;
+        if (visibleCountEl) visibleCountEl.textContent = itemsToDisplay.length;
+        if (totalCountEl) totalCountEl.textContent = filteredItems.length;
 
         if (currentViewMode === 'grid') {
           renderGrid(itemsToDisplay);
@@ -700,26 +876,31 @@
           renderTable(itemsToDisplay);
         }
 
-        // Control Load More visibility
-        const btnMore = document.getElementById("btnLoadMore");
-        const btnAll = document.getElementById("btnShowAll");
-        if (displayLimit >= filteredItems.length) {
-          btnMore.style.display = "none";
-          btnAll.style.display = "none";
-        } else {
-          btnMore.style.display = "inline-block";
-          btnAll.style.display = "inline-block";
+        if (btnMore && btnAll) {
+          if (displayLimit >= filteredItems.length) {
+            btnMore.style.display = "none";
+            btnAll.style.display = "none";
+          } else {
+            btnMore.style.display = "inline-block";
+            btnAll.style.display = "inline-block";
+          }
         }
       }
 
       function renderGrid(itemsToDisplay) {
+        if (!gridContainer) return;
         gridContainer.innerHTML = "";
 
         if (itemsToDisplay.length === 0) {
-          gridContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-muted);">
-            <h3>No matching export products found</h3>
-            <p>Try clearing your search query or choosing a broader department filter.</p>
-          </div>`;
+          gridContainer.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: #FFF; border-radius: 12px; border: 1px solid #E5DCD0;">
+              <h3 style="font-family: var(--font-cinzel, serif); color: #1A1410; margin-bottom: 8px;">No matching export products</h3>
+              <p style="color: #7A6C5F; font-size: 0.88rem; margin-bottom: 16px;">Try clearing filters or broadening search parameters.</p>
+              <button type="button" class="myntra-page-btn" id="emptyResetBtn" style="padding: 10px 20px; background: #1A1410; color: #FFF; border-radius: 6px; cursor: pointer;">Reset All Filters</button>
+            </div>
+          `;
+          const reset = document.getElementById("emptyResetBtn");
+          if (reset) reset.onclick = resetAllFilters;
           return;
         }
 
@@ -729,11 +910,11 @@
           card.innerHTML = `
             <div class="card-image-wrapper" onclick="window.openProductSpec && window.openProductSpec('${item.SKU}')" style="cursor: pointer;">
               <span class="card-badge">SKU: ${item.SKU}</span>
-              <img src="${item.Image}" alt="${item.Product_Name}" loading="lazy">
+              <img src="${item.Image}" alt="${item.Product_Name}" loading="lazy" onerror="this.src='../assets/charcuterie_board_deluxe.jpg'">
             </div>
             <div class="card-content">
               <span class="card-category">${item.Category.split(":")[1]?.trim() || item.Category}</span>
-              <h3 class="card-title" onclick="window.openProductSpec && window.openProductSpec('${item.SKU}')" style="cursor: pointer;">${item.Product_Name}</h3>
+              <h3 class="card-title" onclick="window.openProductSpec && window.openProductSpec('${item.SKU}')" style="cursor: pointer;" title="${item.Product_Name}">${item.Product_Name}</h3>
               <p class="card-description">${item.Material_Construction}</p>
               <div class="card-specs">
                 <span><strong>Dim:</strong> ${item.Dimensions.split("/")[0]}</span>
@@ -758,7 +939,7 @@
       }
 
       function renderTable(itemsToDisplay) {
-        const tbody = document.getElementById("catalogTableBody");
+        if (!tbody) return;
         tbody.innerHTML = "";
 
         if (itemsToDisplay.length === 0) {
@@ -770,7 +951,7 @@
           const tr = document.createElement("tr");
           tr.innerHTML = `
             <td>
-              <img src="${item.Image}" alt="${item.Product_Name}" class="table-thumb" onclick="window.openProductSpec && window.openProductSpec('${item.SKU}')">
+              <img src="${item.Image}" alt="${item.Product_Name}" class="table-thumb" onclick="window.openProductSpec && window.openProductSpec('${item.SKU}')" onerror="this.src='../assets/charcuterie_board_deluxe.jpg'">
             </td>
             <td><strong>${item.SKU}</strong></td>
             <td>
@@ -801,8 +982,7 @@
           btn.onclick = (e) => {
             e.stopPropagation();
             const sku = btn.getAttribute("data-sku");
-            const prod = PRODUCT_CATALOG[sku];
-            if (prod && window.RFQCart) {
+            if (window.RFQCart) {
               window.RFQCart.add(sku);
               btn.textContent = "✓ Added";
               btn.style.background = "#2E7D32";
@@ -825,64 +1005,114 @@
         });
       }
 
+      function resetAllFilters() {
+        selectedDivisions.clear();
+        selectedCategories.clear();
+        selectedMaterials.clear();
+        selectedPriceTiers.clear();
+        amazonOnly = false;
+        searchQuery = '';
+        currentSort = 'default';
+        displayLimit = 48;
+        if (searchInput) searchInput.value = '';
+        if (sortSelect) sortSelect.value = 'default';
+        if (sortSelectMobile) sortSelectMobile.value = 'default';
+        if (amazonCb) amazonCb.checked = false;
+        renderSidebarFacets();
+        applyFiltersAndRender();
+      }
+
       // Event Listeners
-      document.getElementById("catalogSearch").addEventListener("input", () => {
-        displayLimit = 48;
-        applyFilters();
-      });
-      catSelect.addEventListener("change", () => {
-        displayLimit = 48;
-        applyFilters();
-      });
-      document.getElementById("sortSelect").addEventListener("change", applyFilters);
+      if (clearAllBtn) clearAllBtn.onclick = resetAllFilters;
 
-      document.querySelectorAll(".filter-tag-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          document.querySelectorAll(".filter-tag-btn").forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
+      if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+          searchQuery = e.target.value.toLowerCase().trim();
           displayLimit = 48;
-          applyFilters();
+          applyFiltersAndRender();
         });
-      });
+      }
 
-      document.getElementById("btnLoadMore").addEventListener("click", () => {
-        displayLimit += 48;
-        renderView();
-      });
+      if (amazonCb) {
+        amazonCb.onchange = () => {
+          amazonOnly = amazonCb.checked;
+          displayLimit = 48;
+          applyFiltersAndRender();
+        };
+      }
 
-      document.getElementById("btnShowAll").addEventListener("click", () => {
-        displayLimit = filteredItems.length;
-        renderView();
-      });
+      if (sortSelect) {
+        sortSelect.addEventListener("change", (e) => {
+          currentSort = e.target.value;
+          if (sortSelectMobile) sortSelectMobile.value = currentSort;
+          applyFiltersAndRender();
+        });
+      }
 
-      // Initial run & URL query parameter handling
+      if (sortSelectMobile) {
+        sortSelectMobile.addEventListener("change", (e) => {
+          currentSort = e.target.value;
+          if (sortSelect) sortSelect.value = currentSort;
+          applyFiltersAndRender();
+        });
+      }
+
+      if (viewGridBtn && viewTableBtn && gridContainer && tableWrap) {
+        viewGridBtn.addEventListener("click", () => {
+          currentViewMode = 'grid';
+          viewGridBtn.classList.add("active");
+          viewTableBtn.classList.remove("active");
+          gridContainer.style.display = "grid";
+          tableWrap.style.display = "none";
+          applyFiltersAndRender();
+        });
+
+        viewTableBtn.addEventListener("click", () => {
+          currentViewMode = 'table';
+          viewTableBtn.classList.add("active");
+          viewGridBtn.classList.remove("active");
+          gridContainer.style.display = "none";
+          tableWrap.style.display = "block";
+          applyFiltersAndRender();
+        });
+      }
+
+      if (btnMore) {
+        btnMore.addEventListener("click", () => {
+          displayLimit += 48;
+          applyFiltersAndRender();
+        });
+      }
+
+      if (btnAll) {
+        btnAll.addEventListener("click", () => {
+          displayLimit = filteredItems.length;
+          applyFiltersAndRender();
+        });
+      }
+
+      // URL Query Parameters Handling
       const urlParams = new URLSearchParams(window.location.search);
       const urlCat = urlParams.get("cat");
       const urlQuery = urlParams.get("q");
-      const urlDept = urlParams.get("dept");
+      const urlDiv = urlParams.get("div") || urlParams.get("dept");
 
-      if (urlDept) {
-        document.querySelectorAll(".filter-tag-btn").forEach(b => {
-          if (b.getAttribute("data-dept") === urlDept) {
-            document.querySelectorAll(".filter-tag-btn").forEach(x => x.classList.remove("active"));
-            b.classList.add("active");
-          }
-        });
+      if (urlDiv) {
+        const foundDiv = divisions.find(d => d.id === urlDiv.toLowerCase() || d.name.toLowerCase().includes(urlDiv.toLowerCase()));
+        if (foundDiv) selectedDivisions.add(foundDiv.id);
       }
-
       if (urlCat) {
-        for (const opt of catSelect.options) {
-          if (opt.value.toLowerCase().includes(urlCat.toLowerCase())) {
-            catSelect.value = opt.value;
-            break;
-          }
-        }
+        const foundCat = allItems.find(i => (i.Category || '').toLowerCase().includes(urlCat.toLowerCase()));
+        if (foundCat) selectedCategories.add(foundCat.Category);
       }
       if (urlQuery) {
-        document.getElementById("catalogSearch").value = urlQuery;
+        searchQuery = urlQuery.toLowerCase().trim();
+        if (searchInput) searchInput.value = urlQuery;
       }
 
-      applyFilters();
+      // Initial Run
+      renderSidebarFacets();
+      applyFiltersAndRender();
     })();
   </script>
   <script src="analytics.js" defer></script>
