@@ -9519,3 +9519,293 @@ body {
     gap: 14px;
   }
 }
+
+/* ==========================================================================
+   ARAWALI ARTS v2026.67 — ARCHITECTURAL LUXURY FOOTER (ALL 14 MAIN PAGES)
+   ========================================================================== */
+.footer {
+  background: radial-gradient(1100px 320px at 50% 0%, rgba(184, 147, 82, 0.09), transparent 70%), #110E0B !important;
+  color: #C7BCB0 !important;
+  padding: 68px 0 0 !important;
+  border-top: 1px solid rgba(184, 147, 82, 0.35) !important;
+  position: relative;
+}
+
+.footer-content {
+  display: grid !important;
+  grid-template-columns: 1.38fr 1.52fr 0.96fr 1.14fr !important;
+  gap: 44px !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 48px !important;
+  align-items: start;
+}
+
+.footer-brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  margin-bottom: 16px;
+}
+
+.footer-brand-crest {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.footer-brand-main {
+  font-family: var(--font-serif);
+  font-size: 1.38rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #FCF9F4;
+}
+
+.footer-brand-sub {
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #DFC078;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.footer-about {
+  font-size: 0.84rem !important;
+  line-height: 1.65 !important;
+  color: #A99D90 !important;
+  margin: 0 0 18px !important;
+  max-width: 320px;
+}
+
+.footer-cert-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.footer-cert-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #DFC078;
+  background: rgba(184, 147, 82, 0.1);
+  border: 1px solid rgba(184, 147, 82, 0.26);
+  padding: 4px 9px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.footer-col h4 {
+  font-family: var(--font-sans) !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: #DFC078 !important;
+  margin: 4px 0 16px !important;
+}
+
+.footer-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #FCF9F4;
+  text-decoration: none;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
+  transition: color 0.2s ease;
+}
+
+.footer-all-link:hover {
+  color: #DFC078;
+}
+
+.footer-divisions-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 18px;
+}
+
+.footer-divisions-grid li {
+  margin: 0 !important;
+}
+
+.footer-divisions-grid a,
+.footer-links a {
+  color: #B9AEA1 !important;
+  font-size: 0.82rem !important;
+  line-height: 1.45 !important;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.footer-divisions-grid a:hover,
+.footer-links a:hover {
+  color: #DFC078 !important;
+  padding-left: 0 !important;
+  transform: translateX(3px);
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.footer-links li {
+  margin: 0 !important;
+}
+
+.footer-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-bottom: 16px;
+}
+
+.footer-contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #B9AEA1;
+}
+
+.footer-contact-row svg {
+  color: #DFC078;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.footer-contact-row a {
+  color: #E7DFD5;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(223, 192, 120, 0.35);
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.footer-contact-row a:hover {
+  color: #DFC078;
+  border-bottom-color: #DFC078;
+}
+
+.footer-wa-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(37, 211, 102, 0.11);
+  border: 1px solid rgba(37, 211, 102, 0.32);
+  color: #5CE38E !important;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  margin-bottom: 12px;
+}
+
+.footer-wa-pill:hover {
+  background: rgba(37, 211, 102, 0.2);
+  border-color: rgba(37, 211, 102, 0.6);
+  color: #8CF0B0 !important;
+  transform: translateY(-1px);
+}
+
+.footer-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #DFC078 !important;
+  text-decoration: none !important;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.footer-cta-link:hover {
+  color: #FFFFFF !important;
+  transform: translateX(3px);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(184, 147, 82, 0.18);
+  background: rgba(0, 0, 0, 0.22);
+  padding: 18px 0;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  font-size: 0.76rem;
+  color: #8E8275;
+}
+
+.footer-corridors {
+  color: #B4A696;
+  letter-spacing: 0.03em;
+}
+
+.footer-corridors strong {
+  color: #DFC078;
+  font-weight: 600;
+}
+
+@media (max-width: 1120px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 36px 32px !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .footer {
+    padding: 52px 0 0 !important;
+  }
+  .footer-content {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+    padding-bottom: 36px !important;
+  }
+  .footer-about {
+    max-width: none;
+  }
+  .footer-bottom {
+    padding: 16px 0 96px;
+  }
+  .footer-bottom-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
