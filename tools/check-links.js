@@ -22,7 +22,10 @@ for (const file of files) {
   const html = fs.readFileSync(file, 'utf8');
   const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
 
-  for (const m of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
+  // Strip <script> blocks so JS template literals like src="${item.Image}" are not treated as static file paths
+  const cleanHtml = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+
+  for (const m of cleanHtml.matchAll(/(?:href|src)="([^"]+)"/g)) {
     let url = m[1].trim();
     if (!url || /^(https?:|mailto:|tel:|data:|javascript:)/.test(url)) continue;
     checked++;
@@ -44,7 +47,8 @@ for (const file of files) {
 
     if (hash && target.endsWith('.html')) {
       const targetHtml = fs.readFileSync(target, 'utf8');
-      if (!targetHtml.includes(`id="${hash}"`)) {
+      const targetIds = new Set([...targetHtml.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+      if (!targetIds.has(hash)) {
         badHash.push(`${path.relative(WEB, file)} -> ${url}`);
       }
     }
