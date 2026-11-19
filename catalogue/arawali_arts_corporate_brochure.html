@@ -1681,6 +1681,127 @@
       min-height: 580px !important;
     }
 
+    /* ==========================================================
+       LUXURY ARCHITECTURAL PRODUCT PAGE BACKDROP & EDITORIAL POLISH (v2026.70)
+       ========================================================== */
+    .mag-page:not(.page-cover-front):not(.page-cover-back):not(.page-chapter-splash) {
+      background-color: #F8F3EA !important;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23B89552' stroke-width='0.75' stroke-opacity='0.11'%3E%3Cpath d='M32 2 L62 32 L32 62 L2 32 Z'/%3E%3Cpath d='M32 13 L51 32 L32 51 L13 32 Z'/%3E%3Ccircle cx='32' cy='32' r='5.5'/%3E%3Cpath d='M0 0 L13 13 M64 0 L51 13 M0 64 L13 51 M64 64 L51 51'/%3E%3C/g%3E%3C/svg%3E"),
+        radial-gradient(ellipse at 50% 42%, rgba(255, 253, 249, 0.72) 0%, rgba(247, 240, 229, 0.86) 66%, rgba(235, 224, 205, 0.96) 100%) !important;
+      background-size: 64px 64px, 100% 100% !important;
+      background-position: center center, center center !important;
+      border: 1px solid rgba(184, 149, 82, 0.35) !important;
+    }
+
+    /* Subtle inner brass hairline folio frame (uses ::before so spine shadow ::after stays intact) */
+    .mag-page:not(.page-cover-front):not(.page-cover-back):not(.page-chapter-splash)::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(184, 149, 82, 0.24);
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 1;
+      box-shadow: inset 0 0 28px rgba(184, 149, 82, 0.06);
+    }
+
+    .mag-page:not(.page-cover-front):not(.page-cover-back):not(.page-chapter-splash) .page-inner {
+      z-index: 2;
+    }
+
+    /* Editorial Running Header Accent */
+    .mag-page:not(.page-cover-front):not(.page-cover-back):not(.page-chapter-splash) .spread-header {
+      padding: 3px 6px 5px;
+      background: linear-gradient(90deg, rgba(184, 149, 82, 0.08) 0%, rgba(184, 149, 82, 0.02) 50%, rgba(184, 149, 82, 0.08) 100%);
+      border-bottom: 1px solid rgba(184, 149, 82, 0.38);
+      border-radius: 3px 3px 0 0;
+      color: #6B5D50;
+    }
+
+    /* Editorial Folio Footer & Page Number Medallion */
+    .mag-page:not(.page-cover-front):not(.page-cover-back):not(.page-chapter-splash) .spread-footer {
+      border-top: 1px solid rgba(184, 149, 82, 0.32);
+      color: #77685A;
+      padding-top: 5px;
+    }
+
+    .mag-page:not(.page-cover-front):not(.page-cover-back):not(.page-chapter-splash) .spread-page-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px;
+      padding: 1px 6px;
+      background: rgba(184, 149, 82, 0.14);
+      border: 1px solid rgba(184, 149, 82, 0.38);
+      border-radius: 999px;
+      color: #2B2118;
+      font-size: 0.60rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* Elevated Luxury Product Cards */
+    .mag-product-card {
+      background: linear-gradient(180deg, rgba(255, 254, 251, 0.96) 0%, rgba(252, 248, 241, 0.94) 100%) !important;
+      border: 1px solid rgba(184, 149, 82, 0.28) !important;
+      border-top: 2px solid rgba(184, 149, 82, 0.58) !important;
+      border-radius: 7px !important;
+      box-shadow: 0 6px 16px rgba(34, 24, 14, 0.07), 0 1px 2px rgba(184, 149, 82, 0.14) !important;
+    }
+
+    .mag-product-card:hover {
+      border-color: rgba(184, 149, 82, 0.62) !important;
+      border-top-color: #B89552 !important;
+      box-shadow: 0 10px 22px rgba(34, 24, 14, 0.11), 0 0 0 1px rgba(184, 149, 82, 0.18) !important;
+    }
+
+    .mag-product-img {
+      border: 1px solid rgba(184, 149, 82, 0.24);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+    }
+
+    .mag-sku-badge {
+      background: rgba(18, 14, 10, 0.84) !important;
+      border: 1px solid rgba(212, 179, 114, 0.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: #F0DFB8 !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Keep MOQ pill intact so it never truncates to "MOQ: 5..." */
+    .mag-spec-chip:first-child {
+      flex-shrink: 0 !important;
+      background: rgba(184, 149, 82, 0.12);
+      border-color: rgba(184, 149, 82, 0.32);
+      color: #4A3924;
+    }
+
+    .mag-product-pricing {
+      border-top: 1px solid rgba(184, 149, 82, 0.22) !important;
+    }
+
+    .mag-btn-add {
+      background: linear-gradient(180deg, rgba(184, 149, 82, 0.16) 0%, rgba(184, 149, 82, 0.08) 100%) !important;
+      border: 1px solid rgba(184, 149, 82, 0.48) !important;
+      color: #6B4F1C !important;
+    }
+
+    .mag-btn-add:hover {
+      background: linear-gradient(135deg, #C7A35D 0%, #9E7B38 100%) !important;
+      color: #12100E !important;
+      border-color: #B89552 !important;
+    }
+
+    /* Scroll View Backdrop Continuity */
+    .mag-scroll-card:not(.is-cover) .mag-scroll-body {
+      background-color: #F8F3EA !important;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23B89552' stroke-width='0.75' stroke-opacity='0.11'%3E%3Cpath d='M32 2 L62 32 L32 62 L2 32 Z'/%3E%3Cpath d='M32 13 L51 32 L32 51 L13 32 Z'/%3E%3Ccircle cx='32' cy='32' r='5.5'/%3E%3Cpath d='M0 0 L13 13 M64 0 L51 13 M0 64 L13 51 M64 64 L51 51'/%3E%3C/g%3E%3C/svg%3E"),
+        radial-gradient(ellipse at 50% 42%, rgba(255, 253, 249, 0.72) 0%, rgba(247, 240, 229, 0.86) 66%, rgba(235, 224, 205, 0.96) 100%) !important;
+      background-size: 64px 64px, 100% 100% !important;
+    }
+
   </style>
 </head>
 <body>
