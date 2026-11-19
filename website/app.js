@@ -2165,6 +2165,9 @@ function initMyntraCatalogPage(config) {
     return true;
   });
 
+  // Extract facets
+  const allSubcats = [...new Set(baseItems.map(i => i.Category))].filter(Boolean).sort();
+
   // State
   let selectedCategories = new Set();
   
@@ -2193,9 +2196,6 @@ function initMyntraCatalogPage(config) {
   let searchQuery = '';
   let currentSort = 'recommended';
   let currentPage = 1;
-
-  // Extract facets
-  const allSubcats = [...new Set(baseItems.map(i => i.Category))].filter(Boolean).sort();
   
   // Materials definitions
   const materialMatchers = [
@@ -2365,11 +2365,62 @@ function initMyntraCatalogPage(config) {
         searchQuery = '';
         const searchInput = document.getElementById(searchInputId) || document.getElementById('deptSearchInput');
         if (searchInput) searchInput.value = '';
+        const topSearch = document.getElementById('deptTopSearch');
+        if (topSearch) topSearch.value = '';
         currentPage = 1;
         renderSidebar();
         render();
       };
     }
+  }
+
+  function renderSubcatChips() {
+    const chipsContainer = document.getElementById('deptSubcatChips');
+    if (!chipsContainer) return;
+
+    const totalCount = baseItems.length;
+    const isAllActive = selectedCategories.size === 0;
+
+    let html = `
+      <div class="subcat-chip ${isAllActive ? 'active' : ''}" data-cat="all">
+        <span>All</span>
+        <span class="chip-count">${totalCount}</span>
+      </div>
+    `;
+
+    allSubcats.forEach(c => {
+      const count = baseItems.filter(i => i.Category === c).length;
+      const cName = c.split(':')[1]?.trim() || c;
+      const isActive = selectedCategories.has(c);
+      html += `
+        <div class="subcat-chip ${isActive ? 'active' : ''}" data-cat="${encodeURIComponent(c)}">
+          <span>${cName}</span>
+          <span class="chip-count">${count}</span>
+        </div>
+      `;
+    });
+
+    chipsContainer.innerHTML = html;
+
+    chipsContainer.querySelectorAll('.subcat-chip').forEach(chip => {
+      chip.onclick = () => {
+        const cat = chip.getAttribute('data-cat');
+        if (cat === 'all') {
+          selectedCategories.clear();
+        } else {
+          const decoded = decodeURIComponent(cat);
+          if (selectedCategories.has(decoded) && selectedCategories.size === 1) {
+            selectedCategories.clear();
+          } else {
+            selectedCategories.clear();
+            selectedCategories.add(decoded);
+          }
+        }
+        currentPage = 1;
+        renderSidebar();
+        render();
+      };
+    });
   }
 
   function renderPagination(totalItems) {
@@ -2463,6 +2514,10 @@ function initMyntraCatalogPage(config) {
         ? 'Showing 0 items'
         : `Showing ${startIdx + 1}–${endIdx} of ${totalItems} SKUs`;
     }
+    const showingSubcats = document.getElementById('deptShowingSubcatsText');
+    if (showingSubcats) {
+      showingSubcats.textContent = `Showing ${totalItems} of ${baseItems.length} SKUs in ${department || 'Collection'}`;
+    }
     if (counterId) {
       const cEl = document.getElementById(counterId);
       if (cEl) cEl.textContent = `${totalItems} of ${baseItems.length} SKUs`;
@@ -2471,6 +2526,8 @@ function initMyntraCatalogPage(config) {
     if (deptItemCount) {
       deptItemCount.textContent = `- ${totalItems} items`;
     }
+
+    renderSubcatChips();
 
     grid.innerHTML = '';
     if (totalItems === 0) {
@@ -2562,6 +2619,18 @@ function initMyntraCatalogPage(config) {
   if (searchEl) {
     searchEl.addEventListener('input', (e) => {
       searchQuery = e.target.value.toLowerCase().trim();
+      const topSearch = document.getElementById('deptTopSearch');
+      if (topSearch && topSearch.value !== e.target.value) topSearch.value = e.target.value;
+      currentPage = 1;
+      render();
+    });
+  }
+
+  const topSearchEl = document.getElementById('deptTopSearch');
+  if (topSearchEl) {
+    topSearchEl.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      if (searchEl && searchEl.value !== e.target.value) searchEl.value = e.target.value;
       currentPage = 1;
       render();
     });
@@ -2793,7 +2862,7 @@ window.EXPORT_DIVISIONS_DATA = [
 ];
 
 function initCategoriesMegaMenu() {
-  const dropdown = document.querySelector(".navbar .dropdown-categories") || document.querySelector(".navbar .dropdown:last-of-type");
+  const dropdown = document.querySelector(".navbar .dropdown-categories");
   if (!dropdown) return;
 
   const divisions = window.EXPORT_DIVISIONS_DATA || [];

@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2026.40">
+  <link rel="stylesheet" href="style.css?v=2026.50">
 </head>
 <body>
 
@@ -49,7 +49,7 @@
         <span class="brand-sub">ESTD. 2011 • JODHPUR</span>
         <span class="brand-main">ARAWALI ARTS</span>
       </a>
-                  <nav class="nav-links">
+                        <nav class="nav-links">
         <!-- Living & Dining -->
         <div class="dropdown">
           <a href="living-dining.html" class="nav-item dropbtn">Living & Dining ▾</a>
@@ -428,6 +428,30 @@
 
       <!-- RIGHT MAIN CONTENT -->
       <main class="myntra-main-content">
+        <!-- SUBCATEGORY PILLS & QUICK-SEARCH (Image 1 Specification) -->
+        <div class="dept-subcats-bar">
+          <div class="dept-subcats-search-row">
+            <div class="dept-search-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="deptTopSearch" class="dept-search-input" placeholder="Search 70 case goods by timber species, dimension, or SKU..." autocomplete="off">
+            </div>
+            <span class="dept-verified-badge">● 100% Export-Verified Production</span>
+          </div>
+          <div class="dept-subcats-pills-row">
+            <span class="dept-subcats-label">SUBCATEGORIES:</span>
+            <div class="dept-subcats-chips" id="deptSubcatChips"></div>
+          </div>
+          <div class="dept-subcats-meta-row">
+            <span class="dept-subcats-count" id="deptShowingSubcatsText">Showing 70 of 70 SKUs in Case Goods &amp; Storage</span>
+            <div class="dept-quality-badges">
+              <span class="q-badge">🪵 8%–10% Kiln-Dried SLA</span>
+              <span class="q-badge">🌿 VRIKSH / Lacey Act Certified</span>
+              <span class="q-badge">📦 ISTA-1A 5-Ply Drop Tested</span>
+              <span class="q-badge">⚙️ European Soft-Close Hardware</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Top Controls Bar -->
         <div class="myntra-top-bar">
           <div class="myntra-results-meta">
@@ -493,7 +517,7 @@
 
   <script src="products-data.js?v=2026.24"></script>
   <script src="lenis.min.js?v=2026.24"></script>
-  <script src="app.js?v=2026.40"></script>
+  <script src="app.js?v=2026.50"></script>
   <script>
     function runInit() {
       if (window.initDepartmentPage) {
