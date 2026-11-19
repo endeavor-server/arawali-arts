@@ -9139,18 +9139,59 @@ body {
     border-radius: 14px !important;
   }
   .nav-container {
-    padding: 9px 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 8px 12px !important;
+    gap: 8px !important;
+  }
+  .nav-links,
+  .nav-actions {
+    display: none !important;
+  }
+  .nav-mobile-toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 38px !important;
+    height: 38px !important;
+    flex-shrink: 0 !important;
+  }
+  .nav-mobile-actions {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+  }
+  .brand-logo {
+    flex: 1 1 auto !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-width: 0 !important;
     gap: 8px !important;
   }
   .brand-crest {
-    width: 30px;
-    height: 30px;
+    width: 30px !important;
+    height: 30px !important;
+    flex-shrink: 0 !important;
+  }
+  .brand-crest svg {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .brand-wordmark {
+    text-align: left !important;
+    min-width: 0 !important;
   }
   .brand-main {
-    font-size: 0.92rem !important;
+    font-size: 0.88rem !important;
+    letter-spacing: 0.05em !important;
+    white-space: nowrap !important;
   }
   .brand-sub {
     font-size: 0.48rem !important;
+    letter-spacing: 0.14em !important;
+    white-space: nowrap !important;
   }
   .hero-home {
     margin-top: -66px;
