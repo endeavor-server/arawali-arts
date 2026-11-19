@@ -22,7 +22,7 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/og/arawali-og.jpg">
   <!-- /seo-head -->
-  <link rel="stylesheet" href="style.css?v=2026.68">
+  <link rel="stylesheet" href="style.css?v=2026.69">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* Luxury Collections Redesign Styles (Endeavor Parity) */
@@ -774,9 +774,11 @@
         z-index: 100000;
         border-radius: 0 16px 16px 0;
         box-shadow: 20px 0 60px rgba(0, 0, 0, 0.35);
-        padding: 24px 20px 40px;
+        padding: 20px 18px max(40px, env(safe-area-inset-bottom) + 20px);
         transform: translateX(-105%);
         transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
       }
       .catalog-vertical-sidebar.is-drawer-open,
       .catalog-vertical-sidebar.open {
@@ -3047,9 +3049,9 @@
     </div>
   </footer>
 
-  <script src="products-data.js?v=2026.68"></script>
+  <script src="products-data.js?v=2026.69"></script>
   <script src="lenis.min.js?v=2026.24"></script>
-  <script src="app.js?v=2026.68"></script>
+  <script src="app.js?v=2026.69"></script>
   <script>
     function initCollectionsPage() {
     window.__collectionsPage = 1;
@@ -3215,14 +3217,14 @@
                 const fobVal = parseFloat(p.FOB_Mundra_USD ? p.FOB_Mundra_USD.replace(/[^0-9.]/g, '') : (p.FOB_Price_USD || 0)) || 0;
                 return `
                 <div class="sku-prod-card" data-sku="${escapeHtml(p.SKU)}" data-fob="${fobVal}" data-name="${escapeHtml(p.Product_Name.toLowerCase())}" data-material="${escapeHtml((p.Material_Construction || '').toLowerCase())}">
-                  <div class="sku-prod-img">
+                  <div class="sku-prod-img" onclick="window.openProductSpec &amp;&amp; window.openProductSpec('${escapeHtml(p.SKU)}')" style="cursor: pointer;">
                     <img src="${escapeHtml(p.Image || p.image || '../assets/charcuterie_board_deluxe.jpg')}"
                          srcset="${(function(path){const b=String(path).replace('../assets/','../assets/webp/').replace(/\.(jpe?g|png)$/i,'');return b+'-480.webp 480w, '+b+'-960.webp 960w, '+b+'.webp 1024w';})(p.Image || p.image || '../assets/charcuterie_board_deluxe.jpg')}"
                          sizes="(max-width: 700px) 45vw, 240px" alt="${escapeHtml(p.Product_Name)}" loading="lazy" decoding="async">
                     <span class="sku-prod-tag">${escapeHtml(p.SKU)}</span>
                   </div>
                   <div class="sku-prod-body">
-                    <h4 class="sku-prod-title" title="${escapeHtml(p.Product_Name)}">${escapeHtml(p.Product_Name)}</h4>
+                    <h4 class="sku-prod-title" onclick="window.openProductSpec &amp;&amp; window.openProductSpec('${escapeHtml(p.SKU)}')" style="cursor: pointer;" title="${escapeHtml(p.Product_Name)}">${escapeHtml(p.Product_Name)}</h4>
                     <div class="sku-prod-material">${escapeHtml(p.Material_Construction || 'Seasoned Hardwood')}</div>
                     <div class="sku-prod-meta">
                       <span class="sku-prod-fob">$${fobVal.toFixed(2)} FOB</span>

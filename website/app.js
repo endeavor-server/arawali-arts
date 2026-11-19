@@ -1169,6 +1169,7 @@ function initQuickSpecModal() {
 
     function closeModal() {
       modal.classList.remove('open');
+      document.body.classList.remove('modal-open');
       if (window.lenis && typeof window.lenis.start === 'function') {
         window.lenis.start();
       }
@@ -1304,11 +1305,12 @@ function initQuickSpecModal() {
       addBtn.textContent = `✓ Added ${q} Units to RFQ!`;
       addBtn.style.background = 'linear-gradient(135deg, #2E7D32 0%, #388E3C 100%)';
       setTimeout(() => {
-        modal.classList.remove('open');
+        closeModal();
       }, 700);
     };
 
     modal.classList.add('open');
+    document.body.classList.add('modal-open');
     const scrollPane = modal.querySelector('.modal-info-scroll');
     if (scrollPane) {
       scrollPane.scrollTop = 0;
@@ -2032,12 +2034,14 @@ function initRFQDrawer() {
     drawer.classList.add('open');
     backdrop.classList.add('open');
     document.body.style.overflow = 'hidden';
+    document.body.classList.add('drawer-open');
   };
 
   window.closeRFQDrawer = function() {
     drawer.classList.remove('open');
     backdrop.classList.remove('open');
     document.body.style.overflow = '';
+    document.body.classList.remove('drawer-open');
   };
 
   if (closeBtn) closeBtn.onclick = window.closeRFQDrawer;
