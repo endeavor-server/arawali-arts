@@ -25,7 +25,7 @@ const PRODUCT_CATALOG = {
     title: 'Round Hardwood Coaster Set (4-Pc)',
     category: 'Tabletop & Bar Accents (Naturehood)',
     species: 'Mangifera indica (Seasoned Mango Wood)',
-    moisture: '8% - 11% Kiln-Dried',
+    moisture: '8% - 10% Kiln-Dried',
     dimInches: 'Dia 4.0" x 0.4"',
     dimCm: 'Dia 10.2 x 1.0 cm',
     cbm: 0.001,
@@ -70,7 +70,7 @@ const PRODUCT_CATALOG = {
     title: 'Heritage 4-Compartment Storage Chest',
     category: 'Kitchen, Tea & Keepsakes',
     species: 'Dalbergia sissoo / Acacia nilotica',
-    moisture: '8% - 11% Kiln-Dried',
+    moisture: '8% - 10% Kiln-Dried',
     dimInches: '8.5" x 8.5" x 3.0"',
     dimCm: '21.6 x 21.6 x 7.6 cm',
     cbm: 0.006,
@@ -115,7 +115,7 @@ const PRODUCT_CATALOG = {
     title: 'Rajasthani Jharokha Arch Wall Mirror',
     category: 'Architectural Wall Decor',
     species: 'Solid Mango Hardwood & Forged Iron Grille',
-    moisture: '8% - 11% Kiln-Dried',
+    moisture: '8% - 10% Kiln-Dried',
     dimInches: '36.0" x 24.0" x 2.0"',
     dimCm: '91.4 x 61.0 x 5.1 cm',
     cbm: 0.045,
@@ -123,7 +123,7 @@ const PRODUCT_CATALOG = {
     fobTier: '$34.00 - $44.00 / pc',
     masterPack: '2 pcs / ISTA-1A drop-test certified carton',
     image: '../assets/hero_jharokha_mirror.jpg',
-    desc: 'Cathedral arch solid mango wood frame with intricate hand-forged iron lattice grille overlaying premium float mirror glass. Competing directly with Bothra & Prince Art.'
+    desc: 'Cathedral arch solid mango wood frame with intricate hand-forged iron lattice grille overlaying premium float mirror glass, engineered for boutique hospitality and residential collections.'
   },
   'AA-LTN-603': {
     sku: 'AA-LTN-603',
@@ -160,7 +160,7 @@ const PRODUCT_CATALOG = {
     title: 'Minimalist Iron Hallway Console Table',
     category: 'Entryway & Living Accents',
     species: 'Solid Acacia nilotica & Black Structural Iron',
-    moisture: '8% - 11% Kiln-Dried',
+    moisture: '8% - 10% Kiln-Dried',
     dimInches: '42.0" x 12.0" x 32.0"',
     dimCm: '106.7 x 30.5 x 81.3 cm',
     cbm: 0.080,
@@ -190,7 +190,7 @@ const PRODUCT_CATALOG = {
     title: 'Jodhpur Jaali Metal & Wood Credenza',
     category: 'Case Goods, Buffets & Storage',
     species: 'Solid Seasoned Mango Hardwood & Black Iron Jaali',
-    moisture: '8% - 11% Kiln-Dried',
+    moisture: '8% - 10% Kiln-Dried',
     dimInches: '58.0" x 18.0" x 34.0"',
     dimCm: '147.3 x 45.7 x 86.4 cm',
     cbm: 0.650,
@@ -198,14 +198,14 @@ const PRODUCT_CATALOG = {
     fobTier: '$175.00 - $220.00 / pc',
     masterPack: '1 pc / reinforced export carton with bottom wooden skid',
     image: '../assets/hero_jaali_sideboard.jpg',
-    desc: 'Solid Mango wood 3-door sideboard with hand-forged black iron jaali inserts, internal fixed shelves, and magnetic latches. Benchmarking Bothra & Prince Art.'
+    desc: 'Solid Mango wood 3-door sideboard with hand-forged black iron jaali inserts, internal fixed shelves, and magnetic latches, crafted for container-scale retail and hospitality programs.'
   },
   'AA-BK-802': {
     sku: 'AA-BK-802',
     title: 'Industrial Mango & Iron Library Bookcase',
     category: 'Case Goods, Buffets & Storage',
     species: 'Seasoned Solid Mango Hardwood & Riveted Steel',
-    moisture: '8% - 11% Kiln-Dried',
+    moisture: '8% - 10% Kiln-Dried',
     dimInches: '40.0" x 16.0" x 76.0"',
     dimCm: '101.6 x 40.6 x 193.0 cm',
     cbm: 0.580,
@@ -220,7 +220,7 @@ const PRODUCT_CATALOG = {
     title: 'Solid Timber Slatted Media Console',
     category: 'Case Goods, Buffets & Storage',
     species: 'Solid Mango & Sheesham Hardwood',
-    moisture: '8% - 11% Kiln-Dried',
+    moisture: '8% - 10% Kiln-Dried',
     dimInches: '64.0" x 16.0" x 20.0"',
     dimCm: '162.6 x 40.6 x 50.8 cm',
     cbm: 0.450,
@@ -250,7 +250,7 @@ const PRODUCT_CATALOG = {
     title: 'Round Nesting Side Tables (2-Pc Set)',
     category: 'Living & Dining Furniture',
     species: 'Solid Natural Acacia & Powder-Coated Iron Rings',
-    moisture: '8% - 11% Kiln-Dried',
+    moisture: '8% - 10% Kiln-Dried',
     dimInches: 'Dia 20" x 22" H / Dia 16" x 19" H',
     dimCm: 'Dia 50.8 x 55.9 cm / Dia 40.6 x 48.3 cm',
     cbm: 0.090,
@@ -376,11 +376,13 @@ const RFQCart = {
       }
       return;
     }
-    const item = PRODUCT_CATALOG[sku] || { title: sku, cbm: 0.01 };
+    const item = PRODUCT_CATALOG[sku] || cart[sku] || { title: sku, cbm: 0.01, moq: 20, fobTier: '' };
     cart[sku] = {
       sku: sku,
       title: item.title || sku,
       cbm: item.cbm || 0.01,
+      moq: item.moq || (cart[sku] && cart[sku].moq) || 20,
+      fobTier: item.fobTier || (cart[sku] && cart[sku].fobTier) || '',
       qty: qty
     };
     this.save(cart);
@@ -408,6 +410,8 @@ const RFQCart = {
     return Object.keys(this.get()).length;
   }
 };
+window.RFQCart = RFQCart;
+window.PRODUCT_CATALOG = PRODUCT_CATALOG;
 
 // Web Audio API Acoustic Synthesizer (Endeavor Architecture Parity - Zero Network Calls)
 const soundFX = {
@@ -563,6 +567,14 @@ function initUIComponents() {
   const navContainer = document.querySelector('.nav-container');
   const navLinks = document.querySelector('.nav-links');
   
+  // Navbar scroll elevation
+  const navbarEl = document.querySelector('.navbar');
+  if (navbarEl) {
+    const onNavScroll = () => navbarEl.classList.toggle('scrolled', window.scrollY > 24);
+    window.addEventListener('scroll', onNavScroll, { passive: true });
+    onNavScroll();
+  }
+
   // 1. Ensure Mobile Toggle Button Exists (Pinned left on mobile)
   let toggleBtn = document.querySelector('.nav-mobile-toggle');
   if (navContainer && !toggleBtn) {
@@ -603,9 +615,9 @@ function initUIComponents() {
           <span class="lkh-brand-title">ARAWALI ARTS</span>
         </a>
         <div class="lkh-drawer-actions">
-          <button type="button" class="lkh-action-btn" id="lkhDrawerSearchBtn" aria-label="Search Catalog">🔍</button>
-          <a href="rfq.html" class="lkh-action-btn" id="lkhDrawerCartBtn" aria-label="RFQ Cart">
-            <span>📦</span>
+          <button type="button" class="lkh-action-btn" id="lkhDrawerSearchBtn" aria-label="Search Catalog"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.65" y2="16.65"/></svg></button>
+          <a href="rfq.html" class="lkh-action-btn lkh-cart-btn" id="lkhDrawerCartBtn" aria-label="Container Load Cart">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
             <span class="lkh-cart-badge nav-rfq-count">0</span>
           </a>
         </div>
@@ -632,8 +644,20 @@ function initUIComponents() {
           <span>Architectural Wall Decor</span>
           <span class="lkh-arrow">→</span>
         </a>
-        <a href="collections.html?dept=lifestyle" class="lkh-nav-item">
-          <span>Lifestyle & Luxury Giftware</span>
+        <a href="lighting-hearth.html" class="lkh-nav-item">
+          <span>Lighting &amp; Fireplace Hearthcraft</span>
+          <span class="lkh-arrow">→</span>
+        </a>
+        <a href="garden-outdoor.html" class="lkh-nav-item">
+          <span>Garden, Patio &amp; Outdoor Living</span>
+          <span class="lkh-arrow">→</span>
+        </a>
+        <a href="office-vanity.html" class="lkh-nav-item">
+          <span>Home Office, Keepsakes &amp; Vanity</span>
+          <span class="lkh-arrow">→</span>
+        </a>
+        <a href="kids-leisure.html" class="lkh-nav-item">
+          <span>Kids, Pets, Leisure &amp; Heritage</span>
           <span class="lkh-arrow">→</span>
         </a>
         <a href="collections.html" class="lkh-nav-item lkh-nav-featured">
@@ -719,11 +743,8 @@ function initUIComponents() {
   // Wire search triggers to open Cmd+K search modal
   const openSearchModal = () => {
     closeLkhDrawer();
-    const cmdKModal = document.getElementById('cmd-k-modal');
-    if (cmdKModal) {
-      cmdKModal.classList.add('active');
-      const input = cmdKModal.querySelector('input');
-      if (input) setTimeout(() => input.focus(), 80);
+    if (window.openCommandPalette) {
+      window.openCommandPalette();
     }
   };
 
@@ -751,13 +772,13 @@ function initUIComponents() {
   function updateAllCartBadges() {
     let count = 0;
     try {
-      if (typeof RFQCart !== 'undefined' && RFQCart.getItems) {
-        count = RFQCart.getItems().length;
+      if (typeof RFQCart !== 'undefined' && RFQCart.getSKUCount) {
+        count = RFQCart.getSKUCount();
       }
     } catch(e) {}
     document.querySelectorAll('.nav-rfq-count').forEach(el => {
       el.textContent = count;
-      if (el.classList.contains('lkh-cart-badge') || el.classList.contains('cart-badge')) {
+      if (el.classList.contains('lkh-cart-badge')) {
         el.style.display = count > 0 ? 'inline-flex' : 'none';
       }
     });
@@ -1561,7 +1582,7 @@ function initDepartmentPage(config) {
         const sku = btn.getAttribute('data-sku');
         const prod = PRODUCT_CATALOG[sku];
         if (prod && window.RFQCart) {
-          RFQCart.add(sku, prod.moq || 50, prod.cbm || 0.01);
+          window.RFQCart.add(sku);
           btn.textContent = '&#10003; Added to Load';
           btn.style.background = '#2E7D32';
           setTimeout(() => {
@@ -1710,6 +1731,7 @@ function initCommandPalette() {
     if (window.soundFX) soundFX.playTick(800);
   }
 
+  window.openCommandPalette = openPalette;
   if (navBtn) {
     navBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -1888,8 +1910,8 @@ function initRFQDrawer() {
     <aside class="rfq-cart-drawer" id="rfqCartDrawer" aria-label="RFQ Cart Drawer">
       <div class="drawer-header">
         <div class="drawer-header-title">
-          <span>📦</span>
-          <h3>Your RFQ Load</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+          <h3>Container RFQ Load</h3>
           <span class="drawer-header-badge" id="drawerItemCount">0 SKUs</span>
         </div>
         <button type="button" class="drawer-close-btn" id="closeDrawerBtn" aria-label="Close cart">✕</button>
@@ -2599,7 +2621,7 @@ function initMyntraCatalogPage(config) {
         const sku = btn.getAttribute('data-sku');
         const prod = (window.PRODUCT_CATALOG && PRODUCT_CATALOG[sku]) || {};
         if (window.RFQCart) {
-          RFQCart.add(sku, prod.moq || 25, prod.cbm || 0.04);
+          window.RFQCart.add(sku);
           btn.textContent = '✓ Added to Load';
           btn.style.background = '#2E7D32';
           setTimeout(() => {
@@ -2783,15 +2805,15 @@ window.EXPORT_DIVISIONS_DATA = [
     sla: "CE/UL Wireways • Heat-Resistant Black Patina",
     tagline: "Ambient Moroccan lanterns, pendants & fire tools",
     description: "Pierced wrought iron ambient lanterns, draped wood bead chandeliers, linear table candelabras, heavy 5-piece fireplace tool sets, and crescent firewood log hoops designed for luxury mountain and estate living.",
-    targetUrl: "collections.html?division=lighting-hearth",
+    targetUrl: "lighting-hearth.html",
     heroBg: "../assets/fireplace_tool_set_iron.jpg",
     specs: ["CE / UL Compatible Wireways", "Hand-Hammered Wrought Iron", "Heat-Resistant Patina"],
     categories: [
-      { name: "Cat 06: Decorative Lighting, Lanterns & Ambient Accents", title: "Pierced Metal Ambient Lanterns & Lamps", url: "collections.html#cat-06", count: 10 },
-      { name: "Cat 12: Fireplace, Hearth & Mantle Ironcraft", title: "5-Piece Hand-Forged Fireplace Tool Sets", url: "collections.html#cat-12", count: 10 },
-      { name: "Cat 26: Luxury Lighting Pendants & Chandeliers", title: "Wood Bead & Wagon Wheel Chandeliers", url: "collections.html#cat-26", count: 10 },
-      { name: "Cat 35: Candle Holders, Candelabras & Votive Lanterns", title: "Linear Table Candelabras & Lanterns", url: "collections.html#cat-35", count: 10 },
-      { name: "Cat 41: Fireplace Accessories, Mantels & Wood Storage", title: "Fireplace Screens, Hoppers & Mantels", url: "collections.html#cat-41", count: 10 }
+      { name: "Cat 06: Decorative Lighting, Lanterns & Ambient Accents", title: "Pierced Metal Ambient Lanterns & Lamps", url: "lighting-hearth.html?cat=cat-06", count: 10 },
+      { name: "Cat 12: Fireplace, Hearth & Mantle Ironcraft", title: "5-Piece Hand-Forged Fireplace Tool Sets", url: "lighting-hearth.html?cat=cat-12", count: 10 },
+      { name: "Cat 26: Luxury Lighting Pendants & Chandeliers", title: "Wood Bead & Wagon Wheel Chandeliers", url: "lighting-hearth.html?cat=cat-26", count: 10 },
+      { name: "Cat 35: Candle Holders, Candelabras & Votive Lanterns", title: "Linear Table Candelabras & Lanterns", url: "lighting-hearth.html?cat=cat-35", count: 10 },
+      { name: "Cat 41: Fireplace Accessories, Mantels & Wood Storage", title: "Fireplace Screens, Hoppers & Mantels", url: "lighting-hearth.html?cat=cat-41", count: 10 }
     ]
   },
   {
@@ -2803,16 +2825,16 @@ window.EXPORT_DIVISIONS_DATA = [
     sla: "Exterior Marine Coating • UV-Stabilized Seal",
     tagline: "Iron arbors, trellises, bistro sets & fire vessels",
     description: "Hand-hammered iron garden arbors, French diamond trellises, foldable acacia bistro sets, raised iron planter ladders, glass Wardian greenhouse terrariums, and outdoor bioethanol fire bowls.",
-    targetUrl: "collections.html?division=garden-outdoor",
+    targetUrl: "garden-outdoor.html",
     heroBg: "../assets/iron_garden_trellis_arbor.jpg",
     specs: ["Weather-Resistant Outdoor Seal", "Hand-Forged Architectural Iron", "High-Margin Density"],
     categories: [
-      { name: "Cat 10: Planters, Botanical Stands & Garden Ironcraft", title: "Raised Wood & Iron Plant Stands", url: "collections.html#cat-10", count: 10 },
-      { name: "Cat 24: Outdoor Cooking, BBQ & Grill Accessories", title: "End-Grain BBQ Meat Carving Blocks", url: "collections.html#cat-24", count: 10 },
-      { name: "Cat 30: Outdoor Patio Furniture & Balcony Living", title: "Folding Acacia Patio Sets & Garden Benches", url: "collections.html#cat-30", count: 10 },
-      { name: "Cat 34: Garden Trellises, Arbors & Landscape Structures", title: "Arched Iron Garden Arbors & Trellises", url: "collections.html#cat-34", count: 10 },
-      { name: "Cat 43: Planters, Terrariums & Miniature Greenhouses", title: "Glass & Iron Greenhouse Terrariums", url: "collections.html#cat-43", count: 10 },
-      { name: "Cat 50: Outdoor Lighting, Torches & Fire Vessels", title: "Tabletop Bioethanol Fire Bowls & Torches", url: "collections.html#cat-50", count: 10 }
+      { name: "Cat 10: Planters, Botanical Stands & Garden Ironcraft", title: "Raised Wood & Iron Plant Stands", url: "garden-outdoor.html?cat=cat-10", count: 10 },
+      { name: "Cat 24: Outdoor Cooking, BBQ & Grill Accessories", title: "End-Grain BBQ Meat Carving Blocks", url: "garden-outdoor.html?cat=cat-24", count: 10 },
+      { name: "Cat 30: Outdoor Patio Furniture & Balcony Living", title: "Folding Acacia Patio Sets & Garden Benches", url: "garden-outdoor.html?cat=cat-30", count: 10 },
+      { name: "Cat 34: Garden Trellises, Arbors & Landscape Structures", title: "Arched Iron Garden Arbors & Trellises", url: "garden-outdoor.html?cat=cat-34", count: 10 },
+      { name: "Cat 43: Planters, Terrariums & Miniature Greenhouses", title: "Glass & Iron Greenhouse Terrariums", url: "garden-outdoor.html?cat=cat-43", count: 10 },
+      { name: "Cat 50: Outdoor Lighting, Torches & Fire Vessels", title: "Tabletop Bioethanol Fire Bowls & Torches", url: "garden-outdoor.html?cat=cat-50", count: 10 }
     ]
   },
   {
@@ -2824,16 +2846,16 @@ window.EXPORT_DIVISIONS_DATA = [
     sla: "Precision CNC Veneers • Anti-Tarnish Velvet",
     tagline: "Desk risers, locking jewelry chests & hardware",
     description: "Dual-monitor ergonomic desk risers, turned wooden cable boxes, multi-tier locking jewelry chests, watch display boxes, hand-carved memory keepsake urns, and hand-forged architectural ironmongery pulls.",
-    targetUrl: "collections.html?division=office-vanity",
+    targetUrl: "office-vanity.html",
     heroBg: "../assets/book_keepsake_box.jpg",
     specs: ["Solid Brass Inlays & Hinges", "Anti-Tarnish Velvet Lining", "Artisanal Hand Joinery"],
     categories: [
-      { name: "Cat 08: Desk Accessories, Keepsakes & Luxury Stationery", title: "Book Keepsakes & Sculptural Paperweights", url: "collections.html#cat-08", count: 10 },
-      { name: "Cat 23: Hardware, Knobs, Pulls & Architectural Ironmongery", title: "Hand-Forged Cabinet Pulls & Barn Handles", url: "collections.html#cat-23", count: 10 },
-      { name: "Cat 27: Sewing, Knitting & Haberdashery Woodcraft", title: "Turned Yarn Bowls & Sewing Chests", url: "collections.html#cat-27", count: 10 },
-      { name: "Cat 29: Jewelry Boxes, Vanity Organizers & Caskets", title: "Locking Hardwood Jewelry & Watch Chests", url: "collections.html#cat-29", count: 10 },
-      { name: "Cat 36: Desk Organizers, Tech Accessories & Home Office", title: "Dual-Monitor Wood Risers & Wrist Rests", url: "collections.html#cat-36", count: 10 },
-      { name: "Cat 42: Decorative Boxes, Urns & Memory Keepsakes", title: "Carved Memory Urns & Puzzle Boxes", url: "collections.html#cat-42", count: 10 }
+      { name: "Cat 08: Desk Accessories, Keepsakes & Luxury Stationery", title: "Book Keepsakes & Sculptural Paperweights", url: "office-vanity.html?cat=cat-08", count: 10 },
+      { name: "Cat 23: Hardware, Knobs, Pulls & Architectural Ironmongery", title: "Hand-Forged Cabinet Pulls & Barn Handles", url: "office-vanity.html?cat=cat-23", count: 10 },
+      { name: "Cat 27: Sewing, Knitting & Haberdashery Woodcraft", title: "Turned Yarn Bowls & Sewing Chests", url: "office-vanity.html?cat=cat-27", count: 10 },
+      { name: "Cat 29: Jewelry Boxes, Vanity Organizers & Caskets", title: "Locking Hardwood Jewelry & Watch Chests", url: "office-vanity.html?cat=cat-29", count: 10 },
+      { name: "Cat 36: Desk Organizers, Tech Accessories & Home Office", title: "Dual-Monitor Wood Risers & Wrist Rests", url: "office-vanity.html?cat=cat-36", count: 10 },
+      { name: "Cat 42: Decorative Boxes, Urns & Memory Keepsakes", title: "Carved Memory Urns & Puzzle Boxes", url: "office-vanity.html?cat=cat-42", count: 10 }
     ]
   },
   {
@@ -2845,18 +2867,18 @@ window.EXPORT_DIVISIONS_DATA = [
     sla: "ASTM F963 Toy Safety • Lead-Free Eco Seal",
     tagline: "Montessori toys, elevated pet diners & game sets",
     description: "Montessori curved balance boards, children activity desks, elevated acacia dog feeding stations, luxury pet daybeds, heirloom solid Sheesham chess sets, spa bathtub caddies, and cultural sacred chowkis.",
-    targetUrl: "collections.html?division=kids-leisure",
+    targetUrl: "kids-leisure.html",
     heroBg: "../assets/hardwood_chess_board.jpg",
     specs: ["ASTM F963 Safety Compliant", "Lead-Free Non-Toxic Stains", "Heirloom Quality Joinery"],
     categories: [
-      { name: "Cat 11: Bathroom, Spa & Wellness Woodcraft", title: "Expandable Bathtub Caddies & Floor Mats", url: "collections.html#cat-11", count: 10 },
-      { name: "Cat 17: Children, Nursery & Montessori Wooden Toys", title: "Montessori Balance Boards & Rainbow Arches", url: "collections.html#cat-17", count: 10 },
-      { name: "Cat 18: Luxury Pet Furniture & Elevated Feeders", title: "Elevated Dog Feeders & Pet Daybeds", url: "collections.html#cat-18", count: 10 },
-      { name: "Cat 19: Seasonal, Festive & Holiday Decor", title: "Turned Christmas Trees & Menorahs", url: "collections.html#cat-19", count: 10 },
-      { name: "Cat 20: Sacred, Meditation & Altar Crafts", title: "Jharokha Altars & Meditation Chowkis", url: "collections.html#cat-20", count: 10 },
-      { name: "Cat 21: Games, Pastimes & Handcrafted Leisure", title: "Handcrafted Sheesham & Boxwood Chess", url: "collections.html#cat-21", count: 10 },
-      { name: "Cat 46: Children's Furniture, Study Desks & Activity Tables", title: "Children's Desks & Front-Facing Book Slings", url: "collections.html#cat-46", count: 10 },
-      { name: "Cat 49: Religious, Cultural & Global Ethnic Statuary", title: "Hand-Carved Statuary & Garden Pagodas", url: "collections.html#cat-49", count: 10 }
+      { name: "Cat 11: Bathroom, Spa & Wellness Woodcraft", title: "Expandable Bathtub Caddies & Floor Mats", url: "kids-leisure.html?cat=cat-11", count: 10 },
+      { name: "Cat 17: Children, Nursery & Montessori Wooden Toys", title: "Montessori Balance Boards & Rainbow Arches", url: "kids-leisure.html?cat=cat-17", count: 10 },
+      { name: "Cat 18: Luxury Pet Furniture & Elevated Feeders", title: "Elevated Dog Feeders & Pet Daybeds", url: "kids-leisure.html?cat=cat-18", count: 10 },
+      { name: "Cat 19: Seasonal, Festive & Holiday Decor", title: "Turned Christmas Trees & Menorahs", url: "kids-leisure.html?cat=cat-19", count: 10 },
+      { name: "Cat 20: Sacred, Meditation & Altar Crafts", title: "Jharokha Altars & Meditation Chowkis", url: "kids-leisure.html?cat=cat-20", count: 10 },
+      { name: "Cat 21: Games, Pastimes & Handcrafted Leisure", title: "Handcrafted Sheesham & Boxwood Chess", url: "kids-leisure.html?cat=cat-21", count: 10 },
+      { name: "Cat 46: Children's Furniture, Study Desks & Activity Tables", title: "Children's Desks & Front-Facing Book Slings", url: "kids-leisure.html?cat=cat-46", count: 10 },
+      { name: "Cat 49: Religious, Cultural & Global Ethnic Statuary", title: "Hand-Carved Statuary & Garden Pagodas", url: "kids-leisure.html?cat=cat-49", count: 10 }
     ]
   }
 ];
@@ -2870,7 +2892,7 @@ function initCategoriesMegaMenu() {
 
   // Build Endeavor 2-Panel + Myntra 5-Column Popover
   const menuHTML = `
-    <a href="collections.html" class="dropbtn nav-item">Categories ▾</a>
+    <a href="collections.html" class="dropbtn nav-item" id="navCategoriesBtn">Categories <svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></a>
     <div class="dropdown-content dropdown-two-panel">
       <!-- Mega Tabs Header -->
       <div class="mega-tabs-header">
@@ -2946,45 +2968,45 @@ function initCategoriesMegaMenu() {
 
           <!-- Col 4: Lighting, Hearth & Outdoor -->
           <div class="myntra-mega-col">
-            <h4 class="mega-heading"><a href="collections.html?division=lighting-hearth">Lighting &amp; Hearth (50)</a></h4>
+            <h4 class="mega-heading"><a href="lighting-hearth.html">Lighting &amp; Hearth (50)</a></h4>
             <ul class="mega-links-list">
-              <li><a href="collections.html#cat-06">Pierced Ambient Lanterns</a></li>
-              <li><a href="collections.html#cat-12">5-Piece Fireplace Tool Sets</a></li>
-              <li><a href="collections.html#cat-26">Wood Bead Chandeliers</a></li>
-              <li><a href="collections.html#cat-35">Linear Table Candelabras</a></li>
-              <li><a href="collections.html#cat-41">Fireplace Screens &amp; Hoppers</a></li>
+              <li><a href="lighting-hearth.html?cat=cat-06">Pierced Ambient Lanterns</a></li>
+              <li><a href="lighting-hearth.html?cat=cat-12">5-Piece Fireplace Tool Sets</a></li>
+              <li><a href="lighting-hearth.html?cat=cat-26">Wood Bead Chandeliers</a></li>
+              <li><a href="lighting-hearth.html?cat=cat-35">Linear Table Candelabras</a></li>
+              <li><a href="lighting-hearth.html?cat=cat-41">Fireplace Screens &amp; Hoppers</a></li>
             </ul>
-            <h4 class="mega-heading"><a href="collections.html?division=garden-outdoor">Garden &amp; Outdoor (60)</a></h4>
+            <h4 class="mega-heading"><a href="garden-outdoor.html">Garden &amp; Outdoor (60)</a></h4>
             <ul class="mega-links-list">
-              <li><a href="collections.html#cat-10">Botanical Stands &amp; Planters</a></li>
-              <li><a href="collections.html#cat-24">BBQ Meat Carving Blocks</a></li>
-              <li><a href="collections.html#cat-30">Folding Bistro Sets &amp; Benches</a></li>
-              <li><a href="collections.html#cat-34">Arched Iron Garden Arbors</a></li>
-              <li><a href="collections.html#cat-43">Glass Wardian Terrariums</a></li>
-              <li><a href="collections.html#cat-50">Bioethanol Fire Bowls &amp; Torches</a></li>
+              <li><a href="garden-outdoor.html?cat=cat-10">Botanical Stands &amp; Planters</a></li>
+              <li><a href="garden-outdoor.html?cat=cat-24">BBQ Meat Carving Blocks</a></li>
+              <li><a href="garden-outdoor.html?cat=cat-30">Folding Bistro Sets &amp; Benches</a></li>
+              <li><a href="garden-outdoor.html?cat=cat-34">Arched Iron Garden Arbors</a></li>
+              <li><a href="garden-outdoor.html?cat=cat-43">Glass Wardian Terrariums</a></li>
+              <li><a href="garden-outdoor.html?cat=cat-50">Bioethanol Fire Bowls &amp; Torches</a></li>
             </ul>
           </div>
 
           <!-- Col 5: Office, Kids & Cultural -->
           <div class="myntra-mega-col">
-            <h4 class="mega-heading"><a href="collections.html?division=office-vanity">Office &amp; Keepsakes (60)</a></h4>
+            <h4 class="mega-heading"><a href="office-vanity.html">Office &amp; Keepsakes (60)</a></h4>
             <ul class="mega-links-list">
-              <li><a href="collections.html#cat-08">Book Keepsakes &amp; Paperweights</a></li>
-              <li><a href="collections.html#cat-23">Architectural Ironmongery Pulls</a></li>
-              <li><a href="collections.html#cat-27">Turned Hardwood Yarn Bowls</a></li>
-              <li><a href="collections.html#cat-29">Locking Hardwood Jewelry Chests</a></li>
-              <li><a href="collections.html#cat-36">Ergonomic Monitor Desk Risers</a></li>
-              <li><a href="collections.html#cat-42">Carved Memory Keepsake Urns</a></li>
+              <li><a href="office-vanity.html?cat=cat-08">Book Keepsakes &amp; Paperweights</a></li>
+              <li><a href="office-vanity.html?cat=cat-23">Architectural Ironmongery Pulls</a></li>
+              <li><a href="office-vanity.html?cat=cat-27">Turned Hardwood Yarn Bowls</a></li>
+              <li><a href="office-vanity.html?cat=cat-29">Locking Hardwood Jewelry Chests</a></li>
+              <li><a href="office-vanity.html?cat=cat-36">Ergonomic Monitor Desk Risers</a></li>
+              <li><a href="office-vanity.html?cat=cat-42">Carved Memory Keepsake Urns</a></li>
             </ul>
-            <h4 class="mega-heading"><a href="collections.html?division=kids-leisure">Kids, Pets &amp; Heritage (80)</a></h4>
+            <h4 class="mega-heading"><a href="kids-leisure.html">Kids, Pets &amp; Heritage (80)</a></h4>
             <ul class="mega-links-list">
-              <li><a href="collections.html#cat-11">Spa Bathtub Caddies &amp; Mats</a></li>
-              <li><a href="collections.html#cat-17">Montessori Balance Boards</a></li>
-              <li><a href="collections.html#cat-18">Elevated Acacia Pet Feeders</a></li>
-              <li><a href="collections.html#cat-20">Jharokha Home Altars &amp; Chowkis</a></li>
-              <li><a href="collections.html#cat-21">Sheesham &amp; Boxwood Chess</a></li>
-              <li><a href="collections.html#cat-46">Children Activity Study Desks</a></li>
-              <li><a href="collections.html#cat-49">Hand-Carved Statuary &amp; Pagodas</a></li>
+              <li><a href="kids-leisure.html?cat=cat-11">Spa Bathtub Caddies &amp; Mats</a></li>
+              <li><a href="kids-leisure.html?cat=cat-17">Montessori Balance Boards</a></li>
+              <li><a href="kids-leisure.html?cat=cat-18">Elevated Acacia Pet Feeders</a></li>
+              <li><a href="kids-leisure.html?cat=cat-20">Jharokha Home Altars &amp; Chowkis</a></li>
+              <li><a href="kids-leisure.html?cat=cat-21">Sheesham &amp; Boxwood Chess</a></li>
+              <li><a href="kids-leisure.html?cat=cat-46">Children Activity Study Desks</a></li>
+              <li><a href="kids-leisure.html?cat=cat-49">Hand-Carved Statuary &amp; Pagodas</a></li>
             </ul>
           </div>
         </div>

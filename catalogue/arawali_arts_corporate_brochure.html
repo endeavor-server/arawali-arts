@@ -7188,11 +7188,44 @@
       }
 
       // 6. Live Sync with Website RFQ Cart
+      function getUnifiedCart() {
+        let cart = {};
+        try {
+          const raw = localStorage.getItem("arawali_rfq_cart_v2");
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) cart = parsed;
+          }
+          // One-time migration from legacy array key if present
+          const legacyRaw = localStorage.getItem("arawali_rfq_cart");
+          if (legacyRaw) {
+            const legacy = JSON.parse(legacyRaw);
+            if (Array.isArray(legacy) && legacy.length) {
+              legacy.forEach(item => {
+                if (item && item.sku && !cart[item.sku]) {
+                  cart[item.sku] = {
+                    sku: item.sku,
+                    title: item.name || item.title || item.sku,
+                    cbm: parseFloat(item.cbm) || 0.05,
+                    moq: 25,
+                    fobTier: "",
+                    qty: parseInt(item.qty, 10) || 25
+                  };
+                }
+              });
+              localStorage.setItem("arawali_rfq_cart_v2", JSON.stringify(cart));
+            }
+            localStorage.removeItem("arawali_rfq_cart");
+          }
+        } catch (e) {}
+        return cart;
+      }
+
       function updateRfqCount() {
         try {
-          const cart = JSON.parse(localStorage.getItem("arawali_rfq_cart") || "[]");
-          const totalUnits = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-          document.getElementById("cart-count").textContent = cart.length;
+          const cart = getUnifiedCart();
+          const el = document.getElementById("cart-count");
+          if (el) el.textContent = Object.keys(cart).length;
         } catch (e) {}
       }
 
@@ -7206,17 +7239,17 @@
             const cbm = parseFloat(btn.dataset.cbm) || 0.05;
 
             try {
-              let cart = JSON.parse(localStorage.getItem("arawali_rfq_cart") || "[]");
-              const existing = cart.find(x => x.sku === sku);
-              if (existing) {
-                existing.qty += 10;
+              const cart = getUnifiedCart();
+              const addQty = cart[sku] ? 10 : 25;
+              if (cart[sku]) {
+                cart[sku].qty = (parseInt(cart[sku].qty, 10) || 0) + addQty;
               } else {
-                cart.push({ sku, name, cbm, qty: 25 });
+                cart[sku] = { sku, title: name || sku, cbm, moq: 25, fobTier: "", qty: addQty };
               }
-              localStorage.setItem("arawali_rfq_cart", JSON.stringify(cart));
+              localStorage.setItem("arawali_rfq_cart_v2", JSON.stringify(cart));
               updateRfqCount();
               if (soundEnabled) playChime();
-              showToast(`✓ Added to RFQ: ${sku} (+25 units)`);
+              showToast(`✓ Added to RFQ: ${sku} (+${addQty} units • Total: ${cart[sku].qty})`);
               btn.textContent = "✓ Added";
               setTimeout(() => { btn.textContent = "+ Add RFQ"; }, 1500);
             } catch (err) {}
