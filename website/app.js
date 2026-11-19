@@ -324,12 +324,74 @@ function syncAllProductsToCatalog() {
 }
 syncAllProductsToCatalog();
 
-// Client-Side Container & RFQ Cart State
+// Client-Side Container & RFQ Cart State (Cookie + localStorage Synced)
 const RFQCart = {
   STORAGE_KEY: 'arawali_rfq_cart_v2',
+  COOKIE_KEY: 'arawali_rfq_cart_v2',
+  USER_ADDED_COOKIE: 'arawali_cart_user_added',
+
+  _setCookie(name, value, days = 30) {
+    try {
+      const maxAge = days > 0 ? days * 86400 : 0;
+      document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}; SameSite=Lax`;
+    } catch (e) {}
+  },
+
+  _getCookie(name) {
+    try {
+      const match = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)'));
+      return match ? decodeURIComponent(match[1]) : null;
+    } catch (e) {
+      return null;
+    }
+  },
+
+  hasUserAdded() {
+    try {
+      return this._getCookie(this.USER_ADDED_COOKIE) === '1' || localStorage.getItem(this.USER_ADDED_COOKIE) === '1';
+    } catch (e) {
+      return this._getCookie(this.USER_ADDED_COOKIE) === '1';
+    }
+  },
+
+  _markUserAdded(active) {
+    try {
+      if (active) {
+        this._setCookie(this.USER_ADDED_COOKIE, '1', 30);
+        localStorage.setItem(this.USER_ADDED_COOKIE, '1');
+      } else {
+        this._setCookie(this.USER_ADDED_COOKIE, '', 0);
+        localStorage.removeItem(this.USER_ADDED_COOKIE);
+      }
+    } catch (e) {}
+  },
 
   get() {
     try {
+      const cookieRaw = this._getCookie(this.COOKIE_KEY);
+      if (cookieRaw) {
+        const parsedCookie = JSON.parse(cookieRaw);
+        if (parsedCookie && typeof parsedCookie === 'object') {
+          // Hydrate compact cookie payload with catalog metadata if needed
+          const hydrated = {};
+          Object.keys(parsedCookie).forEach(sku => {
+            const entry = parsedCookie[sku];
+            const qty = typeof entry === 'number' ? entry : (entry && entry.qty) || 0;
+            if (qty > 0) {
+              const catItem = PRODUCT_CATALOG[sku] || {};
+              hydrated[sku] = {
+                sku,
+                title: (entry && entry.title) || catItem.title || sku,
+                cbm: (entry && entry.cbm) || catItem.cbm || 0.01,
+                moq: (entry && entry.moq) || catItem.moq || 20,
+                fobTier: (entry && entry.fobTier) || catItem.fobTier || '',
+                qty
+              };
+            }
+          });
+          return hydrated;
+        }
+      }
       const data = localStorage.getItem(this.STORAGE_KEY);
       return data ? JSON.parse(data) : {};
     } catch (e) {
@@ -337,12 +399,24 @@ const RFQCart = {
     }
   },
 
-  save(cart) {
+  save(cart, markAdded = false) {
     try {
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(cart));
+      const keys = Object.keys(cart).filter(k => cart[k] && cart[k].qty > 0);
+      if (keys.length === 0) {
+        localStorage.removeItem(this.STORAGE_KEY);
+        this._setCookie(this.COOKIE_KEY, '', 0);
+        this._markUserAdded(false);
+      } else {
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(cart));
+        // Store compact { sku: qty } map in cookie to stay well within 4KB cookie limit
+        const compact = {};
+        keys.forEach(k => { compact[k] = cart[k].qty; });
+        this._setCookie(this.COOKIE_KEY, JSON.stringify(compact), 30);
+        if (markAdded) this._markUserAdded(true);
+      }
       window.dispatchEvent(new CustomEvent('rfq-cart-updated', { detail: cart }));
     } catch (e) {
-      console.error('Failed to save cart to localStorage', e);
+      console.error('Failed to save cart', e);
     }
   },
 
@@ -363,16 +437,16 @@ const RFQCart = {
       qty: (currentQty + addQty)
     };
 
-    this.save(cart);
+    this.save(cart, true);
     showToast(`&#10003; Added ${sku}: ${item.title} (${cart[sku].qty} pcs)`);
   },
 
-  setQty(sku, qty) {
+  setQty(sku, qty, markAdded = true) {
     const cart = this.get();
     if (qty <= 0) {
       if (cart[sku]) {
         delete cart[sku];
-        this.save(cart);
+        this.save(cart, false);
       }
       return;
     }
@@ -385,14 +459,14 @@ const RFQCart = {
       fobTier: item.fobTier || (cart[sku] && cart[sku].fobTier) || '',
       qty: qty
     };
-    this.save(cart);
+    this.save(cart, markAdded);
   },
 
   remove(sku) {
     const cart = this.get();
     if (cart[sku]) {
       delete cart[sku];
-      this.save(cart);
+      this.save(cart, false);
     }
   },
 
@@ -786,49 +860,27 @@ function initUIComponents() {
   updateAllCartBadges();
   window.addEventListener('rfq-cart-updated', updateAllCartBadges);
 
-  // Desktop Mega Dropdown Controller (Hover Intent Bridge)
+  // Desktop Mega Dropdown Controller (Click-to-Toggle — Zero Accidental Hover Popups)
   const dropdown = navLinks ? navLinks.querySelector('.dropdown') : null;
   if (dropdown) {
-    const dropdownContent = dropdown.querySelector('.dropdown-content');
     const dropbtn = dropdown.querySelector('.dropbtn');
-    let closeTimer = null;
-
-    function openDropdown() {
-      if (closeTimer) {
-        clearTimeout(closeTimer);
-        closeTimer = null;
-      }
-      dropdown.classList.add('is-open');
-    }
-
-    function scheduleCloseDropdown() {
-      if (closeTimer) clearTimeout(closeTimer);
-      closeTimer = setTimeout(() => {
-        dropdown.classList.remove('is-open');
-        closeTimer = null;
-      }, 180);
-    }
-
-    dropdown.addEventListener('mouseenter', openDropdown);
-    dropdown.addEventListener('mouseleave', scheduleCloseDropdown);
-    if (dropdownContent) {
-      dropdownContent.addEventListener('mouseenter', openDropdown);
-      dropdownContent.addEventListener('mouseleave', scheduleCloseDropdown);
-    }
-
-    // Click Toggle (Desktop Click)
     if (dropbtn) {
       dropbtn.addEventListener('click', (e) => {
-        if (!dropdown.classList.contains('is-open')) {
-          e.preventDefault();
-          openDropdown();
-        }
+        e.preventDefault();
+        dropdown.classList.toggle('is-open');
       });
     }
 
     // Close when clicking outside
     document.addEventListener('click', (e) => {
       if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('is-open');
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
         dropdown.classList.remove('is-open');
       }
     });
@@ -929,7 +981,7 @@ function initContainerDock() {
     if (meterEl) meterEl.style.width = `${pct20}%`;
     if (fclPctEl) fclPctEl.textContent = `${pct20}% of 20ft FCL (28 CBM)`;
 
-    if (skuCount > 0) {
+    if (skuCount > 0 && RFQCart.hasUserAdded()) {
       dock.style.display = 'flex';
       dock.classList.add('active');
     } else {
@@ -1417,7 +1469,7 @@ function initContainerCalculator() {
     }
   }
 
-  function recalculate() {
+  function recalculate(syncCart = true) {
     const calcInputs = document.querySelectorAll('.cbm-qty-input');
     let totalCbm = 0;
     calcInputs.forEach(input => {
@@ -1426,9 +1478,9 @@ function initContainerCalculator() {
       totalCbm += qty * cbmPerUnit;
 
       const sku = input.dataset.sku;
-      if (sku) {
+      if (syncCart && sku) {
         if (qty > 0) {
-          RFQCart.setQty(sku, qty);
+          RFQCart.setQty(sku, qty, true);
         } else {
           RFQCart.remove(sku);
         }
@@ -1481,7 +1533,7 @@ function initContainerCalculator() {
     }
   }
 
-  recalculate();
+  recalculate(false);
 }
 
 // Deep Integration on rfq.html (Syncs cart into container items and message box)

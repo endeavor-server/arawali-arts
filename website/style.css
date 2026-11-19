@@ -9198,3 +9198,146 @@ body {
     padding-top: 124px;
   }
 }
+
+/* ==========================================================================
+   ARAWALI ARTS v2026.64 — ZERO ACCIDENTAL HOVER MEGA-MENU & ZERO NAVBAR OVERFLOW
+   ========================================================================== */
+
+/* 1. Kill full-width invisible hover trap so hovering anywhere on navbar NEVER opens mega-menu */
+.dropdown::after,
+.dropdown-categories::after {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.dropdown-two-panel::before {
+  pointer-events: none !important;
+}
+
+/* Open Categories Mega-Menu ONLY on deliberate click (.is-open), never on stray hover */
+.dropdown:hover .dropdown-content,
+.dropdown-categories:hover .dropdown-two-panel,
+.dropdown-two-panel:hover {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.dropdown.is-open .dropdown-content,
+.dropdown-categories.is-open .dropdown-two-panel {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateX(-50%) translateY(0) !important;
+  transition-delay: 0s !important;
+}
+
+.dropdown-categories.is-open .dropdown-two-panel::before {
+  pointer-events: auto !important;
+}
+
+.dropdown-categories:hover .nav-chevron {
+  transform: none !important;
+}
+
+.dropdown-categories.is-open .nav-chevron {
+  transform: rotate(180deg) !important;
+  opacity: 1 !important;
+}
+
+/* 2. Prevent Desktop Navbar Horizontal Overflow Across 993px–1440px */
+@media (min-width: 993px) {
+  .navbar {
+    width: calc(100% - 24px) !important;
+    max-width: 1340px !important;
+    box-sizing: border-box !important;
+  }
+  .nav-container {
+    gap: clamp(10px, 1.3vw, 22px) !important;
+    padding: 10px clamp(14px, 1.5vw, 22px) !important;
+    box-sizing: border-box !important;
+  }
+  .brand-logo {
+    gap: 9px !important;
+  }
+  .brand-crest,
+  .brand-crest svg {
+    width: 34px !important;
+    height: 34px !important;
+  }
+  .brand-main {
+    font-size: clamp(0.88rem, 0.98vw, 1.02rem) !important;
+    white-space: nowrap !important;
+  }
+  .brand-sub {
+    font-size: 0.52rem !important;
+    letter-spacing: 0.14em !important;
+    white-space: nowrap !important;
+  }
+  .nav-links {
+    gap: clamp(12px, 1.6vw, 24px) !important;
+    margin: 0 4px !important;
+    min-width: 0 !important;
+  }
+  .nav-links > a,
+  .nav-links .dropbtn,
+  .nav-link-catalogue {
+    font-size: clamp(0.81rem, 0.88vw, 0.91rem) !important;
+  }
+  .nav-actions {
+    gap: clamp(8px, 1vw, 14px) !important;
+    flex-shrink: 0 !important;
+  }
+  .nav-search-trigger {
+    min-width: clamp(112px, 11vw, 164px) !important;
+    height: 38px !important;
+    padding: 0 7px 0 11px !important;
+    gap: 6px !important;
+  }
+  .nav-search-trigger .search-text {
+    font-size: 0.81rem !important;
+  }
+  .nav-search-trigger .search-kbd {
+    height: 24px !important;
+    padding: 0 6px !important;
+    font-size: 0.68rem !important;
+  }
+  .nav-cart-trigger {
+    font-size: clamp(0.8rem, 0.86vw, 0.89rem) !important;
+    gap: 5px !important;
+    padding: 0 4px !important;
+  }
+  .nav-cta-btn {
+    height: 40px !important;
+    padding: 0 clamp(12px, 1.2vw, 18px) !important;
+    font-size: clamp(0.8rem, 0.86vw, 0.88rem) !important;
+    gap: 6px !important;
+  }
+}
+
+@media (max-width: 1240px) and (min-width: 993px) {
+  .nav-search-trigger {
+    min-width: auto !important;
+    width: auto !important;
+    padding: 0 9px !important;
+  }
+  .nav-search-trigger .search-text {
+    display: none !important;
+  }
+
+}
+
+@media (max-width: 1080px) and (min-width: 993px) {
+  .brand-sub {
+    display: none !important;
+  }
+  .nav-search-trigger .search-kbd {
+    display: none !important;
+  }
+  .nav-links {
+    gap: 10px !important;
+  }
+  .nav-cta-btn svg {
+    display: none !important;
+  }
+}
