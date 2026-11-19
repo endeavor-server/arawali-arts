@@ -393,8 +393,8 @@ window.ARAWALI_META = {
     "cat-wine": 31
   },
   "imageAudit": {
-    "uniqueImages": 354,
-    "sharedGroups": 26,
-    "sharedSkuCount": 172
+    "uniqueImages": 500,
+    "sharedGroups": 0,
+    "sharedSkuCount": 0
   }
 };
