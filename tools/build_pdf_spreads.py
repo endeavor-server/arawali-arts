@@ -3,13 +3,14 @@
 Master Offline PDF Generator for Arawali Arts Corporate Catalogue (500 SKUs, 144 Pages).
 
 Supports two print-grade editions from catalogue/arawali_arts_corporate_brochure.html:
-  1. Magazine 2-Page Spread Edition (73 A3 landscape spreads, 420mm x 297mm, with book-spine shading)
-  2. Single-Page Portrait Edition   (144 A4 portrait pages, 210mm x 297mm, ideal for mobile/WhatsApp/printing)
+  1. Single-Page Portrait Edition (144 pages, 148mm x 209.3mm — exact 1:1.4142 flipbook/A-series
+     aspect ratio and live proportions, auto-optimized for fast web download & GitHub <100 MB).
+  2. Magazine 2-Page Spread Edition (73 A3 landscape spreads, 420mm x 297mm, with book-spine shading).
 
 Usage:
-  python3 tools/build_pdf_spreads.py                # Builds BOTH editions
+  python3 tools/build_pdf_spreads.py --mode single  # Builds single-page edition & updates trade catalog PDF
   python3 tools/build_pdf_spreads.py --mode spreads # Builds 2-page magazine spreads only
-  python3 tools/build_pdf_spreads.py --mode single  # Builds single-page portrait only
+  python3 tools/build_pdf_spreads.py                # Builds BOTH editions
   python3 tools/build_pdf_spreads.py --check-only   # Validates extracted HTML without invoking Chrome
 """
 
@@ -18,6 +19,7 @@ import os
 import re
 import shutil
 import subprocess
+import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "catalogue", "arawali_arts_corporate_brochure.html")
@@ -235,13 +237,19 @@ def build_spreads_html(head_content, pages):
 
 
 def build_single_html(head_content, pages):
+    """
+    Single-page edition sized at 148mm x 209.3mm (~559px x 791px at 96 DPI):
+    exact 1 : 1.4142 ISO A-series / desktop flipbook aspect ratio so every page
+    (Cover, Foreword, TOC, Chapter Splashes, and 2x2 Product Grids) matches the
+    live interactive lookbook 1:1 with zero cropping and scales cleanly to A4 print.
+    """
     single_css = """
     <style>
-      @page { size: 210mm 297mm; margin: 0; }
+      @page { size: 148mm 209.3mm; margin: 0; }
       html, body {
         display: block !important;
         position: static !important;
-        width: 210mm !important;
+        width: 148mm !important;
         height: auto !important;
         margin: 0 !important;
         padding: 0 !important;
@@ -252,10 +260,10 @@ def build_single_html(head_content, pages):
       }
       .mag-top-nav, .mag-bottom-nav, #toc-drawer, .toc-backdrop, #mag-toast, #magazine-scroll-view { display: none !important; }
       .mag-page {
-        width: 210mm !important;
-        height: 297mm !important;
-        min-height: 297mm !important;
-        max-height: 297mm !important;
+        width: 148mm !important;
+        height: 209.3mm !important;
+        min-height: 209.3mm !important;
+        max-height: 209.3mm !important;
         break-after: page !important;
         page-break-after: always !important;
         overflow: hidden !important;
@@ -267,17 +275,106 @@ def build_single_html(head_content, pages):
         position: relative !important;
       }
       .mag-page:last-child { break-after: auto !important; page-break-after: auto !important; }
-      .mag-product-img { flex: 1 1 165px !important; min-height: 135px !important; max-height: 195px !important; height: auto !important; object-fit: cover !important; }
-      .mag-product-desc { -webkit-line-clamp: 3 !important; }
+      .mag-page .page-inner { padding: 14px 16px !important; }
+      .mag-product-img { flex: 1 1 88px !important; min-height: 62px !important; max-height: 126px !important; height: auto !important; object-fit: cover !important; }
       .mag-btn-add { display: none !important; }
     </style>
     """
     return f"<!DOCTYPE html><html lang='en'><head>{head_content}{single_css}</head><body>{''.join(pages)}</body></html>"
 
 
-def render_pdf(html_str, tmp_path, out_desktop, out_catalog, copy_primary=False):
+def optimize_pdf_with_swift(input_pdf, output_pdf, scale=2.0, quality=0.80):
+    """
+    Re-encodes a heavy Chrome PDF into a crisp, web-optimized PDF using macOS CoreGraphics/PDFKit
+    (keeps exact page dimensions & aspect ratio while shrinking 144 pages to ~20-35 MB for GitHub/web).
+    """
+    swift_code = r"""
+import Foundation
+import CoreGraphics
+import PDFKit
+import ImageIO
+
+let args = CommandLine.arguments
+guard args.count >= 5 else { exit(2) }
+let srcPath = args[1]
+let dstPath = args[2]
+let scale = CGFloat(Double(args[3]) ?? 2.0)
+let quality = Double(args[4]) ?? 0.80
+
+guard let doc = PDFDocument(url: URL(fileURLWithPath: srcPath)) else {
+    fputs("Failed to open PDF: \(srcPath)\n", stderr)
+    exit(1)
+}
+
+let dstURL = URL(fileURLWithPath: dstPath) as CFURL
+var firstBox = doc.page(at: 0)?.bounds(for: .mediaBox) ?? CGRect(x: 0, y: 0, width: 419.53, height: 593.29)
+guard let pdfCtx = CGContext(dstURL, mediaBox: &firstBox, nil) else {
+    fputs("Failed to create PDF context\n", stderr)
+    exit(1)
+}
+
+let colorSpace = CGColorSpaceCreateDeviceRGB()
+
+for i in 0..<doc.pageCount {
+    autoreleasepool {
+        guard let page = doc.page(at: i) else { return }
+        var mediaBox = page.bounds(for: .mediaBox)
+        let pixW = Int((mediaBox.width * scale).rounded())
+        let pixH = Int((mediaBox.height * scale).rounded())
+
+        guard let bmp = CGContext(
+            data: nil,
+            width: pixW,
+            height: pixH,
+            bitsPerComponent: 8,
+            bytesPerRow: 0,
+            space: colorSpace,
+            bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue
+        ) else { return }
+
+        bmp.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
+        bmp.fill(CGRect(x: 0, y: 0, width: pixW, height: pixH))
+        bmp.scaleBy(x: scale, y: scale)
+        bmp.interpolationQuality = .high
+        page.draw(with: .mediaBox, to: bmp)
+
+        guard let cgImg = bmp.makeImage() else { return }
+        let jpgData = NSMutableData()
+        guard let imgDst = CGImageDestinationCreateWithData(jpgData, "public.jpeg" as CFString, 1, nil) else { return }
+        CGImageDestinationAddImage(imgDst, cgImg, [kCGImageDestinationLossyCompressionQuality: quality] as CFDictionary)
+        CGImageDestinationFinalize(imgDst)
+
+        guard let provider = CGDataProvider(data: jpgData),
+              let jpgImg = CGImage(jpegDataProviderSource: provider, decode: nil, shouldInterpolate: true, intent: .defaultIntent) else { return }
+
+        var box = mediaBox
+        let pageInfo: [CFString: Any] = [kCGPDFContextMediaBox: Data(bytes: &box, count: MemoryLayout<CGRect>.size)]
+        pdfCtx.beginPDFPage(pageInfo as CFDictionary)
+        pdfCtx.draw(jpgImg, in: mediaBox)
+        pdfCtx.endPDFPage()
+    }
+}
+
+pdfCtx.closePDF()
+print("Optimized \(doc.pageCount) pages -> \(dstPath)")
+"""
+    with tempfile.NamedTemporaryFile("w", suffix=".swift", delete=False) as tf:
+        tf.write(swift_code)
+        swift_file = tf.name
+    try:
+        subprocess.run(
+            ["swift", swift_file, input_pdf, output_pdf, str(scale), str(quality)],
+            check=True,
+        )
+    finally:
+        if os.path.exists(swift_file):
+            os.remove(swift_file)
+
+
+def render_pdf(html_str, tmp_path, out_desktop, out_catalog, copy_primary=False, optimize=True):
     with open(tmp_path, "w", encoding="utf-8") as f:
         f.write(html_str)
+    raw_pdf = out_desktop + ".raw.pdf"
     try:
         subprocess.run(
             [
@@ -285,7 +382,7 @@ def render_pdf(html_str, tmp_path, out_desktop, out_catalog, copy_primary=False)
                 "--headless=new",
                 "--disable-gpu",
                 "--no-pdf-header-footer",
-                f"--print-to-pdf={out_desktop}",
+                f"--print-to-pdf={raw_pdf}",
                 f"file://{tmp_path}",
             ],
             check=True,
@@ -294,6 +391,17 @@ def render_pdf(html_str, tmp_path, out_desktop, out_catalog, copy_primary=False)
         if os.path.exists(tmp_path):
             os.remove(tmp_path)
 
+    raw_mb = os.path.getsize(raw_pdf) / (1024 * 1024)
+    if optimize and raw_mb > 35:
+        print(f"  Raw PDF is {raw_mb:.1f} MB — optimizing for fast web download & GitHub (<100 MB)...")
+        optimize_pdf_with_swift(raw_pdf, out_desktop, scale=2.0, quality=0.80)
+        os.remove(raw_pdf)
+    else:
+        shutil.move(raw_pdf, out_desktop)
+
+    final_mb = os.path.getsize(out_desktop) / (1024 * 1024)
+    print(f"  Final PDF size: {final_mb:.1f} MB")
+
     shutil.copy2(out_desktop, out_catalog)
     if copy_primary:
         shutil.copy2(out_desktop, OUT_PRIMARY_CATALOG)
@@ -301,7 +409,8 @@ def render_pdf(html_str, tmp_path, out_desktop, out_catalog, copy_primary=False)
 
 def main():
     parser = argparse.ArgumentParser(description="Build Arawali Arts offline PDF editions.")
-    parser.add_argument("--mode", choices=["both", "spreads", "single"], default="both")
+    parser.add_argument("--mode", choices=["both", "spreads", "single"], default="single")
+    parser.add_argument("--no-optimize", action="store_true", help="Skip macOS Swift PDF compression")
     parser.add_argument("--check-only", action="store_true")
     args = parser.parse_args()
 
@@ -314,19 +423,34 @@ def main():
             print(f"[check-only] Spreads HTML ready: {len(spreads_html):,} bytes (73 spreads)")
         else:
             print("Rendering 2-Page Magazine Spread PDF (73 A3 landscape spreads)...")
-            render_pdf(spreads_html, TMP_SPREADS_HTML, OUT_SPREADS_DESKTOP, OUT_SPREADS_CATALOG, copy_primary=True)
+            render_pdf(
+                spreads_html,
+                TMP_SPREADS_HTML,
+                OUT_SPREADS_DESKTOP,
+                OUT_SPREADS_CATALOG,
+                copy_primary=(args.mode == "spreads"),
+                optimize=not args.no_optimize,
+            )
             print("  Saved:", OUT_SPREADS_DESKTOP)
             print("  Saved:", OUT_SPREADS_CATALOG)
 
     if args.mode in ("both", "single"):
         single_html = build_single_html(head_content, pages)
         if args.check_only:
-            print(f"[check-only] Single-Page HTML ready: {len(single_html):,} bytes (144 pages)")
+            print(f"[check-only] Single-Page HTML ready: {len(single_html):,} bytes (144 pages, 148mm x 209.3mm)")
         else:
-            print("Rendering Single-Page Portrait PDF (144 A4 portrait pages)...")
-            render_pdf(single_html, TMP_SINGLE_HTML, OUT_SINGLE_DESKTOP, OUT_SINGLE_CATALOG, copy_primary=(args.mode == "single"))
+            print("Rendering Single-Page Portrait PDF (144 pages, exact 1:1.4142 flipbook aspect ratio)...")
+            render_pdf(
+                single_html,
+                TMP_SINGLE_HTML,
+                OUT_SINGLE_DESKTOP,
+                OUT_SINGLE_CATALOG,
+                copy_primary=True,
+                optimize=not args.no_optimize,
+            )
             print("  Saved:", OUT_SINGLE_DESKTOP)
             print("  Saved:", OUT_SINGLE_CATALOG)
+            print("  Updated Trade Catalog PDF:", OUT_PRIMARY_CATALOG)
 
 
 if __name__ == "__main__":
