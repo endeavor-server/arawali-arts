@@ -457,6 +457,35 @@ const soundFX = {
 };
 window.soundFX = soundFX;
 
+
+// ---- Responsive imagery helpers (WebP derivatives built by tools/build-images.py) ----
+function webpBase(path) {
+  if (!path) return '';
+  return String(path)
+    .replace('../assets/', '../assets/webp/')
+    .replace(/\.(jpe?g|png)$/i, '');
+}
+function webpSrcset(path, widths) {
+  if (!path) return '';
+  const base = webpBase(path);
+  if (!base) return '';
+  return (widths || [480, 960, 1024]).map(w => `${base}${w === 1024 ? '' : '-' + w}.webp ${w}w`).join(', ');
+}
+function upgradeBackgrounds() {
+  if (!window.CSS || !CSS.supports || !CSS.supports('background-image', 'image-set(url("x") type("image/webp"))')) return;
+  document.querySelectorAll('[style*="background"]').forEach(el => {
+    const bg = el.getAttribute('style') || '';
+    const m = bg.match(/url\(['"]?(\.\.\/assets\/[^'")]+\.(?:jpe?g|png))['"]?\)/i);
+    if (!m) return;
+    const jpg = m[1];
+    const webp = webpBase(jpg) + '.webp';
+    const next = bg.replace(m[0], `image-set(url('${webp}') type('image/webp'), url('${jpg}') type('image/jpeg'))`);
+    el.setAttribute('style', next);
+  });
+}
+window.webpSrcset = webpSrcset;
+window.upgradeBackgrounds = upgradeBackgrounds;
+
 // DOM Initialization
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof syncAllProductsToCatalog === 'function') {
@@ -467,9 +496,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initUIComponents();
   initContainerDock();
   initQuickSpecModal();
-  initContainerCalculator();
   initRFQPageIntegration();
+  initContainerCalculator();
   initCommandPalette();
+  upgradeBackgrounds();
 });
 
 // 2026 Luxury Inertial Smooth Scroll (Lenis)
@@ -586,7 +616,7 @@ function initUIComponents() {
           <span>Living Room & Accents</span>
           <span class="lkh-arrow">→</span>
         </a>
-        <a href="living-dining.html#cat-dining" class="lkh-nav-item">
+        <a href="living-dining.html" class="lkh-nav-item">
           <span>Dining Tables & Seating</span>
           <span class="lkh-arrow">→</span>
         </a>
@@ -602,12 +632,16 @@ function initUIComponents() {
           <span>Architectural Wall Decor</span>
           <span class="lkh-arrow">→</span>
         </a>
-        <a href="collections.html#cat-lifestyle" class="lkh-nav-item">
+        <a href="collections.html?dept=lifestyle" class="lkh-nav-item">
           <span>Lifestyle & Luxury Giftware</span>
           <span class="lkh-arrow">→</span>
         </a>
         <a href="collections.html" class="lkh-nav-item lkh-nav-featured">
-          <span>All Categories (24 Lines)</span>
+          <span>All 50 Product Lines</span>
+          <span class="lkh-arrow">→</span>
+        </a>
+        <a href="trade.html" class="lkh-nav-item lkh-nav-featured">
+          <span>Wholesale &amp; Trade Program</span>
           <span class="lkh-arrow">→</span>
         </a>
         <a href="../catalogue/arawali_arts_corporate_brochure.html" target="_blank" class="lkh-nav-item lkh-nav-featured">
@@ -1494,7 +1528,7 @@ function initDepartmentPage(config) {
       card.innerHTML = `
         <div class="card-image-wrapper" onclick="window.openProductSpec && window.openProductSpec('${item.SKU}')" style="cursor: pointer;">
           <span class="card-badge">SKU: ${item.SKU}</span>
-          <img src="${item.Image}" alt="${item.Product_Name}" loading="lazy">
+          <img src="${item.Image}" srcset="${webpSrcset(item.Image)}" sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 300px" alt="${item.Product_Name}" loading="lazy" decoding="async">
         </div>
         <div class="card-content">
           <span class="card-category">${item.Category.split(':')[1]?.trim() || item.Category}</span>
@@ -1841,3 +1875,1222 @@ function initCommandPalette() {
   }
 }
 window.initCommandPalette = initCommandPalette;
+
+
+// ==========================================================================
+// INTERACTIVE SLIDE-OVER RFQ CONTAINER CART DRAWER (ENDEAVOR / MYNTRA STANDARD)
+// ==========================================================================
+function initRFQDrawer() {
+  if (document.getElementById('rfqCartDrawer')) return;
+
+  const drawerHTML = `
+    <div class="rfq-drawer-backdrop" id="rfqDrawerBackdrop"></div>
+    <aside class="rfq-cart-drawer" id="rfqCartDrawer" aria-label="RFQ Cart Drawer">
+      <div class="drawer-header">
+        <div class="drawer-header-title">
+          <span>📦</span>
+          <h3>Your RFQ Load</h3>
+          <span class="drawer-header-badge" id="drawerItemCount">0 SKUs</span>
+        </div>
+        <button type="button" class="drawer-close-btn" id="closeDrawerBtn" aria-label="Close cart">✕</button>
+      </div>
+
+      <!-- Container Loading Meter -->
+      <div class="drawer-meter-box">
+        <div class="meter-header-row">
+          <span class="meter-label">Container Capacity Meter</span>
+          <div class="container-type-pills">
+            <button type="button" class="container-pill-btn active" id="meterBtn20ft">20ft (28 CBM)</button>
+            <button type="button" class="container-pill-btn" id="meterBtn40ft">40ft HQ (68 CBM)</button>
+          </div>
+        </div>
+        <div class="meter-progress-track">
+          <div class="meter-progress-fill" id="drawerMeterFill" style="width: 0%;"></div>
+        </div>
+        <div class="meter-sub-info">
+          <span id="drawerCbmText">0.00 / 28.00 CBM (0%)</span>
+          <span id="drawerUnitsText">0 total units</span>
+        </div>
+      </div>
+
+      <!-- Items List -->
+      <div class="drawer-items-list" id="drawerItemsList">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="drawer-footer">
+        <div class="drawer-totals-row">
+          <span>Total Packed Volume:</span>
+          <strong id="drawerTotalCbm">0.00 CBM</strong>
+        </div>
+        <div class="drawer-totals-row">
+          <span>Estimated FOB Value:</span>
+          <strong id="drawerTotalFob">$0.00 USD</strong>
+        </div>
+        <a href="rfq.html" class="drawer-btn-checkout" id="drawerCheckoutBtn">
+          <span>Review & Submit RFQ</span>
+          <span>→</span>
+        </a>
+        <button type="button" class="drawer-btn-continue" id="drawerContinueBtn">Continue Sourcing</button>
+      </div>
+    </aside>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', drawerHTML);
+
+  let activeContainer = '20ft'; // '20ft' (28 CBM) or '40ft' (68 CBM)
+
+  const backdrop = document.getElementById('rfqDrawerBackdrop');
+  const drawer = document.getElementById('rfqCartDrawer');
+  const closeBtn = document.getElementById('closeDrawerBtn');
+  const continueBtn = document.getElementById('drawerContinueBtn');
+  const btn20ft = document.getElementById('meterBtn20ft');
+  const btn40ft = document.getElementById('meterBtn40ft');
+
+  window.openRFQDrawer = function() {
+    renderDrawerItems();
+    drawer.classList.add('open');
+    backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeRFQDrawer = function() {
+    drawer.classList.remove('open');
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  if (closeBtn) closeBtn.onclick = window.closeRFQDrawer;
+  if (backdrop) backdrop.onclick = window.closeRFQDrawer;
+  if (continueBtn) continueBtn.onclick = window.closeRFQDrawer;
+
+  if (btn20ft) {
+    btn20ft.onclick = () => {
+      activeContainer = '20ft';
+      btn20ft.classList.add('active');
+      btn40ft.classList.remove('active');
+      updateMeter();
+    };
+  }
+  if (btn40ft) {
+    btn40ft.onclick = () => {
+      activeContainer = '40ft';
+      btn40ft.classList.add('active');
+      btn20ft.classList.remove('active');
+      updateMeter();
+    };
+  }
+
+  function updateMeter() {
+    const totalCbm = RFQCart.getTotalCBM ? RFQCart.getTotalCBM() : 0;
+    const totalUnits = RFQCart.getTotalUnits ? RFQCart.getTotalUnits() : 0;
+    const maxCbm = activeContainer === '20ft' ? 28.0 : 68.0;
+    const pct = Math.min(100, Math.round((totalCbm / maxCbm) * 100));
+
+    const fill = document.getElementById('drawerMeterFill');
+    const cbmText = document.getElementById('drawerCbmText');
+    const unitsText = document.getElementById('drawerUnitsText');
+    const totalCbmEl = document.getElementById('drawerTotalCbm');
+    const totalFobEl = document.getElementById('drawerTotalFob');
+
+    if (fill) fill.style.width = `${pct}%`;
+    if (cbmText) cbmText.textContent = `${totalCbm.toFixed(2)} / ${maxCbm.toFixed(2)} CBM (${pct}%)`;
+    if (unitsText) unitsText.textContent = `${totalUnits} total units`;
+    if (totalCbmEl) totalCbmEl.textContent = `${totalCbm.toFixed(2)} CBM`;
+
+    // Estimate FOB total
+    const cart = RFQCart.get();
+    let totalFob = 0;
+    Object.values(cart).forEach(it => {
+      const prod = window.PRODUCT_CATALOG ? PRODUCT_CATALOG[it.sku] : null;
+      if (prod && prod.priceFOB) {
+        totalFob += (prod.priceFOB * it.qty);
+      } else if (it.fobTier) {
+        const num = parseFloat(String(it.fobTier).replace(/[^0-9.]/g, '')) || 35;
+        totalFob += (num * it.qty);
+      }
+    });
+    if (totalFobEl) totalFobEl.textContent = `$${totalFob.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} USD`;
+  }
+
+  function renderDrawerItems() {
+    const list = document.getElementById('drawerItemsList');
+    const countBadge = document.getElementById('drawerItemCount');
+    if (!list) return;
+
+    const cart = RFQCart.get();
+    const skus = Object.keys(cart);
+
+    if (countBadge) countBadge.textContent = `${skus.length} SKU${skus.length === 1 ? '' : 's'}`;
+
+    if (skus.length === 0) {
+      list.innerHTML = `
+        <div class="drawer-empty-state">
+          <div style="font-size: 2.5rem; margin-bottom: 12px;">📦</div>
+          <h4 style="font-family: var(--font-cinzel, serif); margin-bottom: 6px; color: #1A1410;">Your RFQ Load is Empty</h4>
+          <p style="font-size: 0.82rem; color: #7A6C5F;">Explore our 500 export SKUs and click <strong>+ Add to RFQ</strong> to begin estimating container cubic meters and volume pricing.</p>
+        </div>
+      `;
+      updateMeter();
+      return;
+    }
+
+    list.innerHTML = '';
+    skus.forEach(sku => {
+      const it = cart[sku];
+      const prod = (window.PRODUCT_CATALOG && PRODUCT_CATALOG[sku]) || {};
+      const img = prod.image || `../assets/sku_${sku.toLowerCase().replace(/-/g, '_')}.jpg`;
+      const title = it.title || prod.title || sku;
+      const unitCbm = it.cbm || prod.cbm || 0.04;
+      const fob = prod.priceFOB ? `$${prod.priceFOB.toFixed(2)}` : (it.fobTier || '$45.00');
+
+      const card = document.createElement('div');
+      card.className = 'drawer-item-card';
+      card.innerHTML = `
+        <img src="${img}" alt="${title}" class="drawer-item-img" onerror="this.src='../assets/charcuterie_board_deluxe.jpg'">
+        <div class="drawer-item-details">
+          <span class="drawer-item-sku">${sku}</span>
+          <div class="drawer-item-title" title="${title}">${title}</div>
+          <div class="drawer-item-specs">
+            <span>FOB: ${fob}</span> • <span>${unitCbm} CBM/pc</span>
+          </div>
+          <div class="drawer-item-stepper-row">
+            <div class="qty-stepper">
+              <button type="button" class="qty-stepper-btn btn-dec" data-sku="${sku}">−</button>
+              <span class="qty-stepper-val">${it.qty}</span>
+              <button type="button" class="qty-stepper-btn btn-inc" data-sku="${sku}">+</button>
+            </div>
+            <button type="button" class="drawer-item-remove" data-sku="${sku}">Remove ✕</button>
+          </div>
+        </div>
+      `;
+      list.appendChild(card);
+    });
+
+    // Bind steppers
+    list.querySelectorAll('.btn-dec').forEach(b => {
+      b.onclick = () => {
+        const s = b.dataset.sku;
+        const cur = cart[s]?.qty || 0;
+        const step = 10;
+        const next = Math.max(0, cur - step);
+        RFQCart.setQty(s, next);
+        renderDrawerItems();
+      };
+    });
+    list.querySelectorAll('.btn-inc').forEach(b => {
+      b.onclick = () => {
+        const s = b.dataset.sku;
+        const cur = cart[s]?.qty || 0;
+        const step = 10;
+        RFQCart.setQty(s, cur + step);
+        renderDrawerItems();
+      };
+    });
+    list.querySelectorAll('.drawer-item-remove').forEach(b => {
+      b.onclick = () => {
+        const s = b.dataset.sku;
+        RFQCart.remove(s);
+        renderDrawerItems();
+      };
+    });
+
+    updateMeter();
+  }
+
+  // Intercept nav cart triggers to open drawer instead of page jump
+  document.querySelectorAll('.nav-cart-trigger, #mobileCartTrigger, .lkh-cart-btn').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.openRFQDrawer();
+    });
+  });
+
+  // Re-render when cart updates
+  window.addEventListener('rfq-cart-updated', () => {
+    if (drawer.classList.contains('open')) {
+      renderDrawerItems();
+    }
+  });
+}
+
+// Hook into RFQCart.add to open drawer automatically
+if (typeof RFQCart !== 'undefined') {
+  const originalCartAdd = RFQCart.add.bind(RFQCart);
+  RFQCart.add = function(sku, qty = null) {
+    originalCartAdd(sku, qty);
+    if (window.openRFQDrawer) {
+      window.openRFQDrawer();
+    }
+  };
+}
+
+// Auto initialize cart drawer on DOM ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initRFQDrawer);
+} else {
+  initRFQDrawer();
+}
+
+// ==========================================================================
+// MYNTRA-GRADE E-COMMERCE CATALOG ENGINE WITH LEFT VERTICAL SIDEBAR & PAGINATION
+// ==========================================================================
+function initMyntraCatalogPage(config) {
+  const {
+    department,
+    categories,
+    gridId,
+    counterId,
+    searchInputId,
+    paginationId = 'deptPagination',
+    pageSize = 24
+  } = config;
+
+  const grid = document.getElementById(gridId);
+  if (!grid || !window.ALL_PRODUCTS_500) return;
+
+  if (typeof syncAllProductsToCatalog === 'function') {
+    syncAllProductsToCatalog();
+  }
+
+  // Filter department base items
+  let baseItems = window.ALL_PRODUCTS_500.filter(item => {
+    if (categories && Array.isArray(categories)) {
+      return categories.some(cat => (item.Category || '').toLowerCase().includes(cat.toLowerCase()));
+    }
+    if (department) {
+      return (item.Department || '').toLowerCase() === department.toLowerCase();
+    }
+    return true;
+  });
+
+  // State
+  let selectedCategories = new Set();
+  let selectedMaterials = new Set();
+  let selectedPriceTiers = new Set();
+  let searchQuery = '';
+  let currentSort = 'recommended';
+  let currentPage = 1;
+
+  // Extract facets
+  const allSubcats = [...new Set(baseItems.map(i => i.Category))].filter(Boolean).sort();
+  
+  // Materials definitions
+  const materialMatchers = [
+    { id: 'sheesham', label: 'Solid Sheesham (Rosewood)', match: p => /sheesham|rosewood/i.test(p.Material_Construction || '') },
+    { id: 'mango', label: 'Seasoned Mango Wood', match: p => /mango/i.test(p.Material_Construction || '') },
+    { id: 'acacia', label: 'Kiln-Dried Acacia', match: p => /acacia/i.test(p.Material_Construction || '') },
+    { id: 'iron', label: 'Hand-Forged Wrought Iron', match: p => /iron|wrought/i.test(p.Material_Construction || '') },
+    { id: 'brass', label: 'Brass & Cast Hardware', match: p => /brass|cast/i.test(p.Material_Construction || '') }
+  ];
+
+  // Price tier definitions
+  const priceTiers = [
+    { id: 'under25', label: 'Under $25.00 FOB', min: 0, max: 25 },
+    { id: '25to50', label: '$25.00 – $50.00 FOB', min: 25, max: 50 },
+    { id: '50to100', label: '$50.00 – $100.00 FOB', min: 50, max: 100 },
+    { id: 'above100', label: '$100.00+ FOB', min: 100, max: Infinity }
+  ];
+
+  function getFobValue(item) {
+    if (item.FOB_Mundra_USD) {
+      const match = String(item.FOB_Mundra_USD).match(/\$?([0-9.]+)/);
+      if (match) return parseFloat(match[1]);
+    }
+    const catProd = window.PRODUCT_CATALOG ? PRODUCT_CATALOG[item.SKU] : null;
+    if (catProd && catProd.priceFOB) return catProd.priceFOB;
+    return 35;
+  }
+
+  function getCbmValue(item) {
+    return parseFloat(item.CBM) || 0.04;
+  }
+
+  function filterAndSortItems() {
+    let result = baseItems.filter(item => {
+      // Category match
+      if (selectedCategories.size > 0 && !selectedCategories.has(item.Category)) {
+        return false;
+      }
+      // Material match
+      if (selectedMaterials.size > 0) {
+        const hasMat = [...selectedMaterials].some(matId => {
+          const matcher = materialMatchers.find(m => m.id === matId);
+          return matcher ? matcher.match(item) : false;
+        });
+        if (!hasMat) return false;
+      }
+      // Price match
+      if (selectedPriceTiers.size > 0) {
+        const val = getFobValue(item);
+        const hasPrice = [...selectedPriceTiers].some(tierId => {
+          const t = priceTiers.find(p => p.id === tierId);
+          return t ? (val >= t.min && val < t.max) : false;
+        });
+        if (!hasPrice) return false;
+      }
+      // Search query
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        const sku = (item.SKU || '').toLowerCase();
+        const name = (item.Product_Name || '').toLowerCase();
+        const mat = (item.Material_Construction || '').toLowerCase();
+        const cat = (item.Category || '').toLowerCase();
+        if (!sku.includes(q) && !name.includes(q) && !mat.includes(q) && !cat.includes(q)) {
+          return false;
+        }
+      }
+      return true;
+    });
+
+    // Sort
+    result.sort((a, b) => {
+      if (currentSort === 'price-asc') return getFobValue(a) - getFobValue(b);
+      if (currentSort === 'price-desc') return getFobValue(b) - getFobValue(a);
+      if (currentSort === 'cbm-asc') return getCbmValue(a) - getCbmValue(b);
+      if (currentSort === 'moq-asc') return (parseInt(a.MOQ) || 25) - (parseInt(b.MOQ) || 25);
+      return (a.SKU || '').localeCompare(b.SKU || ''); // Recommended: default SKU order
+    });
+
+    return result;
+  }
+
+  function renderSidebar() {
+    // Categories facet
+    const catList = document.getElementById('deptCategoryFacets');
+    if (catList) {
+      catList.innerHTML = '';
+      allSubcats.forEach(c => {
+        const count = baseItems.filter(i => i.Category === c).length;
+        const cName = c.split(':')[1]?.trim() || c;
+        const label = document.createElement('label');
+        label.className = 'myntra-facet-item';
+        label.innerHTML = `
+          <input type="checkbox" value="${c}" ${selectedCategories.has(c) ? 'checked' : ''}>
+          <span class="facet-name">${cName}</span>
+          <span class="facet-count">(${count})</span>
+        `;
+        const cb = label.querySelector('input');
+        cb.onchange = () => {
+          if (cb.checked) selectedCategories.add(c);
+          else selectedCategories.delete(c);
+          currentPage = 1;
+          render();
+        };
+        catList.appendChild(label);
+      });
+    }
+
+    // Material facet
+    const matList = document.getElementById('deptMaterialFacets');
+    if (matList) {
+      matList.innerHTML = '';
+      materialMatchers.forEach(m => {
+        const count = baseItems.filter(m.match).length;
+        if (count === 0) return;
+        const label = document.createElement('label');
+        label.className = 'myntra-facet-item';
+        label.innerHTML = `
+          <input type="checkbox" value="${m.id}" ${selectedMaterials.has(m.id) ? 'checked' : ''}>
+          <span class="facet-name">${m.label}</span>
+          <span class="facet-count">(${count})</span>
+        `;
+        const cb = label.querySelector('input');
+        cb.onchange = () => {
+          if (cb.checked) selectedMaterials.add(m.id);
+          else selectedMaterials.delete(m.id);
+          currentPage = 1;
+          render();
+        };
+        matList.appendChild(label);
+      });
+    }
+
+    // Price facet
+    const priceList = document.getElementById('deptPriceFacets');
+    if (priceList) {
+      priceList.innerHTML = '';
+      priceTiers.forEach(t => {
+        const count = baseItems.filter(i => {
+          const v = getFobValue(i);
+          return v >= t.min && v < t.max;
+        }).length;
+        const label = document.createElement('label');
+        label.className = 'myntra-facet-item';
+        label.innerHTML = `
+          <input type="checkbox" value="${t.id}" ${selectedPriceTiers.has(t.id) ? 'checked' : ''}>
+          <span class="facet-name">${t.label}</span>
+          <span class="facet-count">(${count})</span>
+        `;
+        const cb = label.querySelector('input');
+        cb.onchange = () => {
+          if (cb.checked) selectedPriceTiers.add(t.id);
+          else selectedPriceTiers.delete(t.id);
+          currentPage = 1;
+          render();
+        };
+        priceList.appendChild(label);
+      });
+    }
+
+    // Clear all filters button
+    const clearBtn = document.getElementById('clearAllFiltersBtn');
+    if (clearBtn) {
+      clearBtn.onclick = () => {
+        selectedCategories.clear();
+        selectedMaterials.clear();
+        selectedPriceTiers.clear();
+        searchQuery = '';
+        const searchInput = document.getElementById(searchInputId) || document.getElementById('deptSearchInput');
+        if (searchInput) searchInput.value = '';
+        currentPage = 1;
+        renderSidebar();
+        render();
+      };
+    }
+  }
+
+  function renderPagination(totalItems) {
+    const pagWrap = document.getElementById(paginationId);
+    if (!pagWrap) return;
+
+    const totalPages = Math.ceil(totalItems / pageSize) || 1;
+    pagWrap.innerHTML = '';
+
+    if (totalPages <= 1) return; // No pagination needed for single page
+
+    // << Page 1
+    const firstBtn = document.createElement('button');
+    firstBtn.className = 'myntra-page-btn';
+    firstBtn.innerHTML = '&laquo; Page 1';
+    firstBtn.disabled = currentPage === 1;
+    firstBtn.onclick = () => {
+      currentPage = 1;
+      render();
+      scrollToCatalogTop();
+    };
+    pagWrap.appendChild(firstBtn);
+
+    // < Previous
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'myntra-page-btn';
+    prevBtn.innerHTML = '&lsaquo; Previous';
+    prevBtn.disabled = currentPage === 1;
+    prevBtn.onclick = () => {
+      currentPage = Math.max(1, currentPage - 1);
+      render();
+      scrollToCatalogTop();
+    };
+    pagWrap.appendChild(prevBtn);
+
+    // Page indicator: Page X of Y
+    const ind = document.createElement('span');
+    ind.className = 'myntra-page-indicator';
+    ind.textContent = `Page ${currentPage} of ${totalPages}`;
+    pagWrap.appendChild(ind);
+
+    // Next >
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'myntra-page-btn';
+    nextBtn.innerHTML = 'Next &rsaquo;';
+    nextBtn.disabled = currentPage === totalPages;
+    nextBtn.onclick = () => {
+      currentPage = Math.min(totalPages, currentPage + 1);
+      render();
+      scrollToCatalogTop();
+    };
+    pagWrap.appendChild(nextBtn);
+
+    // Page Y >>
+    if (totalPages > 2) {
+      const lastBtn = document.createElement('button');
+      lastBtn.className = 'myntra-page-btn';
+      lastBtn.innerHTML = `Page ${totalPages} &raquo;`;
+      lastBtn.disabled = currentPage === totalPages;
+      lastBtn.onclick = () => {
+        currentPage = totalPages;
+        render();
+        scrollToCatalogTop();
+      };
+      pagWrap.appendChild(lastBtn);
+    }
+  }
+
+  function scrollToCatalogTop() {
+    const el = document.getElementById('catalogTop') || grid;
+    if (el) {
+      const topOffset = el.getBoundingClientRect().top + window.pageYOffset - 90;
+      window.scrollTo({ top: topOffset, behavior: 'smooth' });
+    }
+  }
+
+  function render() {
+    const filtered = filterAndSortItems();
+    const totalItems = filtered.length;
+    const totalPages = Math.ceil(totalItems / pageSize) || 1;
+    if (currentPage > totalPages) currentPage = 1;
+
+    const startIdx = (currentPage - 1) * pageSize;
+    const endIdx = Math.min(startIdx + pageSize, totalItems);
+    const pageItems = filtered.slice(startIdx, endIdx);
+
+    // Update text metadata
+    const showingText = document.getElementById('deptShowingText');
+    if (showingText) {
+      showingText.textContent = totalItems === 0
+        ? 'Showing 0 items'
+        : `Showing ${startIdx + 1}–${endIdx} of ${totalItems} SKUs`;
+    }
+    if (counterId) {
+      const cEl = document.getElementById(counterId);
+      if (cEl) cEl.textContent = `${totalItems} of ${baseItems.length} SKUs`;
+    }
+    const deptItemCount = document.getElementById('deptItemCount');
+    if (deptItemCount) {
+      deptItemCount.textContent = `- ${totalItems} items`;
+    }
+
+    grid.innerHTML = '';
+    if (totalItems === 0) {
+      grid.innerHTML = `
+        <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: #FFFFFF; border-radius: 12px; border: 1px solid #E5DCD0;">
+          <h3 style="font-family: var(--font-cinzel, serif); color: #1A1410; margin-bottom: 8px;">No matching export products</h3>
+          <p style="color: #7A6C5F; font-size: 0.88rem; margin-bottom: 16px;">Try adjusting your filters or resetting timber and category selections.</p>
+          <button type="button" class="myntra-page-btn" id="emptyResetBtn">Reset All Filters</button>
+        </div>
+      `;
+      const btn = document.getElementById('emptyResetBtn');
+      if (btn) {
+        btn.onclick = () => {
+          selectedCategories.clear();
+          selectedMaterials.clear();
+          selectedPriceTiers.clear();
+          searchQuery = '';
+          currentPage = 1;
+          renderSidebar();
+          render();
+        };
+      }
+      renderPagination(0);
+      return;
+    }
+
+    // Render cards
+    pageItems.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const cbm = item.CBM || '0.04';
+      const fob = item.FOB_Mundra_USD || '$45.00';
+      const moq = item.MOQ || '25 Pcs';
+      const catName = item.Category.split(':')[1]?.trim() || item.Category;
+      const img = item.Image || `../assets/sku_${item.SKU.toLowerCase().replace(/-/g, '_')}.jpg`;
+
+      card.innerHTML = `
+        <div class="card-image-wrapper" onclick="window.openProductSpec && window.openProductSpec('${item.SKU}')" style="cursor: pointer;">
+          <span class="card-badge">SKU: ${item.SKU}</span>
+          <img src="${img}" alt="${item.Product_Name}" loading="lazy" decoding="async" onerror="this.src='../assets/charcuterie_board_deluxe.jpg'">
+        </div>
+        <div class="card-content">
+          <span class="card-category">${catName}</span>
+          <h3 class="card-title" onclick="window.openProductSpec && window.openProductSpec('${item.SKU}')" style="cursor: pointer;" title="${item.Product_Name}">${item.Product_Name}</h3>
+          <p class="card-description">${item.Material_Construction}</p>
+          <div class="card-specs">
+            <span><strong>Dim:</strong> ${item.Dimensions.split('/')[0]}</span>
+            <span><strong>CBM:</strong> ${cbm}</span>
+            <span><strong>FOB:</strong> ${fob}</span>
+          </div>
+          <div style="font-size: 0.8rem; color: #665C54; margin-top: 6px; display: flex; justify-content: space-between;">
+            <span><strong>Retail:</strong> ${item.Western_Retail_USD}</span>
+            <span><strong>MOQ:</strong> ${moq}</span>
+          </div>
+          <div class="card-actions">
+            <button class="card-btn-add" data-sku="${item.SKU}">+ Add to RFQ</button>
+            <button class="btn-spec" data-sku="${item.SKU}" title="View Full Export Spec Sheet">Specs ℹ</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    // Re-bind actions
+    if (window.bindSpecTriggers) window.bindSpecTriggers();
+    grid.querySelectorAll('.card-btn-add').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const sku = btn.getAttribute('data-sku');
+        const prod = (window.PRODUCT_CATALOG && PRODUCT_CATALOG[sku]) || {};
+        if (window.RFQCart) {
+          RFQCart.add(sku, prod.moq || 25, prod.cbm || 0.04);
+          btn.textContent = '✓ Added to Load';
+          btn.style.background = '#2E7D32';
+          setTimeout(() => {
+            btn.textContent = '+ Add to RFQ';
+            btn.style.background = '';
+          }, 1200);
+          if (window.openRFQDrawer) window.openRFQDrawer();
+        }
+      };
+    });
+
+    renderPagination(totalItems);
+  }
+
+  // Bind Search input
+  const searchEl = document.getElementById(searchInputId) || document.getElementById('deptSearchInput');
+  if (searchEl) {
+    searchEl.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      currentPage = 1;
+      render();
+    });
+  }
+
+  // Bind Sort dropdowns (desktop + mobile)
+  const sortSelect = document.getElementById('deptSortSelect');
+  if (sortSelect) {
+    sortSelect.onchange = (e) => {
+      currentSort = e.target.value;
+      currentPage = 1;
+      render();
+    };
+  }
+  const sortSelectMobile = document.getElementById('deptSortSelectMobile');
+  if (sortSelectMobile) {
+    sortSelectMobile.onchange = (e) => {
+      currentSort = e.target.value;
+      if (sortSelect) sortSelect.value = currentSort;
+      currentPage = 1;
+      render();
+    };
+  }
+
+  // Mobile drawer controls
+  const openMobileBtn = document.getElementById('openMobileFiltersBtn');
+  const closeMobileBtn = document.getElementById('closeMobileFiltersBtn');
+  const applyMobileBtn = document.getElementById('applyMobileFiltersBtn');
+  const sidebarEl = document.getElementById('myntraSidebar');
+  const backdropEl = document.getElementById('myntraDrawerBackdrop');
+
+  function openMobileDrawer() {
+    if (sidebarEl) sidebarEl.classList.add('open');
+    if (backdropEl) backdropEl.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileDrawer() {
+    if (sidebarEl) sidebarEl.classList.remove('open');
+    if (backdropEl) backdropEl.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (openMobileBtn) openMobileBtn.onclick = openMobileDrawer;
+  if (closeMobileBtn) closeMobileBtn.onclick = closeMobileDrawer;
+  if (backdropEl) backdropEl.onclick = closeMobileDrawer;
+  if (applyMobileBtn) applyMobileBtn.onclick = closeMobileDrawer;
+
+  // Initialize
+  renderSidebar();
+  render();
+}
+window.initMyntraCatalogPage = initMyntraCatalogPage;
+window.initDepartmentPage = initMyntraCatalogPage; // Automatic backward compatibility upgrade
+
+/* ==========================================================================
+   MASTER 8 EXPORT DIVISIONS TAXONOMY & INTERACTIVE ENDEAVOR MEGA-MENU
+   ========================================================================== */
+window.EXPORT_DIVISIONS_DATA = [
+  {
+    id: "living-dining",
+    name: "Living & Dining Furniture",
+    icon: "🪑",
+    badge: "Kiln-Dried 8-10% MC",
+    skuCount: "50 SKUs",
+    sla: "Mortise & Tenon Joinery • SLA 8-10% MC",
+    tagline: "Solid Sheesham, Mango & Acacia dining & accent tables",
+    description: "Architectural live-edge dining slabs, trestle tables, occasional coffee tables, hospitality benches, and bar seating engineered with traditional mortise-and-tenon joinery for North American and European climates.",
+    targetUrl: "living-dining.html",
+    heroBg: "../assets/hero_live_edge_table.jpg",
+    specs: ["Kiln Moisture: 8%–10% SLA", "Mortise & Tenon Joinery", "FOB Mundra Direct"],
+    categories: [
+      { name: "Cat 03: Coffee, Accent & Occasional Tables", title: "Coffee, Accent & Occasional Tables", url: "living-dining.html?cat=cat-03", count: 10 },
+      { name: "Cat 05: Dining Tables & Hospitality Seating", title: "Dining Tables & Hospitality Seating", url: "living-dining.html?cat=cat-05", count: 10 },
+      { name: "Cat 47: Bar Stools, Counter Chairs & Island Seating", title: "Bar Stools & Island Counter Chairs", url: "living-dining.html?cat=cat-47", count: 10 },
+      { name: "Cat 14: Luxury Bedroom Accents & Headboards", title: "Luxury Headboards & Bedroom Accents", url: "living-dining.html?cat=cat-14", count: 10 },
+      { name: "Cat 33: Hospitality Luggage Racks & Bedroom Valets", title: "Hospitality Luggage Racks & Valets", url: "living-dining.html?cat=cat-33", count: 10 }
+    ]
+  },
+  {
+    id: "case-goods",
+    name: "Case Goods & Storage",
+    icon: "🗄️",
+    badge: "ISTA-1A Drop Tested",
+    skuCount: "70 SKUs",
+    sla: "European Soft-Close Hardware • Flat-Pack KD",
+    tagline: "Credenzas, sideboards, bookcases & apothecary chests",
+    description: "Jodhpur Moorish jaali credenzas, fluted timber media consoles, industrial library étagères, and apothecary file chests fitted with European soft-close hardware and flat-pack KD export packaging.",
+    targetUrl: "case-goods.html",
+    heroBg: "../assets/hero_jaali_sideboard.jpg",
+    specs: ["European Soft-Close Hardware", "ISTA-1A Drop Tested", "Flat-Pack KD Engineering"],
+    categories: [
+      { name: "Cat 04: Case Goods, Credenzas & Storage Buffets", title: "Credenzas, Buffets & Media Consoles", url: "case-goods.html?cat=cat-04", count: 10 },
+      { name: "Cat 07: Home Organization, Shelving & Bookcases", title: "Home Organization & Wall Shelving", url: "case-goods.html?cat=cat-07", count: 10 },
+      { name: "Cat 28: Bookshelves, Bookcases & Étagère Towers", title: "Bookshelves & Étagère Towers", url: "case-goods.html?cat=cat-28", count: 10 },
+      { name: "Cat 13: Entryway, Mudroom & Foyer Utility", title: "Entryway Hall Trees & Mudroom Utility", url: "case-goods.html?cat=cat-13", count: 10 },
+      { name: "Cat 25: Music, Audio & Vinyl Record Storage", title: "Vinyl Audio & Turntable Consoles", url: "case-goods.html?cat=cat-25", count: 10 },
+      { name: "Cat 32: Laundry, Utility & Mudroom Organizers", title: "Laundry & Mudroom Utility Organizers", url: "case-goods.html?cat=cat-32", count: 10 },
+      { name: "Cat 44: Kitchen Island Carts, Baker’s Racks & Butcher Blocks", title: "Rolling Island Carts & Baker’s Racks", url: "case-goods.html?cat=cat-44", count: 10 }
+    ]
+  },
+  {
+    id: "tabletop",
+    name: "Kitchen, Tabletop & Entertaining",
+    icon: "🍷",
+    badge: "FDA/LFGB Food-Safe",
+    skuCount: "70 SKUs",
+    sla: "Food-Safe Lacquer • Retail Gift-Box Ready",
+    tagline: "End-grain blocks, charcuterie boards & barware",
+    description: "High-velocity culinary woodcraft including organic live-edge charcuterie boards, hand-turned salad bowls, marble & acacia barware, and wine cellar furnishings. Optimized for Amazon FBA and boutique gift retail.",
+    targetUrl: "tabletop.html",
+    heroBg: "../assets/charcuterie_board_deluxe.jpg",
+    specs: ["Food-Safe Certified Lacquer", "Gift-Box Ready Packaging", "Amazon Proven Velocity"],
+    categories: [
+      { name: "Cat 01: Tabletop, Serveware & Culinary Woodcraft", title: "Charcuterie Boards & Serving Platters", url: "tabletop.html?cat=cat-01", count: 10 },
+      { name: "Cat 09: Barware, Wine Storage & Entertaining Essentials", title: "Barware, Wine Racks & Mobile Carts", url: "tabletop.html?cat=cat-09", count: 10 },
+      { name: "Cat 15: Kitchen Organization & Pantry Woodcraft", title: "Magnetic Knife Strips & Spice Racks", url: "tabletop.html?cat=cat-15", count: 10 },
+      { name: "Cat 22: Home Barista, Coffee Bar & Tea Stations", title: "Pour-Over Stands & Barista Stations", url: "tabletop.html?cat=cat-22", count: 10 },
+      { name: "Cat 31: Wine Cellar & Vineyard Estate Furnishings", title: "Wine Riddling Racks & Estate Furnishings", url: "tabletop.html?cat=cat-31", count: 10 },
+      { name: "Cat 37: Table Linens, Charger Plates & Dining Accents", title: "Turned Charger Plates & Table Accents", url: "tabletop.html?cat=cat-37", count: 10 },
+      { name: "Cat 40: Trays, Platters & Ottoman Serving Boards", title: "Ottoman Serving Trays & Bed Lap Desks", url: "tabletop.html?cat=cat-40", count: 10 }
+    ]
+  },
+  {
+    id: "wall-decor",
+    name: "Architectural Wall Decor & Mirrors",
+    icon: "🪞",
+    badge: "Silvered Float Glass",
+    skuCount: "60 SKUs",
+    sla: "Rust-Proof Matte Coat • Distortion-Free Glass",
+    tagline: "Jharokha arch mirrors, jaali panels & wall clocks",
+    description: "Hand-forged pierced iron jaali panels, Rajasthani cathedral Jharokha mirrors, oversized floor leaners, kinetic gear wall clocks, and architectural carved wooden transoms with rust-proof powder coats.",
+    targetUrl: "wall-decor.html",
+    heroBg: "../assets/hero_jharokha_mirror.jpg",
+    specs: ["Commercial Float Mirror Glass", "Rust-Proof Matte Finish", "VRIKSH Legal Timber"],
+    categories: [
+      { name: "Cat 02: Architectural Wall Decor & Wrought Iron Art", title: "Pierced Iron Jaali Wall Panels & Sconces", url: "wall-decor.html?cat=cat-02", count: 10 },
+      { name: "Cat 16: Clocks, Timepieces & Kinetic Wall Art", title: "Industrial Skeleton & Sunburst Clocks", url: "wall-decor.html?cat=cat-16", count: 10 },
+      { name: "Cat 38: Wall Hooks, Coat Racks & Hanging Storage", title: "Cast Iron Wall Hooks & Coat Racks", url: "wall-decor.html?cat=cat-38", count: 10 },
+      { name: "Cat 39: Mirrors, Jharokha Art & Dressing Glasses", title: "Jharokha Arch Mirrors & Leaners", url: "wall-decor.html?cat=cat-39", count: 10 },
+      { name: "Cat 45: Picture Frames, Gallery Rails & Photo Displays", title: "Solid Hardwood Gallery Frame Sets", url: "wall-decor.html?cat=cat-45", count: 10 },
+      { name: "Cat 48: Architectural Accents, Brackets & Carved Corbels", title: "Carved Island Corbels & Transom Grilles", url: "wall-decor.html?cat=cat-48", count: 10 }
+    ]
+  },
+  {
+    id: "lighting-hearth",
+    name: "Lighting & Fireplace Hearthcraft",
+    icon: "🕯️",
+    badge: "CE / UL Compatible",
+    skuCount: "50 SKUs",
+    sla: "CE/UL Wireways • Heat-Resistant Black Patina",
+    tagline: "Ambient Moroccan lanterns, pendants & fire tools",
+    description: "Pierced wrought iron ambient lanterns, draped wood bead chandeliers, linear table candelabras, heavy 5-piece fireplace tool sets, and crescent firewood log hoops designed for luxury mountain and estate living.",
+    targetUrl: "collections.html?division=lighting-hearth",
+    heroBg: "../assets/fireplace_tool_set_iron.jpg",
+    specs: ["CE / UL Compatible Wireways", "Hand-Hammered Wrought Iron", "Heat-Resistant Patina"],
+    categories: [
+      { name: "Cat 06: Decorative Lighting, Lanterns & Ambient Accents", title: "Pierced Metal Ambient Lanterns & Lamps", url: "collections.html#cat-06", count: 10 },
+      { name: "Cat 12: Fireplace, Hearth & Mantle Ironcraft", title: "5-Piece Hand-Forged Fireplace Tool Sets", url: "collections.html#cat-12", count: 10 },
+      { name: "Cat 26: Luxury Lighting Pendants & Chandeliers", title: "Wood Bead & Wagon Wheel Chandeliers", url: "collections.html#cat-26", count: 10 },
+      { name: "Cat 35: Candle Holders, Candelabras & Votive Lanterns", title: "Linear Table Candelabras & Lanterns", url: "collections.html#cat-35", count: 10 },
+      { name: "Cat 41: Fireplace Accessories, Mantels & Wood Storage", title: "Fireplace Screens, Hoppers & Mantels", url: "collections.html#cat-41", count: 10 }
+    ]
+  },
+  {
+    id: "garden-outdoor",
+    name: "Garden, Patio & Outdoor Living",
+    icon: "🌿",
+    badge: "Weather-Resistant Seal",
+    skuCount: "60 SKUs",
+    sla: "Exterior Marine Coating • UV-Stabilized Seal",
+    tagline: "Iron arbors, trellises, bistro sets & fire vessels",
+    description: "Hand-hammered iron garden arbors, French diamond trellises, foldable acacia bistro sets, raised iron planter ladders, glass Wardian greenhouse terrariums, and outdoor bioethanol fire bowls.",
+    targetUrl: "collections.html?division=garden-outdoor",
+    heroBg: "../assets/iron_garden_trellis_arbor.jpg",
+    specs: ["Weather-Resistant Outdoor Seal", "Hand-Forged Architectural Iron", "High-Margin Density"],
+    categories: [
+      { name: "Cat 10: Planters, Botanical Stands & Garden Ironcraft", title: "Raised Wood & Iron Plant Stands", url: "collections.html#cat-10", count: 10 },
+      { name: "Cat 24: Outdoor Cooking, BBQ & Grill Accessories", title: "End-Grain BBQ Meat Carving Blocks", url: "collections.html#cat-24", count: 10 },
+      { name: "Cat 30: Outdoor Patio Furniture & Balcony Living", title: "Folding Acacia Patio Sets & Garden Benches", url: "collections.html#cat-30", count: 10 },
+      { name: "Cat 34: Garden Trellises, Arbors & Landscape Structures", title: "Arched Iron Garden Arbors & Trellises", url: "collections.html#cat-34", count: 10 },
+      { name: "Cat 43: Planters, Terrariums & Miniature Greenhouses", title: "Glass & Iron Greenhouse Terrariums", url: "collections.html#cat-43", count: 10 },
+      { name: "Cat 50: Outdoor Lighting, Torches & Fire Vessels", title: "Tabletop Bioethanol Fire Bowls & Torches", url: "collections.html#cat-50", count: 10 }
+    ]
+  },
+  {
+    id: "office-vanity",
+    name: "Home Office, Keepsakes & Vanity",
+    icon: "✒️",
+    badge: "Velvet Lined & Brass Inlay",
+    skuCount: "60 SKUs",
+    sla: "Precision CNC Veneers • Anti-Tarnish Velvet",
+    tagline: "Desk risers, locking jewelry chests & hardware",
+    description: "Dual-monitor ergonomic desk risers, turned wooden cable boxes, multi-tier locking jewelry chests, watch display boxes, hand-carved memory keepsake urns, and hand-forged architectural ironmongery pulls.",
+    targetUrl: "collections.html?division=office-vanity",
+    heroBg: "../assets/book_keepsake_box.jpg",
+    specs: ["Solid Brass Inlays & Hinges", "Anti-Tarnish Velvet Lining", "Artisanal Hand Joinery"],
+    categories: [
+      { name: "Cat 08: Desk Accessories, Keepsakes & Luxury Stationery", title: "Book Keepsakes & Sculptural Paperweights", url: "collections.html#cat-08", count: 10 },
+      { name: "Cat 23: Hardware, Knobs, Pulls & Architectural Ironmongery", title: "Hand-Forged Cabinet Pulls & Barn Handles", url: "collections.html#cat-23", count: 10 },
+      { name: "Cat 27: Sewing, Knitting & Haberdashery Woodcraft", title: "Turned Yarn Bowls & Sewing Chests", url: "collections.html#cat-27", count: 10 },
+      { name: "Cat 29: Jewelry Boxes, Vanity Organizers & Caskets", title: "Locking Hardwood Jewelry & Watch Chests", url: "collections.html#cat-29", count: 10 },
+      { name: "Cat 36: Desk Organizers, Tech Accessories & Home Office", title: "Dual-Monitor Wood Risers & Wrist Rests", url: "collections.html#cat-36", count: 10 },
+      { name: "Cat 42: Decorative Boxes, Urns & Memory Keepsakes", title: "Carved Memory Urns & Puzzle Boxes", url: "collections.html#cat-42", count: 10 }
+    ]
+  },
+  {
+    id: "kids-leisure",
+    name: "Kids, Pets, Leisure & Heritage",
+    icon: "♟️",
+    badge: "ASTM F963 Non-Toxic",
+    skuCount: "80 SKUs",
+    sla: "ASTM F963 Toy Safety • Lead-Free Eco Seal",
+    tagline: "Montessori toys, elevated pet diners & game sets",
+    description: "Montessori curved balance boards, children activity desks, elevated acacia dog feeding stations, luxury pet daybeds, heirloom solid Sheesham chess sets, spa bathtub caddies, and cultural sacred chowkis.",
+    targetUrl: "collections.html?division=kids-leisure",
+    heroBg: "../assets/hardwood_chess_board.jpg",
+    specs: ["ASTM F963 Safety Compliant", "Lead-Free Non-Toxic Stains", "Heirloom Quality Joinery"],
+    categories: [
+      { name: "Cat 11: Bathroom, Spa & Wellness Woodcraft", title: "Expandable Bathtub Caddies & Floor Mats", url: "collections.html#cat-11", count: 10 },
+      { name: "Cat 17: Children, Nursery & Montessori Wooden Toys", title: "Montessori Balance Boards & Rainbow Arches", url: "collections.html#cat-17", count: 10 },
+      { name: "Cat 18: Luxury Pet Furniture & Elevated Feeders", title: "Elevated Dog Feeders & Pet Daybeds", url: "collections.html#cat-18", count: 10 },
+      { name: "Cat 19: Seasonal, Festive & Holiday Decor", title: "Turned Christmas Trees & Menorahs", url: "collections.html#cat-19", count: 10 },
+      { name: "Cat 20: Sacred, Meditation & Altar Crafts", title: "Jharokha Altars & Meditation Chowkis", url: "collections.html#cat-20", count: 10 },
+      { name: "Cat 21: Games, Pastimes & Handcrafted Leisure", title: "Handcrafted Sheesham & Boxwood Chess", url: "collections.html#cat-21", count: 10 },
+      { name: "Cat 46: Children's Furniture, Study Desks & Activity Tables", title: "Children's Desks & Front-Facing Book Slings", url: "collections.html#cat-46", count: 10 },
+      { name: "Cat 49: Religious, Cultural & Global Ethnic Statuary", title: "Hand-Carved Statuary & Garden Pagodas", url: "collections.html#cat-49", count: 10 }
+    ]
+  }
+];
+
+function initCategoriesMegaMenu() {
+  const dropdown = document.querySelector(".navbar .dropdown");
+  if (!dropdown) return;
+
+  const divisions = window.EXPORT_DIVISIONS_DATA || [];
+  if (divisions.length === 0) return;
+
+  // Build Endeavor 2-Panel + Myntra 5-Column Popover
+  const menuHTML = `
+    <a href="collections.html" class="dropbtn nav-item">Categories ▾</a>
+    <div class="dropdown-content dropdown-two-panel">
+      <!-- Mega Tabs Header -->
+      <div class="mega-tabs-header">
+        <div class="mega-view-switch">
+          <button type="button" class="mega-tab-btn active" id="megaTabInteractive">✦ Interactive Explorer</button>
+          <button type="button" class="mega-tab-btn" id="megaTabMyntra">▦ Full 50-Category Taxonomy</button>
+        </div>
+        <span class="mega-tag-right">500 SKUs • 8 Master Divisions • FOB Mundra</span>
+      </div>
+
+      <!-- Tab 1: Endeavor 2-Panel View (Image 8) -->
+      <div class="mega-tab-view active" id="megaInteractivePane">
+        <div class="mega-two-panel-body">
+          <div class="mega-panel-left">
+            <div class="mega-panel-title">Major Export Divisions</div>
+            <div class="mega-divisions-list" id="megaNavDivisionList"></div>
+          </div>
+          <div class="mega-panel-right" id="megaNavPreviewRight"></div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Myntra 5-Column Taxonomy View (Image 9) -->
+      <div class="mega-tab-view" id="megaMyntraPane" style="display: none; padding: 22px 28px;">
+        <div class="myntra-mega-menu" style="position: static; transform: none; width: 100%; box-shadow: none; border: none; padding: 0;">
+          <!-- Col 1: Living/Dining & Storage -->
+          <div class="myntra-mega-col">
+            <h4 class="mega-heading"><a href="living-dining.html">Living &amp; Dining (50)</a></h4>
+            <ul class="mega-links-list">
+              <li><a href="living-dining.html?cat=cat-03">Coffee &amp; Accent Tables</a></li>
+              <li><a href="living-dining.html?cat=cat-05">Dining Tables &amp; Seating</a></li>
+              <li><a href="living-dining.html?cat=cat-47">Bar Stools &amp; Counter Chairs</a></li>
+              <li><a href="living-dining.html?cat=cat-14">Luxury Bedroom Accents</a></li>
+              <li><a href="living-dining.html?cat=cat-33">Hospitality Luggage Racks</a></li>
+            </ul>
+            <h4 class="mega-heading"><a href="case-goods.html">Case Goods &amp; Storage (70)</a></h4>
+            <ul class="mega-links-list">
+              <li><a href="case-goods.html?cat=cat-04">Credenzas &amp; Media Buffets</a></li>
+              <li><a href="case-goods.html?cat=cat-07">Wall Shelves &amp; Organizers</a></li>
+              <li><a href="case-goods.html?cat=cat-28">Bookshelves &amp; Étagères</a></li>
+              <li><a href="case-goods.html?cat=cat-13">Entryway Mudroom Utility</a></li>
+              <li><a href="case-goods.html?cat=cat-25">Vinyl Record Storage Crates</a></li>
+              <li><a href="case-goods.html?cat=cat-32">Laundry &amp; Mudroom Utility</a></li>
+              <li><a href="case-goods.html?cat=cat-44">Kitchen Island Butcher Blocks</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 2: Kitchen, Tabletop & Culinary -->
+          <div class="myntra-mega-col">
+            <h4 class="mega-heading"><a href="tabletop.html">Kitchen &amp; Culinary (70)</a></h4>
+            <ul class="mega-links-list">
+              <li><a href="tabletop.html?cat=cat-01">Charcuterie &amp; Salad Bowls</a></li>
+              <li><a href="tabletop.html?cat=cat-09">Barware &amp; Mobile Bar Carts</a></li>
+              <li><a href="tabletop.html?cat=cat-15">Magnetic Knife Strips &amp; Spice</a></li>
+              <li><a href="tabletop.html?cat=cat-22">Pour-Over Barista Stations</a></li>
+              <li><a href="tabletop.html?cat=cat-31">Wine Riddling Racks &amp; Cellars</a></li>
+              <li><a href="tabletop.html?cat=cat-37">Charger Plates &amp; Table Accents</a></li>
+              <li><a href="tabletop.html?cat=cat-40">Ottoman Serving Boards</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Wall Decor, Mirrors & Clocks -->
+          <div class="myntra-mega-col">
+            <h4 class="mega-heading"><a href="wall-decor.html">Wall Decor &amp; Mirrors (60)</a></h4>
+            <ul class="mega-links-list">
+              <li><a href="wall-decor.html?cat=cat-02">Pierced Iron Jaali Sconces</a></li>
+              <li><a href="wall-decor.html?cat=cat-16">Kinetic Gear &amp; Sunburst Clocks</a></li>
+              <li><a href="wall-decor.html?cat=cat-38">Stag Antler &amp; Railroad Hooks</a></li>
+              <li><a href="wall-decor.html?cat=cat-39">Jharokha Arch Floor Leaners</a></li>
+              <li><a href="wall-decor.html?cat=cat-45">Solid Wood Gallery Rails</a></li>
+              <li><a href="wall-decor.html?cat=cat-48">Carved Island Corbels &amp; Grilles</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 4: Lighting, Hearth & Outdoor -->
+          <div class="myntra-mega-col">
+            <h4 class="mega-heading"><a href="collections.html?division=lighting-hearth">Lighting &amp; Hearth (50)</a></h4>
+            <ul class="mega-links-list">
+              <li><a href="collections.html#cat-06">Pierced Ambient Lanterns</a></li>
+              <li><a href="collections.html#cat-12">5-Piece Fireplace Tool Sets</a></li>
+              <li><a href="collections.html#cat-26">Wood Bead Chandeliers</a></li>
+              <li><a href="collections.html#cat-35">Linear Table Candelabras</a></li>
+              <li><a href="collections.html#cat-41">Fireplace Screens &amp; Hoppers</a></li>
+            </ul>
+            <h4 class="mega-heading"><a href="collections.html?division=garden-outdoor">Garden &amp; Outdoor (60)</a></h4>
+            <ul class="mega-links-list">
+              <li><a href="collections.html#cat-10">Botanical Stands &amp; Planters</a></li>
+              <li><a href="collections.html#cat-24">BBQ Meat Carving Blocks</a></li>
+              <li><a href="collections.html#cat-30">Folding Bistro Sets &amp; Benches</a></li>
+              <li><a href="collections.html#cat-34">Arched Iron Garden Arbors</a></li>
+              <li><a href="collections.html#cat-43">Glass Wardian Terrariums</a></li>
+              <li><a href="collections.html#cat-50">Bioethanol Fire Bowls &amp; Torches</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 5: Office, Kids & Cultural -->
+          <div class="myntra-mega-col">
+            <h4 class="mega-heading"><a href="collections.html?division=office-vanity">Office &amp; Keepsakes (60)</a></h4>
+            <ul class="mega-links-list">
+              <li><a href="collections.html#cat-08">Book Keepsakes &amp; Paperweights</a></li>
+              <li><a href="collections.html#cat-23">Architectural Ironmongery Pulls</a></li>
+              <li><a href="collections.html#cat-27">Turned Hardwood Yarn Bowls</a></li>
+              <li><a href="collections.html#cat-29">Locking Hardwood Jewelry Chests</a></li>
+              <li><a href="collections.html#cat-36">Ergonomic Monitor Desk Risers</a></li>
+              <li><a href="collections.html#cat-42">Carved Memory Keepsake Urns</a></li>
+            </ul>
+            <h4 class="mega-heading"><a href="collections.html?division=kids-leisure">Kids, Pets &amp; Heritage (80)</a></h4>
+            <ul class="mega-links-list">
+              <li><a href="collections.html#cat-11">Spa Bathtub Caddies &amp; Mats</a></li>
+              <li><a href="collections.html#cat-17">Montessori Balance Boards</a></li>
+              <li><a href="collections.html#cat-18">Elevated Acacia Pet Feeders</a></li>
+              <li><a href="collections.html#cat-20">Jharokha Home Altars &amp; Chowkis</a></li>
+              <li><a href="collections.html#cat-21">Sheesham &amp; Boxwood Chess</a></li>
+              <li><a href="collections.html#cat-46">Children Activity Study Desks</a></li>
+              <li><a href="collections.html#cat-49">Hand-Carved Statuary &amp; Pagodas</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mega Footer -->
+      <div class="mega-footer-bar">
+        <div class="mega-footer-sla">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: #22C55E; display: inline-block;"></span>
+          <span>✦ Direct Jodhpur Factory Consolidation • FOB Mundra • VRIKSH &amp; US Lacey Act Pre-Cleared</span>
+        </div>
+        <a href="collections.html" class="mega-footer-link">Browse Complete 50-Category Directory (500 SKUs) →</a>
+      </div>
+    </div>
+  `;
+
+  dropdown.innerHTML = menuHTML;
+
+  // Elements
+  const tabInteractive = document.getElementById("megaTabInteractive");
+  const tabMyntra = document.getElementById("megaTabMyntra");
+  const paneInteractive = document.getElementById("megaInteractivePane");
+  const paneMyntra = document.getElementById("megaMyntraPane");
+  const listContainer = document.getElementById("megaNavDivisionList");
+  const previewContainer = document.getElementById("megaNavPreviewRight");
+
+  if (tabInteractive && tabMyntra) {
+    tabInteractive.onclick = (e) => {
+      e.preventDefault();
+      tabInteractive.classList.add("active");
+      tabMyntra.classList.remove("active");
+      if (paneInteractive) paneInteractive.style.display = "block";
+      if (paneMyntra) paneMyntra.style.display = "none";
+    };
+    tabMyntra.onclick = (e) => {
+      e.preventDefault();
+      tabMyntra.classList.add("active");
+      tabInteractive.classList.remove("active");
+      if (paneInteractive) paneInteractive.style.display = "none";
+      if (paneMyntra) paneMyntra.style.display = "block";
+    };
+  }
+
+  function renderPreview(d) {
+    if (!previewContainer) return;
+    previewContainer.innerHTML = `
+      <div class="panel-preview-card">
+        <span class="preview-pill">${d.badge}</span>
+        <h3 class="preview-title">${d.name}</h3>
+        <p class="preview-text">${d.description}</p>
+      </div>
+
+      <div class="subcat-list-wrap">
+        <div class="subcat-list-title">Subcategories &amp; Specialized Lines</div>
+        <div class="preview-subcat-links">
+          ${d.categories.map(c => `
+            <a href="${c.url}" class="preview-subcat-row">
+              <span>${c.title}</span>
+              <span class="count">${c.count} SKUs &rsaquo;</span>
+            </a>
+          `).join("")}
+        </div>
+      </div>
+
+      <a href="${d.targetUrl}" class="mega-explore-btn">
+        <span>Explore ${d.name} (${d.skuCount})</span>
+        <span>&rarr;</span>
+      </a>
+    `;
+  }
+
+  if (listContainer) {
+    listContainer.innerHTML = "";
+    divisions.forEach((d, idx) => {
+      const item = document.createElement("div");
+      item.className = "mega-division-item" + (idx === 0 ? " active" : "");
+      item.innerHTML = `
+        <div class="division-icon-box">${d.icon}</div>
+        <div class="division-meta">
+          <div class="division-header-row">
+            <span class="division-name">${d.name}</span>
+            <span class="division-badge">${d.skuCount}</span>
+          </div>
+          <div class="division-desc">${d.tagline}</div>
+        </div>
+      `;
+
+      item.onmouseenter = () => {
+        document.querySelectorAll(".mega-division-item").forEach(el => el.classList.remove("active"));
+        item.classList.add("active");
+        renderPreview(d);
+      };
+
+      item.onclick = (e) => {
+        if (e.target.closest("a")) return;
+        window.location.href = d.targetUrl;
+      };
+
+      listContainer.appendChild(item);
+    });
+
+    // Initial render
+    renderPreview(divisions[0]);
+  }
+}
+
+function initHomeDivisionsShowcase() {
+  const showcaseEl = document.getElementById("homeDivisionsShowcase");
+  if (!showcaseEl) return;
+
+  const divisions = window.EXPORT_DIVISIONS_DATA || [];
+  if (divisions.length === 0) return;
+
+  showcaseEl.innerHTML = `
+    <div class="home-showcase-sidebar" id="homeShowcaseSidebar"></div>
+    <div class="home-showcase-preview" id="homeShowcasePreview"></div>
+  `;
+
+  const sidebar = document.getElementById("homeShowcaseSidebar");
+  const preview = document.getElementById("homeShowcasePreview");
+
+  function renderShowcasePreview(d) {
+    if (!preview) return;
+    preview.innerHTML = `
+      <div>
+        <span class="showcase-preview-pill">${d.badge} • ${d.sla}</span>
+        <h3 class="showcase-preview-title">${d.name}</h3>
+        <p class="showcase-preview-desc">${d.description}</p>
+
+        <div class="showcase-subcats-title">Specialized Export Subcategories &amp; Lines</div>
+        <div class="showcase-subcats-grid">
+          ${d.categories.map(c => `
+            <a href="${c.url}" class="showcase-subcat-row">
+              <span>${c.title}</span>
+              <span class="chevron">&rsaquo;</span>
+            </a>
+          `).join("")}
+        </div>
+
+        <div class="showcase-specs-row">
+          ${d.specs.map(s => `<span class="showcase-spec-pill">${s}</span>`).join("")}
+        </div>
+      </div>
+
+      <div class="showcase-actions-row">
+        <a href="${d.targetUrl}" class="showcase-cta-btn">
+          <span>Explore ${d.name} (${d.skuCount})</span>
+          <span>&rarr;</span>
+        </a>
+        <a href="collections.html" class="btn btn-outline" style="padding: 12px 22px; font-size: 0.88rem;">All 500 SKUs &rarr;</a>
+      </div>
+    `;
+  }
+
+  sidebar.innerHTML = "";
+  divisions.forEach((d, idx) => {
+    const item = document.createElement("div");
+    item.className = "home-showcase-item" + (idx === 0 ? " active" : "");
+    item.innerHTML = `
+      <div class="item-icon">${d.icon}</div>
+      <div class="item-meta">
+        <div class="item-header-row">
+          <span class="item-title">${d.name}</span>
+          <span class="item-badge">${d.skuCount}</span>
+        </div>
+        <div class="item-tagline">${d.tagline}</div>
+      </div>
+    `;
+
+    item.onmouseenter = () => {
+      document.querySelectorAll(".home-showcase-item").forEach(el => el.classList.remove("active"));
+      item.classList.add("active");
+      renderShowcasePreview(d);
+    };
+
+    item.onclick = () => {
+      document.querySelectorAll(".home-showcase-item").forEach(el => el.classList.remove("active"));
+      item.classList.add("active");
+      renderShowcasePreview(d);
+    };
+
+    sidebar.appendChild(item);
+  });
+
+  renderShowcasePreview(divisions[0]);
+}
+
+// Auto-run on load
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
+    initCategoriesMegaMenu();
+    initHomeDivisionsShowcase();
+  });
+} else {
+  initCategoriesMegaMenu();
+  initHomeDivisionsShowcase();
+}
+window.initCategoriesMegaMenu = initCategoriesMegaMenu;
+window.initHomeDivisionsShowcase = initHomeDivisionsShowcase;

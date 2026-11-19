@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /website/leads/
+
+Sitemap: https://arawali.endeavoracademy.us/website/sitemap.xml

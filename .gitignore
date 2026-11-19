@@ -3,3 +3,7 @@ Thumbs.db
 *.tmp
 *.log
 .vercel
+
+# Lead submissions (PII — never commit)
+leads/*
+!leads/.gitkeep
