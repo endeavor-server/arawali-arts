@@ -906,14 +906,15 @@
     /* FLOATING BOTTOM PILL NAV */
     .mag-bottom-nav {
       position: fixed;
-      bottom: 14px;
+      bottom: 8px;
+      bottom: max(8px, env(safe-area-inset-bottom, 8px));
       left: 50%;
       transform: translateX(-50%);
       z-index: 1000;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 0;
       pointer-events: none;
     }
 
@@ -922,20 +923,20 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      background: rgba(20, 16, 13, 0.85);
+      background: rgba(20, 16, 13, 0.9);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(184, 149, 82, 0.35);
       border-radius: 999px;
-      padding: 6px 18px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      padding: 5px 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
     }
 
     .mag-pill-btn {
       background: none;
       border: none;
       color: var(--accent-light);
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       cursor: pointer;
       padding: 0 4px;
       line-height: 1;
@@ -949,7 +950,7 @@
 
     .mag-pill-counter {
       font-family: var(--font-cinzel);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       letter-spacing: 0.08em;
       color: #FAF7F2;
       font-weight: 700;
@@ -960,11 +961,7 @@
     }
 
     .mag-hint {
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(232, 216, 176, 0.55);
-      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+      display: none !important;
     }
 
     /* TOAST NOTIFICATION */
@@ -1217,6 +1214,21 @@
 
     /* Mobile Nav Tweaks */
     @media (max-width: 480px) {
+      .mag-bottom-nav {
+        bottom: 6px;
+        bottom: max(6px, env(safe-area-inset-bottom, 6px));
+      }
+      .mag-nav-pill {
+        padding: 4px 14px;
+        gap: 10px;
+      }
+      .mag-pill-btn {
+        font-size: 1.05rem;
+        padding: 0 2px;
+      }
+      .mag-pill-counter {
+        font-size: 0.72rem;
+      }
       .mag-top-nav {
         padding: 5px 6px;
       }
@@ -7622,10 +7634,6 @@
         </span>
         <button type="button" class="mag-pill-btn" id="btnScrollToBottom" title="Scroll to Bottom" style="font-size: 0.76rem; font-weight: 700; padding: 2px 8px; font-family: var(--font-sans);">↓ End</button>
       </div>
-
-      <div class="mag-hint" id="lblMagHint">
-        Swipe finger left/right, tap edges, or click arrows
-      </div>
     </footer>
 
     <!-- TOAST -->
@@ -7781,7 +7789,6 @@
         const scrollView = document.getElementById("magazine-scroll-view");
         const pillFlip = document.getElementById("pillFlipbookControls");
         const pillScroll = document.getElementById("pillScrollControls");
-        const hint = document.getElementById("lblMagHint");
 
         if (mode === "scroll") {
           magStage.style.display = "none";
@@ -7789,7 +7796,6 @@
           pillFlip.style.display = "none";
           pillScroll.style.display = "flex";
           btnViewMode.textContent = "📖 3D Flip";
-          hint.textContent = "Scroll vertically with finger • Tap 📖 3D Flip for book";
           try { sessionStorage.setItem("arawali_lookbook_view", "scroll"); } catch (e) {}
 
           // Sync scroll view to current flipbook page
@@ -7808,7 +7814,6 @@
           pillScroll.style.display = "none";
           pillFlip.style.display = "flex";
           btnViewMode.textContent = "📜 Scroll View";
-          hint.textContent = "Swipe finger left/right, tap edges, or click arrows";
           try { sessionStorage.setItem("arawali_lookbook_view", "flipbook"); } catch (e) {}
 
           // Sync flipbook to scrolled card
@@ -7843,9 +7848,9 @@
         const isMobile = winWidth <= 800;
 
         if (isMobile) {
-          // Portrait single-page mode - guarantee clean fit within mobile screen bounds
-          const availW = Math.min(winWidth - 16, 420);
-          const availH = winHeight - 110;
+          // Portrait single-page mode - guarantee clean fit within mobile screen bounds without pill overlap
+          const availW = Math.min(winWidth - 24, 380);
+          const availH = winHeight - 124;
           let w = availW;
           let h = w * 1.414;
           if (h > availH) {
@@ -7853,8 +7858,8 @@
             w = h / 1.414;
           }
           return {
-            width: Math.floor(Math.max(w, 280)),
-            height: Math.floor(Math.max(h, 400)),
+            width: Math.floor(Math.max(w, 240)),
+            height: Math.floor(Math.max(h, 340)),
             isPortrait: true
           };
         } else {
