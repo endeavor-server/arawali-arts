@@ -2167,6 +2167,27 @@ function initMyntraCatalogPage(config) {
 
   // State
   let selectedCategories = new Set();
+  
+  // URL Pre-selection
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const catParam = urlParams.get('cat') || window.location.hash.replace('#', '');
+    if (catParam) {
+      const pLow = catParam.toLowerCase().trim();
+      const matched = allSubcats.find(c => {
+        const cLow = c.toLowerCase();
+        if (cLow.includes(pLow)) return true;
+        if (pLow.startsWith('cat-')) {
+          const num = parseInt(pLow.replace('cat-', ''), 10);
+          if (num && cLow.startsWith(`cat ${num}:`) || cLow.startsWith(`cat 0${num}:`)) return true;
+        }
+        return false;
+      });
+      if (matched) {
+        selectedCategories.add(matched);
+      }
+    }
+  } catch (e) {}
   let selectedMaterials = new Set();
   let selectedPriceTiers = new Set();
   let searchQuery = '';
