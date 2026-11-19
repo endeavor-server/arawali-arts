@@ -40,11 +40,15 @@ Arawali Arts is a ~15-year established solid hardwood (Sheesham, Mango, Acacia) 
 │   ├── case-goods.html          # Division II: Case Goods & Storage (70 SKUs)
 │   ├── tabletop.html            # Division III: Kitchen & Tabletop (70 SKUs)
 │   ├── wall-decor.html          # Division IV: Architectural Wall Decor & Mirrors (60 SKUs)
+│   ├── lighting-hearth.html     # Division V: Decorative Lighting & Hearthcraft (50 SKUs)
+│   ├── garden-outdoor.html      # Division VI: Garden, Patio & Outdoor Living (60 SKUs)
+│   ├── office-vanity.html       # Division VII: Home Office, Keepsakes & Vanity (60 SKUs)
+│   ├── kids-leisure.html        # Division VIII: Kids, Pets, Leisure & Heritage (80 SKUs)
 │   ├── compliance.html          # VRIKSH, Lacey Act, EUDR, ISPM-15 compliance dossier
 │   ├── rfq.html                 # Commercial RFQ cart, sample order & CBM dock
 │   ├── trade.html               # Wholesale trade terms, FOB pricing & PI clauses
 │   ├── 404.html                 # Branded error handling
-│   ├── style.css                # Production CSS design system (v2026.55)
+│   ├── style.css                # Production CSS design system (v2026.64)
 │   ├── app.js                   # Client state, CBM math, mega-menus, drawers
 │   ├── products-data.js         # Master dataset (window.ALL_PRODUCTS_500)
 │   └── products_500.json        # Canonical raw JSON product catalog
@@ -99,24 +103,21 @@ The entire merchandising engine is organized around **500 Master SKUs**, subdivi
 
 ## 4. UI/UX Architecture & Layout Standards
 
-### Navigation Bar Standards (Categories Only)
-To ensure zero horizontal wrapping and an uncluttered luxury aesthetic, the top navbar across all 10 pages contains **only**:
+### Navigation Bar Standards & Floating Pill Layout
+To ensure zero horizontal wrapping, zero accidental hover popups, and fluid responsive alignment across all 15 pages:
 1. **Brand Logo**: `ESTD. 2011 • JODHPUR, RAJASTHAN` | `ARAWALI ARTS`
-2. **Categories ▾**: The single dropdown entry point opening the **Endeavor 2-Panel Interactive Explorer** (left panel: 8 divisions; right panel: live interactive preview) and switchable to the **Full 50-Category Taxonomy** (5 columns).
-3. **Export Catalogue ↗**: Direct link to the corporate flipbook brochure.
-4. **Action Triggers**: Search (`⌘K`), RFQ Cart Badge (`📦`), and the primary CTA button (`Request an RFQ`).
-5. **Positioning Rules**: `.navbar .dropdown-categories` has `position: static !important` so `.dropdown-two-panel` is centered horizontally (`left: 50%; transform: translateX(-50%)`) on the viewport with an invisible `::before` bridge preventing mouse hover gaps.
+2. **Categories ▾**: Click-only toggle opening the **Endeavor 2-Panel Interactive Explorer** (left panel: 8 divisions; right panel: live interactive preview) and switchable to the **Full 50-Category Taxonomy** (5 columns). Closes cleanly on Esc or outside click.
+3. **Fluid Desktop Links**: Responsive spacing (`clamp(8px, 1.2vw, 18px)`) from 993px to 1440px+ across Categories, Collections, Line Sheet, Trade & FOB, Compliance, and Catalogue.
+4. **Action Triggers**: Search (`⌘K`), Cart Badge (`Cart`), and primary CTA button (`Request Quote`).
+5. **Mobile Architecture**: Under 992px, desktop links and actions are hidden, the brand logo stays single-line, and navigation is driven by the left off-canvas drawer (`openLkhDrawer()`).
 
-### Department Pages (Zero Horizontal Filter Clutter)
-- Department pages (`living-dining.html`, `case-goods.html`, `tabletop.html`, `wall-decor.html`) use **only** the clean vertical Myntra sidebar facets (`CATEGORIES`, `PRIMARY TIMBER & MATERIAL`, `FOB MUNDRA PRICE TIER`, `EXPORT COMPLIANCE`) and standard top sort control.
-- Redundant horizontal subcategory button bars (`.dept-subcats-bar`) have been completely purged from the codebase.
+### Department Pages (8 Dedicated Manufacturing Divisions)
+- All 8 divisions (`living-dining.html`, `case-goods.html`, `tabletop.html`, `wall-decor.html`, `lighting-hearth.html`, `garden-outdoor.html`, `office-vanity.html`, `kids-leisure.html`) use standard vertical Myntra sidebar facets (`CATEGORIES`, `PRIMARY TIMBER & MATERIAL`, `FOB MUNDRA PRICE TIER`, `EXPORT COMPLIANCE`), live counters, and top sort control.
+- Subcategory chips and facet search reflect the exact division SKU pool (e.g., 60 SKUs in Wall Decor, 50 SKUs in Lighting, etc.) without cross-department pollution.
 
 ### Container Loading Cockpit & RFQ Dock
-- Every product card features an instant `+ Add to RFQ` button that updates `localStorage('arawali_rfq_cart')`.
-- A persistent bottom dock displays real-time container utilization:
-  - **20ft FCL Target**: 28 CBM threshold.
-  - **40ft High Cube (HQ) Target**: 68 CBM threshold.
-  - Dynamic visual progress bar, unit counts, and instant drawer expansion.
+- Product cards feature `+ Add to RFQ` which updates both `localStorage` and a 30-day first-party cookie (`arawali_rfq_cart_v2` + `arawali_cart_user_added`).
+- A bottom floating dock displays real-time container volume (28 CBM 20ft FCL / 68 CBM 40ft HQ), appearing only after items are actively added.
 
 ---
 
