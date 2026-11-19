@@ -134,7 +134,8 @@ def build_spreads_html(head_content, pages):
       }
       .mag-spread .mag-page:first-child .page-inner { padding: 14px 20px 14px 16px !important; }
       .mag-spread .mag-page:last-child .page-inner { padding: 14px 16px 14px 20px !important; }
-      .mag-product-img { height: 155px !important; object-fit: cover !important; }
+      .mag-product-img { flex: 1 1 165px !important; min-height: 135px !important; max-height: 195px !important; height: auto !important; object-fit: cover !important; }
+      .mag-product-desc { -webkit-line-clamp: 3 !important; }
       .mag-btn-add { display: none !important; }
     </style>
     """
@@ -266,7 +267,8 @@ def build_single_html(head_content, pages):
         position: relative !important;
       }
       .mag-page:last-child { break-after: auto !important; page-break-after: auto !important; }
-      .mag-product-img { height: 155px !important; object-fit: cover !important; }
+      .mag-product-img { flex: 1 1 165px !important; min-height: 135px !important; max-height: 195px !important; height: auto !important; object-fit: cover !important; }
+      .mag-product-desc { -webkit-line-clamp: 3 !important; }
       .mag-btn-add { display: none !important; }
     </style>
     """
