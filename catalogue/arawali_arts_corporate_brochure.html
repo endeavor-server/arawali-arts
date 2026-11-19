@@ -860,10 +860,67 @@
       text-overflow: ellipsis;
     }
     @media (max-width: 640px) {
-      .mag-product-img { height: 88px !important; }
-      .mag-product-desc { -webkit-line-clamp: 2 !important; font-size: 0.54rem !important; }
-      .mag-product-material { font-size: 0.52rem !important; }
-      .mag-product-tags { display: none !important; }
+      .page-inner {
+        padding: 6px 8px !important;
+      }
+      .spread-header {
+        font-size: 0.50rem !important;
+        margin-bottom: 4px !important;
+        padding-bottom: 3px !important;
+      }
+      .spread-footer {
+        font-size: 0.50rem !important;
+        padding-top: 3px !important;
+      }
+      .mag-product-grid {
+        gap: 4px !important;
+        margin: 2px 0 !important;
+      }
+      .mag-product-card {
+        padding: 4px 6px !important;
+        gap: 2px !important;
+      }
+      .mag-product-img {
+        height: 72px !important;
+        margin-bottom: 3px !important;
+      }
+      .mag-product-title {
+        font-size: 0.62rem !important;
+        line-height: 1.15 !important;
+        min-height: 0 !important;
+        height: auto !important;
+        margin-bottom: 1px !important;
+      }
+      .mag-product-meta {
+        font-size: 0.48rem !important;
+        margin-bottom: 2px !important;
+        line-height: 1.15 !important;
+      }
+      .mag-product-material {
+        font-size: 0.48rem !important;
+        padding: 1px 4px !important;
+        line-height: 1.2 !important;
+      }
+      .mag-product-desc {
+        -webkit-line-clamp: 2 !important;
+        font-size: 0.50rem !important;
+        line-height: 1.22 !important;
+        margin: 1px 0 2px !important;
+      }
+      .mag-product-tags {
+        display: none !important;
+      }
+      .mag-product-pricing {
+        padding-top: 2px !important;
+        gap: 3px !important;
+      }
+      .mag-fob-price {
+        font-size: 0.58rem !important;
+      }
+      .mag-btn-add {
+        font-size: 0.52rem !important;
+        padding: 1px 5px !important;
+      }
     }
 
     /* COMPLIANCE GRID */
@@ -7848,9 +7905,9 @@
         const isMobile = winWidth <= 800;
 
         if (isMobile) {
-          // Portrait single-page mode - guarantee clean fit within mobile screen bounds without pill overlap
-          const availW = Math.min(winWidth - 24, 380);
-          const availH = winHeight - 124;
+          // Portrait single-page mode - guarantee clean fit within mobile screen bounds without pill overlap or cropping
+          const availW = Math.min(winWidth - 20, 420);
+          const availH = winHeight - 96;
           let w = availW;
           let h = w * 1.414;
           if (h > availH) {
@@ -7858,8 +7915,8 @@
             w = h / 1.414;
           }
           return {
-            width: Math.floor(Math.max(w, 240)),
-            height: Math.floor(Math.max(h, 340)),
+            width: Math.floor(Math.max(w, 260)),
+            height: Math.floor(Math.max(h, 420)),
             isPortrait: true
           };
         } else {
