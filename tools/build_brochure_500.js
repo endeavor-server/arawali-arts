@@ -134,25 +134,66 @@ function main() {
   pagesHtml.push(`
         <!-- ================= PAGE 01: FRONT HARDCOVER ================= -->
         <div class="mag-page --hard page-cover-front" data-density="hard">
-          <div class="cover-container">
-            <div class="cover-brand">
-              <span class="cover-badge">ESTABLISHED 2011 • JODHPUR GUILD</span>
-              <h1 class="cover-title">ARAWALI ARTS</h1>
-              <div class="cover-gold-rule"></div>
-              <div class="cover-subtitle">Solid Hardwood &amp; Architectural Ironcraft</div>
-            </div>
+          <div class="cover-container cover-editorial">
+            <div class="cover-frame-border" aria-hidden="true"></div>
+            <span class="cover-corner tl" aria-hidden="true"></span>
+            <span class="cover-corner tr" aria-hidden="true"></span>
+            <span class="cover-corner bl" aria-hidden="true"></span>
+            <span class="cover-corner br" aria-hidden="true"></span>
 
-            <div class="cover-center-badge">
-              <span class="cover-volume">MASTER EXPORT CATALOGUE • VOLUME XV</span>
-              <span class="cover-year">2026 / 2027</span>
-              <div style="font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: #FFFFFF; font-weight: 700; margin-top: 4px;">
-                500 Master SKUs • 8 Manufacturing Divisions
+            <div class="cover-inner-stack">
+              <div class="cover-masthead">
+                <div class="cover-crest-emblem" aria-hidden="true">
+                  <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1.5" y="1.5" width="37" height="37" rx="10" fill="#16120E" stroke="#DFC078" stroke-width="1.5"/>
+                    <path d="M20 8.5L10.5 30.5H14.8L16.8 25.4H23.2L25.2 30.5H29.5L20 8.5ZM18.1 21.8L20 16.5L21.9 21.8H18.1Z" fill="#DFC078"/>
+                    <path d="M12 33H28" stroke="#B89352" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <span class="cover-badge">ESTABLISHED 2011 &bull; JODHPUR GUILD</span>
+                <h1 class="cover-title">ARAWALI ARTS</h1>
+                <div class="cover-gold-rule"></div>
+                <div class="cover-subtitle">Solid Hardwood &amp; Architectural Ironcraft</div>
               </div>
-            </div>
 
-            <div class="cover-footer">
-              <div>Direct Export Consolidations: Mundra (INMUN1) • Kandla (INIXY1)</div>
-              <div>Kiln Moisture SLA: 8%–10% EMC • VRIKSH &amp; Lacey Act Certified</div>
+              <div class="cover-showcase-wrap">
+                <div class="cover-triptych" aria-label="Featured Manufacturing Divisions">
+                  <div class="cover-triptych-card" style="background-image: url('../assets/hero_live_edge_table.jpg');">
+                    <span class="cover-triptych-label">Live-Edge Timber</span>
+                  </div>
+                  <div class="cover-triptych-card" style="background-image: url('../assets/hero_jaali_sideboard.jpg');">
+                    <span class="cover-triptych-label">Jaali Ironcraft</span>
+                  </div>
+                  <div class="cover-triptych-card" style="background-image: url('../assets/hero_jharokha_mirror.jpg');">
+                    <span class="cover-triptych-label">Jharokha Arch</span>
+                  </div>
+                </div>
+
+                <div class="cover-edition-box">
+                  <div class="cover-edition-kicker">Master Export Catalogue &bull; Volume XV</div>
+                  <div class="cover-edition-year">2026 / 2027 EDITION</div>
+                </div>
+
+                <div class="cover-metrics-bar">
+                  <div class="cover-metric-cell">
+                    <span class="cover-metric-num">500</span>
+                    <span class="cover-metric-lbl">Master SKUs</span>
+                  </div>
+                  <div class="cover-metric-cell">
+                    <span class="cover-metric-num">8</span>
+                    <span class="cover-metric-lbl">Divisions</span>
+                  </div>
+                  <div class="cover-metric-cell">
+                    <span class="cover-metric-num">8–10%</span>
+                    <span class="cover-metric-lbl">Kiln EMC SLA</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cover-footer">
+                <div><strong>FOB Mundra (INMUN1)</strong> &bull; ICD Jodhpur Direct Consolidations</div>
+                <div>VRIKSH V-01 &bull; US Lacey Act PPQ 505 &bull; EUDR 2023 Compliant</div>
+              </div>
             </div>
           </div>
         </div>`);
