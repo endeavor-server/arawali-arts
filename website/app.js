@@ -3089,6 +3089,26 @@ function initCategoriesMegaMenu() {
     // Initial render
     renderPreview(divisions[0]);
   }
+
+  const catBtn = dropdown.querySelector(".dropbtn");
+  if (catBtn) {
+    catBtn.onclick = (e) => {
+      e.preventDefault();
+      dropdown.classList.toggle("is-open");
+    };
+  }
+
+  document.addEventListener("click", (e) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove("is-open");
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      dropdown.classList.remove("is-open");
+    }
+  });
 }
 
 function initHomeDivisionsShowcase() {
