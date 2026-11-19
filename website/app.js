@@ -2793,7 +2793,7 @@ window.EXPORT_DIVISIONS_DATA = [
 ];
 
 function initCategoriesMegaMenu() {
-  const dropdown = document.querySelector(".navbar .dropdown");
+  const dropdown = document.querySelector(".navbar .dropdown-categories") || document.querySelector(".navbar .dropdown:last-of-type");
   if (!dropdown) return;
 
   const divisions = window.EXPORT_DIVISIONS_DATA || [];

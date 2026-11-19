@@ -189,7 +189,7 @@ CLEAN_NAV_LINKS = '''      <nav class="nav-links">
         </div>
 
         <!-- Master Categories Directory -->
-        <div class="dropdown">
+        <div class="dropdown dropdown-categories">
           <a href="collections.html" class="dropbtn nav-item">Categories ▾</a>
           <div class="dropdown-content myntra-mega-menu">
             <!-- Col 1: Furniture & Seating -->
