@@ -1246,11 +1246,12 @@ function initQuickSpecModal() {
 
     document.getElementById('modal-title').textContent = item.title;
 
-    // Clean concise description (1-2 crisp editorial sentences)
-    let cleanDesc = item.desc || '';
+    // Clean concise description (crisp commercial summary)
+    let cleanDesc = (item.desc || '').trim();
     if (cleanDesc.includes('. ')) {
-      const sentences = cleanDesc.split('. ');
-      cleanDesc = sentences.slice(0, 2).join('. ') + '.';
+      const sentences = cleanDesc.split('. ').filter(Boolean);
+      cleanDesc = sentences[0];
+      if (!cleanDesc.endsWith('.')) cleanDesc += '.';
     }
     document.getElementById('modal-desc').textContent = cleanDesc;
 
@@ -1308,6 +1309,10 @@ function initQuickSpecModal() {
     };
 
     modal.classList.add('open');
+    const scrollPane = modal.querySelector('.modal-info-scroll');
+    if (scrollPane) {
+      scrollPane.scrollTop = 0;
+    }
     if (window.lenis && typeof window.lenis.stop === 'function') {
       window.lenis.stop();
     }
