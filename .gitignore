@@ -7,3 +7,5 @@ Thumbs.db
 # Lead submissions (PII — never commit)
 leads/*
 !leads/.gitkeep
+catalogue/*_single.pdf
+catalogue/*_spreads.pdf
