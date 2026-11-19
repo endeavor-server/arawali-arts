@@ -6192,7 +6192,7 @@ body.drawer-open .container-dock {
   top: calc(100% + 8px) !important;
   left: 50% !important;
   transform: translateX(-50%) translateY(-6px) !important;
-  width: 960px !important;
+  width: 1120px !important;
   max-width: calc(100vw - 32px) !important;
   background: #FFFFFF !important;
   border: 1px solid rgba(226, 217, 205, 0.95) !important;
@@ -7223,27 +7223,45 @@ body.drawer-open .container-dock {
 /* ==========================================================================
    MYNTRA-STYLE 5-COLUMN FULL-WIDTH MEGA MENU (NO CLUTTER, HUMAN-DISTRIBUTED)
    ========================================================================== */
-.myntra-mega-menu {
-  display: grid !important;
-  grid-template-columns: repeat(5, 1fr) !important;
-  gap: 22px !important;
-  width: 1220px !important;
-  max-width: calc(100vw - 36px) !important;
-  left: 50% !important;
-  transform: translateX(-50%) translateY(-10px) !important;
-  padding: 26px 30px 18px !important;
-  background: #FFFFFF !important;
-  border-radius: 18px !important;
-  border: 1px solid rgba(226, 217, 205, 0.95) !important;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.16) !important;
+#megaMyntraPane,
+.mega-tab-view#megaMyntraPane {
+  padding: 24px 28px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
-.dropdown:hover .myntra-mega-menu,
-.dropdown.is-open .myntra-mega-menu {
-  transform: translateX(-50%) translateY(0) !important;
+.myntra-mega-menu,
+#megaMyntraPane .myntra-mega-menu {
+  position: static !important;
+  top: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  right: auto !important;
+  transform: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 20px !important;
   opacity: 1 !important;
   visibility: visible !important;
   pointer-events: auto !important;
+  box-sizing: border-box !important;
+}
+
+.dropdown:hover .myntra-mega-menu,
+.dropdown.is-open .myntra-mega-menu,
+.dropdown-categories.is-open .myntra-mega-menu {
+  transform: none !important;
+  left: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .myntra-mega-col {
