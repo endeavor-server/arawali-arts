@@ -1,7 +1,7 @@
 /**
  * Arawali Arts Master 500-SKU Product Catalog Dataset
  * GENERATED FILE — edit website/products_500.json and run: node tools/build.js
- * Generated 2026-11-19
+ * Generated 2026-11-20
  */
 window.ALL_PRODUCTS_500 = [
   {

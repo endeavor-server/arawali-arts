@@ -1,6 +1,6 @@
 /** GENERATED — do not edit. Run: node tools/build.js */
 window.ARAWALI_META = {
-  "generated": "2026-11-19",
+  "generated": "2026-11-20",
   "skuCount": 500,
   "categoryCount": 50,
   "deptCounts": {

@@ -34,19 +34,25 @@ for name in sources:
     full = os.path.join(OUT, f"{stem}.webp")
     try:
         src_mtime = os.path.getmtime(src)
-        if os.path.exists(full) and os.path.getmtime(full) >= src_mtime:
+        v480 = os.path.join(OUT, f"{stem}-480.webp")
+        v960 = os.path.join(OUT, f"{stem}-960.webp")
+        if os.path.exists(full) and os.path.exists(v480) and os.path.exists(v960) and os.path.getmtime(full) >= src_mtime:
             skipped += 1
             continue
         im = Image.open(src).convert("RGB")
         before += os.path.getsize(src)
 
-        im.save(full, "WEBP", quality=80, method=6)
-        after += os.path.getsize(full)
+        if not os.path.exists(full) or os.path.getmtime(full) < src_mtime:
+            im.save(full, "WEBP", quality=80, method=6)
+            after += os.path.getsize(full)
 
         for width in (480, 960):
-            if im.width <= width:
-                continue
             variant = os.path.join(OUT, f"{stem}-{width}.webp")
+            if os.path.exists(variant) and os.path.getmtime(variant) >= src_mtime:
+                continue
+            if im.width <= width:
+                im.save(variant, "WEBP", quality=80, method=6)
+                continue
             ratio = width / im.width
             resized = im.resize((width, max(1, round(im.height * ratio))), Image.LANCZOS)
             resized.save(variant, "WEBP", quality=78, method=6)

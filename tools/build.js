@@ -319,9 +319,39 @@ document.getElementById('addBtn').addEventListener('click',function(){
 </html>\n`;
 }
 
-for (const p of products) {
+for (let i = 0; i < products.length; i++) {
+  const p = products[i];
+  const idx = i + 1;
   const related = products.filter((r) => r.CatNo === p.CatNo && r.SKU !== p.SKU).slice(0, 4);
-  fs.writeFileSync(path.join(P_DIR, p.Page.split('/')[1]), productPage(p, related));
+  const canonicalName = p.Page.split('/')[1];
+  fs.writeFileSync(path.join(P_DIR, canonicalName), productPage(p, related));
+
+  const skuSlug = p.SKU.trim().toLowerCase();
+  const skuUnderscore = 'sku_' + skuSlug.replace(/-/g, '_');
+  const aliasHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="0; url=${canonicalName}">
+<link rel="canonical" href="https://arawali.endeavoracademy.us/website/p/${canonicalName}">
+<title>Redirecting to ${esc(p.Product_Name)}...</title>
+<script>window.location.replace("${canonicalName}");</script>
+</head>
+<body style="background:#14100E;color:#DFC078;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+<p>Redirecting to <a href="${canonicalName}" style="color:#DFC078;text-decoration:underline;">${esc(p.Product_Name)} (${esc(p.SKU)})</a>...</p>
+</body>
+</html>\n`;
+
+  const aliases = new Set([
+    `sku_${String(idx).padStart(3, '0')}.html`,
+    `${skuSlug}.html`,
+    `${skuUnderscore}.html`
+  ]);
+  for (const alias of aliases) {
+    if (alias !== canonicalName) {
+      fs.writeFileSync(path.join(P_DIR, alias), aliasHtml, 'utf8');
+    }
+  }
 }
 
 // shared stylesheet for product pages
